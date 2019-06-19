@@ -5,7 +5,8 @@ package com.twoam.cartello.Utilities.General
  */
 object AppConstants {
 
-    const val BASE_URL = "needeed"
+    const val SERVER_IP = "165.227.135.161"
+    const val BASE_URL = "http://$SERVER_IP/trolley/public/api/"
 
     // region BASIC RESPONSE
     val STATUS_CODE = "status_code"
@@ -22,33 +23,33 @@ object AppConstants {
     var token = ""
     //endregion
     //region Auth
-    const val SERVER_IP = "52.174.22.188"
+
 
     const val SIGN_UP = "signup"
-    const val URL_SIGN_UP = "$SERVER_IP/electa/public/api/customer/auth/signup"
+    const val URL_SIGN_UP = "customer/auth/signup"
 
     const val LOGIN = "auth"
     const val DOMAIN = "trolleyDomain"
-    const val URL_LOGIN = "$SERVER_IP/electa/public/api/customer/auth"
-    const val URL_LOG_OUT = "{{$DOMAIN}}/api/customer/auth/logout"
-    const val URL_GUEST_LOGIN = "$SERVER_IP/electa/public/api/customer/auth/guest"
-    const val URL_FORGET_PASSWORD = "$SERVER_IP/electa/public/api/customer/auth/forget_password"
-    const val URL_VALODATE_REQUET_CODE = "$SERVER_IP/electa/electa/public/api/customer/auth/validate_code"
-    const val URL_RESET_PASSWORD = "$SERVER_IP/electa/public/api/customer/auth/reset_password"
-    const val URL_SOCIAL_AUTH = "$SERVER_IP/electa/public/api/customer/auth/social"
-    const val URL_SOCIAL_SIGN_UP = "{{$DOMAIN}}/api/customer/auth/social_signup"
-    const val URL_ADD_ADDRESS = "{{$DOMAIN}}/api/customer/profile/addresses"
-    const val URL_UPDATE_ADDRESS = "{{$DOMAIN}}/api/customer/profile/addresses"
-    const val URL_REMOVE_ADDRESS = "{{$DOMAIN}}/api/customer/profile/addresses/remove"
-    const val URL_EDIT_PROFILE = "{{$DOMAIN}}/api/customer/profile/edit"
-    const val URL_CHANGE_PASSWORD = "{{$DOMAIN}}/api/customer/profile/change_password"
-    const val URL_ADD_TOKEN = "{{$DOMAIN}}/api/customer/profile/add_token"
-    const val URL_GET_CITIES = "{{$DOMAIN}}/api/cities"
-    const val URL_GET_CATEGORIES = "$SERVER_IP/electa/public/api/categories"
-    const val URL_GET_DEPARTMENT="$SERVER_IP/electa/public/api/customer/departments"
-    const val URL_GET_DEPARTMENT_CATEGORIES = "$SERVER_IP/electa/public/api/customer/departments/categories"
-    const val URL_GET_ADS = "{{$DOMAIN}}/api/customer/ads"
-    const val URL_GET_SUB_CATEGORIES = "$SERVER_IP/electa/public/api/customer/categories/attributes/153"
+    const val URL_LOGIN = "customer/auth"
+    const val URL_LOG_OUT = "customer/auth/logout"
+    const val URL_GUEST_LOGIN = "customer/auth/guest"
+    const val URL_FORGET_PASSWORD = "customer/auth/forget_password"
+    const val URL_VALODATE_REQUET_CODE = "customer/auth/validate_code"
+    const val URL_RESET_PASSWORD = "customer/auth/reset_password"
+    const val URL_SOCIAL_AUTH = "customer/auth/social"
+    const val URL_SOCIAL_SIGN_UP = "customer/auth/social_signup"
+    const val URL_ADD_ADDRESS = "customer/profile/addresses"
+    const val URL_UPDATE_ADDRESS = "customer/profile/addresses"
+    const val URL_REMOVE_ADDRESS = "customer/profile/addresses/remove"
+    const val URL_EDIT_PROFILE = "customer/profile/edit"
+    const val URL_CHANGE_PASSWORD = "customer/profile/change_password"
+    const val URL_ADD_TOKEN = "customer/profile/add_token"
+    const val URL_GET_CITIES = "cities"
+    const val URL_GET_CATEGORIES = "categories"
+    const val URL_GET_DEPARTMENT="customer/departments"
+    const val URL_GET_DEPARTMENT_CATEGORIES = "customer/departments/categories"
+    const val URL_GET_ADS = "customer/ads"
+    const val URL_GET_SUB_CATEGORIES = "customer/categories/attributes/153"
 
 
 

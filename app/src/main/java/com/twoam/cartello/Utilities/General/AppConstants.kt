@@ -5,6 +5,8 @@ package com.twoam.cartello.Utilities.General
  */
 object AppConstants {
 
+    const val BASE_URL = "needeed"
+
     // region BASIC RESPONSE
     val STATUS_CODE = "status_code"
     val MESSAGE = "message"

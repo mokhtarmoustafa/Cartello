@@ -1,0 +1,18 @@
+package com.twoam.cartello.Utilities.API
+
+/**
+ * Created by Mokhtar on 6/19/2019.
+ */
+class ApiResponse<T> {
+
+    var data: T?
+    var success: Boolean = false
+    var message: String = ""
+
+    constructor(data: T?, sucess: Boolean, messaage: String) {
+        this.data = data
+        this.success = success
+        this.message = message
+
+    }
+}

@@ -8,28 +8,28 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.RelativeLayout
-import android.widget.Toast
-import com.twoam.cartello.MainActivity
-
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 
 class IntroductionActivity : AppCompatActivity() {
 
-
+    //region Class Members
     private lateinit var rippleLayout: RelativeLayout
     private var startTime: Long = 2000
+    //endregion
 
-
+    //region Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_introduction)
 
         init()
-
     }
 
+    //endregion
+
+    //region   Helper Functions
     private fun init() {
         rippleLayout = findViewById(R.id.linearLayout)
 
@@ -43,8 +43,7 @@ class IntroductionActivity : AppCompatActivity() {
         Handler().postDelayed({
 
             runOnUiThread {
-                //                Toast.makeText(applicationContext, "Go to main", Toast.LENGTH_SHORT).show()
-                navigate()
+                checkedUserLogged()
             }
 
         }, startTime)
@@ -63,21 +62,29 @@ class IntroductionActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigate()
-    {
+    private fun checkedUserLogged() {
         // Check if user is already logged in or not
         if (PreferenceController.getInstance(applicationContext)[PreferenceController.LOGIN] != null &&
                 PreferenceController.getInstance(applicationContext)[PreferenceController.LOGIN] == AppConstants.TRUE) {
-            startActivity(Intent(applicationContext, MainActivity::class.java))
+            getUserData()
             finish()
-        }
-        else
-        {
+        } else {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
         }
-
-
-        finish()
     }
+
+    private fun getUserData() {
+
+        var currentUser = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)!!
+
+        if (currentUser != null && currentUser.hasdAddress) {
+            AppConstants.CurrentLoginUser = currentUser
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+        } else {
+            startActivity(Intent(applicationContext, CreateAddressActivity::class.java))
+        }
+    }
+    //endregion
+
 }

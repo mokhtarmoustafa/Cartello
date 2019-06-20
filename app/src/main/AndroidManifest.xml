@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".View.MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".View.IntroductionActivity"
@@ -25,7 +25,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".View.LoginActivity"></activity>
+        <activity android:name=".View.LoginActivity" />
+        <activity android:name=".View.CreateAddressActivity"></activity>
     </application>
 
 </manifest>

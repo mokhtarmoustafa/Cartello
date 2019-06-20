@@ -6,15 +6,18 @@ package com.twoam.cartello.Model
  */
 class User {
 
-    private var id: Int = 0
-    private var name: String = ""
-    private var email: String = ""
-    private var phone: String = ""
-    private var birthdate: String = ""
-    private var token: String = ""
-    private var rating: String = ""
-    private var created_at: String = ""
-    private var updated_at: String = ""
-    private lateinit var addresses: ArrayList<Address>
+     var id: Int = 0
+     var hasdAddress:Boolean=false
+     var name: String = ""
+     var email: String = ""
+     var phone: String = ""
+     var birthdate: String = ""
+     var token: String = ""
+     var rating: String = ""
+     var created_at: String = ""
+     var updated_at: String = ""
+     lateinit var addresses: ArrayList<Address>
+
+
 
 }

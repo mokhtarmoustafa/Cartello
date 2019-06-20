@@ -1,5 +1,7 @@
 package com.twoam.cartello.Utilities.General
 
+import com.twoam.cartello.Model.User
+
 /**
  * Created by Mokhtar on 6/18/2019.
  */
@@ -53,7 +55,9 @@ object AppConstants {
 
     //region  app variables
     const val LOGIN = "login"
-    const val TRUE="true"
+    const val TRUE = "true"
+    const val USER_DATA = "userData"
+     lateinit var CurrentLoginUser: User
     //endregion
 
 }

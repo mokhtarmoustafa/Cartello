@@ -23,12 +23,10 @@ object AppConstants {
     var token = ""
     //endregion
     //region Auth
-
-
     const val SIGN_UP = "signup"
     const val URL_SIGN_UP = "customer/auth/signup"
 
-    const val LOGIN = "auth"
+
     const val DOMAIN = "trolleyDomain"
     const val URL_LOGIN = "customer/auth"
     const val URL_LOG_OUT = "customer/auth/logout"
@@ -46,14 +44,16 @@ object AppConstants {
     const val URL_ADD_TOKEN = "customer/profile/add_token"
     const val URL_GET_CITIES = "cities"
     const val URL_GET_CATEGORIES = "categories"
-    const val URL_GET_DEPARTMENT="customer/departments"
+    const val URL_GET_DEPARTMENT = "customer/departments"
     const val URL_GET_DEPARTMENT_CATEGORIES = "customer/departments/categories"
     const val URL_GET_ADS = "customer/ads"
     const val URL_GET_SUB_CATEGORIES = "customer/categories/attributes/153"
 
-
-
     //endregion
 
+    //region  app variables
+    const val LOGIN = "login"
+    const val TRUE="true"
+    //endregion
 
 }

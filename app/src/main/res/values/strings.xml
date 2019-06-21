@@ -3,4 +3,17 @@
     <string name="no_results">No Data Available.</string>
     <string name="error_login_server_error">Server is broken.please try again.</string>
     <string name="error_login_server_unknown_error">Unknown Error.</string>
+    <string name="forgetPassword">
+        <u>Forget Password?</u>
+    </string>
+    <string name="skip_now">Skip now</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="or_sign_in_with">Or sign in with</string>
+    <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_password">Password at least 8 characters</string>
+
 </resources>

@@ -1,9 +1,303 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.twoam.cartello.View.LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/rlTop"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/background">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvSignIn"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/sign_in"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="2dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/sign_up"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_above="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@mipmap/ic_launcher" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_below="@+id/rlTop">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="25dp"
+                android:text="@string/welcome_back"
+                android:textAllCaps="false"
+                android:textSize="18sp" />
+
+            <!--<EditText-->
+                <!--android:id="@+id/etEmail"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:layout_below="@+id/textView2"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginRight="30dp"-->
+                <!--android:layout_marginTop="20dp"-->
+                <!--android:background="@drawable/custom_edit_text"-->
+                <!--android:elevation="2dp"-->
+                <!--android:hint="@string/email"-->
+                <!--android:inputType="textEmailAddress"-->
+                <!--android:lines="1"-->
+                <!--android:maxLines="1"-->
+
+                <!--/>-->
+
+            <RelativeLayout
+                android:id="@+id/rlEmail"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/textView2"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/custom_edit_text"
+                android:addStatesFromChildren="true">
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@+id/textHintEmail"
+                    android:background="@color/transparent"
+                    android:inputType="text|textNoSuggestions|textEmailAddress"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <TextView
+                    android:id="@+id/textHintEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/email"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <TextView
+                    android:id="@+id/tvEmailError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/etEmail"
+                    android:layout_toEndOf="@+id/textHintEmail"
+                    android:text="@string/error_invalid_email"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlPassword"
+                style="@style/Widget.AppCompat.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@+id/rlEmail"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/custom_edit_text"
+                android:addStatesFromChildren="true">
+
+                <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@+id/textHintPassword"
+                    android:background="@color/transparent"
+                    android:inputType="text|textNoSuggestions"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <TextView
+                    android:id="@+id/textHintPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:text="@string/password"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+
+                <TextView
+                    android:id="@+id/tvPasswordError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/etPassword"
+                    android:layout_toEndOf="@+id/textHintPassword"
+                    android:text="@string/error_password"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="14sp"
+                    android:clickable="true"
+                    android:focusable="true"/>
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/tvForgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rlPassword"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:text="@string/forgetPassword"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvSkipNow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+
+                android:layout_below="@+id/tvForgetPassword"
+                android:layout_marginStart="54dp"
+                android:layout_marginTop="30dp"
+                android:clickable="true"
+                android:text="@string/skip_now"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnSignIn"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tvSkipNow"
+                android:layout_alignBottom="@+id/tvSkipNow"
+                android:layout_marginStart="50dp"
+                android:layout_toEndOf="@+id/tvSkipNow"
+                android:background="@drawable/rounded_button"
+                android:clickable="true"
+                android:text="@string/sign_in"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_below="@+id/tvSkipNow"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="30dp"
+                android:text="@string/or_sign_in_with"
+                android:textColor="@color/darkGray"
+                android:textSize="18sp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/ivFacebook"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/btnSignIn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_toEndOf="@+id/textView4"
+                android:clickable="true"
+                android:src="@drawable/facebook" />
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/ivGoogle"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+
+                android:layout_below="@+id/btnSignIn"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="30dp"
+
+                android:layout_marginTop="20dp"
+                android:layout_toRightOf="@+id/ivFacebook"
+                android:clickable="true"
+                android:src="@drawable/google" />
+
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <!--<Button-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_below="@+id/tvSkipNow"-->
+    <!--android:layout_centerHorizontal="true"-->
+    <!--android:layout_marginBottom="10dp"-->
+    <!--android:layout_toRightOf="@+id/imageView2"-->
+    <!--android:drawableTop="@drawable/google"-->
+    <!--android:paddingTop="20dp"-->
+    <!--android:background="@drawable/circle"-->
+    <!--android:layout_centerInParent="true"-->
+
+    <!--/>-->
+</RelativeLayout>

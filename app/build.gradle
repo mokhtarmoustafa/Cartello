@@ -46,4 +46,8 @@ dependencies {
     compile 'com.android.support:cardview-v7:26.1.0'
     //circular image
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    // Lifecycle components
+    implementation "android.arch.lifecycle:extensions:$life_versions"
+    annotationProcessor "android.arch.lifecycle:compiler:$life_versions"
+
 }

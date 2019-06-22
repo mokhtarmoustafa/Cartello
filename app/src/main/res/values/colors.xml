@@ -7,4 +7,14 @@
     <color name="white">#FFF</color>
     <color name="darkGray">#aaa</color>
     <color name="transparent">#00000000</color>
+    <color name="whiteGray">#aaa</color>
+    <color name="colorLabel">#143150</color>
+    <color name="colorHintLabel">#c1cad5</color>
+    <color name="colorShadow">#14000000</color>
+    <color name="colorWelcome">#425972</color>
+    <color name="colorApp">#38a0cd</color>
+
+
+
+
 </resources>

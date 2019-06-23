@@ -25,8 +25,12 @@ class IntroductionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_introduction)
 
         init()
+        logOUt()
     }
 
+    private fun logOUt() {
+        PreferenceController.getInstance(applicationContext).clear(AppConstants.LOGIN)
+    }
     //endregion
 
     //region   Helper Functions

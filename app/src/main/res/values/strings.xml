@@ -6,6 +6,7 @@
     <string name="forgetPassword">
         <u>Forget Password?</u>
     </string>
+    <string name="error_email_password_incorrect">Password or Email is incorrect Kindly check them again.</string>
     <string name="skip_now">Skip now</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
@@ -15,5 +16,9 @@
     <string name="or_sign_in_with">Or sign in with</string>
     <string name="error_invalid_email">Invalid email address</string>
     <string name="error_password">Password at least 8 characters</string>
+    <string name="error_no_internet">No Internet Connection</string>
+    <string name="success">Success</string>
+    <string name="error_network">Network Error.</string>
+
 
 </resources>

@@ -55,7 +55,9 @@ object AppConstants {
 
     //region  app variables
     const val LOGIN = "login"
+    const val HASADDRESS="hasAddress"
     const val TRUE = "true"
+    const val FALSE = "false"
     const val USER_DATA = "userData"
      lateinit var CurrentLoginUser: User
     //endregion

@@ -82,6 +82,7 @@
             android:elevation="1dp"
             android:rotation="45"
             android:layout_gravity="bottom|left"
+            android:visibility="invisible"
 
             />
     </FrameLayout>
@@ -143,18 +144,19 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_toRightOf="@+id/textHintEmail"
+                    android:layout_toRightOf="@+id/tvHintEmail"
                     android:background="@color/transparent"
-                    android:clickable="true"
-                    android:focusable="true"
+
                     android:fontFamily="Poppins-Regular"
                     android:inputType="text|textNoSuggestions|textEmailAddress"
                     android:textColor="@color/colorLabel"
                     android:textSize="13sp"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="8dp"
+                    android:imeOptions="actionNext"
+                    android:nextFocusForward="@+id/etPassword"/>
 
                 <TextView
-                    android:id="@+id/textHintEmail"
+                    android:id="@+id/tvHintEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -163,7 +165,7 @@
                     android:layout_marginRight="14dp"
                     android:layout_marginTop="15dp"
                     android:clickable="true"
-                    android:focusable="true"
+
                     android:text="@string/email"
                     android:textColor="@color/colorHintLabel"
                     android:textSize="14sp" />
@@ -173,13 +175,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/etEmail"
-                    android:layout_toEndOf="@+id/textHintEmail"
+                    android:layout_toEndOf="@+id/tvHintEmail"
                     android:clickable="true"
+
                     android:text="@string/error_invalid_email"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/error"
                     android:textSize="14sp"
                     android:visibility="invisible"
-
                     />
             </RelativeLayout>
 
@@ -201,18 +203,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_toRightOf="@+id/textHintPassword"
+                    android:layout_toRightOf="@+id/tvHintPassword"
                     android:background="@color/transparent"
-                    android:clickable="true"
-                    android:focusable="true"
+
                     android:fontFamily="Poppins-Regular"
                     android:inputType="textPassword|textNoSuggestions"
                     android:textColor="@color/colorLabel"
                     android:textSize="13sp"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_marginTop="8dp"
+                    android:imeOptions="actionDone"/>
 
                 <TextView
-                    android:id="@+id/textHintPassword"
+                    android:id="@+id/tvHintPassword"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
@@ -231,12 +233,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/etPassword"
-                    android:layout_toEndOf="@+id/textHintPassword"
+                    android:layout_toEndOf="@+id/tvHintPassword"
                     android:clickable="true"
                     android:text="@string/error_password"
-                    android:textColor="@color/colorAccent"
+                    android:textColor="@color/error"
                     android:textSize="14sp"
-
                     android:visibility="invisible" />
             </RelativeLayout>
 

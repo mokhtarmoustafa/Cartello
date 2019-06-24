@@ -41,10 +41,11 @@
                     android:clickable="true"
                     android:fontFamily="Poppins-Medium"
                     android:gravity="center"
-                    android:text="@string/sign_up"
+                    android:text="@string/sign_in"
                     android:textAllCaps="false"
                     android:textColor="@color/colorLabel"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    />
 
                 <TextView
                     android:id="@+id/tvSignUp"
@@ -54,7 +55,7 @@
                     android:layout_weight="1"
                     android:clickable="true"
                     android:gravity="center"
-                    android:text="@string/sign_in"
+                    android:text="@string/sign_up"
                     android:textAllCaps="false"
                     android:textColor="@color/whiteGray"
 
@@ -198,7 +199,8 @@
                     android:maxLines="1"
                     android:nextFocusForward="@+id/etPhoneNumber"
                     android:textColor="@color/colorLabel"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    />
 
                 <TextView
                     android:id="@+id/tvHintFullName"
@@ -258,7 +260,8 @@
                     android:maxLines="1"
                     android:nextFocusForward="@+id/etDateOfBirth"
                     android:textColor="@color/colorLabel"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:maxLength="11"/>
 
                 <TextView
                     android:id="@+id/tvHintPhoneNumber"
@@ -463,17 +466,17 @@
 
 
             <Button
-                android:id="@+id/btnAdd"
+                android:id="@+id/btnSignUp"
                 android:layout_width="317dp"
                 android:layout_height="51dp"
                 android:layout_below="@+id/rlConfirmPassword"
                 android:layout_marginLeft="33dp"
                 android:layout_marginRight="25dp"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="25dp"
                 android:background="@drawable/rounded_button"
                 android:clickable="true"
                 android:fontFamily="Poppins-Medium"
-                android:text="@string/sign_in"
+                android:text="@string/sign_up"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
@@ -482,7 +485,7 @@
                 android:id="@+id/tvSocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btnAdd"
+                android:layout_below="@+id/btnSignUp"
                 android:layout_marginBottom="51dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="43dp"
@@ -502,13 +505,14 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/terms_conditions"
                 android:textColor="@color/whiteGray"
-                android:textSize="13sp" />
+                android:textSize="13sp"
+                android:clickable="true"/>
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/ivFacebook"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_below="@+id/btnAdd"
+                android:layout_below="@+id/btnSignUp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="40.8dp"
                 android:layout_marginLeft="17dp"
@@ -522,13 +526,14 @@
                 android:id="@+id/ivGoogle"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_below="@+id/btnAdd"
+                android:layout_below="@+id/btnSignUp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="36dp"
                 android:layout_toRightOf="@+id/ivFacebook"
                 android:clickable="true"
-                android:src="@drawable/twitter" />
+                android:src="@drawable/twitter"
+                />
 
 
         </RelativeLayout>

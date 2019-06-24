@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             R.id.tvSkipNow -> {
                 logInGuest()
             }
-            R.id.btnAdd -> {
+            R.id.btnSignUp -> {
                 var email = etEmail.text.toString()
                 var password = etPassword.text.toString()
                 var valid = validateUserData(email, password)
@@ -77,7 +77,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         tvPasswordError = findViewById(R.id.tvPasswordError)
         tvForgetPassword = findViewById(R.id.tvForgetPassword)
         tvSkipNow = findViewById(R.id.tvSkipNow)
-        btnSignIn = findViewById(R.id.btnAdd)
+        btnSignIn = findViewById(R.id.btnSignUp)
 
         tvForgetPassword.setOnClickListener(this)
         tvSkipNow.setOnClickListener(this)
@@ -122,14 +122,14 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 override fun onSuccess(response: ApiResponse<User>) {
-                    if (response.message == getString(R.string.success) && response.data != null) {
+                    if (response.hashCode() == AppConstants.CODE_200 && response.data != null) {
                         user = response.data!!
                         PreferenceController.getInstance(applicationContext).Set(AppConstants.LOGIN, AppConstants.TRUE)
                         PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
 
                         checkHasAddress(user!!)
                     } else {
-                        Toast.makeText(applicationContext, getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
                     }
 
                 }

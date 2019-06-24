@@ -435,7 +435,7 @@
                 android:background="@color/white">
 
                 <Button
-                    android:id="@+id/btnAdd"
+                    android:id="@+id/btnSignUp"
                     android:layout_width="317dp"
                     android:layout_height="51dp"
                     android:layout_gravity="center"

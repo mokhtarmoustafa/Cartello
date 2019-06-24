@@ -8,11 +8,13 @@ class ApiResponse<T> {
     var data: T?
     var success: Boolean = false
     var message: String = ""
+    var code: Int = 0
 
-    constructor(data: T?, sucess: Boolean, messaage: String) {
+    constructor(data: T?, code: Int, sucess: Boolean, messaage: String) {
         this.data = data
         this.success = success
         this.message = message
+        this.code = code
 
     }
 }

@@ -272,7 +272,7 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/btnAdd"
+                android:id="@+id/btnSignUp"
                 android:layout_width="158dp"
                 android:layout_height="51dp"
                 android:layout_alignBaseline="@+id/tvSkipNow"
@@ -303,7 +303,7 @@
                 android:id="@+id/ivFacebook"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_below="@+id/btnAdd"
+                android:layout_below="@+id/btnSignUp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="40.8dp"
                 android:layout_marginLeft="17dp"
@@ -317,7 +317,7 @@
                 android:id="@+id/ivGoogle"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_below="@+id/btnAdd"
+                android:layout_below="@+id/btnSignUp"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="36dp"

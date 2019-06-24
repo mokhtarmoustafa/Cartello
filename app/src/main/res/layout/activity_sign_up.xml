@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:focusableInTouchMode="true"
-    tools:context="com.twoam.cartello.View.LoginActivity">
+    tools:context="com.twoam.cartello.View.SignUpActivity">
 
     <FrameLayout
         android:id="@+id/fl"
@@ -248,9 +249,10 @@
                     android:layout_marginTop="8dp"
                     android:layout_toRightOf="@+id/tvHintPhoneNumber"
                     android:background="@color/transparent"
-                    android:digits="0123456789"
+
                     android:fontFamily="Poppins-Regular"
                     android:imeOptions="actionNext"
+                    android:digits="0123456789"
                     android:inputType="number"
                     android:lines="1"
                     android:maxLines="1"
@@ -461,7 +463,7 @@
 
 
             <Button
-                android:id="@+id/btnSignIn"
+                android:id="@+id/btnAdd"
                 android:layout_width="317dp"
                 android:layout_height="51dp"
                 android:layout_below="@+id/rlConfirmPassword"
@@ -480,7 +482,7 @@
                 android:id="@+id/tvSocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btnSignIn"
+                android:layout_below="@+id/btnAdd"
                 android:layout_marginBottom="51dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="43dp"
@@ -506,7 +508,7 @@
                 android:id="@+id/ivFacebook"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_below="@+id/btnSignIn"
+                android:layout_below="@+id/btnAdd"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="40.8dp"
                 android:layout_marginLeft="17dp"
@@ -520,7 +522,7 @@
                 android:id="@+id/ivGoogle"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
-                android:layout_below="@+id/btnSignIn"
+                android:layout_below="@+id/btnAdd"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="18dp"
                 android:layout_marginTop="36dp"

@@ -14,7 +14,7 @@ import java.util.TimeZone
  * Created by Mokhtar on 6/24/2019.
  */
 
-class MyEditTextDatePicker(private val _context: Context, editTextViewID: Int) : View.OnClickListener, DatePickerDialog.OnDateSetListener {
+class CustomEditTextDatePicker(private val _context: Context, editTextViewID: Int) : View.OnClickListener, DatePickerDialog.OnDateSetListener {
     private var _editText: EditText
     private var _day: Int = 0
     private var _month: Int = 0

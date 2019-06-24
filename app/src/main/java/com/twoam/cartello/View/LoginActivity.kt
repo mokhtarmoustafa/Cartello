@@ -51,7 +51,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             R.id.tvSkipNow -> {
                 logInGuest()
             }
-            R.id.btnSignIn -> {
+            R.id.btnAdd -> {
                 var email = etEmail.text.toString()
                 var password = etPassword.text.toString()
                 var valid = validateUserData(email, password)
@@ -77,7 +77,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         tvPasswordError = findViewById(R.id.tvPasswordError)
         tvForgetPassword = findViewById(R.id.tvForgetPassword)
         tvSkipNow = findViewById(R.id.tvSkipNow)
-        btnSignIn = findViewById(R.id.btnSignIn)
+        btnSignIn = findViewById(R.id.btnAdd)
 
         tvForgetPassword.setOnClickListener(this)
         tvSkipNow.setOnClickListener(this)

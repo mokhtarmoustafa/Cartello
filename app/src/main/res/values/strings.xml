@@ -16,8 +16,22 @@
     <string name="fullName">Full Name</string>
     <string name="phoneNumber">Phone Number</string>
     <string name="birthOfDate">Birth Of Date</string>
+    <string name="hintCity">City</string>
+    <string name="hintArea">Area</string>
+    <string name="hintAddress">Address</string>
+    <string name="hintApt">Apt</string>
+    <string name="hintFloor">Floor</string>
+    <string name="hintLandMark">Land Mark</string>
+    <string name="add">Add</string>
+    <string name="selectCity">Select City ...</string>
+    <string name="selectArea">Select Area ...</string>
+    <string name="titleCreateAddress">Create your address</string>
+    <string name="nameNotation">ex - Work,Home,...</string>
 
     <string name="error_name">Name should be 4 letters at least.</string>
+    <string name="error_address">Address should more than 4 chars.</string>
+    <string name="missing">Missing</string>
+
     <string name="error_phone">Phone number should be 11 digit.</string>
     <string name="error_date">Invalid date.</string>
     <string name="error_confirm_password">Passwords Does not match.</string>
@@ -34,6 +48,7 @@
     <string name="success">Success</string>
     <string name="error_network">Network Error.</string>
     <string name="terms_conditions"><u>Terms &amp; Conditions</u></string>
+    <string name="create_address">Create your address</string>
 
 
 </resources>

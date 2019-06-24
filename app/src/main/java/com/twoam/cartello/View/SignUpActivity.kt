@@ -4,7 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.twoam.cartello.R
 import android.widget.EditText
-import com.twoam.cartello.Utilities.General.MyEditTextDatePicker
+import com.twoam.cartello.Utilities.General.CustomEditTextDatePicker
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -14,6 +14,6 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         val editTextFromDate = findViewById<EditText>(R.id.etDateOfBirth)
-        val fromDate = MyEditTextDatePicker(this, editTextFromDate.id)
+        val fromDate = CustomEditTextDatePicker(this, editTextFromDate.id)
     }
 }

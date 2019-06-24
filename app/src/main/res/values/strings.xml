@@ -10,7 +10,21 @@
     <string name="skip_now">Skip now</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+
+    <string name="name">Name</string>
+    <string name="fullName">Full Name</string>
+    <string name="phoneNumber">Phone Number</string>
+    <string name="birthOfDate">Birth Of Date</string>
+
+    <string name="error_name">Name should be 4 letters at least.</string>
+    <string name="error_phone">Phone number should be 11 digit.</string>
+    <string name="error_date">Invalid date.</string>
+    <string name="error_confirm_password">Passwords Does not match.</string>
+
+
     <string name="welcome_back">Welcome Back!</string>
+    <string name="start_grocery">Start getting fast grocery!</string>
     <string name="sign_in">Sign In</string>
     <string name="sign_up">Sign Up</string>
     <string name="or_sign_in_with">Or sign in with</string>
@@ -19,6 +33,7 @@
     <string name="error_no_internet">No Internet Connection</string>
     <string name="success">Success</string>
     <string name="error_network">Network Error.</string>
+    <string name="terms_conditions"><u>Terms &amp; Conditions</u></string>
 
 
 </resources>

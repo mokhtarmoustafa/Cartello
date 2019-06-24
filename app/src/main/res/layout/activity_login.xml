@@ -43,7 +43,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/colorLabel"
 
-                android:textSize="21sp" />
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/tvSignUp"
@@ -57,7 +57,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/whiteGray"
 
-                android:textSize="21sp" />
+                android:textSize="15sp" />
         </LinearLayout>
 
         <ImageView
@@ -288,7 +288,7 @@
                 android:textSize="15sp" />
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/tvSocial"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvSkipNow"
@@ -308,7 +308,7 @@
                 android:layout_marginBottom="40.8dp"
                 android:layout_marginLeft="17dp"
                 android:layout_marginTop="36dp"
-                android:layout_toEndOf="@+id/textView4"
+                android:layout_toEndOf="@+id/tvSocial"
                 android:clickable="true"
                 android:src="@drawable/facebook" />
 

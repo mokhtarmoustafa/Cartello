@@ -5,17 +5,17 @@ package com.twoam.cartello.Model
  */
 class Order
 {
-private var id: Int = 0
-private var user_id: Int = 0
-private var deliverer_id: Int? = null
-private var state_id: Int = 0
-private var paid_amount: Long =0
-private var notes: String = ""
-private var rate: Int = 0
-private var payment_method: Int = 0
-private var created_at: String = ""
-private var updated_at: String = ""
-private var customer_rate: Int? = null
-private var address_id: Int = 0
-private var feedback: String = ""
+ var id: Int = 0
+ var user_id: Int = 0
+ var deliverer_id: Int? = null
+ var state_id: Int = 0
+ var paid_amount: Long =0
+ var notes: String = ""
+ var rate: Int = 0
+ var payment_method: Int = 0
+ var created_at: String = ""
+ var updated_at: String = ""
+ var customer_rate: Int? = null
+ var address_id: Int = 0
+ var feedback: String = ""
 }

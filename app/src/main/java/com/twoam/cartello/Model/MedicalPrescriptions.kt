@@ -5,11 +5,11 @@ package com.twoam.cartello.Model
  */
 class MedicalPrescriptions {
 
-    private var id: Int = 0
-    private var name: String = ""
-    private var image: String = ""
-    private var note: String = ""
-    private var user_id: Int = 0
-    private var created_at: String = ""
+     var id: Int = 0
+     var name: String = ""
+     var image: String = ""
+     var note: String = ""
+     var user_id: Int = 0
+     var created_at: String = ""
 
 }

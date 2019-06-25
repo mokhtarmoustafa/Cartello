@@ -59,7 +59,10 @@ object AppConstants {
     const val TRUE = "true"
     const val FALSE = "false"
     const val USER_DATA = "userData"
+
      lateinit var CurrentLoginUser: User
+
+    const val BEARER ="Bearer "
     //endregion
 
 }

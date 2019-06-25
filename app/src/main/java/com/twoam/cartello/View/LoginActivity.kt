@@ -129,7 +129,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                         checkHasAddress(user!!)
                     } else {
-                        Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
                     }
 
                 }

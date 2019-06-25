@@ -4,15 +4,15 @@ package com.twoam.cartello.Model
  * Created by Mokhtar on 6/18/2019.
  */
 class SubCategory {
-    private var id: Int = 0
-    private var name: String = ""
-    private var description: String = ""
-    private var parent_id: Int = 0
-    private var created_at: String = ""
-    private var updated_at: String = ""
-    private lateinit var options: ArrayList<Options>
-    private var max_price: Long  =0
-    private var min_price: Long  = 0
+     var id: Int = 0
+     var name: String = ""
+     var description: String = ""
+     var parent_id: Int = 0
+     var created_at: String = ""
+     var updated_at: String = ""
+     lateinit var options: ArrayList<Options>
+     var max_price: Long  =0
+     var min_price: Long  = 0
 
 
 }

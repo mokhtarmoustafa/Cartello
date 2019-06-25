@@ -206,7 +206,7 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 override fun onSuccess(response: ApiResponse<User>) {
-                    var response=response
+                    var response = response
                     if (response.code == AppConstants.CODE_200 && response.data != null) {
                         user = response.data!!
                         PreferenceController.getInstance(applicationContext).Set(AppConstants.LOGIN, AppConstants.TRUE)

@@ -1,5 +1,7 @@
 package com.twoam.cartello.Utilities.API
 
+import com.twoam.cartello.Model.Address
+import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.Utilities.General.AppConstants
 import retrofit2.Call
@@ -47,5 +49,17 @@ interface ApiServices {
     @POST(AppConstants.URL_SOCIAL_SIGN_UP)
     fun socialSignUp(@Query("name") name: String, @Query("phone") phone: String, @Query("birthdate") birthdate: String)
             : Call<ApiResponse<User>>
+
+
+    @GET(AppConstants.URL_GET_CITIES)
+    fun getCities()
+            : Call<ApiResponse<ArrayList<City>>>
+
+    @POST(AppConstants.URL_ADD_ADDRESS)
+    fun addAddress(@Header("Authorization") token:String, @Query("name") name: String, @Query("city_id") city_id: String,
+                   @Query("area_id") area_id: String, @Query("address") address: String,
+                   @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
+    ): Call<ApiResponse<Address>>
+
 
 }

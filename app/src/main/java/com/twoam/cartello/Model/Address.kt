@@ -6,14 +6,14 @@ package com.twoam.cartello.Model
 
 class Address {
 
-    private var id: Int = 0
-    private var name: String = ""
-    private var city_id: Int = 0
-    private var area_id: Int = 0
-    private var address: String = ""
-    private var apartment: String = ""
-    private var floor: String = ""
-    private var landmark: String = ""
-    private var user_id: Int = 0
-    private lateinit var addresses: ArrayList<Address>
+     var id: Int = 0
+     var name: String = ""
+     var city_id: Int = 0
+     var area_id: Int = 0
+     var address: String = ""
+     var apartment: String = ""
+     var floor: String = ""
+     var landmark: String = ""
+     var user_id: Int = 0
+     lateinit var addresses: ArrayList<Address>
 }

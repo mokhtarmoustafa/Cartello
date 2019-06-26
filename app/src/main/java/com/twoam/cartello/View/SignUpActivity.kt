@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.twoam.cartello.R
@@ -58,9 +59,11 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tvSignIn -> {
+                startActivity(Intent(this, LoginActivity::class.java))
+                overridePendingTransition(R.anim.enter, R.anim.exit)
+                finish()
             }
-            R.id.tvSignUp -> {
-            }
+
             R.id.btnSignUp -> {
                 var email = etEmail.text.toString()
                 var fullName = etFullName.text.toString()

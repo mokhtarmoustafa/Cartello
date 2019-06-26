@@ -22,6 +22,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
 
     //region Members
+    private lateinit var tvSignIn: TextView
+    private lateinit var tvSignUp: TextView
     private lateinit var etEmail: EditText
     private lateinit var etPassword: EditText
     private lateinit var tvEmailError: TextView
@@ -46,18 +48,23 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         when (v?.id) {
+            R.id.tvSignUp -> {
+                startActivity(Intent(this, SignUpActivity::class.java))
+                overridePendingTransition(R.anim.enter, R.anim.exit)
+                finish()
+            }
             R.id.tvForgetPassword -> {
             }
             R.id.tvSkipNow -> {
                 logInGuest()
             }
-            R.id.btnSignUp -> {
+            R.id.btnSignIn -> {
                 var email = etEmail.text.toString()
                 var password = etPassword.text.toString()
                 var valid = validateUserData(email, password)
                 if (valid) {
-                    user = logIn(email, password)
-                    AppConstants.CurrentLoginUser = user
+                  logIn(email, password)
+
                 }
             }
         }
@@ -71,14 +78,19 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     //region  helper functions
 
     private fun init() {
+
+        tvSignIn = findViewById(R.id.tvSignIn)
+        tvSignUp = findViewById(R.id.tvSignUp)
         etEmail = findViewById(R.id.etEmail)
         etPassword = findViewById(R.id.etPassword)
         tvEmailError = findViewById(R.id.tvEmailError)
         tvPasswordError = findViewById(R.id.tvPasswordError)
         tvForgetPassword = findViewById(R.id.tvForgetPassword)
         tvSkipNow = findViewById(R.id.tvSkipNow)
-        btnSignIn = findViewById(R.id.btnSignUp)
+        btnSignIn = findViewById(R.id.btnSignIn)
 
+        tvSignIn.setOnClickListener(this)
+        tvSignUp.setOnClickListener(this)
         tvForgetPassword.setOnClickListener(this)
         tvSkipNow.setOnClickListener(this)
         btnSignIn.setOnClickListener(this)
@@ -112,7 +124,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun logIn(email: String, password: String): User {
 
-
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var endPoint = request.logIn(email, password)
@@ -126,7 +137,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         user = response.data!!
                         PreferenceController.getInstance(applicationContext).Set(AppConstants.LOGIN, AppConstants.TRUE)
                         PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
-
+                        AppConstants.CurrentLoginUser = user
                         checkHasAddress(user!!)
                     } else {
                         Toast.makeText(applicationContext, getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
@@ -157,7 +168,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         PreferenceController.getInstance(applicationContext).Set(AppConstants.LOGIN, AppConstants.TRUE)
                         PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
                         startActivity(Intent(applicationContext, MainActivity::class.java))
-
+                        finish()
                     } else {
                         Toast.makeText(applicationContext, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                     }
@@ -185,8 +196,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         if (user.addresses.size > 0) {
             startActivity(Intent(this, MainActivity::class.java))
             PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+            finish()
         } else {
             startActivity(Intent(this, CreateAddressActivity::class.java))
+            finish()
         }
 
     }

@@ -53,7 +53,7 @@ class CreateAddressActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var tvErrorApt: TextView
     private lateinit var tvErrorFloor: TextView
     private var newAddress: Address = Address()
-    
+
     //endregion
 
     //region Events
@@ -203,7 +203,9 @@ class CreateAddressActivity : AppCompatActivity(), View.OnClickListener {
                 override fun onSuccess(response: ApiResponse<Address>) {
                     if (response.code == AppConstants.CODE_200 && response.data != null) {
                         newAddress = response.data!!
-                        showDialouge(response.message)
+                        PreferenceController.getInstance(this@CreateAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
+                        PreferenceController.getInstance(this@CreateAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+
                         startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
                         finish()
                     } else {

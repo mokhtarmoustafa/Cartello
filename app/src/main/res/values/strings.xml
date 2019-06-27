@@ -49,6 +49,7 @@
     <string name="error_network">Network Error.</string>
     <string name="terms_conditions"><u>Terms &amp; Conditions</u></string>
     <string name="create_address">Create your address</string>
-
+    <string name="facebook_app_id">2072726479688652</string>
+    <string name="fb_login_protocol_scheme">fb2072726479688652</string>
 
 </resources>

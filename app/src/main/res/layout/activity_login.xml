@@ -239,6 +239,8 @@
                     android:textColor="@color/error"
                     android:textSize="14sp"
                     android:visibility="invisible" />
+
+
             </RelativeLayout>
 
 
@@ -327,21 +329,14 @@
 
 
         </RelativeLayout>
+
     </ScrollView>
 
-
-    <!--<Button-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:layout_below="@+id/tvSkipNow"-->
-    <!--android:layout_centerHorizontal="true"-->
-    <!--android:layout_marginBottom="10dp"-->
-    <!--android:layout_toRightOf="@+id/imageView2"-->
-    <!--android:drawableTop="@drawable/google"-->
-    <!--android:paddingTop="20dp"-->
-    <!--android:background="@drawable/circle"-->
-    <!--android:layout_centerInParent="true"-->
-
-    <!--/>-->
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone" />
 </RelativeLayout>

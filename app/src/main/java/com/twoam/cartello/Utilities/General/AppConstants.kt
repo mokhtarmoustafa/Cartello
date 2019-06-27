@@ -54,16 +54,21 @@ object AppConstants {
     //endregion
 
     //region  app variables
-    const val LOGIN = "login"
-    const val ADDRESS="address"
-    const val HASADDRESS="hasAddress"
+    const val IS_LOGIN = "login"
+    const val ADDRESS = "address"
+    const val HASADDRESS = "hasAddress"
     const val TRUE = "true"
     const val FALSE = "false"
     const val USER_DATA = "userData"
 
-     lateinit var CurrentLoginUser: User
+    var CurrentLoginUser: User = User()
 
-    const val BEARER ="Bearer "
+    const val BEARER = "Bearer "
+
+    //facebook social login
+    const val EMAIL = "email"
+    const val PUBLIC_PROFILE = "public_profile"
+    const val USER_PERMISSION = "user_friends"
     //endregion
 
 }

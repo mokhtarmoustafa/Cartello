@@ -29,7 +29,7 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun logOUt() {
-        PreferenceController.getInstance(applicationContext).clear(AppConstants.LOGIN)
+        PreferenceController.getInstance(applicationContext).clear(AppConstants.IS_LOGIN)
     }
     //endregion
 
@@ -67,9 +67,12 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun checkedUserLogged() {
-        // Check if user is already logged in or not
-        if (PreferenceController.getInstance(applicationContext)[PreferenceController.LOGIN] != null &&
-                PreferenceController.getInstance(applicationContext)[PreferenceController.LOGIN] == AppConstants.TRUE) {
+        // Check if user is already logged in or
+        var t = PreferenceController.getInstance(applicationContext)["t"]
+        var login = PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN]
+        var user = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)
+        if (PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] != null &&
+                PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] == AppConstants.TRUE) {
             getUserData()
             finish()
         } else {
@@ -86,7 +89,7 @@ class IntroductionActivity : AppCompatActivity() {
             AppConstants.CurrentLoginUser = currentUser
             startActivity(Intent(applicationContext, MainActivity::class.java))
         } else {
-            startActivity(Intent(applicationContext, CreateAddressActivity::class.java))
+            startActivity(Intent(applicationContext, NewAddressActivity::class.java))
         }
     }
     //endregion

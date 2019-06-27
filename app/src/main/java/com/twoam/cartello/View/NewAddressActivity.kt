@@ -23,7 +23,7 @@ import com.twoam.cartello.Model.User
 import com.twoam.cartello.Utilities.DB.PreferenceController
 
 
-class CreateAddressActivity : AppCompatActivity(), View.OnClickListener {
+class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
 
 
     //region Members
@@ -92,7 +92,7 @@ class CreateAddressActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     override fun onBackPressed() {
-        this.startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
+        this.startActivity(Intent(this@NewAddressActivity, MainActivity::class.java))
 
         return
     }
@@ -131,7 +131,7 @@ class CreateAddressActivity : AppCompatActivity(), View.OnClickListener {
     private fun prepareCities(citiesData: ArrayList<City>) {
         cities = getCityData(citiesData)
         var arrayAdapter = CityAdapter(
-                this@CreateAddressActivity, android.R.layout.simple_list_item_1, cities)
+                this@NewAddressActivity, android.R.layout.simple_list_item_1, cities)
         etCity.setAdapter(arrayAdapter)
         etCity.isCursorVisible = false
 
@@ -160,7 +160,7 @@ class CreateAddressActivity : AppCompatActivity(), View.OnClickListener {
         areas = getAreaData(city)
 
         var arrayAdapter = AreaAdapter(
-                this@CreateAddressActivity, android.R.layout.simple_list_item_1, areas)
+                this@NewAddressActivity, android.R.layout.simple_list_item_1, areas)
         etArea.setAdapter(arrayAdapter)
         etArea.isCursorVisible = false
 
@@ -201,12 +201,12 @@ class CreateAddressActivity : AppCompatActivity(), View.OnClickListener {
                 }
 
                 override fun onSuccess(response: ApiResponse<Address>) {
-                    if (response.code == AppConstants.CODE_200 && response.data != null) {
+                    if (response.code == AppConstants.CODE_200 ) {
                         newAddress = response.data!!
-                        PreferenceController.getInstance(this@CreateAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
-                        PreferenceController.getInstance(this@CreateAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+                        PreferenceController.getInstance(this@NewAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
+                        PreferenceController.getInstance(this@NewAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
 
-                        startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
+                        startActivity(Intent(this@NewAddressActivity, MainActivity::class.java))
                         finish()
                     } else {
                         showDialouge(response.message)

@@ -15,16 +15,6 @@ class PreferenceController private constructor(context: Context, databaseName: S
     companion object {
         val DATABASE_NAME = "Cartello"
         var PRIVATE_MODE = 0
-        val LANGUAGE = "lang"
-        val NOT_FIREST_RUN = "firstRun"
-        val USER = "User"
-        val TOKEN = "token"
-        val LOGIN = "login"
-        val SETTINGS = "Settings"
-        val SHARED_USER_SETTINGS = "SettingsData"
-        val SHARED_USER_DATA = "UserData"
-
-
         var instance: PreferenceController? = null
 
 
@@ -39,7 +29,9 @@ class PreferenceController private constructor(context: Context, databaseName: S
 
     // SET THE KEY AN D VALUE
     fun Set(key: String, `val`: String) {
-        preferences.edit().putString(key, `val`).apply()
+        var editor = preferences.edit()
+        editor.putString(key, `val`).apply()
+        editor.commit()
     }
 
     // GET THE KEY
@@ -53,7 +45,6 @@ class PreferenceController private constructor(context: Context, databaseName: S
     }
 
     //endregion
-
 
 
     //region USERS
@@ -80,7 +71,6 @@ class PreferenceController private constructor(context: Context, databaseName: S
 
         return gson.fromJson(json, type)
     }
-
 
 
     fun setAddressPref(key: String, values: Address?) {

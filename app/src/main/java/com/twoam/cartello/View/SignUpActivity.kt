@@ -1,6 +1,7 @@
 package com.twoam.cartello.View
 
 import android.content.Intent
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -11,6 +12,7 @@ import com.twoam.cartello.R
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.facebook.*
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.User
@@ -20,7 +22,17 @@ import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomEditTextDatePicker
 import de.hdodenhof.circleimageview.CircleImageView
-
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
+import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.auth.api.signin.GoogleSignInResult
+import com.google.android.gms.common.GooglePlayServicesUtil
+import com.google.android.gms.common.api.GoogleApiClient
+import org.json.JSONException
+import org.json.JSONObject
+import java.util.*
 
 class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
@@ -44,7 +56,14 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var ivFacebook: CircleImageView
     private lateinit var ivGoogle: CircleImageView
     private lateinit var birthDate: CustomEditTextDatePicker
-
+    private val TAG = SignUpActivity::class.java.simpleName
+    private var callbackManager: CallbackManager? = null
+    private var accessToken: AccessToken? = null
+    private var profileTracker: ProfileTracker? = null
+    private var imageUrl: Uri? = null
+    private val RC_SIGN_IN = 0
+    private var account: GoogleSignInAccount? = null
+    private var mGoogleApiClient: GoogleApiClient? = null
     private var user: User = User()
     //endregion
 
@@ -52,7 +71,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
         init()
     }
 
@@ -79,8 +97,10 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 }
             }
             R.id.ivFacebook -> {
+                socialLoginFacebook()
             }
             R.id.ivGoogle -> {
+                socialLoginGoogle()
             }
             R.id.tvTermsAndConditions -> {
             }
@@ -210,12 +230,9 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
                 override fun onSuccess(response: ApiResponse<User>) {
                     var response = response
-                    if (response.code == AppConstants.CODE_200 && response.data != null) {
+                    if (response.code == AppConstants.CODE_200 ) {
                         user = response.data!!
-                        PreferenceController.getInstance(applicationContext).Set(AppConstants.LOGIN, AppConstants.TRUE)
-                        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
-
-                        checkHasAddress(user!!)
+                        saveUserData(user)
                     } else {
                         Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
                     }
@@ -241,13 +258,131 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun checkHasAddress(user: User) {
 
-        if (user.addresses.size > 0) {
+        if (user.addresses!!.size > 0) {
             startActivity(Intent(this, MainActivity::class.java))
             PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
         } else {
-            startActivity(Intent(this, CreateAddressActivity::class.java))
+            startActivity(Intent(this, NewAddressActivity::class.java))
         }
 
+    }
+
+
+    private fun socialLoginFacebook() {
+        callbackManager = CallbackManager.Factory.create()
+        FacebookSdk.sdkInitialize(this.applicationContext)
+        if (callbackManager == null)
+            callbackManager = CallbackManager.Factory.create()
+
+        // If the access token is available already assign it.
+        accessToken = AccessToken.getCurrentAccessToken()
+
+        profileTracker = object : ProfileTracker() {
+            override fun onCurrentProfileChanged(oldProfile: Profile?, currentProfile: Profile?) {
+                Log.i(TAG, "Facebook onCurrentAccessTokenChanged")
+                if (currentProfile != null) {
+                    imageUrl = currentProfile!!.getProfilePictureUri(400, 400)
+                }
+
+            }
+        }
+
+        // Callback registration
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
+        LoginManager.getInstance().registerCallback(callbackManager!!, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(loginResult: LoginResult) {
+                // App code
+                accessToken = loginResult.accessToken
+                val request = GraphRequest.newMeRequest(loginResult.accessToken, GraphRequest.GraphJSONObjectCallback { `object`, response ->
+                    Log.i(TAG, response.toString())
+
+                    // Application code
+                    try {
+                        val jsonObject: JSONObject = `object`
+                        val user = User()
+                        user.socialType = (User.socialType_Facebook)
+                        if (!jsonObject.isNull("email"))
+                            user.email = jsonObject.getString("email")
+                        if (!jsonObject.isNull("name"))
+                            user.name = jsonObject.getString("name")
+                        if (!jsonObject.isNull("id"))
+                            user.id = jsonObject.getString("id")
+                        if (imageUrl != null)
+                            user.fullImagePath = imageUrl.toString()
+
+                        saveUserData(user)
+                    } catch (e: JSONException) {
+                        Log.e(TAG, e.message)
+                    }
+
+                })
+
+                val parameters = Bundle()
+                parameters.putString("fields", "id,name,email,gender,birthday")
+                request.parameters = parameters
+                request.executeAsync()
+            }
+
+            override fun onCancel() {
+                // App code
+                Log.e(TAG, "Facebook onCancel")
+            }
+
+            override fun onError(exception: FacebookException) {
+                Log.e(TAG, exception.toString())
+            }
+        })
+
+    }
+
+    private fun socialLoginGoogle() {
+        if (mGoogleApiClient == null) {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
+
+            val connectionFailedListener = GoogleApiClient.OnConnectionFailedListener { result ->
+                Log.i("onConnectionFailed", "onConnectionFailed")
+                if (!result.hasResolution()) {
+                    GooglePlayServicesUtil.getErrorDialog(result.errorCode, this, 0).show()
+                }
+            }
+            mGoogleApiClient = GoogleApiClient.Builder(this)
+                    .enableAutoManage(this, connectionFailedListener).addApi(Auth.GOOGLE_SIGN_IN_API, gso).build()
+            mGoogleApiClient!!.connect()
+        }
+        val signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient)
+        startActivityForResult(signInIntent, RC_SIGN_IN)
+
+    }
+
+    private fun handleGoogleSignInResult(result: GoogleSignInResult) {
+        Log.i(TAG, result.status.toString())
+        if (result.isSuccess) {
+            // Signed in successfully, show authenticated UI.
+            val acct = result.signInAccount
+
+            val personName = acct!!.displayName
+
+            Log.i(TAG, "Google info " + personName + " " + acct.email + " " + acct.id + " " + acct.photoUrl)
+
+            val user = User()
+            user.socialType = User.Companion.socialType_Google
+            user.email = acct.email!!
+            user.name = personName!!
+            if (acct.photoUrl != null)
+                user.fullImagePath = acct.photoUrl!!.toString()
+            user.id = acct.id!!
+            saveUserData(user)
+
+        } else if (!result.isSuccess) {
+            Log.e(TAG, "google failed")
+        }
+    }
+
+    private fun saveUserData(user: User) {
+        PreferenceController.getInstance(applicationContext).Set(AppConstants.IS_LOGIN, AppConstants.TRUE)
+        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
+        AppConstants.CurrentLoginUser = user
+        checkHasAddress(user!!)
     }
 
 

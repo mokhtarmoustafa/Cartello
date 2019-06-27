@@ -54,5 +54,12 @@ dependencies {
     // Lifecycle components
     implementation "android.arch.lifecycle:extensions:$life_versions"
     annotationProcessor "android.arch.lifecycle:compiler:$life_versions"
+//facebook
+//    implementation 'com.facebook.android:facebook-login:[4,5)'
+
+    /* For Facebook Sign in */
+    implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    /* Google sign in */
+    compile 'com.google.android.gms:play-services-auth:11.6.0'
 
 }

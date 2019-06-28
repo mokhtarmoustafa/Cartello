@@ -90,7 +90,7 @@
     </FrameLayout>
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fl">
@@ -131,7 +131,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/tvHintEmail"
                     android:background="@color/transparent"
                     android:fontFamily="Poppins-Regular"
@@ -168,7 +168,7 @@
 
                     android:text="@string/error_invalid_email"
                     android:textColor="@color/error"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>
 
@@ -189,7 +189,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/tvHintFullName"
                     android:background="@color/transparent"
                     android:fontFamily="Poppins-Regular"
@@ -224,10 +224,9 @@
                     android:layout_below="@+id/etFullName"
                     android:layout_toEndOf="@+id/tvHintFullName"
                     android:clickable="true"
-
                     android:text="@string/error_name"
                     android:textColor="@color/error"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>
 
@@ -248,7 +247,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/tvHintPhoneNumber"
                     android:background="@color/transparent"
 
@@ -288,7 +287,7 @@
 
                     android:text="@string/error_phone"
                     android:textColor="@color/error"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>
 
@@ -309,7 +308,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/tvHintDateOfBirth"
 
                     android:background="@color/transparent"
@@ -349,7 +348,7 @@
 
                     android:text="@string/error_date"
                     android:textColor="@color/error"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>
 
@@ -370,12 +369,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/tvHintPassword"
                     android:background="@color/transparent"
                     android:fontFamily="Poppins-Regular"
                     android:inputType="textPassword"
                     android:maxLines="1"
+                    android:imeOptions="actionNext"
                     android:nextFocusForward="@id/etConfirmPassword"
                     android:textColor="@color/colorLabel"
                     android:textSize="13sp" />
@@ -404,7 +404,7 @@
                     android:clickable="true"
                     android:text="@string/error_password"
                     android:textColor="@color/error"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>
 
@@ -425,9 +425,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:layout_toRightOf="@+id/tvHintConfirmPassword"
-
                     android:background="@color/transparent"
                     android:fontFamily="Poppins-Regular"
                     android:imeOptions="actionDone"
@@ -460,7 +459,7 @@
                     android:clickable="true"
                     android:text="@string/error_confirm_password"
                     android:textColor="@color/error"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:visibility="invisible" />
             </RelativeLayout>
 
@@ -498,11 +497,10 @@
                 android:id="@+id/tvTermsAndConditions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/ivFacebook"
+                android:layout_below="@+id/tvSocial"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="123dp"
-                android:layout_marginRight="123dp"
-                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
                 android:text="@string/terms_conditions"
                 android:textColor="@color/whiteGray"
                 android:textSize="13sp"

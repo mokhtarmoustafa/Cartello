@@ -87,7 +87,7 @@
             />
     </FrameLayout>
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fl">
@@ -151,7 +151,7 @@
                     android:inputType="text|textNoSuggestions|textEmailAddress"
                     android:textColor="@color/colorLabel"
                     android:textSize="13sp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     android:imeOptions="actionNext"
                     android:nextFocusForward="@+id/etPassword"/>
 
@@ -180,7 +180,7 @@
 
                     android:text="@string/error_invalid_email"
                     android:textColor="@color/error"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     android:visibility="invisible"
                     />
             </RelativeLayout>
@@ -209,8 +209,8 @@
                     android:fontFamily="Poppins-Regular"
                     android:inputType="textPassword|textNoSuggestions"
                     android:textColor="@color/colorLabel"
-                    android:textSize="13sp"
-                    android:layout_marginTop="8dp"
+                    android:textSize="12sp"
+                    android:layout_marginTop="5dp"
                     android:imeOptions="actionDone"/>
 
                 <TextView

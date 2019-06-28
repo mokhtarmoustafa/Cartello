@@ -89,6 +89,7 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         mLoadingDialog.dismiss()
     }
 
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         return true
     }
@@ -164,6 +165,7 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         }
 
     }
+
 
     companion object {
 

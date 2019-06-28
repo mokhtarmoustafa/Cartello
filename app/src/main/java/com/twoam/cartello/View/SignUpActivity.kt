@@ -2,23 +2,17 @@ package com.twoam.cartello.View
 
 import android.content.Intent
 import android.net.Uri
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
-import android.widget.Button
+import android.widget.*
 import com.twoam.cartello.R
-import android.widget.EditText
-import android.widget.TextView
-import android.widget.Toast
 import com.facebook.*
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
-import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomEditTextDatePicker
 import de.hdodenhof.circleimageview.CircleImageView
@@ -30,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
+import com.twoam.cartello.Utilities.General.AnimateScroll
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import org.json.JSONException
 import org.json.JSONObject
@@ -38,6 +33,7 @@ import java.util.*
 class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
 
     //region  Members
+    private lateinit var scrollView:ScrollView
     private lateinit var tvSignIn: TextView
     private lateinit var tvSignUp: TextView
     private lateinit var etEmail: EditText
@@ -137,6 +133,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
     //region Helper Functions
     private fun init() {
 
+        scrollView=findViewById(R.id.scrollView)
         tvSignIn = findViewById(R.id.tvSignIn)
         tvSignUp = findViewById(R.id.tvSignUp)
 
@@ -185,7 +182,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
             tvPhoneNumberError.visibility = View.INVISIBLE
             tvPasswordError.visibility = View.INVISIBLE
             tvConfirmPasswordError.visibility = View.INVISIBLE
-
+            AnimateScroll.scrollToView(scrollView,etEmail)
 
             valid = false
         } else if (fullName.isNullOrEmpty()) {
@@ -195,6 +192,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
             tvPhoneNumberError.visibility = View.INVISIBLE
             tvPasswordError.visibility = View.INVISIBLE
             tvConfirmPasswordError.visibility = View.INVISIBLE
+            AnimateScroll.scrollToView(scrollView,etFullName)
             valid = false
         } else if (phoneNumber.isNullOrEmpty()) {
             tvPhoneNumberError.visibility = View.VISIBLE
@@ -204,6 +202,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
             tvPasswordError.visibility = View.INVISIBLE
             tvConfirmPasswordError.visibility = View.INVISIBLE
             tvPhoneNumberError.requestFocus()
+            AnimateScroll.scrollToView(scrollView,etPhoneNumber)
             valid = false
         } else if (birthDate.isNullOrEmpty()) {
             tvPBirthDateError.visibility = View.VISIBLE
@@ -211,6 +210,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
             tvFullNameError.visibility = View.INVISIBLE
             tvEmailError.visibility = View.INVISIBLE
             tvPasswordError.visibility = View.INVISIBLE
+            AnimateScroll.scrollToView(scrollView,etBirthDate)
             valid = false
         } else if (password.isNullOrEmpty()) {
             tvPasswordError.visibility = View.VISIBLE
@@ -219,7 +219,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
             tvPBirthDateError.visibility = View.INVISIBLE
             tvPhoneNumberError.visibility = View.INVISIBLE
             tvConfirmPasswordError.visibility = View.INVISIBLE
-
+            AnimateScroll.scrollToView(scrollView,etPassword)
             valid = false
         } else if (confirmPassword.isNullOrEmpty() || password != confirmPassword) {
             tvConfirmPasswordError.visibility = View.VISIBLE
@@ -228,7 +228,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
             tvPBirthDateError.visibility = View.INVISIBLE
             tvPhoneNumberError.visibility = View.INVISIBLE
             tvPasswordError.visibility = View.INVISIBLE
-
+            AnimateScroll.scrollToView(scrollView,etConfirmPassword)
             valid = false
         } else {
             tvConfirmPasswordError.visibility = View.INVISIBLE
@@ -259,7 +259,9 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
                         user = response.data!!
                         saveUserData(user)
                     } else {
-                        Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
+                        hideDialogue()
+                        showAlertDialouge(response.message)
+//                        Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -267,6 +269,7 @@ class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
 
 
         } else {
+            hideDialogue()
             showAlertDialouge(getString(R.string.error_no_internet))
         }
         return user

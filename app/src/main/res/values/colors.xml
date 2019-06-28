@@ -6,6 +6,7 @@
     <color name="background">#E1E1E1</color>
     <color name="white">#FFF</color>
     <color name="black">#000</color>
+    <color name="shadow">#0f000000</color>
 
     <color name="darkGray">#aaa</color>
     <color name="transparent">#00000000</color>

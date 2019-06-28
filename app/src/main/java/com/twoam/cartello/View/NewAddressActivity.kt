@@ -192,7 +192,7 @@ class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
 
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
-
+            currentLoginUser = PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
             var authorization = AppConstants.BEARER + currentLoginUser.token
             var endPoint = request.addAddress(authorization, name, city, area, address, apt, floor, landMark)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {

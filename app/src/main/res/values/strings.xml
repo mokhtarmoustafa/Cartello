@@ -45,7 +45,13 @@
     <string name="sign_up">Sign Up</string>
     <string name="or_sign_in_with">Or sign in with</string>
     <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_email_not_registered">The email is not registered</string>
+    <string name="info_email_validation">A reset li</string>
+
+
     <string name="error_invalid_code">Invalid Code</string>
+    <string name="error_incorrect_code">Incorrect Code.</string>
+
 
     <string name="error_password">Password at least 8 characters</string>
     <string name="error_no_internet">No Internet Connection</string>
@@ -60,5 +66,6 @@
     <string name="info">We’ve sent you a resetting code to your email inbox </string>
     <string name="resend">Resend</string>
     <string name="log_in">Log in</string>
+    <string name="forget_password">Forgot Password</string>
 
 </resources>

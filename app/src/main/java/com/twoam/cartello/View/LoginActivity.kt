@@ -89,11 +89,11 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
                 var email = etEmail.text.toString()
                 var password = etPassword.text.toString()
                 var valid = validateUserData(email, password)
-                if (valid) {
-                   showDialogue()
-                    logIn(email, password)
+                    if (valid) {
+                       showDialogue()
+                        logIn(email, password)
 
-                }
+                    }
 
             }
             R.id.ivFacebook -> {

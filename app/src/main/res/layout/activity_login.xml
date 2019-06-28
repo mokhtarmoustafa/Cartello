@@ -83,7 +83,6 @@
             android:rotation="45"
             android:layout_gravity="bottom|left"
             android:visibility="invisible"
-
             />
     </FrameLayout>
     <ScrollView

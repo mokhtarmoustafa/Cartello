@@ -39,11 +39,11 @@
         <activity
             android:name=".View.IntroductionActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".View.LoginActivity"
@@ -56,7 +56,13 @@
         <activity android:name=".View.SignUpActivity" />
         <activity
             android:name=".View.ForgetPasswordActivity"
-            android:parentActivityName=".View.LoginActivity"></activity>
+            android:parentActivityName=".View.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

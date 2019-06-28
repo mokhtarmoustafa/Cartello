@@ -1,12 +1,16 @@
 package com.twoam.cartello.View
 
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.*
 import com.facebook.*
 import com.twoam.Networking.INetworkCallBack
@@ -27,11 +31,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
+import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import org.json.JSONObject
 import java.util.*
 
 
-class LoginActivity : AppCompatActivity(), View.OnClickListener {
+class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
 
 
     //region Members
@@ -56,6 +61,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private val RC_SIGN_IN = 0
     private var account: GoogleSignInAccount? = null
     private var mGoogleApiClient: GoogleApiClient? = null
+//    lateinit var mLoadingDialog: Dialog
     //endregion
 
     //region Events
@@ -76,6 +82,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             R.id.tvForgetPassword -> {
             }
             R.id.tvSkipNow -> {
+                showDialogue()
                 logInGuest()
             }
             R.id.btnSignIn -> {
@@ -83,23 +90,32 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                 var password = etPassword.text.toString()
                 var valid = validateUserData(email, password)
                 if (valid) {
+                   showDialogue()
                     logIn(email, password)
 
                 }
 
             }
-
             R.id.ivFacebook -> {
-//                progressBar!!.visibility = View.VISIBLE
+                showDialogue()
                 if (NetworkManager().isNetworkAvailable(this)) {
                     socialLoginFacebook()
-                } else
-                    showDialouge(getString(R.string.error_no_internet))
+                } else {
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
+
+                }
             }
-
-
             R.id.ivGoogle -> {
-                socialLoginGoogle()
+                showDialogue()
+                if (NetworkManager().isNetworkAvailable(this)) {
+                    socialLoginGoogle()
+                } else {
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
+
+                }
+
             }
         }
     }
@@ -155,7 +171,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         ivFacebook?.setOnClickListener(this)
         ivGoogle?.setOnClickListener(this)
 
+
     }
+
+
 
     private fun validateUserData(email: String, password: String): Boolean {
         var valid = false
@@ -182,22 +201,22 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun logIn(email: String, password: String): User {
-
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var endPoint = request.logIn(email, password)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<User>> {
                 override fun onFailed(error: String) {
-                    showDialouge(getString(R.string.error_no_internet))
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
                 }
 
                 override fun onSuccess(response: ApiResponse<User>) {
                     if (response.code == AppConstants.CODE_200) {
-
                         user = response.data!!
                         saveUserData(user)
 
                     } else {
+                        hideDialogue()
                         Toast.makeText(applicationContext, getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
                     }
 
@@ -205,17 +224,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             })
 
         } else {
-            showDialouge(getString(R.string.error_no_internet))
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
         }
         return user!!
-    }
-
-    private fun saveUserData(user: User) {
-
-        PreferenceController.getInstance(applicationContext).Set(AppConstants.IS_LOGIN, AppConstants.TRUE)
-        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
-        AppConstants.CurrentLoginUser = user
-        checkHasAddress(user!!)
     }
 
     private fun logInGuest(): User {
@@ -225,17 +237,20 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             var endPoint = request.guestLogin()
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<User>> {
                 override fun onFailed(error: String) {
-                    showDialouge(getString(R.string.error_no_internet))
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
                 }
 
                 override fun onSuccess(response: ApiResponse<User>) {
                     if (response.message == getString(R.string.success)) {
+                        hideDialogue()
                         user = response.data!!
                         PreferenceController.getInstance(applicationContext).Set(AppConstants.IS_LOGIN, AppConstants.TRUE)
                         PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
                         startActivity(Intent(applicationContext, MainActivity::class.java))
                         finish()
                     } else {
+                        hideDialogue()
                         Toast.makeText(applicationContext, getString(R.string.error_network), Toast.LENGTH_SHORT).show()
                     }
 
@@ -243,32 +258,10 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             })
 
         } else {
-            showDialouge(getString(R.string.error_no_internet))
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
         }
         return user!!
-    }
-
-    private fun showDialouge(message: String) {
-        var alertDialouge = AlertDialog.Builder(this)
-                .setMessage(message)
-                .setCancelable(true)
-                .setPositiveButton("OK", { dialog, which -> })
-        alertDialouge.create()
-        alertDialouge.show()
-    }
-
-    private fun checkHasAddress(user: User) {
-
-        if (user.addresses != null && user.addresses!!.size > 0) {
-
-            startActivity(Intent(this, MainActivity::class.java))
-            PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-            finish()
-        } else {
-            finish()
-            startActivity(Intent(this, NewAddressActivity::class.java))
-        }
-
     }
 
     private fun socialLoginFacebook() {
@@ -294,6 +287,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
         LoginManager.getInstance().registerCallback(callbackManager!!, object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
+
                 // App code
                 accessToken = loginResult.accessToken
                 val request = GraphRequest.newMeRequest(loginResult.accessToken, GraphRequest.GraphJSONObjectCallback { `object`, response ->
@@ -327,12 +321,15 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onCancel() {
+                hideDialogue()
                 // App code
                 Log.e(TAG, "Facebook onCancel")
             }
 
             override fun onError(exception: FacebookException) {
+                hideDialogue()
                 Log.e(TAG, exception.toString())
+                showAlertDialouge(exception.toString())
             }
         })
 
@@ -360,6 +357,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private fun handleGoogleSignInResult(result: GoogleSignInResult) {
         Log.i(TAG, result.status.toString())
         if (result.isSuccess) {
+            hideDialogue()
             // Signed in successfully, show authenticated UI.
             val acct = result.signInAccount
 
@@ -377,7 +375,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             saveUserData(user)
 
         } else if (!result.isSuccess) {
+            hideDialogue()
             Log.e(TAG, "google failed")
+            showAlertDialouge("google failed")
         }
     }
 

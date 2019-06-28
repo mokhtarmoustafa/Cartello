@@ -6,11 +6,14 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.support.v4.content.ContextCompat.startActivity
 import android.view.View
 import android.widget.RelativeLayout
+import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
+
 
 class IntroductionActivity : AppCompatActivity() {
 
@@ -68,24 +71,19 @@ class IntroductionActivity : AppCompatActivity() {
 
     private fun checkedUserLogged() {
         // Check if user is already logged in or
-        var t = PreferenceController.getInstance(applicationContext)["t"]
-        var login = PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN]
-        var user = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)
-        if (PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] != null &&
-                PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] == AppConstants.TRUE) {
-            getUserData()
-            finish()
-        } else {
+//        var user = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)
+//        if (user != null) {
+//            getUserData(user)
+//            finish()
+//        } else {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
-            finish()
-        }
+//            finish()
+//        }
     }
 
-    private fun getUserData() {
+    private fun getUserData(currentUser: User) {
 
-        var currentUser = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)!!
-
-        if (currentUser != null && currentUser.hasdAddress) {
+        if (currentUser != null && currentUser.addresses!!.size > 0) {
             AppConstants.CurrentLoginUser = currentUser
             startActivity(Intent(applicationContext, MainActivity::class.java))
         } else {

@@ -2,6 +2,8 @@ package com.twoam.cartello.Utilities.DB
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
+import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.twoam.cartello.Model.Address
@@ -29,10 +31,10 @@ class PreferenceController private constructor(context: Context, databaseName: S
 
     // SET THE KEY AN D VALUE
     fun Set(key: String, `val`: String) {
-        var editor = preferences.edit()
-        editor.putString(key, `val`).apply()
-        editor.commit()
+        preferences.edit().putString(key, `val`).apply()
     }
+
+
 
     // GET THE KEY
     operator fun get(key: String): String {
@@ -45,6 +47,7 @@ class PreferenceController private constructor(context: Context, databaseName: S
     }
 
     //endregion
+
 
 
     //region USERS
@@ -71,6 +74,7 @@ class PreferenceController private constructor(context: Context, databaseName: S
 
         return gson.fromJson(json, type)
     }
+
 
 
     fun setAddressPref(key: String, values: Address?) {

@@ -21,6 +21,11 @@ object AppConstants {
     val CODE_200 = 200
     val CODE_444 = 444
     //endregion
+    //region languages
+    val LANGUAGE = "lang"
+    val ARABIC = "ar"
+    val ENGLISH = "en"
+    //endregion
     //region TOKEN
     var token = ""
     //endregion

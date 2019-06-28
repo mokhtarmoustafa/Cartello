@@ -30,11 +30,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
+import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import org.json.JSONException
 import org.json.JSONObject
 import java.util.*
 
-class SignUpActivity : AppCompatActivity(), View.OnClickListener {
+class SignUpActivity : BaseDefaultActivity(), View.OnClickListener {
 
     //region  Members
     private lateinit var tvSignIn: TextView
@@ -81,7 +82,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 overridePendingTransition(R.anim.enter, R.anim.exit)
                 finish()
             }
-
             R.id.btnSignUp -> {
                 var email = etEmail.text.toString()
                 var fullName = etFullName.text.toString()
@@ -93,21 +93,45 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
                 var valid = validateUserData(email, fullName, phoneNumber, birthDate, password, confirmPassword)
 
                 if (valid) {
+                    showDialogue()
                     signUp(fullName, email, phoneNumber, birthDate, password, confirmPassword)
                 }
             }
             R.id.ivFacebook -> {
-                socialLoginFacebook()
+                showDialogue()
+                if (NetworkManager().isNetworkAvailable(this)) {
+                    socialLoginFacebook()
+                } else {
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
+
+                }
             }
             R.id.ivGoogle -> {
-                socialLoginGoogle()
+                showDialogue()
+                if (NetworkManager().isNetworkAvailable(this)) {
+                    socialLoginGoogle()
+                } else {
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
+
+                }
             }
             R.id.tvTermsAndConditions -> {
             }
-
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_SIGN_IN) {
+            val result = Auth.GoogleSignInApi.getSignInResultFromIntent(data)
+            handleGoogleSignInResult(result)
+        } else if (FacebookSdk.isFacebookRequestCode(requestCode)) {
+            callbackManager!!.onActivityResult(requestCode, resultCode, data)
+        }
+
+    }
     //endregion
 
     //region Helper Functions
@@ -225,12 +249,13 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
             var endPoint = request.signUp(fullName, email, phoneNumber, birthDate, password, confirmPassword)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<User>> {
                 override fun onFailed(error: String) {
-                    showDialouge(getString(R.string.error_no_internet))
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
                 }
 
                 override fun onSuccess(response: ApiResponse<User>) {
                     var response = response
-                    if (response.code == AppConstants.CODE_200 ) {
+                    if (response.code == AppConstants.CODE_200) {
                         user = response.data!!
                         saveUserData(user)
                     } else {
@@ -242,29 +267,9 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
 
 
         } else {
-            showDialouge(getString(R.string.error_no_internet))
+            showAlertDialouge(getString(R.string.error_no_internet))
         }
         return user
-    }
-
-    private fun showDialouge(message: String) {
-        var alertDialouge = AlertDialog.Builder(this)
-                .setMessage(message)
-                .setCancelable(true)
-                .setPositiveButton("OK", { dialog, which -> })
-        alertDialouge.create()
-        alertDialouge.show()
-    }
-
-    private fun checkHasAddress(user: User) {
-
-        if (user.addresses!!.size > 0) {
-            startActivity(Intent(this, MainActivity::class.java))
-            PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-        } else {
-            startActivity(Intent(this, NewAddressActivity::class.java))
-        }
-
     }
 
 
@@ -376,13 +381,6 @@ class SignUpActivity : AppCompatActivity(), View.OnClickListener {
         } else if (!result.isSuccess) {
             Log.e(TAG, "google failed")
         }
-    }
-
-    private fun saveUserData(user: User) {
-        PreferenceController.getInstance(applicationContext).Set(AppConstants.IS_LOGIN, AppConstants.TRUE)
-        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
-        AppConstants.CurrentLoginUser = user
-        checkHasAddress(user!!)
     }
 
 

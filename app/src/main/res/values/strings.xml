@@ -9,6 +9,8 @@
     <string name="error_email_password_incorrect">Password or Email is incorrect Kindly check them again.</string>
     <string name="skip_now">Skip now</string>
     <string name="email">Email</string>
+    <string name="code">Code</string>
+
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
 
@@ -43,6 +45,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="or_sign_in_with">Or sign in with</string>
     <string name="error_invalid_email">Invalid email address</string>
+    <string name="error_invalid_code">Invalid Code</string>
+
     <string name="error_password">Password at least 8 characters</string>
     <string name="error_no_internet">No Internet Connection</string>
     <string name="success">Success</string>
@@ -51,5 +55,10 @@
     <string name="create_address">Create your address</string>
     <string name="facebook_app_id">2072726479688652</string>
     <string name="fb_login_protocol_scheme">fb2072726479688652</string>
+    <string name="your_email_address">Your Email Address</string>
+    <string name="submit">Submit</string>
+    <string name="info">We’ve sent you a resetting code to your email inbox </string>
+    <string name="resend">Resend</string>
+    <string name="log_in">Log in</string>
 
 </resources>

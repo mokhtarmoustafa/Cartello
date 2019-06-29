@@ -31,8 +31,11 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
+import com.twoam.cartello.R.string.email
+import com.twoam.cartello.R.string.password
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import org.json.JSONObject
+import retrofit2.Call
 import java.util.*
 
 
@@ -80,6 +83,7 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
                 finish()
             }
             R.id.tvForgetPassword -> {
+                startActivity(Intent(this, ForgetPasswordActivity::class.java))
             }
             R.id.tvSkipNow -> {
                 showDialogue()
@@ -89,11 +93,11 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
                 var email = etEmail.text.toString()
                 var password = etPassword.text.toString()
                 var valid = validateUserData(email, password)
-                    if (valid) {
-                       showDialogue()
-                        logIn(email, password)
+                if (valid) {
+                    showDialogue()
+                    logIn(email, password)
 
-                    }
+                }
 
             }
             R.id.ivFacebook -> {
@@ -174,8 +178,6 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
 
     }
 
-
-
     private fun validateUserData(email: String, password: String): Boolean {
         var valid = false
 
@@ -204,6 +206,44 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var endPoint = request.logIn(email, password)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<User>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
+                }
+
+                override fun onSuccess(response: ApiResponse<User>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        user = response.data!!
+                        saveUserData(user)
+
+                    } else {
+                        hideDialogue()
+                        Toast.makeText(applicationContext, getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+            })
+
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+        return user!!
+    }
+
+    private fun logInSocial(access_token: String, socialType: Int): User {
+        if (NetworkManager().isNetworkAvailable(this)) {
+
+            var endPoint: Call<ApiResponse<User>>? = null
+
+            var request = NetworkManager().create(ApiServices::class.java)
+            endPoint = if (socialType == 1) {
+                request.logInSocialFacebook(access_token)
+            } else {
+                request.logInSocialGoogle(access_token)
+            }
+
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<User>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
@@ -289,14 +329,15 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
             override fun onSuccess(loginResult: LoginResult) {
 
                 // App code
-                accessToken = loginResult.accessToken
+                accessToken = AccessToken.getCurrentAccessToken()
+//                accessToken = loginResult.accessToken
                 val request = GraphRequest.newMeRequest(loginResult.accessToken, GraphRequest.GraphJSONObjectCallback { `object`, response ->
                     Log.i(TAG, response.toString())
 
                     // Application code
                     try {
                         val jsonObject: JSONObject = `object`
-                        val user = User()
+                        var user = User()
                         user.socialType = (User.socialType_Facebook)
                         if (!jsonObject.isNull("email"))
                             user.email = jsonObject.getString("email")
@@ -307,7 +348,9 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
                         if (imageUrl != null)
                             user.fullImagePath = imageUrl.toString()
 
-                        saveUserData(user)
+                        user.token = accessToken!!.token
+//                        logInSocial(user.token, AppConstants.FACEBOOK)
+                      Toast.makeText(applicationContext,"Successfully login",Toast.LENGTH_SHORT).show()
                     } catch (e: JSONException) {
                         Log.e(TAG, e.message)
                     }
@@ -364,23 +407,22 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
             val personName = acct!!.displayName
 
             Log.i(TAG, "Google info " + personName + " " + acct.email + " " + acct.id + " " + acct.photoUrl)
-
             val user = User()
             user.socialType = User.Companion.socialType_Google
             user.email = acct.email!!
+            user.token = acct.idToken!!
             user.name = personName!!
             if (acct.photoUrl != null)
                 user.fullImagePath = acct.photoUrl!!.toString()
             user.id = acct.id!!
-            saveUserData(user)
-
+//            logInSocial(user.token, AppConstants.GOOGLE)
+            Toast.makeText(applicationContext,"Successfully login",Toast.LENGTH_SHORT).show()
         } else if (!result.isSuccess) {
             hideDialogue()
             Log.e(TAG, "google failed")
             showAlertDialouge("google failed")
         }
     }
-
 
     //endregion
 

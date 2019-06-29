@@ -20,10 +20,11 @@ import com.twoam.cartello.Utilities.Adapters.AreaAdapter
 import com.twoam.cartello.Utilities.Adapters.CityAdapter
 import android.content.Intent
 import com.twoam.cartello.Model.User
+import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.DB.PreferenceController
 
 
-class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
+class NewAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
 
     //region Members
@@ -61,8 +62,6 @@ class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_create_address)
 
-        currentLoginUser = PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
-
         init()
         prepareData()
 
@@ -79,8 +78,11 @@ class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
                 var floor = etFloor.text.toString()
                 var landMark = etLandMark.text.toString()
                 var valid = validateUserData(name, city, area, address, apt, floor)
-                if (valid)
+                if (valid) {
+                    showDialogue()
                     addAddress(name, selectedCity.id.toString(), selectedArea.id.toString(), address, apt, floor, landMark)
+                }
+
             }
             R.id.ivBack -> {
                 onBackPressed()
@@ -108,7 +110,8 @@ class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
             var endPoint = request.getCities()
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<City>>> {
                 override fun onFailed(error: String) {
-                    showDialouge(error)
+                    hideDialogue()
+                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<ArrayList<City>>) {
@@ -122,7 +125,8 @@ class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
                 }
             })
         } else {
-            showDialouge(getString(R.string.error_no_internet))
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
         }
 
         return cities
@@ -179,42 +183,36 @@ class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
         })
     }
 
-    private fun showDialouge(message: String) {
-        var alertDialouge = AlertDialog.Builder(this)
-                .setMessage(message)
-                .setCancelable(true)
-                .setPositiveButton("OK", { dialog, which -> })
-        alertDialouge.create()
-        alertDialouge.show()
-    }
 
     private fun addAddress(name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): Address {
 
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
-            currentLoginUser = PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
             var authorization = AppConstants.BEARER + currentLoginUser.token
             var endPoint = request.addAddress(authorization, name, city, area, address, apt, floor, landMark)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
                 override fun onFailed(error: String) {
-                    showDialouge(error)
+                    hideDialogue()
+                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<Address>) {
-                    if (response.code == AppConstants.CODE_200 ) {
+                    if (response.code == AppConstants.CODE_200) {
                         newAddress = response.data!!
+                        hideDialogue()
                         PreferenceController.getInstance(this@NewAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
                         PreferenceController.getInstance(this@NewAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-
                         startActivity(Intent(this@NewAddressActivity, MainActivity::class.java))
                         finish()
                     } else {
-                        showDialouge(response.message)
+                        hideDialogue()
+                        showAlertDialouge(response.message)
                     }
                 }
             })
         } else {
-            showDialouge(getString(R.string.error_no_internet))
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
         }
         return newAddress!!
     }
@@ -246,6 +244,8 @@ class NewAddressActivity : AppCompatActivity(), View.OnClickListener {
         btnAdd = findViewById(R.id.btnAdd)
         btnAdd.setOnClickListener(this)
         ivBack.setOnClickListener(this)
+
+        currentLoginUser = PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
 
     }
 

@@ -20,7 +20,6 @@ import kotlinx.android.synthetic.main.activity_forget_password.view.*
 
 class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
-
     //region Members
     private var mode = 0 //0 valid email 1 verfiy code 2 reset password
     private var code: String = ""
@@ -48,16 +47,50 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
         when (v?.id) {
             R.id.ivBackForgetPassword -> {
                 mode -= 1
+
                 if (mode == 0) {
-                    validEmailStep(etEmail.text.toString())
-                }
-                if (mode == 1) {
-                    verfiyCodeStep()
-                }
-                if (mode == 2) {
-                    resetPasswordStep()
-                } else {
-                    finish()
+                    rlEmail.visibility = View.VISIBLE
+                    btnSubmit.visibility = View.VISIBLE
+                    etEmail.requestFocus()
+
+                    tvInfo.visibility = View.INVISIBLE
+                    rlCode.visibility = View.INVISIBLE
+                    btnResend.visibility = View.INVISIBLE
+
+
+                    rlPassword.visibility = View.INVISIBLE
+                    rlConfirmPassword.visibility = View.INVISIBLE
+                    btnLogIn.visibility = View.INVISIBLE
+
+                } else if (mode == 1) {
+
+                    rlEmail.visibility = View.INVISIBLE
+                    btnSubmit.visibility = View.VISIBLE
+
+
+                    tvInfo.visibility = View.VISIBLE
+                    rlCode.visibility = View.VISIBLE
+                    btnResend.visibility = View.VISIBLE
+                    etCode.requestFocus()
+
+                    rlPassword.visibility = View.INVISIBLE
+                    rlConfirmPassword.visibility = View.INVISIBLE
+                    btnLogIn.visibility = View.INVISIBLE
+                } else if (mode == 2) {
+                    rlEmail.visibility = View.INVISIBLE
+                    btnSubmit.visibility = View.INVISIBLE
+
+
+                    tvInfo.visibility = View.INVISIBLE
+                    rlCode.visibility = View.INVISIBLE
+                    btnResend.visibility = View.INVISIBLE
+                    etCode.requestFocus()
+
+                    rlPassword.visibility = View.VISIBLE
+                    rlConfirmPassword.visibility = View.VISIBLE
+                    btnLogIn.visibility = View.VISIBLE
+
+                    etPassword.requestFocus()
                 }
 
 
@@ -100,8 +133,7 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
                 confirmPassword = etConfirmPassword.text.toString()
 
                 var valid = validatePassword(password, confirmPassword)
-                if(valid)
-                {
+                if (valid) {
                     showDialogue()
                     resetPassword(email, code, password)
                 }
@@ -112,7 +144,6 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
     //endregion
 
     //region Helper Functions
-
 
     private fun init() {
         ivBackForgetPassword.setOnClickListener(this)
@@ -159,8 +190,7 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
             etPassword.requestFocus()
             tvConfirmPasswordError.visibility = View.INVISIBLE
             valid = false
-        }
-       else  if (confirmPassword.isNullOrEmpty()) {
+        } else if (confirmPassword.isNullOrEmpty()) {
             tvConfirmPasswordError.visibility = View.VISIBLE
             etConfirmPassword.requestFocus()
             tvPasswordError.visibility = View.INVISIBLE
@@ -237,6 +267,7 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
                 override fun onSuccess(response: ApiResponse<Boolean>) {
                     if (response.code == AppConstants.CODE_200) {
+                        mode = 2
                         validEmail = true
                         hideDialogue()
                         resetPasswordStep()
@@ -269,7 +300,8 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
                 override fun onSuccess(response: ApiResponse<User>) {
                     if (response.code == AppConstants.CODE_200) {
-
+                        mode = 3
+                        user = response.data!!
                         hideDialogue()
                         saveUserData(user)
 
@@ -295,10 +327,10 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
         btnResend.visibility = View.VISIBLE
         rlCode.visibility = View.VISIBLE
         etCode.setText("")
+        tvInfo.text = ""
 
+        tvInfo.text = getString(R.string.info) + " " + email
 
-        var info = tvInfo.text.toString() + " " + email
-        tvInfo.text = info
     }
 
     private fun verfiyCodeStep() {
@@ -321,6 +353,5 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
     }
 
     //endregion
-
 
 }

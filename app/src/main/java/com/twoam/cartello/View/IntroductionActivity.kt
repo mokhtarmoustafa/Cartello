@@ -9,6 +9,7 @@ import android.os.Handler
 import android.support.v4.content.ContextCompat.startActivity
 import android.view.View
 import android.widget.RelativeLayout
+import com.facebook.appevents.AppEventsLogger.getUserData
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
@@ -71,19 +72,19 @@ class IntroductionActivity : AppCompatActivity() {
 
     private fun checkedUserLogged() {
         // Check if user is already logged in or
-//        var user = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)
-//        if (user != null) {
-//            getUserData(user)
-//            finish()
-//        } else {
+        var user = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)
+        if (user != null) {
+            getUserData(user)
+            finish()
+        } else {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
-//            finish()
-//        }
+            finish()
+        }
     }
 
     private fun getUserData(currentUser: User) {
 
-        if (currentUser != null && currentUser.addresses!!.size > 0) {
+        if (currentUser != null && currentUser.addresses != null) {
             AppConstants.CurrentLoginUser = currentUser
             startActivity(Intent(applicationContext, MainActivity::class.java))
         } else {

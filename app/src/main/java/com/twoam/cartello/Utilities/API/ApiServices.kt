@@ -23,6 +23,14 @@ interface ApiServices {
     fun logIn(@Query("email") email: String, @Query("password") password: String)
             : Call<ApiResponse<User>>
 
+    @POST(AppConstants.URL_SOCIAL_AUTH_FACEBOOK)
+    fun logInSocialFacebook(@Query("access_token") access_token: String)
+            : Call<ApiResponse<User>>
+
+    @POST(AppConstants.URL_SOCIAL_AUTH_GOOGLE)
+    fun logInSocialGoogle(@Query("access_token") access_token: String)
+            : Call<ApiResponse<User>>
+
     @POST(AppConstants.URL_LOG_OUT)
     fun logOut(@Query("email") email: String, @Query("password") password: String)
             : Call<ApiResponse<User>>
@@ -41,9 +49,6 @@ interface ApiServices {
     fun resetPassword(@Query("email") email: String, @Query("code") code: String, @Query("password") password: String)
             : Call<ApiResponse<User>>
 
-    @POST(AppConstants.URL_SOCIAL_AUTH)
-    fun socialAuth(@Query("facebook") facebook: String)
-            : Call<ApiResponse<User>>
 
 
     @POST(AppConstants.URL_SOCIAL_SIGN_UP)
@@ -56,7 +61,7 @@ interface ApiServices {
             : Call<ApiResponse<ArrayList<City>>>
 
     @POST(AppConstants.URL_ADD_ADDRESS)
-    fun addAddress(@Header("Authorization") token:String, @Query("name") name: String, @Query("city_id") city_id: String,
+    fun addAddress(@Header("Authorization") token: String, @Query("name") name: String, @Query("city_id") city_id: String,
                    @Query("area_id") area_id: String, @Query("address") address: String,
                    @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>

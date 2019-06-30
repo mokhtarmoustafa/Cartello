@@ -17,6 +17,7 @@
     <color name="colorWelcome">#425972</color>
         <color name="colorApp">#38a0cd</color>
     <color name="error">#FF0202</color>
+    <color name="default_tab_color">#99ffffff</color>
 
 
 

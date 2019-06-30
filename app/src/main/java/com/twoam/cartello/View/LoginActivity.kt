@@ -34,6 +34,7 @@ import com.google.android.gms.common.api.GoogleApiClient
 import com.twoam.cartello.R.string.email
 import com.twoam.cartello.R.string.password
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
+import kotlinx.android.synthetic.main.activity_forget_password.*
 import org.json.JSONObject
 import retrofit2.Call
 import java.util.*
@@ -77,6 +78,9 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
 
         when (v?.id) {
+            R.id.rlEmail, R.id.tvHintEmail -> {
+                etEmail.requestFocus()
+            }
             R.id.tvSignUp -> {
                 startActivity(Intent(this, SignUpActivity::class.java))
                 overridePendingTransition(R.anim.enter, R.anim.exit)
@@ -350,7 +354,7 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
 
                         user.token = accessToken!!.token
 //                        logInSocial(user.token, AppConstants.FACEBOOK)
-                      Toast.makeText(applicationContext,"Successfully login",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, "Successfully login", Toast.LENGTH_SHORT).show()
                     } catch (e: JSONException) {
                         Log.e(TAG, e.message)
                     }
@@ -416,7 +420,7 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
                 user.fullImagePath = acct.photoUrl!!.toString()
             user.id = acct.id!!
 //            logInSocial(user.token, AppConstants.GOOGLE)
-            Toast.makeText(applicationContext,"Successfully login",Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Successfully login", Toast.LENGTH_SHORT).show()
         } else if (!result.isSuccess) {
             hideDialogue()
             Log.e(TAG, "google failed")

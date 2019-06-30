@@ -60,5 +60,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:11.6.0'
     //font to all app
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
+    //image slider
+    compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
 
 }

@@ -9,6 +9,19 @@
     </style>
 
 
+    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@fonts/Montserrat-Regular</item>
 
+    </style>
 
+    <style name="CustomCirclePageIndicator">
+        <item name="fillColor">#FF888888</item>
+        <item name="strokeColor">@android:color/transparent</item>
+        <item name ="pageColor">#FFF</item>
+        <item name="strokeWidth">4dp</item>
+        <item name="radius">10dp</item>
+        <item name="centered">true</item>
+    </style>
 </resources>

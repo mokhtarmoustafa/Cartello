@@ -146,14 +146,14 @@
                     android:layout_gravity="center"
                     android:layout_toRightOf="@+id/tvHintEmail"
                     android:background="@color/transparent"
-
                     android:fontFamily="Poppins-Regular"
                     android:inputType="text|textNoSuggestions|textEmailAddress"
                     android:textColor="@color/colorLabel"
                     android:textSize="13sp"
                     android:layout_marginTop="5dp"
                     android:imeOptions="actionNext"
-                    android:nextFocusForward="@+id/etPassword"/>
+                    android:nextFocusForward="@+id/etPassword"
+                    android:selectAllOnFocus="true"/>
 
                 <TextView
                     android:id="@+id/tvHintEmail"

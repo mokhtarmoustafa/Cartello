@@ -1,6 +1,7 @@
 package com.twoam.cartello.View
 
 import android.os.Bundle
+import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import com.facebook.internal.BoltsMeasurementEventListener
@@ -45,6 +46,7 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
+
             R.id.ivBackForgetPassword -> {
                 mode -= 1
 
@@ -79,7 +81,6 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
                 } else if (mode == 2) {
                     rlEmail.visibility = View.INVISIBLE
                     btnSubmit.visibility = View.INVISIBLE
-
 
                     tvInfo.visibility = View.INVISIBLE
                     rlCode.visibility = View.INVISIBLE
@@ -151,7 +152,13 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
         btnSubmit.setOnClickListener(this)
         btnLogIn.setOnClickListener(this)
         etEmail.requestFocus()
+
+
+
     }
+
+
+
 
     private fun validateUserData(email: String): Boolean {
         var valid = false

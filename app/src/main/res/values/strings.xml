@@ -67,5 +67,6 @@
     <string name="resend">Resend</string>
     <string name="log_in">Log in</string>
     <string name="forget_password">Forgot Password</string>
+    <string name="tab_home">Home</string>
 
 </resources>

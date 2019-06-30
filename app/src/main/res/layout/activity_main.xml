@@ -32,6 +32,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp" />
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="63.4dp"
+        android:visibility="visible" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="149dp"
@@ -42,7 +48,8 @@
             android:id="@+id/pager"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimary" />
 
         <com.viewpagerindicator.CirclePageIndicator
             android:id="@+id/indicator"
@@ -52,7 +59,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:gravity="bottom"
-            android:padding="10dp"
+            android:padding="2dp"
             app:centered="true"
             app:snap="false" />
     </RelativeLayout>

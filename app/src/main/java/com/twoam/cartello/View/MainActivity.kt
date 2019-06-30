@@ -6,9 +6,13 @@ import android.os.Handler
 import com.twoam.cartello.R
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
+import com.twoam.cartello.Model.Item
+import com.twoam.cartello.Model.SubCategory
 import com.twoam.cartello.Utilities.Adapters.AdsAdapter
 import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
-import com.viewpagerindicator.CirclePageIndicator
+import com.twoam.cartello.Utilities.Adapters.ItemAdapter
+import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -16,16 +20,42 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
 
+    //region Members
     private var currentPage = 0
     private var NUM_PAGES = 0
     private val IMAGES = arrayOf(R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1)
     private val ImagesArray = ArrayList<Int>()
 
+    private var imageModelArrayList: ArrayList<SubCategory>? = null
+    private var adapter: SubCategoryAdapter? = null
+    private val myImageList = intArrayOf(R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart1)
+    private val myImageNameList = arrayOf("Meat", "Milk", "Bread", "Cheese", "Chicken")
+    //endregion
 
+    //region Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
+        getAds()
+
+        getCategories()
+
+        //get sub categories demo
+        imageModelArrayList = getSubCategory()
+        adapter = SubCategoryAdapter(this, imageModelArrayList)
+        recycler?.adapter = adapter
+        recycler?.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    //endregion
+
+
+    //region Helper Functions
+    private fun getCategories() {
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_home)))
         for (k in 0..9) {
             tabs.addTab(tabs.newTab().setText("" + k))
         }
@@ -34,17 +64,28 @@ class MainActivity : AppCompatActivity() {
         viewPager.setAdapter(adapter)
         viewPager.setOffscreenPageLimit(1)
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
-//Bonus Code : If your tab layout has more than 2 tabs then tab will scroll other wise they will take whole width of the screen
+        //Bonus Code : If your tab layout has more than 2 tabs then tab will scroll other wise they will take whole width of the screen
         if (tabs.getTabCount() === 2) {
             tabs.setTabMode(TabLayout.MODE_FIXED)
         } else {
             tabs.setTabMode(TabLayout.MODE_SCROLLABLE)
         }
-
-        init()
     }
 
-    private fun init() {
+    private fun getSubCategory(): ArrayList<SubCategory> {
+        val list = ArrayList<SubCategory>()
+
+        for (i in 0..4) {
+            val fruitModel = SubCategory()
+            fruitModel.name = myImageNameList[i]
+            fruitModel.image = myImageList[i]
+            list.add(fruitModel)
+        }
+
+        return list
+    }
+
+    private fun getAds() {
         for (i in 0 until IMAGES.size)
             ImagesArray.add(IMAGES[i])
         pager?.adapter = AdsAdapter(this@MainActivity, ImagesArray)
@@ -70,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             override fun run() {
                 handler.post(Update)
             }
-        }, 1800, 3000)
+        }, 1500, 3000)
 
         // Pager listener over indicator
         indicator.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
@@ -90,4 +131,7 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+    //endregion
+
+
 }

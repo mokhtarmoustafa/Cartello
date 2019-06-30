@@ -7,11 +7,9 @@ import com.twoam.cartello.R
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
-import com.twoam.cartello.Model.Item
 import com.twoam.cartello.Model.SubCategory
 import com.twoam.cartello.Utilities.Adapters.AdsAdapter
 import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
-import com.twoam.cartello.Utilities.Adapters.ItemAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -46,8 +44,8 @@ class MainActivity : AppCompatActivity() {
         //get sub categories demo
         imageModelArrayList = getSubCategory()
         adapter = SubCategoryAdapter(this, imageModelArrayList)
-        recycler?.adapter = adapter
-        recycler?.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
+        recyclerSubCategory?.adapter = adapter
+        recyclerSubCategory?.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
     }
 
     //endregion

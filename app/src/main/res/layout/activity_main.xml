@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,6 +9,7 @@
 
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/AppBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorApp"
@@ -19,6 +20,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/AppBarLayout"
         android:background="@color/colorPrimary"
         app:tabBackground="@android:color/transparent"
         app:tabIndicatorColor="@color/white"
@@ -30,19 +32,21 @@
     <android.support.v4.view.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp" />
+        android:layout_height="0dp"
+        android:layout_below="@+id/tabs" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+        android:id="@+id/recyclerSubCategory"
         android:layout_width="match_parent"
         android:layout_height="63.4dp"
+        android:layout_below="@+id/viewPager"
         android:visibility="visible" />
 
     <RelativeLayout
+        android:id="@+id/rlImageSlider"
         android:layout_width="match_parent"
         android:layout_height="149dp"
-
-        >
+        android:layout_below="@+id/recyclerSubCategory">
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
@@ -64,5 +68,140 @@
             app:snap="false" />
     </RelativeLayout>
 
+    <RelativeLayout
+        android:id="@+id/rlTopPromotions"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/rlImageSlider"
+        android:layout_marginLeft="20dp">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/tvTop_promotions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#143150"
+            android:textSize="15sp"
+            android:text="@string/top_promotions"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:text="View All"
+
+            />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerTopPromotions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTop_promotions"
+            android:layout_marginTop="15dp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlMostSelling"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@+id/rlTopPromotions"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:id="@+id/tvMostSelling"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:textColor="#143150"
+            android:textSize="15sp"
+            android:text="@string/most_selling"
+
+            />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerMosetSelling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvMostSelling"
+            android:layout_marginTop="15dp"
+            android:visibility="visible" />
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/vcBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:elevation="5dp"
+        app:cardBackgroundColor="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/ivHome"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="11dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:srcCompat="@drawable/filled" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="14dp"
+                android:layout_toRightOf="@+id/ivHome"
+                android:textColor="@color/colorWelcome"
+                android:textSize="12sp"
+                android:text="@string/tab_home" />
+
+            <ImageView
+                android:id="@+id/ivCart"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="52dp"
+                android:layout_marginLeft="299dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="11dp"
+                app:srcCompat="@drawable/gray" />
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginBottom="11dp"
+                app:srcCompat="@drawable/search" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

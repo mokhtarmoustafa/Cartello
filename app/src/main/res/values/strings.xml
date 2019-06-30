@@ -68,5 +68,7 @@
     <string name="log_in">Log in</string>
     <string name="forget_password">Forgot Password</string>
     <string name="tab_home">Home</string>
+    <string name="top_promotions">Top Promotions</string>
+    <string name="most_selling">Most Selling</string>
 
 </resources>

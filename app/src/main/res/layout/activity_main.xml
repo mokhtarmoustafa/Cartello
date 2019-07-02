@@ -175,19 +175,80 @@
                 android:layout_toRightOf="@+id/ivHome"
                 android:textColor="@color/colorWelcome"
                 android:textSize="12sp"
-                android:text="@string/tab_home" />
+                android:text="@string/tab_home"
+                android:id="@+id/textView4" />
 
-            <ImageView
-                android:id="@+id/ivCart"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
+
+            <!--<ImageView-->
+                <!--android:id="@+id/ivCart"-->
+                <!--android:layout_width="24dp"-->
+                <!--android:layout_height="24dp"-->
+                <!--app:srcCompat="@drawable/gray"-->
+                <!--android:layout_marginEnd="52dp"-->
+                <!--android:layout_marginLeft="299dp"-->
+                <!--android:layout_marginTop="11dp"-->
+                <!--android:layout_marginBottom="11dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true"/>-->
+            <FrameLayout
+                style="?attr/actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginEnd="52dp"
                 android:layout_marginLeft="299dp"
-                android:layout_marginTop="11dp"
-                android:layout_marginBottom="11dp"
-                app:srcCompat="@drawable/gray" />
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clipToPadding="false"
+                android:focusable="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/gray" />
+
+                <TextView
+                    android:id="@+id/cart_badge"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="right|end|top"
+                    android:layout_marginEnd="-5dp"
+                    android:layout_marginRight="-5dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/badge_background"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="9sp" />
+
+            </FrameLayout>
+
+
+            <!--<com.steelkiwi.library.view.BadgeHolderLayout-->
+                <!--android:id="@+id/view"-->
+                <!--android:layout_width="40dp"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_centerInParent="true"-->
+                <!--app:bhl_default_badge_background="@color/colorApp"-->
+                <!--app:bhl_text_color="@android:color/white"-->
+                <!--app:bhl_text_size="12sp"-->
+                <!--app:bhl_badge_radius="90dp"-->
+                <!--app:bhl_text_font="Montserrat-Regular.otf"-->
+                <!--android:layout_marginEnd="52dp"-->
+                <!--android:layout_marginLeft="299dp"-->
+                <!--android:layout_marginTop="11dp"-->
+                <!--android:layout_marginBottom="11dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_centerVertical="true">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/ivCart"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--app:srcCompat="@drawable/gray" />-->
+            <!--</com.steelkiwi.library.view.BadgeHolderLayout>-->
 
             <ImageView
                 android:id="@+id/ivSearch"

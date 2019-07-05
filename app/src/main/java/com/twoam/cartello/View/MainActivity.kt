@@ -1,5 +1,6 @@
 package com.twoam.cartello.View
 
+import android.content.DialogInterface
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -7,15 +8,19 @@ import com.twoam.cartello.R
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.twoam.cartello.Model.SubCategory
+import com.twoam.cartello.R.id.*
 import com.twoam.cartello.Utilities.Adapters.AdsAdapter
 import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
+import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
+import com.twoam.cartello.Utilities.General.CustomBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseDefaultActivity(), View.OnClickListener {
 
 
     //region Members
@@ -23,11 +28,13 @@ class MainActivity : AppCompatActivity() {
     private var NUM_PAGES = 0
     private val IMAGES = arrayOf(R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1)
     private val ImagesArray = ArrayList<Int>()
-
     private var imageModelArrayList: ArrayList<SubCategory>? = null
     private var adapter: SubCategoryAdapter? = null
     private val myImageList = intArrayOf(R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart1)
     private val myImageNameList = arrayOf("Meat", "Milk", "Bread", "Cheese", "Chicken")
+    private var homeBottom: CustomBottomSheetDialog = CustomBottomSheetDialog()
+
+    private var isOpened = false
     //endregion
 
     //region Events
@@ -35,8 +42,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-
+        init()
         getAds()
 
         getCategories()
@@ -48,10 +54,25 @@ class MainActivity : AppCompatActivity() {
         recyclerSubCategory?.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.HORIZONTAL, false)
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.ivHome, R.id.tvMainHome -> {
+                homeBottom.show(supportFragmentManager, "Custom Bottom Sheet")
+                isOpened = true
+            }
+        }
+    }
+
     //endregion
 
 
     //region Helper Functions
+
+    private fun init() {
+        tvMainHome.setOnClickListener(this)
+        ivHome.setOnClickListener(this)
+    }
+
     private fun getCategories() {
         tabs.addTab(tabs.newTab().setText(getString(R.string.tab_home)))
         for (k in 0..9) {
@@ -129,6 +150,8 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
+
+
     //endregion
 
 

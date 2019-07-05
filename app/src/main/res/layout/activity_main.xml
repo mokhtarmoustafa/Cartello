@@ -15,7 +15,6 @@
         android:background="@color/colorApp"
         app:elevation="0dp" />
 
-
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
@@ -82,9 +81,9 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:text="@string/top_promotions"
             android:textColor="#143150"
             android:textSize="15sp"
-            android:text="@string/top_promotions"
 
             />
 
@@ -94,9 +93,9 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
+            android:text="View All"
             android:textColor="@color/colorPrimary"
             android:textSize="15sp"
-            android:text="View All"
 
             />
 
@@ -125,9 +124,9 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:text="@string/most_selling"
             android:textColor="#143150"
             android:textSize="15sp"
-            android:text="@string/most_selling"
 
             />
 
@@ -167,38 +166,27 @@
                 app:srcCompat="@drawable/filled" />
 
             <TextView
+                android:id="@+id/tvMainHome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="14dp"
                 android:layout_toRightOf="@+id/ivHome"
+                android:text="@string/tab_home"
                 android:textColor="@color/colorWelcome"
                 android:textSize="12sp"
-                android:text="@string/tab_home"
-                android:id="@+id/textView4" />
+                android:fontFamily="Poppins-Regular"/>
 
-
-            <!--<ImageView-->
-                <!--android:id="@+id/ivCart"-->
-                <!--android:layout_width="24dp"-->
-                <!--android:layout_height="24dp"-->
-                <!--app:srcCompat="@drawable/gray"-->
-                <!--android:layout_marginEnd="52dp"-->
-                <!--android:layout_marginLeft="299dp"-->
-                <!--android:layout_marginTop="11dp"-->
-                <!--android:layout_marginBottom="11dp"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true"/>-->
             <FrameLayout
                 style="?attr/actionButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
                 android:layout_marginEnd="52dp"
                 android:layout_marginLeft="299dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:clipToPadding="false"
                 android:focusable="true">
 
@@ -226,40 +214,16 @@
             </FrameLayout>
 
 
-            <!--<com.steelkiwi.library.view.BadgeHolderLayout-->
-                <!--android:id="@+id/view"-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:layout_centerInParent="true"-->
-                <!--app:bhl_default_badge_background="@color/colorApp"-->
-                <!--app:bhl_text_color="@android:color/white"-->
-                <!--app:bhl_text_size="12sp"-->
-                <!--app:bhl_badge_radius="90dp"-->
-                <!--app:bhl_text_font="Montserrat-Regular.otf"-->
-                <!--android:layout_marginEnd="52dp"-->
-                <!--android:layout_marginLeft="299dp"-->
-                <!--android:layout_marginTop="11dp"-->
-                <!--android:layout_marginBottom="11dp"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_centerVertical="true">-->
-
-                <!--<ImageView-->
-                    <!--android:id="@+id/ivCart"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--app:srcCompat="@drawable/gray" />-->
-            <!--</com.steelkiwi.library.view.BadgeHolderLayout>-->
-
             <ImageView
                 android:id="@+id/ivSearch"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_marginBottom="11dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="11dp"
-                android:layout_marginBottom="11dp"
                 app:srcCompat="@drawable/search" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

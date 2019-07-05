@@ -26,14 +26,16 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
         <activity
             android:name=".View.MainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,24 +44,29 @@
         </activity>
         <activity
             android:name=".View.IntroductionActivity"
-            android:screenOrientation="portrait">
-
-        </activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".View.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" >
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".View.NewAddressActivity"
             android:label="@string/titleCreateAddress"
-            android:parentActivityName=".View.MainActivity" />
-        <activity android:name=".View.SignUpActivity" />
+            android:parentActivityName=".View.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.SignUpActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".View.ForgetPasswordActivity"
-            android:parentActivityName=".View.LoginActivity">
-        </activity>
+            android:parentActivityName=".View.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.BottomOptionsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".View.MedicalPrescriptionsActivity" />
+        <activity android:name=".View.OrdersActivity" />
+        <activity android:name=".View.MoreActivity"></activity>
     </application>
 
 </manifest>

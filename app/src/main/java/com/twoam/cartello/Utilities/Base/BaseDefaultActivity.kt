@@ -10,20 +10,17 @@ import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
-import android.support.v7.widget.*
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.ProgressBar
 import android.widget.RelativeLayout
-import android.widget.TextView
+import android.widget.Toast
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.MyContextWrapper
 import com.twoam.cartello.View.MainActivity
 import com.twoam.cartello.View.NewAddressActivity
@@ -49,13 +46,11 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         mLoadingDialog.setCancelable(false)
 
 
-
-
-
     }
-     fun checkHasAddress(user: User) {
 
-        if (user.addresses != null&&user.addresses!!.size > 0) {
+    fun checkHasAddress(user: User) {
+
+        if (user.addresses != null && user.addresses!!.size > 0) {
             startActivity(Intent(this, MainActivity::class.java))
             PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
         } else {
@@ -63,7 +58,8 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         }
 
     }
-     fun saveUserData(user: User) {
+
+    fun saveUserData(user: User) {
 
         PreferenceController.getInstance(applicationContext).Set(AppConstants.IS_LOGIN, AppConstants.TRUE)
         PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
@@ -71,7 +67,7 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         checkHasAddress(user!!)
     }
 
-     fun showAlertDialouge(message: String) {
+    fun showAlertDialouge(message: String) {
         var alertDialouge = AlertDialog.Builder(this)
                 .setMessage(message)
                 .setCancelable(true)
@@ -80,59 +76,28 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         alertDialouge.show()
     }
 
-     fun showDialogue() {
+    fun showDialogue() {
         mLoadingDialog.show()
     }
 
     //hide progress bar Dialogue
-     fun hideDialogue() {
+    fun hideDialogue() {
         mLoadingDialog.dismiss()
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
         return true
-    }
-
-    override fun onRemoveClicked(position: Int) {
 
     }
+
+
 
     override fun onItemClicked(position: Int) {
 
     }
 
-    override fun onItemClicked(position: Int, type: Int) {
-
-    }
-
-    override fun onItemLLongClicked(position: Int) {
-
-    }
-
-    override fun onPostLikeClicked(position: Int) {
-
-    }
-
-    override fun onPostRepostClicked(position: Int) {
-
-    }
-
-    override fun onPostCommentClicked(position: Int) {
-
-    }
-
-    override fun onOptionClicked(position: Int, view: View) {
-
-    }
-
-    override fun onUnlockPollClicked(position: Int) {
-
-    }
-
-    override fun onChoiceSelected(position: Int, optionId: Long) {
-
-    }
 
     override fun attachBaseContext(newBase: Context) {
         var lang: String

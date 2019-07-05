@@ -69,6 +69,8 @@ object AppConstants {
     const val USER_DATA = "userData"
     const val FACEBOOK = 1
     const val GOOGLE = 2
+    const val CURRENTINDEXTAG="currentOption"
+    var CURRENTSELECTEDINDEX = 0
 
     var CurrentLoginUser: User = User()
 
@@ -78,6 +80,10 @@ object AppConstants {
     const val EMAIL = "email"
     const val PUBLIC_PROFILE = "public_profile"
     const val USER_PERMISSION = "user_friends"
+    //endregion
+
+    //region bottom sheet
+    public var isClosed = false
     //endregion
 
 }

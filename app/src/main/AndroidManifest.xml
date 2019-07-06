@@ -61,12 +61,6 @@
             android:name=".View.ForgetPasswordActivity"
             android:parentActivityName=".View.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".View.BottomOptionsActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".View.MedicalPrescriptionsActivity" />
-        <activity android:name=".View.OrdersActivity" />
-        <activity android:name=".View.MoreActivity"></activity>
     </application>
 
 </manifest>

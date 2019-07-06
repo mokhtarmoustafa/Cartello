@@ -9,9 +9,9 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.twoam.cartello.R
 import com.twoam.cartello.View.MainActivity
-import com.twoam.cartello.View.MedicalPrescriptionsActivity
-import com.twoam.cartello.View.MoreActivity
-import com.twoam.cartello.View.OrdersActivity
+import com.twoam.cartello.View.MedicalPrescriptionsFragment
+import com.twoam.cartello.View.MoreFragment
+import com.twoam.cartello.View.OrdersFragment
 
 class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback{
 
@@ -42,15 +42,18 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         })
         medical.setOnClickListener({
             this.dismiss()
-            startActivity(Intent(AppController.getContext(), MedicalPrescriptionsActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,1))
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container,MedicalPrescriptionsFragment()).commit()
+//            startActivity(Intent(AppController.getContext(), MedicalPrescriptionsActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,1))
         })
         order.setOnClickListener({
             this.dismiss()
-            startActivity(Intent(AppController.getContext(), OrdersActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,2))
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container, OrdersFragment()).commit()
+//            startActivity(Intent(AppController.getContext(), OrdersActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,2))
         })
         more.setOnClickListener({
             this.dismiss()
-            startActivity(Intent(AppController.getContext(), MoreActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,3))
+//            startActivity(Intent(AppController.getContext(), MoreActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,3))
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MoreFragment()).commit()
         })
 
     }

@@ -1,102 +1,146 @@
 package com.twoam.cartello.View
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import com.twoam.cartello.Model.SubCategory
 import com.twoam.cartello.R
+import com.twoam.cartello.Utilities.Adapters.AdsAdapter
+import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
+import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
+import com.twoam.cartello.Utilities.General.AppController
+import com.viewpagerindicator.CirclePageIndicator
+import java.util.*
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [HomeFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
 
-    // TODO: Rename and change types of parameters
-    private var mParam1: String? = null
-    private var mParam2: String? = null
 
-    private var mListener: OnFragmentInteractionListener? = null
+    //region Members
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        if (arguments != null) {
-            mParam1 = arguments!!.getString(ARG_PARAM1)
-            mParam2 = arguments!!.getString(ARG_PARAM2)
-        }
-    }
+    private var currentPage = 0
+    private var NUM_PAGES = 0
+    private val IMAGES = arrayOf(R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1)
+    private val ImagesArray = ArrayList<Int>()
+    private var adapter: SubCategoryAdapter? = null
+    private val myImageList = intArrayOf(R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart1)
+    private val myImageNameList = arrayOf("Meat", "Milk", "Bread", "Cheese", "Chicken")
+    private lateinit var recyclerSubCategory: RecyclerView
+    private lateinit var tabs: TabLayout
+    private lateinit var viewPager: ViewPager
+    private lateinit var pager: ViewPager
+    private lateinit var indicator: CirclePageIndicator
+    //endregion
+
+    //region Events
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        if (mListener != null) {
-            mListener!!.onFragmentInteraction(uri)
+        var view = inflater.inflate(R.layout.fragment_home, container, false)
+
+        recyclerSubCategory = view.findViewById(R.id.recyclerSubCategory)
+        tabs = view.findViewById(R.id.tabs)
+        viewPager = view.findViewById(R.id.viewPager)
+        pager = view.findViewById(R.id.pager)
+        indicator = view.findViewById(R.id.indicator)
+
+        getAds()
+        getCategories()
+        getSubCategory()
+
+        return view
+    }
+    //endregion
+
+    //region Helper Functions
+
+    private fun getCategories() {
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_home)))
+        for (k in 0..9) {
+            tabs.addTab(tabs.newTab().setText("" + k))
         }
-    }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            mListener = context
+        val adapter = CategoryAdapter(fragmentManager, tabs.tabCount)
+        viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 1
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
+        //Bonus Code : If your tab layout has more than 2 tabs then tab will scroll other wise they will take whole width of the screen
+        if (tabs.tabCount === 2) {
+            tabs.tabMode = TabLayout.MODE_FIXED
         } else {
-            throw RuntimeException(context!!.toString() + " must implement OnFragmentInteractionListener")
+            tabs.tabMode = TabLayout.MODE_SCROLLABLE
         }
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        mListener = null
-    }
+    private fun getSubCategory() {
+        val list = ArrayList<SubCategory>()
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html) for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        // TODO: Rename parameter arguments, choose names that match
-        // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-        private val ARG_PARAM1 = "param1"
-        private val ARG_PARAM2 = "param2"
-
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        fun newInstance(param1: String, param2: String): HomeFragment {
-            val fragment = HomeFragment()
-            val args = Bundle()
-            args.putString(ARG_PARAM1, param1)
-            args.putString(ARG_PARAM2, param2)
-            fragment.arguments = args
-            return fragment
+        for (i in 0..4) {
+            val fruitModel = SubCategory()
+            fruitModel.name = myImageNameList[i]
+            fruitModel.image = myImageList[i]
+            list.add(fruitModel)
         }
+
+        //get sub categories demo
+        adapter = SubCategoryAdapter(AppController.getContext(), list)
+        recyclerSubCategory?.adapter = adapter
+        recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
     }
-}// Required empty public constructor
+
+    private fun getAds() {
+        for (i in 0 until IMAGES.size)
+            ImagesArray.add(IMAGES[i])
+        pager?.adapter = AdsAdapter(AppController.getContext(), ImagesArray)
+        indicator.setViewPager(pager)
+
+        val density = resources.displayMetrics.density
+
+        //Set circle indicator radius
+        indicator.radius = 5 * density
+
+        NUM_PAGES = IMAGES.size
+
+        // Auto start of viewpager
+        val handler = Handler()
+        val Update = Runnable {
+            if (currentPage === NUM_PAGES) {
+                currentPage = 0
+            }
+            pager?.setCurrentItem(currentPage++, true)
+        }
+        val swipeTimer = Timer()
+        swipeTimer.schedule(object : TimerTask() {
+            override fun run() {
+                handler.post(Update)
+            }
+        }, 1500, 3000)
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+
+            override fun onPageSelected(position: Int) {
+                currentPage = position
+
+            }
+
+            override fun onPageScrolled(pos: Int, arg1: Float, arg2: Int) {
+
+            }
+
+            override fun onPageScrollStateChanged(pos: Int) {
+
+            }
+        })
+
+    }
+
+    //endregion
+}

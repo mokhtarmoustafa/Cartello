@@ -166,7 +166,8 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                app:srcCompat="@drawable/filled" />
+                app:srcCompat="@drawable/filled"
+                android:background="?android:attr/selectableItemBackground"/>
 
             <TextView
                 android:id="@+id/tvMainHome"

@@ -36,10 +36,23 @@ class HomeFragment : Fragment() {
     private lateinit var viewPager: ViewPager
     private lateinit var pager: ViewPager
     private lateinit var indicator: CirclePageIndicator
+    var NAME_ARG = "name"
+    var AGE_ARG = "age"
+    private var name: String? = null
+    private var age: Int = 0
     //endregion
 
     //region Events
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val arguments = arguments
+
+        if (arguments != null) {
+            this.name = arguments.getString(NAME_ARG)
+            this.age = arguments.getInt(AGE_ARG)
+        }
+    }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -142,5 +155,18 @@ class HomeFragment : Fragment() {
 
     }
 
+    fun newInstance(name: String, age: Int): HomeFragment {
+
+        val args = Bundle()
+
+        args.putString(NAME_ARG, name)
+        args.putInt(AGE_ARG, age)
+
+        val fragment = HomeFragment()
+
+        fragment.arguments = args
+
+        return fragment
+    }
     //endregion
 }

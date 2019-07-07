@@ -24,11 +24,11 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener {
 
         init()
 
-        if (savedInstanceState == null) {
+//        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
             ivHome.setImageResource(R.drawable.ic_home_select)
             tvMainHome.setTextColor(Color.parseColor( "#38a0cd"))
-        }
+//        }
     }
 
     override fun onClick(v: View?) {

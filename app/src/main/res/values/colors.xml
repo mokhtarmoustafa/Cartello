@@ -20,6 +20,7 @@
     <color name="default_tab_color">#99ffffff</color>
     <color name="colorBack">#fafcff</color>
     <color name="text_color">#4a4a4a</color>
+    <color name="back_color">#19000000</color>
 
 
 </resources>

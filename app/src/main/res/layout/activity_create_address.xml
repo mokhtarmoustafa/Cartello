@@ -23,7 +23,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:id="@+id/rlParent"
+                android:id="@+id/cvParent"
                 android:layout_width="match_parent"
                 android:layout_height="77.5dp">
 
@@ -80,7 +80,7 @@
                 style="@style/Widget.AppCompat.EditText"
                 android:layout_width="317dp"
                 android:layout_height="51dp"
-                android:layout_below="@+id/rlParent"
+                android:layout_below="@+id/cvParent"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="29dp"
                 android:layout_marginRight="29dp"

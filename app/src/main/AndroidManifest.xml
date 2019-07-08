@@ -61,6 +61,8 @@
             android:name=".View.ForgetPasswordActivity"
             android:parentActivityName=".View.LoginActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".View.MyCartActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

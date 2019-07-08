@@ -10,14 +10,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.twoam.cartello.Model.Product
 import com.twoam.cartello.Model.SubCategory
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Adapters.AdsAdapter
 import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
+import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
 import com.twoam.cartello.Utilities.General.AppController
 import com.viewpagerindicator.CirclePageIndicator
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeFragment : Fragment() {
 
@@ -32,6 +35,9 @@ class HomeFragment : Fragment() {
     private val myImageList = intArrayOf(R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart1)
     private val myImageNameList = arrayOf("Meat", "Milk", "Bread", "Cheese", "Chicken")
     private lateinit var recyclerSubCategory: RecyclerView
+    private lateinit var recyclerTopPromotions: RecyclerView
+    private lateinit var recyclerMostSelling: RecyclerView
+
     private lateinit var tabs: TabLayout
     private lateinit var viewPager: ViewPager
     private lateinit var pager: ViewPager
@@ -53,6 +59,7 @@ class HomeFragment : Fragment() {
             this.age = arguments.getInt(AGE_ARG)
         }
     }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -63,10 +70,15 @@ class HomeFragment : Fragment() {
         viewPager = view.findViewById(R.id.viewPager)
         pager = view.findViewById(R.id.pager)
         indicator = view.findViewById(R.id.indicator)
+        recyclerTopPromotions = view.findViewById(R.id.recyclerTopPromotions)
+        recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
 
         getAds()
         getCategories()
         getSubCategory()
+        getTopPromotionsProducts()
+        getMostSellingProducts()
+
 
         return view
     }
@@ -105,7 +117,7 @@ class HomeFragment : Fragment() {
         //get sub categories demo
         adapter = SubCategoryAdapter(AppController.getContext(), list)
         recyclerSubCategory?.adapter = adapter
-        recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
+            recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun getAds() {
@@ -167,6 +179,42 @@ class HomeFragment : Fragment() {
         fragment.arguments = args
 
         return fragment
+    }
+
+    fun getTopPromotionsProducts() {
+        var list = ArrayList<Product>()
+        list.add(Product("1", "Pampers baby dry junior 5 (11-25kg) 58", "R.drawable.ic_cart", "150", "135"))
+        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
+        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
+        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
+        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
+        list.add(Product("1", "Product Name 1", "R.drawable.ic_cart", "150", "135"))
+        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
+        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
+        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
+        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
+        var adapter = ProductAdapter(activity, list)
+        recyclerTopPromotions.adapter = adapter
+        recyclerTopPromotions.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
+
+    }
+
+    fun getMostSellingProducts() {
+        var list = ArrayList<Product>()
+        list.add(Product("1", "Product Name 1", "R.drawable.ic_cart", "150", "135"))
+        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
+        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
+        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
+        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
+        list.add(Product("1", "Product Name 1", "R.drawable.ic_cart", "150", "135"))
+        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
+        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
+        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
+        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
+        var adapter = ProductAdapter(activity, list)
+        recyclerMostSelling.adapter = adapter
+        recyclerMostSelling.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
+
     }
     //endregion
 }

@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.twoam.cartello.Model.Item;
 import com.twoam.cartello.Model.SubCategory;
 import com.twoam.cartello.R;
 

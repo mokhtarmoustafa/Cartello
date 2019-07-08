@@ -33,112 +33,120 @@
         android:layout_height="0dp"
         android:layout_below="@+id/tabs" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerSubCategory"
-        android:layout_width="match_parent"
-        android:layout_height="63.4dp"
-        android:layout_below="@+id/viewPager"
-        android:visibility="visible" />
-
+    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbars="none"
+        android:layout_below="@+id/viewPager">
     <RelativeLayout
-        android:id="@+id/rlImageSlider"
+        android:id="@+id/rlContainer"
         android:layout_width="match_parent"
-        android:layout_height="149dp"
-        android:layout_below="@+id/recyclerSubCategory">
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/pager"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorPrimary" />
-
-        <com.viewpagerindicator.CirclePageIndicator
-            android:id="@+id/indicator"
-            style="@style/CustomCirclePageIndicator"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:gravity="bottom"
-            android:padding="2dp"
-            app:centered="true"
-            app:snap="false" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlTopPromotions"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/rlImageSlider"
-        android:layout_marginLeft="20dp">
-
-        <TextView
-            android:id="@+id/tvTop_promotions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/top_promotions"
-            android:textColor="#143150"
-            android:textSize="15sp"
-
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="20dp"
-            android:text="View All"
-            android:textColor="@color/colorPrimary"
-            android:textSize="15sp"
-
-            />
+        android:layout_height="match_parent"
+        >
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerTopPromotions"
+            android:id="@+id/recyclerSubCategory"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvTop_promotions"
-            android:layout_marginTop="15dp"
+            android:layout_height="63.4dp"
+
             android:visibility="visible" />
 
-    </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/rlImageSlider"
+            android:layout_width="match_parent"
+            android:layout_height="149dp"
+            android:layout_below="@+id/recyclerSubCategory">
 
-    <RelativeLayout
-        android:id="@+id/rlMostSelling"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/rlTopPromotions"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp">
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimary" />
 
-        <TextView
-            android:id="@+id/tvMostSelling"
-            android:layout_width="wrap_content"
+            <com.viewpagerindicator.CirclePageIndicator
+                android:id="@+id/indicator"
+                style="@style/CustomCirclePageIndicator"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:padding="2dp"
+                app:centered="true"
+                app:snap="false" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlTopPromotions"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/rlImageSlider"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:id="@+id/tvTop_promotions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/top_promotions"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+
+                />
+
+            <TextView
+                android:id="@+id/tvViewAll0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:clickable="true"
+                android:text="View All"
+                android:textColor="@color/colorPrimary"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerTopPromotions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTop_promotions"
+                android:layout_marginTop="15dp"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlMostSelling"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlTopPromotions"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:text="@string/most_selling"
-            android:textColor="#143150"
-            android:textSize="15sp"
+            android:visibility="visible">
 
-            />
+            <TextView
+                android:id="@+id/tvMostSelling"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/most_selling"
+                android:textColor="@color/colorAccent"
+                android:textSize="15sp"
+                />
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerMosetSelling"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvMostSelling"
-            android:layout_marginTop="15dp"
-            android:visibility="visible" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerMostSelling"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvMostSelling"
+                android:layout_marginTop="15dp"
+                android:visibility="visible" />
 
+        </RelativeLayout>
     </RelativeLayout>
-
-
+    </ScrollView>
 </RelativeLayout>

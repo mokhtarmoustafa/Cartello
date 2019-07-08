@@ -83,7 +83,12 @@ object AppConstants {
     //endregion
 
     //region bottom sheet
-    public var isClosed = false
+     var isClosed = false
+    //endregion
+    //region others
+    const val MOST_BOUGHT="Most Bought"
+    const val MOST_RECENT="Most Recent"
+
     //endregion
 
 }

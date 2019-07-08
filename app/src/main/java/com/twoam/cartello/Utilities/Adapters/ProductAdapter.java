@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.twoam.cartello.Model.Item;
+import com.twoam.cartello.Model.Product;
 import com.twoam.cartello.R;
 
 import java.util.ArrayList;
@@ -17,31 +17,31 @@ import java.util.ArrayList;
  * Created by Mokhtar on 6/30/2019.
  */
 
-public class ItemAdapter
-        extends RecyclerView.Adapter<ItemAdapter.MyViewHolder> {
+public class ProductAdapter
+        extends RecyclerView.Adapter<ProductAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
-    private ArrayList<Item> imageModelArrayList;
+    private ArrayList<Product> imageModelArrayList;
 
-    public ItemAdapter(Context ctx, ArrayList<Item> imageModelArrayList) {
+    public ProductAdapter(Context ctx, ArrayList<Product> imageModelArrayList) {
 
         inflater = LayoutInflater.from(ctx);
         this.imageModelArrayList = imageModelArrayList;
     }
 
     @Override
-    public ItemAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ProductAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.recycler_item, parent, false);
+        View view = inflater.inflate(R.layout.product_layout, parent, false);
         MyViewHolder holder = new MyViewHolder(view);
 
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(ItemAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(ProductAdapter.MyViewHolder holder, int position) {
 
-        holder.itemImage.setImageResource(imageModelArrayList.get(position).getItemImage());
+        holder.itemImage.setImageResource(R.drawable.ic_cart);
         holder.itemName.setText(imageModelArrayList.get(position).getName());
         holder.itemOldPrice.setText(imageModelArrayList.get(position).getOldPrice());
         holder.itemNewPrice.setText(imageModelArrayList.get(position).getNewPrice());

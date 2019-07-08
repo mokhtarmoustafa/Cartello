@@ -25,6 +25,8 @@
     <string name="hintFloor">Floor</string>
     <string name="hintLandMark">Land Mark</string>
     <string name="add">Add</string>
+    <string name="save">Save</string>
+
     <string name="selectCity">Select City ...</string>
     <string name="selectArea">Select Area ...</string>
     <string name="titleCreateAddress">Create your address</string>
@@ -87,6 +89,7 @@
     <string name="product_type">Product Type</string>
     <string name="similar_products">Similar Products</string>
     <string name="notes">Notes</string>
+    <string name="your_notes">Your notes ...</string>
 
 
 </resources>

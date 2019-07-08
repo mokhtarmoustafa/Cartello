@@ -19,9 +19,7 @@
     <color name="error">#FF0202</color>
     <color name="default_tab_color">#99ffffff</color>
     <color name="colorBack">#fafcff</color>
-
-
-
+    <color name="text_color">#4a4a4a</color>
 
 
 </resources>

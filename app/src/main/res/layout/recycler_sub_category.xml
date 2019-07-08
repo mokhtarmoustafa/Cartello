@@ -13,7 +13,7 @@
         android:layout_marginTop="27.4dp"
         android:layout_marginBottom="16dp"
         android:scaleType="fitXY"
-        android:src="@drawable/item_51"
+        android:src="@drawable/item"
         android:padding="5dp"
         android:background="@layout/imageview_border"/>
 

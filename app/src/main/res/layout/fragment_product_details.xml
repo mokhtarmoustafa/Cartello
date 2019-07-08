@@ -1,0 +1,234 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:focusableInTouchMode="true"
+    tools:context="com.twoam.cartello.View.ProductDetailsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/rlParent"
+                android:layout_width="match_parent"
+                android:layout_height="77.5dp"
+                android:layout_margin="4dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                android:elevation="8dp"
+                app:cardElevation="7dp"
+                app:cardPreventCornerOverlap="false">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="77.5dp">
+
+                    <ImageView
+                        android:id="@+id/ivBackForgetPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="31dp"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/back" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="95.5dp"
+                        android:layout_marginRight="128.5dp"
+                        android:layout_marginTop="31dp"
+                        android:text="@string/product_details"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorLabel"
+                        android:textSize="15sp" />
+
+                    <ImageView
+                        android:id="@+id/ivFavourite"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="17dp"
+                        android:layout_marginTop="31dp"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/icon_status" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <ImageView
+                android:id="@+id/ivProductBigImage"
+                android:layout_width="match_parent"
+                android:layout_height="225dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_cart" />
+
+            <RelativeLayout
+                android:id="@+id/lLContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_below="@+id/ivProductBigImage">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvProductImage"
+                    android:layout_width="94dp"
+                    android:layout_height="68dp"
+                    android:layout_marginLeft="10dp"
+                    app:cardCornerRadius="6dp">
+
+                    <ImageView
+                        android:id="@+id/ivProductImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_cart" />
+                </android.support.v7.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tvProductName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/cvProductImage"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/product_name"
+                    android:textColor="@color/text_color"
+                    android:textSize="17sp"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvProductName"
+                    android:layout_marginTop="13dp"
+                    android:text="@string/category"
+                    android:textColor="@color/colorHintLabel"
+                    android:textSize="17sp"
+                    />
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="@color/colorAccent"
+                    tools:text="100LE"
+                    android:layout_marginTop="7dp"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/tvCategory"
+                    />
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cvPrices"
+                    android:layout_width="151dp"
+                    android:layout_height="37dp"
+                    app:cardCornerRadius="18.5dp"
+                    android:layout_below="@+id/tvPrice"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    app:cardBackgroundColor="@color/colorBack"
+                    >
+                <LinearLayout
+                    android:id="@+id/lLPrices"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:id="@+id/subItem"
+                        android:layout_width="50.3dp"
+                        android:layout_height="20dp"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:src="@mipmap/ic_launcher"
+                        android:text="-"
+                        android:textColor="@color/colorWelcome"
+                        android:textSize="17sp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        />
+
+                    <TextView
+                        android:id="@+id/tvValue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="0"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="20.1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"/>
+
+                    <ImageView
+                        android:id="@+id/addItem"
+                        android:layout_width="42.5dp"
+                        android:layout_height="28dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/add_icon"
+                        android:layout_marginLeft="20.1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="9dp"/>
+                </LinearLayout>
+                </android.support.v7.widget.CardView>
+                <TextView
+                    android:id="@+id/tvProductType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12sp"
+                    android:textColor="@color/colorWelcome"
+                    android:lineSpacingExtra="9sp"
+                    tools:text="@string/product_type"
+                    android:layout_below="@+id/cvPrices"
+                    android:layout_marginTop="28dp"
+                    />
+                <RelativeLayout
+                    android:id="@+id/rlSimilarProducts"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvProductType"
+                    >
+
+                    <TextView
+                        android:id="@+id/tvSimilarProducts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/similar_products"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="15sp"
+
+                        />
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerSimilarProducts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvSimilarProducts"
+                        android:layout_marginTop="15dp"
+                        android:visibility="visible" />
+
+                </RelativeLayout>
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
+

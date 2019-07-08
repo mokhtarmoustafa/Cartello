@@ -70,11 +70,19 @@
     <string name="tab_home">Home</string>
     <string name="top_promotions">Top Promotions</string>
     <string name="most_selling">Most Selling</string>
+    <string name="product_details">Product Details</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="medical_prescriptions">Medical Prescriptions</string>
     <string name="orders">Orders</string>
     <string name="more">More</string>
+    <string name="currency">LE</string>
+    <string name="product_name">Product Name</string>
+    <string name="category">Category</string>
+    <string name="product_type">Product Type</string>
+    <string name="similar_products">Similar Products</string>
+
 
 </resources>

@@ -53,7 +53,8 @@
                 android:fontFamily="Poppins-SemiBold"
                 android:text="160LE"
                 android:textSize="13sp"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorAccent"
+                />
 
             <TextView
                 android:id="@+id/tvNewPrice"
@@ -62,7 +63,7 @@
                 android:layout_weight="1"
                 android:fontFamily="Poppins-SemiBold"
                 android:text="150LE"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/error"
                 android:textSize="13sp" />
         </LinearLayout>
 

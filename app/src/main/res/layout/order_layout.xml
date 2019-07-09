@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="312dp"
+    android:layout_height="129dp"
+    android:layout_marginRight="19dp"
+    app:cardBackgroundColor="@color/colorApp"
+    app:cardCornerRadius="6dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvOrderID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@+id/cvProductImage"
+            android:fontFamily="ArialMT"
+            android:text="@string/order_id"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvOrderIDValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@+id/tvOrderID"
+            android:fontFamily="ArialMT"
+            android:text="449"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvOrderDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="16dp"
+            android:text="13/11/2018 07:20 PM"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/tvTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvOrderID"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="50dp"
+            android:fontFamily="ArialMT"
+            android:text="@string/order_total_amount"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+
+            />
+        <TextView
+            android:id="@+id/tvTotalAmountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvTotalAmount"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="8dp"
+            android:fontFamily="ArialMT"
+            android:text="200 LE"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            />
+        <TextView
+            android:id="@+id/tvPaymentType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvOrderDate"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/order_payment_type"
+            android:textColor="@color/white"
+            android:textSize="10sp" />
+        <TextView
+            android:id="@+id/tvPaymentTypeValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvPaymentType"
+            android:layout_marginRight="11dp"
+            android:layout_marginTop="8dp"
+            android:text="COD"
+            android:textColor="@color/white"
+            android:textSize="11sp"
+            android:fontFamily="ArialMT"/>
+
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

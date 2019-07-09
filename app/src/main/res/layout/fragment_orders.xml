@@ -1,20 +1,109 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.twoam.cartello.View.OrdersFragment">
 
-<TextView
-android:id="@+id/textView3"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_marginEnd="8dp"
-android:layout_marginStart="8dp"
-android:text="Orders"
-android:textSize="25sp"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvParent"
+        android:layout_width="match_parent"
+        android:layout_height="77.5dp"
+        android:layout_margin="4dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:elevation="8dp"
+        app:cardElevation="7dp"
+        app:cardPreventCornerOverlap="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="77.5dp">
+
+            <ImageView
+                android:id="@+id/ivBackForgetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="31dp"
+                android:clickable="true"
+                app:srcCompat="@drawable/back" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="95.5dp"
+                android:layout_marginTop="31dp"
+                android:text="@string/active_orders"
+                android:textAllCaps="false"
+                android:textColor="@color/colorLabel"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvTotalOrder"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+              android:layout_toRightOf="@+id/textView2"
+                android:layout_marginTop="31dp"
+                android:layout_marginLeft="20dp"
+                android:clickable="true"
+                android:fontFamily="Poppins-Medium"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/colorApp"
+                android:background="@drawable/rounded_textview"
+                android:textSize="11sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+   <RelativeLayout
+       android:id="@+id/rlContainer"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_below="@+id/cvParent"
+       android:layout_marginLeft="10dp">
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/rvOrders"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp"
+           />
+
+       <TextView
+           android:id="@+id/tvHistory"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_marginTop="20dp"
+           android:layout_below="@+id/rvOrders"
+           android:text="@string/history"
+           android:textColor="@color/colorLabel"
+           android:textSize="25sp"
+           android:textStyle="bold"
+           android:visibility="visible"
+           android:layout_centerInParent="true"/>
+       <TextView
+           android:id="@+id/tvEmptyData"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_alignParentLeft="true"
+           android:layout_below="@+id/tvHistory"
+           android:layout_marginTop="10dp"
+           android:gravity="center"
+           android:text="@string/no_orders"
+           android:textColor="@color/colorLabel"
+           android:textSize="25sp"
+           android:visibility="visible"
+           android:layout_centerInParent="true"/>
+
+   </RelativeLayout>
+
+
+</RelativeLayout>

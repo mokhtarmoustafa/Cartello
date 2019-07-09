@@ -75,7 +75,13 @@
     <string name="top_promotions">Top Promotions</string>
     <string name="most_selling">Most Selling</string>
     <string name="product_details">Product Details</string>
-<string name="my_cart">My Cart</string>
+    <string name="my_cart">My Cart</string>
+    <string name="active_orders">Active Orders</string>
+    <string name="order_id">Order ID:</string>
+    <string name="order_total_amount">Total Amount</string>
+    <string name="order_payment_type">Payment Type</string>
+    <string name="history">History</string>
+    <string name="no_orders">No Orders</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -90,6 +96,7 @@
     <string name="similar_products">Similar Products</string>
     <string name="notes">Notes</string>
     <string name="your_notes">Your notes ...</string>
+    <string name="cart_is_empty">Cart is empty</string>
 
 
 </resources>

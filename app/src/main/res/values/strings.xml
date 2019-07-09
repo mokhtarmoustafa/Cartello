@@ -77,6 +77,8 @@
     <string name="product_details">Product Details</string>
     <string name="my_cart">My Cart</string>
     <string name="active_orders">Active Orders</string>
+    <string name="favourite">Favourites</string>
+
     <string name="order_id">Order ID:</string>
     <string name="order_total_amount">Total Amount</string>
     <string name="order_payment_type">Payment Type</string>
@@ -97,6 +99,7 @@
     <string name="notes">Notes</string>
     <string name="your_notes">Your notes ...</string>
     <string name="cart_is_empty">Cart is empty</string>
+    <string name="no_favourites">No Favourites</string>
 
 
 </resources>

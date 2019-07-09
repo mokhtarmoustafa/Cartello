@@ -6,6 +6,9 @@
     <string name="forgetPassword">
         <u>Forget Password?</u>
     </string>
+    <string name="edit_action">
+        <u>Edit</u>
+    </string>
     <string name="error_email_password_incorrect">Password or Email is incorrect Kindly check them again.</string>
     <string name="skip_now">Skip now</string>
     <string name="email">Email</string>
@@ -21,10 +24,12 @@
     <string name="hintCity">City</string>
     <string name="hintArea">Area</string>
     <string name="hintAddress">Address</string>
+        <string name="addresses">Addresses</string>
+
     <string name="hintApt">Apt</string>
     <string name="hintFloor">Floor</string>
     <string name="hintLandMark">Land Mark</string>
-    <string name="add">Add</string>
+    <string name="add">Add+</string>
     <string name="save">Save</string>
 
     <string name="selectCity">Select City ...</string>
@@ -110,6 +115,10 @@
     <string name="rate_us">Rate us</string>
     <string name="change_password">Change Password</string>
     <string name="log_out">Log out</string>
+    <string name="edit">Edit</string>
+    <string name="email_address">Email Address</string>
+    <string name="birth_date">Birth of Date</string>
+    <string name="credit_card">Credit Card</string>
 
 
 </resources>

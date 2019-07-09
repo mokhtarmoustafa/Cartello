@@ -25,9 +25,9 @@
         <!--android:layout_below="@+id/AppBarLayout"-->
         <!--android:background="@color/colorPrimary"-->
         <!--app:tabBackground="@android:color/transparent"-->
-        <!--app:tabIndicatorColor="@color/white"-->
+        <!--app:tabIndicatorColor="@colefthite"-->
         <!--app:tabIndicatorHeight="2dp"-->
-        <!--app:tabSelectedTextColor="@color/white"-->
+        <!--app:tabSelectedTextColor="@colefthite"-->
         <!--app:tabTextAppearance="@style/tab_text"-->
         <!--app:tabTextColor="@color/default_tab_color" />-->
 

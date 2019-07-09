@@ -15,14 +15,14 @@
     <color name="colorHintLabel">#c1cad5</color>
     <color name="colorShadow">#14000000</color>
     <color name="colorWelcome">#425972</color>
-        <color name="colorApp">#38a0cd</color>
+    <color name="colorApp">#38a0cd</color>
     <color name="error">#FF0202</color>
     <color name="default_tab_color">#99ffffff</color>
     <color name="colorBack">#fafcff</color>
     <color name="text_color">#4a4a4a</color>
     <color name="back_color">#19000000</color>
-
-
+    <color name="rate_color">#ff9600</color>
+    <color name="title_color">#76000000</color>
 
 
 </resources>

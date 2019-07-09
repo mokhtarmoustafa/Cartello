@@ -100,6 +100,16 @@
     <string name="your_notes">Your notes ...</string>
     <string name="cart_is_empty">Cart is empty</string>
     <string name="no_favourites">No Favourites</string>
+    <string name="profile">Profile</string>
+    <string name="notifications">Notifications</string>
+    <string name="terms_of_use">Terms of use</string>
+    <string name="terms_of_sale">Terms of sale</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="about_us">About us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="rate_us">Rate us</string>
+    <string name="change_password">Change Password</string>
+    <string name="log_out">Log out</string>
 
 
 </resources>

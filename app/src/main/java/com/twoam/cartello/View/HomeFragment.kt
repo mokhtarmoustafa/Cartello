@@ -3,26 +3,33 @@ package com.twoam.cartello.View
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.TabLayout
-import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.twoam.Networking.INetworkCallBack
+import com.twoam.Networking.NetworkManager
+import com.twoam.cartello.Model.Category
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.Model.SubCategory
 import com.twoam.cartello.R
+import com.twoam.cartello.Utilities.API.ApiResponse
+import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.AdsAdapter
 import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
 import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
+import com.twoam.cartello.Utilities.Base.BaseFragment
+import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.viewpagerindicator.CirclePageIndicator
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
 
     //region Members
@@ -37,7 +44,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerSubCategory: RecyclerView
     private lateinit var recyclerTopPromotions: RecyclerView
     private lateinit var recyclerMostSelling: RecyclerView
-
+    private var categoriesList = ArrayList<Category>()
     private lateinit var tabs: TabLayout
     private lateinit var viewPager: ViewPager
     private lateinit var pager: ViewPager
@@ -74,8 +81,9 @@ class HomeFragment : Fragment() {
         recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
 
         getAds()
-        getCategories()
-        getSubCategory()
+//        getCategories()
+        prepareCategoriesData(1)
+//        getSubCategory()
         getTopPromotionsProducts()
         getMostSellingProducts()
 
@@ -104,20 +112,102 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun getCategories(categoriesList: ArrayList<Category>) {
+        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_home)))
+
+        for (category in categoriesList.indices) {
+            var category = categoriesList[category]
+            tabs.addTab(tabs.newTab().setText("" + category.name))
+        }
+
+
+        val adapter = CategoryAdapter(fragmentManager, tabs.tabCount)
+        viewPager.adapter = adapter
+        viewPager.offscreenPageLimit = 1
+        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
+        //Bonus Code : If your tab layout has more than 2 tabs then tab will scroll other wise they will take whole width of the screen
+        if (tabs.tabCount === 2) {
+            tabs.tabMode = TabLayout.MODE_FIXED
+        } else {
+            tabs.tabMode = TabLayout.MODE_SCROLLABLE
+        }
+
+        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                val position = tab.position - 1
+                if (position == -1)
+                    showSubCategoriesData(false)
+                else {
+                    var category = categoriesList[position]
+                    getSubCategory(category.sub_categories)
+                    showSubCategoriesData(true)
+                }
+
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {}
+
+            override fun onTabReselected(tab: TabLayout.Tab) {}
+        })
+    }
+
+    private fun prepareCategoriesData(lang: Int) {
+        if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
+            var request = NetworkManager().create(ApiServices::class.java)
+            var endPoint = request.getCategories(lang)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<Category>>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<ArrayList<Category>>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        categoriesList = response.data!!
+                        getCategories(categoriesList)
+                    } else {
+                        hideDialogue()
+                        Toast.makeText(AppController.getContext(), getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+    }
+
     private fun getSubCategory() {
         val list = ArrayList<SubCategory>()
 
         for (i in 0..4) {
             val fruitModel = SubCategory()
             fruitModel.name = myImageNameList[i]
-            fruitModel.image = myImageList[i]
+            fruitModel.image = myImageList[i].toString()
             list.add(fruitModel)
         }
 
         //get sub categories demo
         adapter = SubCategoryAdapter(AppController.getContext(), list)
         recyclerSubCategory?.adapter = adapter
-            recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun getSubCategory(subCategoriesList: ArrayList<SubCategory>) {
+
+        //get sub categories demo
+        adapter = SubCategoryAdapter(AppController.getContext(), subCategoriesList)
+        recyclerSubCategory?.adapter = adapter
+        recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    fun showSubCategoriesData(show: Boolean) {
+        if (show) {
+            recyclerSubCategory.visibility = View.VISIBLE
+        } else {
+            recyclerSubCategory.visibility = View.GONE
+        }
     }
 
     private fun getAds() {

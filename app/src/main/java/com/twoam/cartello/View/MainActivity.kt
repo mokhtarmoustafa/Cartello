@@ -50,6 +50,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener {
         ivHome.setOnClickListener(this)
     }
 
+
     //endregion
 
 

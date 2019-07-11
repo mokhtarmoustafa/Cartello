@@ -7,31 +7,31 @@
 
     <ImageView
         android:id="@+id/ivItemImage"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="24dp"
+        android:layout_height="28dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="27.4dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="16dp"
         android:scaleType="fitXY"
         android:src="@drawable/item"
-        android:padding="5dp"
         android:background="@layout/imageview_border"/>
 
     <TextView
         android:id="@+id/tvItemName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="28.4dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="26.4dp"
         android:layout_marginBottom="20dp"
-        android:layout_marginRight="12dp"
+
         android:layout_toEndOf="@+id/ivItemImage"
         android:ellipsize="end"
         android:maxLines="2"
         android:singleLine="false"
         android:text="this text"
-        android:textColor="@color/colorLabel"
-        android:textSize="12sp"
+        android:textColor="@color/colorWelcome"
+        android:textSize="15sp"
+        android:textStyle="bold"
         android:fontFamily="Poppins-Medium"/>
 
 

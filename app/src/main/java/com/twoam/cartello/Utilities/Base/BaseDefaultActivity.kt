@@ -71,7 +71,7 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         var alertDialouge = AlertDialog.Builder(this)
                 .setMessage(message)
                 .setCancelable(true)
-                .setPositiveButton("OK", { dialog, which -> })
+                .setPositiveButton(getString(R.string.ok), { dialog, which -> })
         alertDialouge.create()
         alertDialouge.show()
     }

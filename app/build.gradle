@@ -63,6 +63,9 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     //image slider
     compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
-
+//Glide
+    implementation("com.github.bumptech.glide:glide:4.8.0") {
+        exclude group: "com.android.support"
+    }
 
 }

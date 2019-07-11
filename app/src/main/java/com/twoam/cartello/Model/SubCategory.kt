@@ -13,7 +13,8 @@ class SubCategory {
     lateinit var options: ArrayList<Options>
     var max_price: Long = 0
     var min_price: Long = 0
-    var image: Int = 0
+    var image: String? = null
+    var SubCategory: ArrayList<SubCategory>? = null
 
 
 }

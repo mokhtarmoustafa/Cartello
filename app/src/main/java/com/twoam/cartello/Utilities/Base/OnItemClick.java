@@ -4,8 +4,6 @@ import android.view.View;
 
 public interface OnItemClick {
 
-
-
     void onItemClicked(int position);
 
 

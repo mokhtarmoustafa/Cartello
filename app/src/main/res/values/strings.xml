@@ -24,7 +24,7 @@
     <string name="hintCity">City</string>
     <string name="hintArea">Area</string>
     <string name="hintAddress">Address</string>
-        <string name="addresses">Addresses</string>
+    <string name="addresses">Addresses</string>
 
     <string name="hintApt">Apt</string>
     <string name="hintFloor">Floor</string>
@@ -119,6 +119,8 @@
     <string name="email_address">Email Address</string>
     <string name="birth_date">Birth of Date</string>
     <string name="credit_card">Credit Card</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="ok">OK</string>
 
 
 </resources>

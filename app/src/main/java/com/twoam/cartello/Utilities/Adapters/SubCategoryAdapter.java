@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.twoam.cartello.Model.SubCategory;
 import com.twoam.cartello.R;
 
@@ -22,10 +24,12 @@ public class SubCategoryAdapter
 
     private LayoutInflater inflater;
     private ArrayList<SubCategory> imageModelArrayList;
+    private Context context;
 
     public SubCategoryAdapter(Context ctx, ArrayList<SubCategory> imageModelArrayList) {
 
         inflater = LayoutInflater.from(ctx);
+        context=ctx;
         this.imageModelArrayList = imageModelArrayList;
     }
 
@@ -40,8 +44,12 @@ public class SubCategoryAdapter
 
     @Override
     public void onBindViewHolder(SubCategoryAdapter.MyViewHolder holder, int position) {
-
-        holder.itemImage.setImageResource(imageModelArrayList.get(position).getImage());
+//use glide
+        Glide.with(context).load(imageModelArrayList.get(position).getImage())
+                .apply(RequestOptions.placeholderOf(R.drawable.item))
+                .thumbnail( 0.1f )
+                .into(holder.itemImage);
+      //  holder.itemImage.setImageResource(imageModelArrayList.get(position).getImage().toString());
         holder.itemName.setText(imageModelArrayList.get(position).getName());
     }
 

@@ -29,7 +29,7 @@ class IntroductionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_introduction)
 
         init()
-        logOUt()
+//        logOUt()
     }
 
     private fun logOUt() {

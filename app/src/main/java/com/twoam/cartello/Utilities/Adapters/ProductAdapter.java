@@ -51,7 +51,7 @@ public class ProductAdapter
     public void onBindViewHolder(ProductAdapter.MyViewHolder holder, int position) {
 
         Glide.with(context).load(imageModelArrayList.get(position).getImage())
-                .apply(RequestOptions.placeholderOf(R.drawable.item))
+//                .apply(RequestOptions.placeholderOf(R.drawable.item))
                 .thumbnail(0.1f)
                 .into(holder.itemImage);
         holder.itemName.setText(imageModelArrayList.get(position).getName());

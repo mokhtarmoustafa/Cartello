@@ -50,7 +50,7 @@
         </RelativeLayout>
     </android.support.v7.widget.CardView>
     <RelativeLayout
-        android:id="@+id/rlEmail"
+        android:id="@+id/rlEmailEditProfile"
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="317dp"
         android:layout_height="51dp"
@@ -59,14 +59,15 @@
         android:layout_marginRight="25dp"
         android:layout_marginTop="30dp"
         android:addStatesFromChildren="true"
-        android:background="@drawable/custom_edit_text">
+        android:background="@drawable/custom_edit_text"
+        >
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etEmailEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_toRightOf="@+id/tvHintEmail"
+            android:layout_toRightOf="@+id/tvHintEmailEditProfile"
             android:background="@color/transparent"
             android:fontFamily="Poppins-Regular"
             android:inputType="text|textNoSuggestions|textEmailAddress"
@@ -74,11 +75,12 @@
             android:textSize="13sp"
             android:layout_marginTop="5dp"
             android:imeOptions="actionNext"
-            android:nextFocusForward="@+id/etPassword"
-            android:selectAllOnFocus="true"/>
+            android:nextFocusForward="@+id/etPasswordEditProfile"
+            android:selectAllOnFocus="true"
+            android:enabled="false"/>
 
         <TextView
-            android:id="@+id/tvHintEmail"
+            android:id="@+id/tvHintEmailEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -93,11 +95,11 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tvEmailError"
+            android:id="@+id/tvEmailErrorEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etEmail"
-            android:layout_toEndOf="@+id/tvHintEmail"
+            android:layout_below="@+id/etEmailEditProfile"
+            android:layout_toEndOf="@+id/tvHintEmailEditProfile"
             android:clickable="true"
 
             android:text="@string/error_invalid_email"
@@ -107,11 +109,11 @@
             />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/rlUserName"
+        android:id="@+id/rlUserNameEditProfile"
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="317dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/rlEmail"
+        android:layout_below="@+id/rlEmailEditProfile"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="14dp"
@@ -119,25 +121,25 @@
         android:background="@drawable/custom_edit_text">
 
         <EditText
-            android:id="@+id/etUserName"
+            android:id="@+id/etUserNameEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/tvHintUserName"
+            android:layout_toRightOf="@+id/tvHintUserNameEditProfile"
             android:background="@color/transparent"
             android:fontFamily="Poppins-Regular"
             android:imeOptions="actionNext"
             android:inputType="text|textNoSuggestions"
             android:lines="1"
             android:maxLines="1"
-            android:nextFocusForward="@+id/etPhoneNumber"
+            android:nextFocusForward="@+id/etPhoneNumberEditProfile"
             android:textColor="@color/colorLabel"
             android:textSize="13sp"
             />
 
         <TextView
-            android:id="@+id/tvHintUserName"
+            android:id="@+id/tvHintUserNameEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -152,11 +154,11 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tvUserNameError"
+            android:id="@+id/tvUserNameErrorEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etUserName"
-            android:layout_toEndOf="@+id/tvHintUserName"
+            android:layout_below="@+id/etUserNameEditProfile"
+            android:layout_toEndOf="@+id/tvHintUserNameEditProfile"
             android:clickable="true"
             android:text="@string/error_name"
             android:textColor="@color/error"
@@ -164,11 +166,11 @@
             android:visibility="invisible" />
     </RelativeLayout>
     <RelativeLayout
-        android:id="@+id/rlPhoneNumber"
+        android:id="@+id/rlPhoneNumberEditProfile"
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="317dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/rlUserName"
+        android:layout_below="@+id/rlUserNameEditProfile"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="14dp"
@@ -176,12 +178,12 @@
         android:background="@drawable/custom_edit_text">
 
         <EditText
-            android:id="@+id/etPhoneNumber"
+            android:id="@+id/etPhoneNumberEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/tvHintPhoneNumber"
+            android:layout_toRightOf="@+id/tvHintPhoneNumberEditProfile"
             android:background="@color/transparent"
 
             android:fontFamily="Poppins-Regular"
@@ -190,13 +192,13 @@
             android:inputType="number"
             android:lines="1"
             android:maxLines="1"
-            android:nextFocusForward="@+id/etDateOfBirth"
+            android:nextFocusForward="@+id/etDateOfBirthEditProfile"
             android:textColor="@color/colorLabel"
             android:textSize="13sp"
             android:maxLength="11"/>
 
         <TextView
-            android:id="@+id/tvHintPhoneNumber"
+            android:id="@+id/tvHintPhoneNumberEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -211,11 +213,11 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tvPhoneNumberError"
+            android:id="@+id/tvPhoneNumberErrorEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etPhoneNumber"
-            android:layout_toEndOf="@+id/tvHintPhoneNumber"
+            android:layout_below="@+id/etPhoneNumberEditProfile"
+            android:layout_toEndOf="@+id/tvHintPhoneNumberEditProfile"
             android:clickable="true"
 
             android:text="@string/error_phone"
@@ -225,11 +227,11 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/rlDateOfBirth"
+        android:id="@+id/rlDateOfBirthEditProfile"
         style="@style/Widget.AppCompat.EditText"
         android:layout_width="317dp"
         android:layout_height="51dp"
-        android:layout_below="@+id/rlPhoneNumber"
+        android:layout_below="@+id/rlPhoneNumberEditProfile"
         android:layout_marginLeft="33dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="14dp"
@@ -237,12 +239,12 @@
         android:background="@drawable/custom_edit_text">
 
         <EditText
-            android:id="@+id/etDateOfBirth"
+            android:id="@+id/etDateOfBirthEditProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/tvHintDateOfBirth"
+            android:layout_toRightOf="@+id/tvHintDateOfBirthEditProfile"
 
             android:background="@color/transparent"
             android:clickable="true"
@@ -252,12 +254,12 @@
             android:inputType="date|textNoSuggestions"
             android:lines="1"
             android:maxLines="1"
-            android:nextFocusForward="@+id/etPassword"
+            android:nextFocusForward="@+id/etPasswordEditProfile"
             android:textColor="@color/colorLabel"
             android:textSize="13sp" />
 
         <TextView
-            android:id="@+id/tvHintDateOfBirth"
+            android:id="@+id/tvHintDateOfBirthEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -272,11 +274,11 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/tvDateOfBirthError"
+            android:id="@+id/tvDateOfBirthErrorEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etDateOfBirth"
-            android:layout_toEndOf="@+id/tvHintDateOfBirth"
+            android:layout_below="@+id/etDateOfBirthEditProfile"
+            android:layout_toEndOf="@+id/tvHintDateOfBirthEditProfile"
             android:clickable="true"
 
             android:text="@string/error_date"
@@ -286,7 +288,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btnSave"
+        android:id="@+id/btnSaveEditProfile"
         android:layout_width="317dp"
         android:layout_height="51dp"
 

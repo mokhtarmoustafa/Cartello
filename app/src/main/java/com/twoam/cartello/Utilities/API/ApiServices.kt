@@ -67,10 +67,16 @@ interface ApiServices {
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>
 
     @GET(AppConstants.URL_GET_ADS)
-    fun getAds(@Header("Authorization") token: String):Call<ApiResponse<ArrayList<Ads>>>
+    fun getAds(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Ads>>>
 
-@GET(AppConstants.URL_GET_HOME_PRODUCTS)
-    fun getHomeProducts(@Header("Authorization") token: String):Call<ApiResponse<ArrayList<HomeProducts>>>
+    @GET(AppConstants.URL_GET_HOME_PRODUCTS)
+    fun getHomeProducts(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<HomeProducts>>>
 
+    @GET(AppConstants.URL_EDIT_PROFILE)
+    fun editProfile(@Header("Authorization") token: String,
+                    @Query("name") name: String,
+                    @Query("phone") phone: String,
+                    @Query("birthdate") birthdate: String
 
+    ): Call<ApiResponse<User>>
 }

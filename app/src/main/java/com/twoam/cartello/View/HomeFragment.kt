@@ -1,6 +1,5 @@
 package com.twoam.cartello.View
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.TabLayout
@@ -22,10 +21,10 @@ import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
 import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
-import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.viewpagerindicator.CirclePageIndicator
+import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,8 +44,6 @@ class HomeFragment : BaseFragment() {
     private var homeProductsList = ArrayList<HomeProducts>()
     private var topPromotionsList = ArrayList<Product>()
     private var mostSellingList = ArrayList<Product>()
-
-    private var currentLoginUser: User = User()
     private lateinit var tabs: TabLayout
     private lateinit var viewPager: ViewPager
     private lateinit var pager: ViewPager
@@ -59,21 +56,21 @@ class HomeFragment : BaseFragment() {
 
     //region Events
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val arguments = arguments
-
-        if (arguments != null) {
-            this.name = arguments.getString(NAME_ARG)
-            this.age = arguments.getInt(AGE_ARG)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         var view = inflater.inflate(R.layout.fragment_home, container, false)
+        init(view)
 
+        prepareCategoriesData(1)
+        getAdsData()
+        getHomeProducts()
+
+        return view
+    }
+
+    private fun init(view: View) {
         recyclerSubCategory = view.findViewById(R.id.recyclerSubCategory)
         tabs = view.findViewById(R.id.tabs)
         viewPager = view.findViewById(R.id.viewPager)
@@ -81,12 +78,6 @@ class HomeFragment : BaseFragment() {
         indicator = view.findViewById(R.id.indicator)
         recyclerTopPromotions = view.findViewById(R.id.recyclerTopPromotions)
         recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
-
-        currentLoginUser.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTY1LjIyNy4xMzUuMTYxL3Ryb2xsZXkvcHVibGljL2FwaS9jdXN0b21lci9hdXRoIiwiaWF0IjoxNTYwOTgyODI4LCJleHAiOjM3NTYwOTgyODI4LCJuYmYiOjE1NjA5ODI4MjgsImp0aSI6InZnNmlzNks3RmhLZ0YxWFYiLCJzdWIiOjEwMDE2NTEsInBydiI6ImJiNzczYmQ4MzZiMTZjNDE4YzhjZTM2ZjliMDM2ODVlY2E5YmUzNzIifQ.EQ6c_gMuopC2g3diOBci4K8giib1EopfycCm3_JhrQw"
-        getAdsData()
-        prepareCategoriesData(1)
-        getHomeProducts()
-        return view
     }
     //endregion
 
@@ -138,7 +129,7 @@ class HomeFragment : BaseFragment() {
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<Category>>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
-                    showAlertDialouge(error)
+//                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<ArrayList<Category>>) {
@@ -147,7 +138,6 @@ class HomeFragment : BaseFragment() {
                         getCategories(categoriesList)
                     } else {
                         hideDialogue()
-                        Toast.makeText(AppController.getContext(), getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
                     }
                 }
             })
@@ -224,12 +214,12 @@ class HomeFragment : BaseFragment() {
 
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
             var request = NetworkManager().create(ApiServices::class.java)
-            var authorization = AppConstants.BEARER + currentLoginUser.token
+            var authorization = AppConstants.BEARER +  AppConstants.CurrentLoginUser.token
             var endPoint = request.getAds(authorization)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<Ads>>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
-                    showAlertDialouge(error)
+//                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<ArrayList<Ads>>) {
@@ -254,17 +244,21 @@ class HomeFragment : BaseFragment() {
 
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
             var request = NetworkManager().create(ApiServices::class.java)
-            var authorization = AppConstants.BEARER + currentLoginUser.token
+            var authorization = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
             var endPoint = request.getHomeProducts(authorization)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<HomeProducts>>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
-                    showAlertDialouge(error)
+//                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<ArrayList<HomeProducts>>) {
                     if (response.code == AppConstants.CODE_200) {
                         homeProductsList = response.data!!
+
+                        rlTopPromotions.visibility=View.VISIBLE
+                        rlMostSelling.visibility=View.VISIBLE
+
                         prepareHomeProductsData(homeProductsList)
                     } else {
                         Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()

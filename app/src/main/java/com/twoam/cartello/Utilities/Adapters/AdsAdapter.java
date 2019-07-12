@@ -51,7 +51,7 @@ public class AdsAdapter extends PagerAdapter {
 
 
         Glide.with(context).load(adsList.get(position).getImage())
-                .apply(RequestOptions.placeholderOf(R.drawable.item))
+//                .apply(RequestOptions.placeholderOf(R.drawable.item))
                 .into(imageView);
 
         view.addView(imageLayout, 0);

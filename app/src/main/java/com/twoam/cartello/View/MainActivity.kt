@@ -26,8 +26,8 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener {
 
 //        if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
-            ivHome.setImageResource(R.drawable.ic_home_select)
-            tvMainHome.setTextColor(Color.parseColor( "#38a0cd"))
+//            ivHome.setImageResource(R.drawable.ic_home_select)
+//            tvMainHome.setTextColor(Color.parseColor( "#38a0cd"))
 //        }
     }
 

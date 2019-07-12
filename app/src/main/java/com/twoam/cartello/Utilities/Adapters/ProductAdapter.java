@@ -1,6 +1,5 @@
 package com.twoam.cartello.Utilities.Adapters;
 
-import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.twoam.cartello.Model.Product;
 import com.twoam.cartello.R;
 import com.twoam.cartello.Utilities.General.AppController;
@@ -27,10 +28,11 @@ public class ProductAdapter
     private LayoutInflater inflater;
     private ArrayList<Product> imageModelArrayList;
     private Product product;
+    private Context context;
 
 
     public ProductAdapter(Context ctx, ArrayList<Product> imageModelArrayList) {
-
+        context = ctx;
         inflater = LayoutInflater.from(ctx);
         this.imageModelArrayList = imageModelArrayList;
     }
@@ -48,11 +50,21 @@ public class ProductAdapter
     @Override
     public void onBindViewHolder(ProductAdapter.MyViewHolder holder, int position) {
 
-        holder.itemImage.setImageResource(R.drawable.ic_cart);
+        Glide.with(context).load(imageModelArrayList.get(position).getImage())
+                .apply(RequestOptions.placeholderOf(R.drawable.item))
+                .thumbnail(0.1f)
+                .into(holder.itemImage);
         holder.itemName.setText(imageModelArrayList.get(position).getName());
-        holder.itemOldPrice.setText(imageModelArrayList.get(position).getOldPrice() + " " + AppController.getContext().getString(R.string.currency));
-        holder.itemOldPrice.setPaintFlags(holder.itemOldPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.itemNewPrice.setText(imageModelArrayList.get(position).getNewPrice() + " " + AppController.getContext().getString(R.string.currency));
+        holder.tvPrice.setText(imageModelArrayList.get(position).getPrice() + " " + AppController.getContext().getString(R.string.currency));
+        if (imageModelArrayList.get(position).getDiscount_price() == null) {
+            holder.tvDiscountPrice.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            holder.tvPrice.setPaintFlags(holder.tvPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.tvDiscountPrice.setText(imageModelArrayList.get(position).getDiscount_price() + " " + AppController.getContext().getString(R.string.currency));
+        }
+
 
     }
 
@@ -71,16 +83,16 @@ public class ProductAdapter
 
         TextView itemName;
         ImageView itemImage;
-        TextView itemOldPrice;
-        TextView itemNewPrice;
+        TextView tvPrice;
+        TextView tvDiscountPrice;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             itemName = itemView.findViewById(R.id.tvItemName);
             itemImage = itemView.findViewById(R.id.ivItemImage);
-            itemOldPrice = itemView.findViewById(R.id.tvOldPrice);
-            itemNewPrice = itemView.findViewById(R.id.tvNewPrice);
+            tvPrice = itemView.findViewById(R.id.tvOldPrice);
+            tvDiscountPrice = itemView.findViewById(R.id.tvNewPrice);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +104,7 @@ public class ProductAdapter
 
                     // check if item still exists
                     if (pos != RecyclerView.NO_POSITION) {
-                        product= imageModelArrayList.get(pos);
+                        product = imageModelArrayList.get(pos);
                         Toast.makeText(v.getContext(), "You clicked " + product.getName(), Toast.LENGTH_SHORT).show();
 
                     }

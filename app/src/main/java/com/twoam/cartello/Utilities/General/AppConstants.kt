@@ -57,6 +57,8 @@ object AppConstants {
     const val URL_GET_DEPARTMENT_CATEGORIES = "customer/departments/categories"
     const val URL_GET_ADS = "customer/ads"
     const val URL_GET_SUB_CATEGORIES = "customer/categories/attributes/153"
+    const val URL_GET_HOME_PRODUCTS = "customer/products/home"
+
 
     //endregion
 
@@ -86,8 +88,8 @@ object AppConstants {
      var isClosed = false
     //endregion
     //region others
-    const val MOST_BOUGHT="Most Bought"
-    const val MOST_RECENT="Most Recent"
+    const val TOP_PROMOTIONS="Top Pormotions"
+    const val MOST_SELLING="Most Selling"
 
     //endregion
 

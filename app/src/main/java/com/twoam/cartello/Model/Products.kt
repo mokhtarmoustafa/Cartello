@@ -9,9 +9,7 @@ class Products {
     var name: String? = null
     var image: String? = null
     var price: String? = null
-    private var totlItemCount = 0
+    var discount_price: String? = null
     private var category: Category? = null
     private var sub_categories: ArrayList<SubCategory>? = null
-
-    constructor()
 }

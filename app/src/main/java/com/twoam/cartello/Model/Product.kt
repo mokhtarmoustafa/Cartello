@@ -9,8 +9,7 @@ class Product {
     var name: String? = null
     var image: String? = null
     var price: String? = null
-    var oldPrice: String? = null
-    var newPrice: String? = null
+    var discount_price: String? = null
     var itemImage: Int = 0
     private var images: ArrayList<String>? = null
     private var description: String? = null
@@ -19,12 +18,12 @@ class Product {
 
     constructor()
 
-    constructor(id: String, name: String, image: String, oldPrice: String, newPrice: String) {
+    constructor(id: String, name: String, image: String, price: String, discountPrice: String) {
         this.id = id
         this.name = name
         this.image = image
-        this.oldPrice = oldPrice
-        this.newPrice = newPrice
+        this.price = price
+        this.discount_price = discountPrice
 
     }
 }

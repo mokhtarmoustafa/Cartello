@@ -36,16 +36,16 @@ class HomeFragment : BaseFragment() {
 
     private var currentPage = 0
     private var NUM_PAGES = 0
-    private val IMAGES = arrayOf(R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1, R.drawable.ic_cart1)
-    private val ImagesArray = ArrayList<Int>()
     private var adapter: SubCategoryAdapter? = null
-    private val myImageList = intArrayOf(R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart, R.drawable.ic_cart1, R.drawable.ic_cart1)
-    private val myImageNameList = arrayOf("Meat", "Milk", "Bread", "Cheese", "Chicken")
     private lateinit var recyclerSubCategory: RecyclerView
     private lateinit var recyclerTopPromotions: RecyclerView
     private lateinit var recyclerMostSelling: RecyclerView
     private var categoriesList = ArrayList<Category>()
     private var adsList = ArrayList<Ads>()
+    private var homeProductsList = ArrayList<HomeProducts>()
+    private var topPromotionsList = ArrayList<Product>()
+    private var mostSellingList = ArrayList<Product>()
+
     private var currentLoginUser: User = User()
     private lateinit var tabs: TabLayout
     private lateinit var viewPager: ViewPager
@@ -82,37 +82,15 @@ class HomeFragment : BaseFragment() {
         recyclerTopPromotions = view.findViewById(R.id.recyclerTopPromotions)
         recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
 
-         currentLoginUser.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTY1LjIyNy4xMzUuMTYxL3Ryb2xsZXkvcHVibGljL2FwaS9jdXN0b21lci9hdXRoIiwiaWF0IjoxNTYwOTgyODI4LCJleHAiOjM3NTYwOTgyODI4LCJuYmYiOjE1NjA5ODI4MjgsImp0aSI6InZnNmlzNks3RmhLZ0YxWFYiLCJzdWIiOjEwMDE2NTEsInBydiI6ImJiNzczYmQ4MzZiMTZjNDE4YzhjZTM2ZjliMDM2ODVlY2E5YmUzNzIifQ.EQ6c_gMuopC2g3diOBci4K8giib1EopfycCm3_JhrQw"
+        currentLoginUser.token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTY1LjIyNy4xMzUuMTYxL3Ryb2xsZXkvcHVibGljL2FwaS9jdXN0b21lci9hdXRoIiwiaWF0IjoxNTYwOTgyODI4LCJleHAiOjM3NTYwOTgyODI4LCJuYmYiOjE1NjA5ODI4MjgsImp0aSI6InZnNmlzNks3RmhLZ0YxWFYiLCJzdWIiOjEwMDE2NTEsInBydiI6ImJiNzczYmQ4MzZiMTZjNDE4YzhjZTM2ZjliMDM2ODVlY2E5YmUzNzIifQ.EQ6c_gMuopC2g3diOBci4K8giib1EopfycCm3_JhrQw"
         getAdsData()
         prepareCategoriesData(1)
-//        getSubCategory()
-        getTopPromotionsProducts()
-        getMostSellingProducts()
-
-
+        getHomeProducts()
         return view
     }
     //endregion
 
     //region Helper Functions
-
-    private fun getCategories() {
-        tabs.addTab(tabs.newTab().setText(getString(R.string.tab_home)))
-        for (k in 0..9) {
-            tabs.addTab(tabs.newTab().setText("" + k))
-        }
-
-        val adapter = CategoryAdapter(fragmentManager, tabs.tabCount)
-        viewPager.adapter = adapter
-        viewPager.offscreenPageLimit = 1
-        viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
-        //Bonus Code : If your tab layout has more than 2 tabs then tab will scroll other wise they will take whole width of the screen
-        if (tabs.tabCount === 2) {
-            tabs.tabMode = TabLayout.MODE_FIXED
-        } else {
-            tabs.tabMode = TabLayout.MODE_SCROLLABLE
-        }
-    }
 
     private fun getCategories(categoriesList: ArrayList<Category>) {
         tabs.addTab(tabs.newTab().setText(getString(R.string.tab_home)))
@@ -180,22 +158,6 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun getSubCategory() {
-        val list = ArrayList<SubCategory>()
-
-        for (i in 0..4) {
-            val fruitModel = SubCategory()
-            fruitModel.name = myImageNameList[i]
-            fruitModel.image = myImageList[i].toString()
-            list.add(fruitModel)
-        }
-
-        //get sub categories demo
-        adapter = SubCategoryAdapter(AppController.getContext(), list)
-        recyclerSubCategory?.adapter = adapter
-        recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-
     private fun getSubCategory(subCategoriesList: ArrayList<SubCategory>) {
 
         //get sub categories demo
@@ -212,53 +174,6 @@ class HomeFragment : BaseFragment() {
         }
     }
 
-    private fun getAds() {
-//        for (i in 0 until IMAGES.size)
-//            ImagesArray.add(IMAGES[i])
-//        pager?.adapter = AdsAdapter(AppController.getContext(), ImagesArray)
-//        indicator.setViewPager(pager)
-//
-//        val density = resources.displayMetrics.density
-//
-//        //Set circle indicator radius
-//        indicator.radius = 5 * density
-//
-//        NUM_PAGES = IMAGES.size
-//
-//        // Auto start of viewpager
-//        val handler = Handler()
-//        val Update = Runnable {
-//            if (currentPage === NUM_PAGES) {
-//                currentPage = 0
-//            }
-//            pager?.setCurrentItem(currentPage++, true)
-//        }
-//        val swipeTimer = Timer()
-//        swipeTimer.schedule(object : TimerTask() {
-//            override fun run() {
-//                handler.post(Update)
-//            }
-//        }, 1500, 3000)
-//
-//        // Pager listener over indicator
-//        indicator.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-//
-//            override fun onPageSelected(position: Int) {
-//                currentPage = position
-//
-//            }
-//
-//            override fun onPageScrolled(pos: Int, arg1: Float, arg2: Int) {
-//
-//            }
-//
-//            override fun onPageScrollStateChanged(pos: Int) {
-//
-//            }
-//        })
-
-    }
-
     private fun prepareAdsData(adsList: ArrayList<Ads>) {
 
         pager?.adapter = AdsAdapter(AppController.getContext(), adsList)
@@ -269,7 +184,7 @@ class HomeFragment : BaseFragment() {
         //Set circle indicator radius
         indicator.radius = 5 * density
 
-        NUM_PAGES = IMAGES.size
+        NUM_PAGES = adsList.size
 
         // Auto start of viewpager
         val handler = Handler()
@@ -305,8 +220,7 @@ class HomeFragment : BaseFragment() {
 
     }
 
-
-    fun getAdsData(): ArrayList<Ads> {
+    private fun getAdsData(): ArrayList<Ads> {
 
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
             var request = NetworkManager().create(ApiServices::class.java)
@@ -336,55 +250,72 @@ class HomeFragment : BaseFragment() {
         return adsList;
     }
 
+    private fun getHomeProducts(): ArrayList<HomeProducts> {
 
-    fun newInstance(name: String, age: Int): HomeFragment {
+        if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
+            var request = NetworkManager().create(ApiServices::class.java)
+            var authorization = AppConstants.BEARER + currentLoginUser.token
+            var endPoint = request.getHomeProducts(authorization)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<HomeProducts>>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
 
-        val args = Bundle()
+                override fun onSuccess(response: ApiResponse<ArrayList<HomeProducts>>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        homeProductsList = response.data!!
+                        prepareHomeProductsData(homeProductsList)
+                    } else {
+                        Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
 
-        args.putString(NAME_ARG, name)
-        args.putInt(AGE_ARG, age)
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
 
-        val fragment = HomeFragment()
-
-        fragment.arguments = args
-
-        return fragment
+        return homeProductsList
     }
 
-    fun getTopPromotionsProducts() {
+    private fun getTopPromotionsProducts(topPromotionsList: ArrayList<Product>) {
+
+
         var list = ArrayList<Product>()
-        list.add(Product("1", "Pampers baby dry junior 5 (11-25kg) 58", "R.drawable.ic_cart", "150", "135"))
-        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
-        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
-        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
-        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
-        list.add(Product("1", "Product Name 1", "R.drawable.ic_cart", "150", "135"))
-        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
-        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
-        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
-        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
-        var adapter = ProductAdapter(activity, list)
+        for (product in topPromotionsList.indices) {
+            list.add(topPromotionsList[product])
+        }
+        var adapter = ProductAdapter(activity, topPromotionsList)
         recyclerTopPromotions.adapter = adapter
         recyclerTopPromotions.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
 
     }
 
-    fun getMostSellingProducts() {
+    private fun getMostSellingProducts(mostSellingList: ArrayList<Product>) {
+
+
         var list = ArrayList<Product>()
-        list.add(Product("1", "Product Name 1", "R.drawable.ic_cart", "150", "135"))
-        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
-        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
-        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
-        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
-        list.add(Product("1", "Product Name 1", "R.drawable.ic_cart", "150", "135"))
-        list.add(Product("1", "Product Name 2", "R.drawable.ic_cart", "190", "175"))
-        list.add(Product("1", "Product Name 3", "R.drawable.ic_cart", "110", "105"))
-        list.add(Product("1", "Product Name 4", "R.drawable.ic_cart", "168", "122"))
-        list.add(Product("1", "Product Name 5", "R.drawable.ic_cart", "113", "100"))
+        for (product in mostSellingList.indices) {
+            list.add(mostSellingList[product])
+        }
         var adapter = ProductAdapter(activity, list)
         recyclerMostSelling.adapter = adapter
         recyclerMostSelling.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
 
+    }
+
+    private fun prepareHomeProductsData(homeProductList: ArrayList<HomeProducts>) {
+        for (productIndex in homeProductList.indices) {
+            var product = homeProductList[productIndex]
+            if (product.name == AppConstants.TOP_PROMOTIONS) {
+                topPromotionsList = product.products!!
+                getTopPromotionsProducts(topPromotionsList)
+            } else
+                mostSellingList = product.products!!
+            getMostSellingProducts(mostSellingList)
+        }
     }
     //endregion
 }

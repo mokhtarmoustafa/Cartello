@@ -69,4 +69,8 @@ interface ApiServices {
     @GET(AppConstants.URL_GET_ADS)
     fun getAds(@Header("Authorization") token: String):Call<ApiResponse<ArrayList<Ads>>>
 
+@GET(AppConstants.URL_GET_HOME_PRODUCTS)
+    fun getHomeProducts(@Header("Authorization") token: String):Call<ApiResponse<ArrayList<HomeProducts>>>
+
+
 }

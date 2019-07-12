@@ -1,9 +1,6 @@
 package com.twoam.cartello.Utilities.API
 
-import com.twoam.cartello.Model.Address
-import com.twoam.cartello.Model.Category
-import com.twoam.cartello.Model.City
-import com.twoam.cartello.Model.User
+import com.twoam.cartello.Model.*
 import com.twoam.cartello.Utilities.General.AppConstants
 import retrofit2.Call
 import retrofit2.http.*
@@ -68,5 +65,8 @@ interface ApiServices {
 
     @GET(AppConstants.URL_GET_CATEGORIES)
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>
+
+    @GET(AppConstants.URL_GET_ADS)
+    fun getAds(@Header("Authorization") token: String):Call<ApiResponse<ArrayList<Ads>>>
 
 }

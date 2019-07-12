@@ -49,7 +49,6 @@ public class SubCategoryAdapter
                 .apply(RequestOptions.placeholderOf(R.drawable.item))
                 .thumbnail( 0.1f )
                 .into(holder.itemImage);
-      //  holder.itemImage.setImageResource(imageModelArrayList.get(position).getImage().toString());
         holder.itemName.setText(imageModelArrayList.get(position).getName());
     }
 

@@ -1,5 +1,6 @@
 package com.twoam.cartello.View
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.TabLayout
@@ -12,9 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
-import com.twoam.cartello.Model.Category
-import com.twoam.cartello.Model.Product
-import com.twoam.cartello.Model.SubCategory
+import com.twoam.cartello.Model.*
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
@@ -23,6 +22,7 @@ import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
 import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
+import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.viewpagerindicator.CirclePageIndicator
@@ -45,6 +45,8 @@ class HomeFragment : BaseFragment() {
     private lateinit var recyclerTopPromotions: RecyclerView
     private lateinit var recyclerMostSelling: RecyclerView
     private var categoriesList = ArrayList<Category>()
+    private var adsList = ArrayList<Ads>()
+    private var currentLoginUser: User = User()
     private lateinit var tabs: TabLayout
     private lateinit var viewPager: ViewPager
     private lateinit var pager: ViewPager
@@ -80,8 +82,8 @@ class HomeFragment : BaseFragment() {
         recyclerTopPromotions = view.findViewById(R.id.recyclerTopPromotions)
         recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
 
-        getAds()
-//        getCategories()
+         currentLoginUser.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTY1LjIyNy4xMzUuMTYxL3Ryb2xsZXkvcHVibGljL2FwaS9jdXN0b21lci9hdXRoIiwiaWF0IjoxNTYwOTgyODI4LCJleHAiOjM3NTYwOTgyODI4LCJuYmYiOjE1NjA5ODI4MjgsImp0aSI6InZnNmlzNks3RmhLZ0YxWFYiLCJzdWIiOjEwMDE2NTEsInBydiI6ImJiNzczYmQ4MzZiMTZjNDE4YzhjZTM2ZjliMDM2ODVlY2E5YmUzNzIifQ.EQ6c_gMuopC2g3diOBci4K8giib1EopfycCm3_JhrQw"
+        getAdsData()
         prepareCategoriesData(1)
 //        getSubCategory()
         getTopPromotionsProducts()
@@ -211,9 +213,55 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun getAds() {
-        for (i in 0 until IMAGES.size)
-            ImagesArray.add(IMAGES[i])
-        pager?.adapter = AdsAdapter(AppController.getContext(), ImagesArray)
+//        for (i in 0 until IMAGES.size)
+//            ImagesArray.add(IMAGES[i])
+//        pager?.adapter = AdsAdapter(AppController.getContext(), ImagesArray)
+//        indicator.setViewPager(pager)
+//
+//        val density = resources.displayMetrics.density
+//
+//        //Set circle indicator radius
+//        indicator.radius = 5 * density
+//
+//        NUM_PAGES = IMAGES.size
+//
+//        // Auto start of viewpager
+//        val handler = Handler()
+//        val Update = Runnable {
+//            if (currentPage === NUM_PAGES) {
+//                currentPage = 0
+//            }
+//            pager?.setCurrentItem(currentPage++, true)
+//        }
+//        val swipeTimer = Timer()
+//        swipeTimer.schedule(object : TimerTask() {
+//            override fun run() {
+//                handler.post(Update)
+//            }
+//        }, 1500, 3000)
+//
+//        // Pager listener over indicator
+//        indicator.setOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+//
+//            override fun onPageSelected(position: Int) {
+//                currentPage = position
+//
+//            }
+//
+//            override fun onPageScrolled(pos: Int, arg1: Float, arg2: Int) {
+//
+//            }
+//
+//            override fun onPageScrollStateChanged(pos: Int) {
+//
+//            }
+//        })
+
+    }
+
+    private fun prepareAdsData(adsList: ArrayList<Ads>) {
+
+        pager?.adapter = AdsAdapter(AppController.getContext(), adsList)
         indicator.setViewPager(pager)
 
         val density = resources.displayMetrics.density
@@ -256,6 +304,38 @@ class HomeFragment : BaseFragment() {
         })
 
     }
+
+
+    fun getAdsData(): ArrayList<Ads> {
+
+        if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
+            var request = NetworkManager().create(ApiServices::class.java)
+            var authorization = AppConstants.BEARER + currentLoginUser.token
+            var endPoint = request.getAds(authorization)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<Ads>>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<ArrayList<Ads>>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        adsList = response.data!!
+                        prepareAdsData(adsList)
+                    } else {
+                        Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+
+        return adsList;
+    }
+
 
     fun newInstance(name: String, age: Int): HomeFragment {
 

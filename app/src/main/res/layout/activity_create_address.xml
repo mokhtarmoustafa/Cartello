@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:focusableInTouchMode="true"
-    tools:context="com.twoam.cartello.View.NewAddressActivity">
+    tools:context="com.twoam.cartello.View.CreateAddressActivity">
 
 
     <ScrollView
@@ -500,7 +500,7 @@
 
             </RelativeLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/rlLandMArk"
@@ -512,11 +512,12 @@
                     android:id="@+id/btnAdd"
                     android:layout_width="317dp"
                     android:layout_height="51dp"
-                    android:layout_gravity="center"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginBottom="30dp"
+                    android:layout_alignParentBottom="true"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
-                    android:layout_marginTop="41dp"
+
                     android:background="@drawable/rounded_button"
                     android:clickable="true"
                     android:fontFamily="Poppins-Medium"
@@ -524,7 +525,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
 
         </RelativeLayout>

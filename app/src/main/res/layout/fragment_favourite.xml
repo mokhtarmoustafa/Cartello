@@ -24,7 +24,7 @@
             android:layout_height="77.5dp">
 
             <ImageView
-                android:id="@+id/ivBackForgetPassword"
+                android:id="@+id/ivBackFavourite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
@@ -73,7 +73,7 @@
         />
 
     <TextView
-        android:id="@+id/tvEmptyData"
+        android:id="@+id/tvEmptyDataFavouriteFavourite"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

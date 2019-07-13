@@ -1,12 +1,10 @@
 package com.twoam.cartello.Utilities.Adapters;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,22 +18,22 @@ import java.util.ArrayList;
  * Created by Mokhtar on 6/30/2019.
  */
 
-public class OrdertAdapter
-        extends RecyclerView.Adapter<OrdertAdapter.MyViewHolder> {
+public class OrderAdapter
+        extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
     private ArrayList<Order> orderList;
     private Order order;
 
 
-    public OrdertAdapter(Context ctx, ArrayList<Order> orderList) {
+    public OrderAdapter(Context ctx, ArrayList<Order> orderList) {
 
         inflater = LayoutInflater.from(ctx);
         this.orderList = orderList;
     }
 
     @Override
-    public OrdertAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public OrderAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = inflater.inflate(R.layout.order_layout, parent, false);
 
@@ -45,7 +43,7 @@ public class OrdertAdapter
     }
 
     @Override
-    public void onBindViewHolder(OrdertAdapter.MyViewHolder holder, int position) {
+    public void onBindViewHolder(OrderAdapter.MyViewHolder holder, int position) {
 
 
         holder.orderID.setText(orderList.get(position).getId());

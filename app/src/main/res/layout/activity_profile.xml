@@ -14,7 +14,7 @@
         android:src="@drawable/bg" />
 
     <ImageView
-        android:id="@+id/ivBack"
+        android:id="@+id/ivBackProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -31,7 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="70dp"
         android:layout_marginTop="22dp"
-        android:layout_toRightOf="@+id/ivBack"
+        android:layout_toRightOf="@+id/ivBackProfile"
         android:fontFamily="Poppins-Regular"
         android:gravity="center"
         android:text="Mokhtar mostafa sayed"
@@ -53,7 +53,7 @@
         android:textSize="13sp" />
 
     <TextView
-        android:id="@+id/tvEdit"
+        android:id="@+id/tvEditProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -63,7 +63,8 @@
         android:clickable="true"
         android:text="@string/edit"
         android:textColor="@color/white"
-        android:textSize="15sp" />
+        android:textSize="15sp" 
+        />
 
     <RelativeLayout
         android:id="@+id/rLContainer"
@@ -81,7 +82,8 @@
             android:layout_marginTop="18dp"
             android:isIndicator="true"
             android:numStars="5"
-            android:stepSize="0.1" />
+            android:stepSize="0.1"
+            />
 
         <TextView
             android:id="@+id/tvEmail"
@@ -99,28 +101,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvEmail"
-            android:layout_marginTop="1dp"
             android:fontFamily="Poppins-Medium"
             android:text="mokhtar@2am.com"
             android:textColor="@color/colorLabel"
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tvBirthDate"
+            android:id="@+id/tvBirthDateProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvEmailValue"
+            android:layout_below="@id/tvEmailValue"
             android:layout_marginTop="20dp"
             android:fontFamily="Poppins-Regular"
+            android:text="@string/birth_date"
             android:textColor="@color/title_color"
-            android:textSize="13sp"
-            tools:text="@string/birth_date" />
+            android:textSize="13sp"/>
 
         <TextView
             android:id="@+id/tvBirthDateValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBirthDate"
+            android:layout_below="@+id/tvBirthDateProfile"
             android:layout_marginTop="1dp"
             android:fontFamily="Poppins-Medium"
             android:text="25-7-1980"
@@ -131,31 +132,31 @@
             android:id="@+id/tvAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBirthDateValue"
+            android:layout_below="@id/tvBirthDateValue"
             android:layout_marginTop="20dp"
-            android:fontFamily="Arial-BoldMT"
+            android:fontFamily="Poppins-Regular"
+            android:text="@string/addresses"
             android:textColor="@color/title_color"
-            android:textSize="13sp"
-            tools:text="@string/addresses" />
+            android:textSize="13sp"/>
 
         <TextView
-            android:id="@+id/tvAddCreditCard"
+            android:id="@+id/tvAddAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tvAddress"
             android:layout_alignParentRight="true"
             android:layout_marginRight="6dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="Arial-BoldMT"
             android:textColor="@color/colorApp"
             android:textSize="12sp"
-            tools:text="@string/add" />
+            android:text="@string/add_new"
+            android:clickable="true"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvAddress"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/tvAddCreditCard"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvAddress"
             android:layout_marginTop="14dp">
 
         </android.support.v7.widget.RecyclerView>

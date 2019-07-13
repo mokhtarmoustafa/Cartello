@@ -6,10 +6,8 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.support.v4.content.ContextCompat.startActivity
 import android.view.View
 import android.widget.RelativeLayout
-import com.facebook.appevents.AppEventsLogger.getUserData
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
@@ -88,7 +86,7 @@ class IntroductionActivity : AppCompatActivity() {
             AppConstants.CurrentLoginUser = currentUser
             startActivity(Intent(applicationContext, MainActivity::class.java))
         } else {
-            startActivity(Intent(applicationContext, NewAddressActivity::class.java))
+            startActivity(Intent(applicationContext, CreateAddressActivity::class.java))
         }
     }
     //endregion

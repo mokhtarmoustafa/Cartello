@@ -1,6 +1,7 @@
 package com.twoam.cartello.View
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.twoam.Networking.INetworkCallBack
@@ -12,11 +13,11 @@ import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomEditTextDatePicker
-import kotlinx.android.synthetic.main.activity_edit_profile.*
+import kotlinx.android.synthetic.main.activity_edit_address_profile.*
 
 
+class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
 
-class EditProfileActivity : BaseDefaultActivity() {
 
     //region Members
     private lateinit var birthDate: CustomEditTextDatePicker
@@ -27,12 +28,41 @@ class EditProfileActivity : BaseDefaultActivity() {
     //region Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_profile)
+        setContentView(R.layout.activity_edit_address_profile)
 
         init()
     }
 
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.ivBackEditAddress -> {
+                startActivity(Intent(this, ProfileActivity::class.java))
+                finish()
+            }
+            R.id.btnSaveEditProfile -> {
+                var userName = etUserNameEditProfile.text.toString()
+                var phoneNo = etPhoneNumberEditProfile.text.toString()
+                var birthDate = etDateOfBirthEditProfile.text.toString()
+
+                var isValid = validateUserData(userName, phoneNo, birthDate)
+
+                if (isValid) {
+                    editProfile(userName, phoneNo, birthDate)
+                }
+            }
+
+
+        }
+    }
+
+
+    //endregion
+
+    //region Helper Functions
     private fun init() {
+        ivBackEditAddress.setOnClickListener(this)
+        btnSaveEditProfile.setOnClickListener(this)
+
         birthDate = CustomEditTextDatePicker(this, etDateOfBirthEditProfile.id)
         currentLoginUser = AppConstants.CurrentLoginUser
 
@@ -41,22 +71,9 @@ class EditProfileActivity : BaseDefaultActivity() {
         etPhoneNumberEditProfile.setText(currentLoginUser.phone)
         etDateOfBirthEditProfile.setText(currentLoginUser.birthdate)
 
-        btnSaveEditProfile.setOnClickListener(View.OnClickListener {
 
-            var userName = etUserNameEditProfile.text.toString()
-            var phoneNo = etPhoneNumberEditProfile.text.toString()
-            var birthDate = etDateOfBirthEditProfile.text.toString()
-
-            var isValid = validateUserData(userName, phoneNo, birthDate)
-
-            if (isValid) {
-                editProfile(userName, phoneNo, birthDate)
-            }
-        })
     }
-    //endregion
 
-    //region Helper Functions
     private fun validateUserData(userName: String, phoneNo: String, birthDate: String): Boolean {
         var valid = false
 
@@ -102,6 +119,7 @@ class EditProfileActivity : BaseDefaultActivity() {
                     if (response.code == AppConstants.CODE_200) {
                         currentLoginUser = response.data!!
                         saveUserData(currentLoginUser)
+                        startActivity(Intent(this@EditAddressProfileActivity, ProfileActivity::class.java))
                         finish()
                     } else {
                         hideDialogue()

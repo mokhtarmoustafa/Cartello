@@ -22,7 +22,7 @@ import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.DB.PreferenceController
 
 
-class NewAddressActivity : BaseDefaultActivity(), View.OnClickListener {
+class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
 
     //region Members
@@ -83,7 +83,7 @@ class NewAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
             }
             R.id.ivBack -> {
-                onBackPressed()
+              startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
                 finish()
             }
 
@@ -91,11 +91,7 @@ class NewAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         }
     }
 
-    override fun onBackPressed() {
-        this.startActivity(Intent(this@NewAddressActivity, MainActivity::class.java))
 
-        return
-    }
     //endregion
 
     //region Helper Functions
@@ -133,7 +129,7 @@ class NewAddressActivity : BaseDefaultActivity(), View.OnClickListener {
     private fun prepareCities(citiesData: ArrayList<City>) {
         cities = getCityData(citiesData)
         var arrayAdapter = CityAdapter(
-                this@NewAddressActivity, android.R.layout.simple_list_item_1, cities)
+                this@CreateAddressActivity, android.R.layout.simple_list_item_1, cities)
         etCity.setAdapter(arrayAdapter)
         etCity.isCursorVisible = false
 
@@ -162,7 +158,7 @@ class NewAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         areas = getAreaData(city)
 
         var arrayAdapter = AreaAdapter(
-                this@NewAddressActivity, android.R.layout.simple_list_item_1, areas)
+                this@CreateAddressActivity, android.R.layout.simple_list_item_1, areas)
         etArea.setAdapter(arrayAdapter)
         etArea.isCursorVisible = false
 
@@ -198,9 +194,9 @@ class NewAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                     if (response.code == AppConstants.CODE_200) {
                         newAddress = response.data!!
                         hideDialogue()
-                        PreferenceController.getInstance(this@NewAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
-                        PreferenceController.getInstance(this@NewAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-                        startActivity(Intent(this@NewAddressActivity, MainActivity::class.java))
+                        PreferenceController.getInstance(this@CreateAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
+                        PreferenceController.getInstance(this@CreateAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+                        startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
                         finish()
                     } else {
                         hideDialogue()

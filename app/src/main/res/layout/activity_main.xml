@@ -180,7 +180,8 @@
                 android:text="@string/tab_home"
                 android:textColor="@color/colorWelcome"
                 android:textSize="12sp"
-                android:fontFamily="Poppins-Regular"/>
+                android:fontFamily="Poppins-Regular"
+                android:clickable="true"/>
 
             <FrameLayout
                 style="?attr/actionButtonStyle"

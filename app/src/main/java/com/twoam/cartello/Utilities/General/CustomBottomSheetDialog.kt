@@ -8,10 +8,7 @@ import android.view.*
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import com.twoam.cartello.R
-import com.twoam.cartello.View.MainActivity
-import com.twoam.cartello.View.MedicalPrescriptionsFragment
-import com.twoam.cartello.View.MoreFragment
-import com.twoam.cartello.View.OrdersFragment
+import com.twoam.cartello.View.*
 
 class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback{
 
@@ -38,7 +35,8 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
         home.setOnClickListener({
             this.dismiss()
-            startActivity(Intent(AppController.getContext(), MainActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,0))
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container,HomeFragment()).commit()
+//            startActivity(Intent(AppController.getContext(), MainActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,0))
         })
         medical.setOnClickListener({
             this.dismiss()

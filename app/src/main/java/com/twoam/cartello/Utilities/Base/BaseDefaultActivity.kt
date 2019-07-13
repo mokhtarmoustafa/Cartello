@@ -6,24 +6,20 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.support.v4.view.MenuItemCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
-import android.widget.Toast
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.MyContextWrapper
 import com.twoam.cartello.View.MainActivity
-import com.twoam.cartello.View.NewAddressActivity
+import com.twoam.cartello.View.CreateAddressActivity
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
 
@@ -49,12 +45,12 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
     }
 
     fun checkHasAddress(user: User) {
-
         if (user.addresses != null && user.addresses!!.size > 0) {
             startActivity(Intent(this, MainActivity::class.java))
             PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+
         } else {
-            startActivity(Intent(this, NewAddressActivity::class.java))
+            startActivity(Intent(this, CreateAddressActivity::class.java))
         }
 
     }
@@ -91,7 +87,6 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         return true
 
     }
-
 
 
     override fun onItemClicked(position: Int) {

@@ -11,6 +11,7 @@ class Address {
      var city_id: Int = 0
      var area_id: Int = 0
      var address: String = ""
+     var addressType: String = ""
      var apartment: String = ""
      var floor: String = ""
      var landmark: String = ""

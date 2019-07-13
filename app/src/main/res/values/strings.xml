@@ -29,7 +29,9 @@
     <string name="hintApt">Apt</string>
     <string name="hintFloor">Floor</string>
     <string name="hintLandMark">Land Mark</string>
-    <string name="add">Add+</string>
+    <string name="add">Add</string>
+    <string name="add_new">Add+</string>
+
     <string name="save">Save</string>
 
     <string name="selectCity">Select City ...</string>

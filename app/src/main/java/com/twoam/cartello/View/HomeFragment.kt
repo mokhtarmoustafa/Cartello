@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.bumptech.glide.Glide.init
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.*
@@ -62,10 +63,13 @@ class HomeFragment : BaseFragment() {
 
         var view = inflater.inflate(R.layout.fragment_home, container, false)
         init(view)
-
-        prepareCategoriesData(1)
-        getAdsData()
-        getHomeProducts()
+        if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
+            prepareCategoriesData(1)
+            getAdsData()
+            getHomeProducts()
+        } else {
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
 
         return view
     }
@@ -214,7 +218,7 @@ class HomeFragment : BaseFragment() {
 
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
             var request = NetworkManager().create(ApiServices::class.java)
-            var authorization = AppConstants.BEARER +  AppConstants.CurrentLoginUser.token
+            var authorization = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
             var endPoint = request.getAds(authorization)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<Ads>>> {
                 override fun onFailed(error: String) {
@@ -256,8 +260,8 @@ class HomeFragment : BaseFragment() {
                     if (response.code == AppConstants.CODE_200) {
                         homeProductsList = response.data!!
 
-                        rlTopPromotions.visibility=View.VISIBLE
-                        rlMostSelling.visibility=View.VISIBLE
+                        rlTopPromotions.visibility = View.VISIBLE
+                        rlMostSelling.visibility = View.VISIBLE
 
                         prepareHomeProductsData(homeProductsList)
                     } else {

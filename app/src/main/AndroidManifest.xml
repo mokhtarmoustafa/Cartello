@@ -53,7 +53,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".View.NewAddressActivity"
+            android:name=".View.CreateAddressActivity"
             android:label="@string/titleCreateAddress"
             android:parentActivityName=".View.MainActivity"
             android:screenOrientation="portrait" />
@@ -68,7 +68,7 @@
             android:name=".View.MyCartActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".View.ProfileActivity" />
-        <activity android:name=".View.EditProfileActivity"></activity>
+        <activity android:name=".View.EditAddressProfileActivity"></activity>
     </application>
 
 </manifest>

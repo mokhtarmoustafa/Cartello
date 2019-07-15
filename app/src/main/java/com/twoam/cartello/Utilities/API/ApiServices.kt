@@ -47,6 +47,10 @@ interface ApiServices {
     fun resetPassword(@Query("email") email: String, @Query("code") code: String, @Query("password") password: String)
             : Call<ApiResponse<User>>
 
+ @POST(AppConstants.URL_CHANGE_PASSWORD)
+    fun changePassword(@Header("Authorization") token: String, @Query("old_password") oldPassword: String, @Query("password") newPassword: String)
+            : Call<ApiResponse<Boolean>>
+
 
     @POST(AppConstants.URL_SOCIAL_SIGN_UP)
     fun socialSignUp(@Query("name") name: String, @Query("phone") phone: String, @Query("birthdate") birthdate: String)

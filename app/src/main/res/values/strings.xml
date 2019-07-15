@@ -16,6 +16,7 @@
 
     <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
+<string name="verify_password">Verify Password</string>
 
     <string name="name">Name</string>
     <string name="fullName">Full Name</string>
@@ -42,6 +43,7 @@
     <string name="error_name">Name should be 4 letters.</string>
     <string name="error_address">Address should more than 4 chars.</string>
     <string name="missing">Missing</string>
+     <string name="required">Required</string>
 
     <string name="error_phone">Phone No. 11 digit.</string>
     <string name="error_date">Invalid date.</string>
@@ -77,6 +79,7 @@
     <string name="info">We’ve sent you a resetting code to your email inbox </string>
     <string name="resend">Resend</string>
     <string name="log_in">Log in</string>
+
     <string name="forget_password">Forgot Password</string>
     <string name="tab_home">Home</string>
     <string name="top_promotions">Top Promotions</string>
@@ -116,6 +119,9 @@
     <string name="contact_us">Contact us</string>
     <string name="rate_us">Rate us</string>
     <string name="change_password">Change Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
+
     <string name="log_out">Log out</string>
     <string name="edit">Edit</string>
     <string name="email_address">Email Address</string>
@@ -123,6 +129,7 @@
     <string name="credit_card">Credit Card</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="ok">OK</string>
+    <string name="sure_you_want_to_log_out">Sure you want to log out?</string>
 
 
 </resources>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlOptions"
+    android:layout_width="match_parent"
+    android:layout_height="184dp">
+
+
+    <TextView
+        android:id="@+id/tvHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="52dp"
+        android:layout_gravity="center"
+        android:background="@color/transparent"
+        android:fontFamily="Poppins-Regular"
+        android:textColor="@color/colorAccent"
+        android:textSize="13sp"
+        android:text="@string/sure_you_want_to_log_out"/>
+
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="129dp"
+        android:layout_marginBottom="31dp"
+        android:src="@drawable/ic_close"
+        android:clickable="true"/>
+
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="291dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="114dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@+id/ivClose"
+        android:background="@drawable/rounded_button"
+        android:clickable="true"
+        android:fontFamily="Poppins-Medium"
+        android:text="@string/log_out"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+</RelativeLayout>
+

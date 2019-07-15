@@ -22,6 +22,7 @@ import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
 import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
+import com.twoam.cartello.Utilities.General.AnimateScroll
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.viewpagerindicator.CirclePageIndicator
@@ -74,6 +75,10 @@ class HomeFragment : BaseFragment() {
         return view
     }
 
+
+    //endregion
+
+    //region Helper Functions
     private fun init(view: View) {
         recyclerSubCategory = view.findViewById(R.id.recyclerSubCategory)
         tabs = view.findViewById(R.id.tabs)
@@ -83,9 +88,6 @@ class HomeFragment : BaseFragment() {
         recyclerTopPromotions = view.findViewById(R.id.recyclerTopPromotions)
         recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
     }
-    //endregion
-
-    //region Helper Functions
 
     private fun getCategories(categoriesList: ArrayList<Category>) {
         tabs.addTab(tabs.newTab().setText(getString(R.string.tab_home)))
@@ -163,6 +165,7 @@ class HomeFragment : BaseFragment() {
     fun showSubCategoriesData(show: Boolean) {
         if (show) {
             recyclerSubCategory.visibility = View.VISIBLE
+            AnimateScroll.scrollToView(scrollViewHome,recyclerSubCategory)
         } else {
             recyclerSubCategory.visibility = View.GONE
         }

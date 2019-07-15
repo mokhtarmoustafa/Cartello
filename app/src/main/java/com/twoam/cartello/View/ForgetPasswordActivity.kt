@@ -1,23 +1,19 @@
 package com.twoam.cartello.View
 
 import android.os.Bundle
-import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
-import com.facebook.internal.BoltsMeasurementEventListener
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
-import com.twoam.cartello.R.string.email
-import com.twoam.cartello.R.string.password
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.General.AppConstants
-import kotlinx.android.synthetic.main.activity_create_address.*
 import kotlinx.android.synthetic.main.activity_forget_password.*
-import kotlinx.android.synthetic.main.activity_forget_password.view.*
+import android.view.inputmethod.EditorInfo
+
 
 class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
@@ -27,6 +23,7 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
     private var email: String = ""
     private var password: String = ""
     private var confirmPassword: String = ""
+    private var verifyPassword: String = ""
 
 
     private var user: User = User()
@@ -40,6 +37,8 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
 
         init()
+
+        changePasswordMode(intent.getIntExtra(AppConstants.CHANGE_PASSWORD, 0))
 
     }
 
@@ -92,6 +91,8 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
                     btnLogIn.visibility = View.VISIBLE
 
                     etPassword.requestFocus()
+                } else if (mode == 4) {//change password mode
+                    finish()
                 }
 
 
@@ -127,13 +128,24 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
                 }
 
+                if (mode == 4) {
+                    password = etPassword.text.toString()
+                    confirmPassword = etConfirmPassword.text.toString()
+                    verifyPassword = etVerifyPassword.text.toString()
+
+                    var valid = validatePassword(password, confirmPassword, verifyPassword)
+
+                    if (valid) {
+                        changePassword(password, confirmPassword)
+                    }
+                }
             }
 
             R.id.btnLogIn -> {
                 password = etPassword.text.toString()
                 confirmPassword = etConfirmPassword.text.toString()
 
-                var valid = validatePassword(password, confirmPassword)
+                var valid = validatePassword(password, confirmPassword, "not applicable")
                 if (valid) {
                     showDialogue()
                     resetPassword(email, code, password)
@@ -154,10 +166,7 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
         etEmail.requestFocus()
 
 
-
     }
-
-
 
 
     private fun validateUserData(email: String): Boolean {
@@ -189,18 +198,28 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
         return valid
     }
 
-    private fun validatePassword(password: String, confirmPassword: String): Boolean {
+    private fun validatePassword(password: String, confirmPassword: String, verifyPassword: String): Boolean {
         var valid = false
 
         if (password.isNullOrEmpty()) {
             tvPasswordError.visibility = View.VISIBLE
             etPassword.requestFocus()
             tvConfirmPasswordError.visibility = View.INVISIBLE
+            tvVerifyPasswordError.visibility = View.INVISIBLE
             valid = false
         } else if (confirmPassword.isNullOrEmpty()) {
             tvConfirmPasswordError.visibility = View.VISIBLE
             etConfirmPassword.requestFocus()
             tvPasswordError.visibility = View.INVISIBLE
+            tvVerifyPasswordError.visibility = View.INVISIBLE
+            valid = false
+        } else if (mode == 4 && verifyPassword.isNullOrEmpty()) {
+            tvPasswordError.visibility = View.INVISIBLE
+            tvConfirmPasswordError.visibility = View.INVISIBLE
+            tvVerifyPasswordError.visibility = View.VISIBLE
+            etVerifyPassword.requestFocus()
+
+
             valid = false
         } else {
 
@@ -359,6 +378,59 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
     }
 
+    private fun changePasswordMode(mode: Int) {
+
+        if (mode == 4) {
+            this.mode = mode
+            user = AppConstants.CurrentLoginUser
+
+            rlEmail.visibility = View.INVISIBLE
+            rlPassword.visibility = View.VISIBLE
+            rlConfirmPassword.visibility = View.VISIBLE
+            rlVerifyPassword.visibility = View.VISIBLE
+
+
+            tvTitle.text = getString(R.string.change_password)
+            btnSubmit.text = getString(R.string.save)
+            tvHintPassword.text = getString(R.string.current_password)
+            tvPasswordError.text = getString(R.string.required)
+            etConfirmPassword.imeOptions = EditorInfo.IME_ACTION_NEXT or EditorInfo.IME_FLAG_NO_EXTRACT_UI
+            etVerifyPassword.imeOptions = EditorInfo.IME_ACTION_DONE or EditorInfo.IME_FLAG_NO_EXTRACT_UI
+
+        }
+    }
+
+    private fun changePassword(oldPassword: String, newPasswotd: String) {
+        if (NetworkManager().isNetworkAvailable(this)) {
+            var authorization = AppConstants.BEARER + user.token
+            var request = NetworkManager().create(ApiServices::class.java)
+            var endPoint = request.changePassword(authorization, oldPassword, newPasswotd)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Boolean>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(getString(R.string.error_no_internet))
+                }
+
+                override fun onSuccess(response: ApiResponse<Boolean>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        hideDialogue()
+                        saveUserData(user)
+                        finish()
+
+                    } else {
+                        hideDialogue()
+                        Toast.makeText(applicationContext, getString(R.string.error_incorrect_code), Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+            })
+
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+
+    }
     //endregion
 
 }

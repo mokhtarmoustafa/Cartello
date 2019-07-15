@@ -46,7 +46,7 @@ public class SubCategoryAdapter
     public void onBindViewHolder(SubCategoryAdapter.MyViewHolder holder, int position) {
 //use glide
         Glide.with(context).load(imageModelArrayList.get(position).getImage())
-//                .apply(RequestOptions.placeholderOf(R.drawable.item))
+                .apply(RequestOptions.placeholderOf(R.drawable.item))
                 .thumbnail( 0.1f )
                 .into(holder.itemImage);
         holder.itemName.setText(imageModelArrayList.get(position).getName());

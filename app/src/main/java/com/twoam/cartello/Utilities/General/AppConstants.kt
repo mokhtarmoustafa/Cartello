@@ -41,6 +41,7 @@ object AppConstants {
     const val URL_FORGET_PASSWORD = "customer/auth/forget_password"
     const val URL_VALODATE_REQUET_CODE = "customer/auth/validate_code"
     const val URL_RESET_PASSWORD = "customer/auth/reset_password"
+
     const val URL_SOCIAL_AUTH_FACEBOOK = "customer/auth/social/facebook"
     const val URL_SOCIAL_AUTH_GOOGLE = "customer/auth/social/google"
 
@@ -69,6 +70,8 @@ object AppConstants {
     const val TRUE = "true"
     const val FALSE = "false"
     const val USER_DATA = "userData"
+    const val CHANGE_PASSWORD = "changePassword"
+
     const val FACEBOOK = 1
     const val GOOGLE = 2
     const val CURRENTINDEXTAG="currentOption"

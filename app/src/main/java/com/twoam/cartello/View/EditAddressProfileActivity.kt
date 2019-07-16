@@ -55,6 +55,12 @@ class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this, ProfileActivity::class.java))
+        finish()
+    }
+
 
     //endregion
 

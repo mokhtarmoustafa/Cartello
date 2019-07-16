@@ -1,21 +1,31 @@
 package com.twoam.cartello.Utilities.General
 
 
-import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
 import android.view.*
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
+import android.widget.TextView
 import com.twoam.cartello.R
 import com.twoam.cartello.View.*
+import kotlinx.android.synthetic.main.activity_main.*
 
-class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback{
-
+class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
 
 
     internal var view: ViewGroup? = null
     lateinit var layout: RelativeLayout
+    private lateinit var tvHomeBS: TextView
+    private lateinit var ivHomeBS: ImageView
+    private lateinit var tvMedicalBS: TextView
+    private lateinit var ivMedicalBS: ImageView
+    private lateinit var tvOrderBS: TextView
+    private lateinit var ivOrderBS: ImageView
+    private lateinit var tvMoreBS: TextView
+    private lateinit var ivMoreBS: ImageView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = inflater.inflate(R.layout.bottom_sheet_layout, container, false) as ViewGroup
@@ -28,30 +38,69 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
     fun init() {
         var home = layout.findViewById<LinearLayout>(R.id.lLHome)
+
+        tvHomeBS = layout.findViewById<TextView>(R.id.tvHomeBS)
+        ivHomeBS = layout.findViewById<ImageView>(R.id.ivHomeBS)
+        tvMedicalBS = layout.findViewById<TextView>(R.id.tvMedicalPrescriptionsBS)
+        ivMedicalBS = layout.findViewById<ImageView>(R.id.ivMedicalPrescriptionsBS)
+        tvOrderBS = layout.findViewById<TextView>(R.id.tvOrderBS)
+        ivOrderBS = layout.findViewById<ImageView>(R.id.ivOrderBS)
+        tvMoreBS = layout.findViewById<TextView>(R.id.tvMoreBS)
+        ivMoreBS = layout.findViewById<ImageView>(R.id.ivMoreBS)
+
         var medical = layout.findViewById<LinearLayout>(R.id.lLMedicalPrescriptions)
         var order = layout.findViewById<LinearLayout>(R.id.lLOrder)
         var more = layout.findViewById<LinearLayout>(R.id.lLMore)
 
+        changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
 
         home.setOnClickListener({
+
+            if (AppConstants.CURRENTSELECTEDINDEX == 0) {
+                this.dismiss()
+                return@setOnClickListener
+
+            }
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
+            AppConstants.CURRENTSELECTEDINDEX = 0
+            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container,HomeFragment()).commit()
-//            startActivity(Intent(AppController.getContext(), MainActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,0))
         })
         medical.setOnClickListener({
+
+            if (AppConstants.CURRENTSELECTEDINDEX == 1) {
+                this.dismiss()
+                return@setOnClickListener
+
+            }
+            AppConstants.CURRENTSELECTEDINDEX = 1
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MedicalPrescriptionsFragment()).addToBackStack(" MedicalPrescriptionsFragment").commit()
+            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container,MedicalPrescriptionsFragment()).commit()
-//            startActivity(Intent(AppController.getContext(), MedicalPrescriptionsActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,1))
         })
         order.setOnClickListener({
+
+            if (AppConstants.CURRENTSELECTEDINDEX == 2) {
+                this.dismiss()
+                return@setOnClickListener
+
+            }
+            AppConstants.CURRENTSELECTEDINDEX = 2
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container, OrdersFragment()).addToBackStack("OrdersFragment").commit()
+            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container, OrdersFragment()).commit()
-//            startActivity(Intent(AppController.getContext(), OrdersActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,2))
         })
         more.setOnClickListener({
+
+            if (AppConstants.CURRENTSELECTEDINDEX == 3) {
+                this.dismiss()
+                return@setOnClickListener
+
+            }
+            AppConstants.CURRENTSELECTEDINDEX = 3
+            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MoreFragment()).addToBackStack("MoreFragment").commit()
+            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
-//            startActivity(Intent(AppController.getContext(), MoreActivity::class.java).putExtra(AppConstants.CURRENTINDEXTAG,3))
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MoreFragment()).commit()
         })
 
     }
@@ -62,8 +111,64 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         dialog.dismiss()
     }
 
+    private fun changeControlsSettings(index: Int) {
+        when (index) {
+            0 -> {//HOME
+                activity!!.tvMainHome.text = getString(R.string.tab_home)
+                tvHomeBS.setTextColor(Color.parseColor("#38a0cd"))
+                tvMedicalBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvOrderBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvMoreBS.setTextColor(Color.parseColor("#aaaaaa"))
 
 
+                ivHomeBS.setImageResource(R.drawable.ic_home_select)
+                ivMedicalBS.setImageResource(R.drawable.ic_medical)
+                ivOrderBS.setImageResource(R.drawable.ic_orders)
+                ivMoreBS.setImageResource(R.drawable.ic_more)
+            }
+            1 -> {//MEDICAL
+                activity!!.tvMainHome.text = getString(R.string.medical_prescriptions)
+                tvHomeBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvMedicalBS.setTextColor(Color.parseColor("#38a0cd"))
+                tvOrderBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvMoreBS.setTextColor(Color.parseColor("#aaaaaa"))
+
+
+                ivHomeBS.setImageResource(R.drawable.ic_home)
+                ivMedicalBS.setImageResource(R.drawable.ic_medical_select)
+                ivOrderBS.setImageResource(R.drawable.ic_orders)
+                ivMoreBS.setImageResource(R.drawable.ic_more)
+            }
+            2 -> {//ORDERS
+                activity!!.tvMainHome.text = getString(R.string.orders)
+
+                tvHomeBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvMedicalBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvOrderBS.setTextColor(Color.parseColor("#38a0cd"))
+                tvMoreBS.setTextColor(Color.parseColor("#aaaaaa"))
+
+                ivHomeBS.setImageResource(R.drawable.ic_home)
+                ivMedicalBS.setImageResource(R.drawable.ic_medical)
+                ivOrderBS.setImageResource(R.drawable.ic_orders_select)
+                ivMoreBS.setImageResource(R.drawable.ic_more)
+            }
+            3 ->//MORE
+            {
+                activity!!.tvMainHome.text = getString(R.string.more)
+                tvHomeBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvMedicalBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvOrderBS.setTextColor(Color.parseColor("#aaaaaa"))
+                tvMoreBS.setTextColor(Color.parseColor("#38a0cd"))
+
+                ivHomeBS.setImageResource(R.drawable.ic_home)
+                ivMedicalBS.setImageResource(R.drawable.ic_medical)
+                ivOrderBS.setImageResource(R.drawable.ic_orders)
+                ivMoreBS.setImageResource(R.drawable.ic_more_select)
+            }
+
+
+        }
+    }
 
 
 }

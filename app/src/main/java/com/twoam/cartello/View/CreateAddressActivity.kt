@@ -91,6 +91,12 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
+        finish()
+    }
+
 
     //endregion
 

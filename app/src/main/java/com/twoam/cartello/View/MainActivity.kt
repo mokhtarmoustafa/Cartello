@@ -4,6 +4,8 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.twoam.cartello.R
+import com.twoam.cartello.R.id.ivHome
+import com.twoam.cartello.R.id.tvMainHome
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.General.CustomBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -25,7 +27,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener {
         init()
 
 //        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
 //            ivHome.setImageResource(R.drawable.ic_home_select)
 //            tvMainHome.setTextColor(Color.parseColor( "#38a0cd"))
 //        }
@@ -36,7 +38,16 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener {
             R.id.ivHome, R.id.tvMainHome -> {
                 homeBottom.show(supportFragmentManager, "Custom Bottom Sheet")
                 isOpened = true
+
             }
+        }
+    }
+
+    override fun onBackPressed() {
+        if (fragmentManager.backStackEntryCount > 0) {
+            fragmentManager.popBackStack()
+        } else {
+            super.onBackPressed()
         }
     }
 

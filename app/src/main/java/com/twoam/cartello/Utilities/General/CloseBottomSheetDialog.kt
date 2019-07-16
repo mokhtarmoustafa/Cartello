@@ -47,7 +47,6 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
 
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
-        //        AppConstants.isClosed = isClosed;
         dialog.dismiss()
     }
 
@@ -55,19 +54,13 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
 
     private fun logOut()
     {
-        childFragmentManager!!.beginTransaction().remove(this)
         PreferenceController.getInstance(AppController.getContext()).Set(AppConstants.IS_LOGIN, AppConstants.FALSE)
         context?.startActivity(Intent(context, LoginActivity::class.java))
-        clearBackStack()
+        activity?.onBackPressed()
     }
 
 
-    private fun clearBackStack() {
 
-        while (fragmentManager!!.getBackStackEntryCount() !== 0) {
-            fragmentManager!!.popBackStackImmediate()
-        }
-    }
 
 
 }

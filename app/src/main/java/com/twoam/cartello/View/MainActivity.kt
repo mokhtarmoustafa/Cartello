@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide.init
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.Base.BaseFragment
+import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomBottomSheetDialog
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,6 +61,8 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
         if (fm.backStackEntryCount > 0) {
             fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             active=homeFragment
+            tvMainHome.text = getString(R.string.tab_home)
+            AppConstants.CURRENTSELECTEDINDEX=0
         } else {
             super.onBackPressed()
         }

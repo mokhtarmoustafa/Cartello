@@ -13,7 +13,7 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import com.twoam.cartello.R
 import kotlinx.android.synthetic.main.activity_main.*
-import android.widget.AdapterView.OnItemSelectedListener
+
 
 
 class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
@@ -53,7 +53,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         }
     }
 
-    fun doAction(index: Int) {
+    fun navigate(index: Int) {
         listener.onBottomSheerSelectedItem(index)
     }
 
@@ -76,57 +76,31 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
 
         home.setOnClickListener({
+            AppConstants.CURRENTSELECTEDINDEX=0
+            changeControlsSettings(0)
+            navigate(0)
 
-            doAction(0)
-
-//            if (AppConstants.CURRENTSELECTEDINDEX == 0) {
-//                this.dismiss()
-//                return@setOnClickListener
-//
-//            }
-//
-//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, HomeFragment()).addToBackStack(null).commit()
-//            AppConstants.CURRENTSELECTEDINDEX = 0
-//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
         })
         medical.setOnClickListener({
-            doAction(1)
-//            if (AppConstants.CURRENTSELECTEDINDEX == 1) {
-//                this.dismiss()
-//                return@setOnClickListener
-//
-//            }
-//            AppConstants.CURRENTSELECTEDINDEX = 1
-//            fragmentManager?.popBackStack()
-//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MedicalPrescriptionsFragment().newInstance()).addToBackStack(null).commit()
-//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
+            AppConstants.CURRENTSELECTEDINDEX=1
+            changeControlsSettings(1)
+            navigate(1)
+
             this.dismiss()
         })
         order.setOnClickListener({
-            doAction(2)
-//            if (AppConstants.CURRENTSELECTEDINDEX == 2) {
-//                this.dismiss()
-//                return@setOnClickListener
-//
-//            }
-//            AppConstants.CURRENTSELECTEDINDEX = 2
-//            fragmentManager?.popBackStack()
-//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, OrdersFragment().newInstance()).addToBackStack(null).commit()
-//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
+            AppConstants.CURRENTSELECTEDINDEX=2
+            changeControlsSettings(2)
+            navigate(2)
+
             this.dismiss()
         })
         more.setOnClickListener({
-            doAction(3)
-//            if (AppConstants.CURRENTSELECTEDINDEX == 3) {
-//                this.dismiss()
-//                return@setOnClickListener
-//
-//            }
-//            AppConstants.CURRENTSELECTEDINDEX = 3
-//            fragmentManager?.popBackStack()
-//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MoreFragment().newInstance()).addToBackStack(null).commit()
-//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
+            AppConstants.CURRENTSELECTEDINDEX=3
+            changeControlsSettings(3)
+            navigate(3)
+            
             this.dismiss()
         })
 

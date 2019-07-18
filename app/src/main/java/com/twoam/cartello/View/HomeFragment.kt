@@ -24,7 +24,6 @@ import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AnimateScroll
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
@@ -58,6 +57,14 @@ class HomeFragment : BaseFragment() {
     private var age: Int = 0
     //endregion
 
+    //region Constructor
+    fun newInstance(): HomeFragment {
+        val fragment = HomeFragment()
+        return fragment
+    }
+
+    //endregion
+
     //region Events
 
 
@@ -66,18 +73,6 @@ class HomeFragment : BaseFragment() {
 
         var view = inflater.inflate(R.layout.fragment_home, container, false)
         init(view)
-//prevent press button back
-//        view.isFocusableInTouchMode = true
-//        view.requestFocus()
-//        view.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
-//            if (event.action === KeyEvent.ACTION_DOWN) {
-//                if (keyCode == KeyEvent.KEYCODE_BACK) {
-//                    return@OnKeyListener true
-//                }
-//            }
-//            false
-//        })
-        // end
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
             prepareCategoriesData(1)
             getAdsData()
@@ -89,10 +84,6 @@ class HomeFragment : BaseFragment() {
         return view
     }
 
-    fun newInstance(): HomeFragment {
-        val fragment = HomeFragment()
-        return fragment
-    }
 
 
     //endregion

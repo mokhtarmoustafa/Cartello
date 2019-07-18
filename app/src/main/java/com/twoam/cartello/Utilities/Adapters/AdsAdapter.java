@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.twoam.cartello.Model.Ads;
 import com.twoam.cartello.R;
@@ -47,7 +48,6 @@ public class AdsAdapter extends PagerAdapter {
         View imageLayout = inflater.inflate(R.layout.ads_layout, view, false);
         final ImageView imageView = imageLayout
                 .findViewById(R.id.image);
-
 
 
         Glide.with(context).load(adsList.get(position).getImage())

@@ -1,6 +1,8 @@
 package com.twoam.cartello.Utilities.General
 
 
+import android.content.Context
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
@@ -10,10 +12,12 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.twoam.cartello.R
-import com.twoam.cartello.View.*
 import kotlinx.android.synthetic.main.activity_main.*
+import android.widget.AdapterView.OnItemSelectedListener
+
 
 class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
+
 
 
     internal var view: ViewGroup? = null
@@ -26,6 +30,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
     private lateinit var ivOrderBS: ImageView
     private lateinit var tvMoreBS: TextView
     private lateinit var ivMoreBS: ImageView
+    private lateinit var listener: IBottomSheetCallback
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = inflater.inflate(R.layout.bottom_sheet_layout, container, false) as ViewGroup
@@ -35,6 +40,22 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         return view
     }
 
+    override fun onBottomSheerSelectedItem(index: Int) {
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IBottomSheetCallback) {
+            listener = context
+        } else {
+            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheerSelectedItem")
+        }
+    }
+
+    fun doAction(index: Int) {
+        listener.onBottomSheerSelectedItem(index)
+    }
 
     fun init() {
         var home = layout.findViewById<LinearLayout>(R.id.lLHome)
@@ -56,50 +77,56 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
         home.setOnClickListener({
 
-            if (AppConstants.CURRENTSELECTEDINDEX == 0) {
-                this.dismiss()
-                return@setOnClickListener
+            doAction(0)
 
-            }
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
-            AppConstants.CURRENTSELECTEDINDEX = 0
-            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
+//            if (AppConstants.CURRENTSELECTEDINDEX == 0) {
+//                this.dismiss()
+//                return@setOnClickListener
+//
+//            }
+//
+//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, HomeFragment()).addToBackStack(null).commit()
+//            AppConstants.CURRENTSELECTEDINDEX = 0
+//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
         })
         medical.setOnClickListener({
-
-            if (AppConstants.CURRENTSELECTEDINDEX == 1) {
-                this.dismiss()
-                return@setOnClickListener
-
-            }
-            AppConstants.CURRENTSELECTEDINDEX = 1
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MedicalPrescriptionsFragment()).addToBackStack(" MedicalPrescriptionsFragment").commit()
-            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
+            doAction(1)
+//            if (AppConstants.CURRENTSELECTEDINDEX == 1) {
+//                this.dismiss()
+//                return@setOnClickListener
+//
+//            }
+//            AppConstants.CURRENTSELECTEDINDEX = 1
+//            fragmentManager?.popBackStack()
+//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MedicalPrescriptionsFragment().newInstance()).addToBackStack(null).commit()
+//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
         })
         order.setOnClickListener({
-
-            if (AppConstants.CURRENTSELECTEDINDEX == 2) {
-                this.dismiss()
-                return@setOnClickListener
-
-            }
-            AppConstants.CURRENTSELECTEDINDEX = 2
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container, OrdersFragment()).addToBackStack("OrdersFragment").commit()
-            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
+            doAction(2)
+//            if (AppConstants.CURRENTSELECTEDINDEX == 2) {
+//                this.dismiss()
+//                return@setOnClickListener
+//
+//            }
+//            AppConstants.CURRENTSELECTEDINDEX = 2
+//            fragmentManager?.popBackStack()
+//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, OrdersFragment().newInstance()).addToBackStack(null).commit()
+//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
         })
         more.setOnClickListener({
-
-            if (AppConstants.CURRENTSELECTEDINDEX == 3) {
-                this.dismiss()
-                return@setOnClickListener
-
-            }
-            AppConstants.CURRENTSELECTEDINDEX = 3
-            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MoreFragment()).addToBackStack("MoreFragment").commit()
-            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
+            doAction(3)
+//            if (AppConstants.CURRENTSELECTEDINDEX == 3) {
+//                this.dismiss()
+//                return@setOnClickListener
+//
+//            }
+//            AppConstants.CURRENTSELECTEDINDEX = 3
+//            fragmentManager?.popBackStack()
+//            fragmentManager!!.beginTransaction().replace(R.id.layout_container, MoreFragment().newInstance()).addToBackStack(null).commit()
+//            changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
             this.dismiss()
         })
 
@@ -107,7 +134,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
-        //        AppConstants.isClosed = isClosed;
+        // AppConstants.isClosed = isClosed;
         dialog.dismiss()
     }
 
@@ -120,7 +147,6 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
                 tvOrderBS.setTextColor(Color.parseColor("#aaaaaa"))
                 tvMoreBS.setTextColor(Color.parseColor("#aaaaaa"))
 
-
                 ivHomeBS.setImageResource(R.drawable.ic_home_select)
                 ivMedicalBS.setImageResource(R.drawable.ic_medical)
                 ivOrderBS.setImageResource(R.drawable.ic_orders)
@@ -132,7 +158,6 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
                 tvMedicalBS.setTextColor(Color.parseColor("#38a0cd"))
                 tvOrderBS.setTextColor(Color.parseColor("#aaaaaa"))
                 tvMoreBS.setTextColor(Color.parseColor("#aaaaaa"))
-
 
                 ivHomeBS.setImageResource(R.drawable.ic_home)
                 ivMedicalBS.setImageResource(R.drawable.ic_medical_select)
@@ -169,6 +194,14 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
         }
     }
+
+    override fun onCancel(dialog: DialogInterface?) {
+        super.onCancel(dialog)
+        activity!!.tvMainHome.text = getString(R.string.tab_home)
+        AppConstants.CURRENTSELECTEDINDEX = 0
+    }
+
+
 
 
 }

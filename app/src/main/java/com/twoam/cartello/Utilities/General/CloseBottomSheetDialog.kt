@@ -1,9 +1,11 @@
 package com.twoam.cartello.Utilities.General
 
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
+import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.Button
 import android.widget.ImageView
@@ -16,6 +18,9 @@ import com.twoam.cartello.View.*
 import kotlin.math.log
 
 class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
+    override fun onBottomSheerSelectedItem(index: Int) {
+
+    }
 
 
     internal var view: ViewGroup? = null
@@ -28,6 +33,7 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
         init()
         return view
     }
+
 
 
     fun init() {
@@ -52,9 +58,11 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
 
 
 
+
     private fun logOut()
     {
-        PreferenceController.getInstance(AppController.getContext()).Set(AppConstants.IS_LOGIN, AppConstants.FALSE)
+        PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.IS_LOGIN)
+        PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.USER_DATA)
         context?.startActivity(Intent(context, LoginActivity::class.java))
         activity?.onBackPressed()
     }

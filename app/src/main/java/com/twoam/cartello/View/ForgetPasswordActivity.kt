@@ -37,8 +37,8 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
 
 
         init()
-
-        changePasswordMode(intent.getIntExtra(AppConstants.CHANGE_PASSWORD, 0))
+        mode = intent.getIntExtra(AppConstants.CHANGE_PASSWORD,0)
+        changePasswordMode(mode)
 
     }
 
@@ -49,7 +49,9 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
             R.id.ivBackForgetPassword -> {
                 mode -= 1
 
-                if (mode == 0) {
+                if (mode == -1) {
+                    finish()
+                } else if (mode == 0) {
                     rlEmail.visibility = View.VISIBLE
                     btnSubmit.visibility = View.VISIBLE
                     etEmail.requestFocus()
@@ -91,7 +93,7 @@ class ForgetPasswordActivity : BaseDefaultActivity(), View.OnClickListener {
                     btnLogIn.visibility = View.VISIBLE
 
                     etPassword.requestFocus()
-                } else if (mode == 4) {//change password mode
+                } else if (mode == 3) {//change password mode
                     finish()
                 }
 

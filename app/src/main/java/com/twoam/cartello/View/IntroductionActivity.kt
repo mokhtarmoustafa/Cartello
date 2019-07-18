@@ -12,6 +12,7 @@ import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
+import com.twoam.cartello.Utilities.General.AppController
 
 
 class IntroductionActivity : AppCompatActivity() {
@@ -69,9 +70,19 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun checkedUserLogged() {
+        var test=PreferenceController.getInstance(applicationContext).get(AppConstants.TEST_MODE)
+        if(test.isNullOrEmpty())
+        {
+            PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.IS_LOGIN)
+            PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.USER_DATA)
+            PreferenceController.getInstance(AppController.getContext()).Set(AppConstants.TEST_MODE,AppConstants.TRUE)
+        }
+
         // Check if user is already logged in or
         var user = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)
-        if (user != null) {
+        if (user != null
+                && PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] != null
+                && PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] == AppConstants.TRUE) {
             getUserData(user)
             finish()
         } else {
@@ -85,8 +96,10 @@ class IntroductionActivity : AppCompatActivity() {
         if (currentUser != null && currentUser.addresses != null) {
             AppConstants.CurrentLoginUser = currentUser
             startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
         } else {
             startActivity(Intent(applicationContext, CreateAddressActivity::class.java))
+            finish()
         }
     }
     //endregion

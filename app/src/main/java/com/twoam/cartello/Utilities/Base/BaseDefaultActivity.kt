@@ -48,9 +48,10 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
         if (user.addresses != null && user.addresses!!.size > 0) {
             startActivity(Intent(this, MainActivity::class.java))
             PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-
+            finish()
         } else {
             startActivity(Intent(this, CreateAddressActivity::class.java))
+            finish()
         }
 
     }

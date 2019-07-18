@@ -12,15 +12,17 @@ import android.view.ViewGroup
 import com.twoam.cartello.R
 import kotlinx.android.synthetic.main.fragment_more.view.*
 import android.content.ActivityNotFoundException
+import android.view.KeyEvent
 import android.widget.Toast
 import com.bumptech.glide.Glide.init
+import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.CloseBottomSheetDialog
 
 
-class MoreFragment : Fragment(), View.OnClickListener {
+class MoreFragment : BaseFragment(), View.OnClickListener {
 
     //region Members
     private var currentView: View? = null
@@ -65,7 +67,7 @@ class MoreFragment : Fragment(), View.OnClickListener {
                 context?.startActivity(Intent(context, ForgetPasswordActivity::class.java).putExtra(AppConstants.CHANGE_PASSWORD, 4))
             }
             R.id.rlLogOut -> {
-                bottomSheet.show(fragmentManager, "Custom Bottom Sheet")
+                bottomSheet.show(childFragmentManager, "Custom Bottom Sheet")
                 bottomSheet.isCancelable = false
 
 
@@ -82,11 +84,14 @@ class MoreFragment : Fragment(), View.OnClickListener {
 
         init(currentView!!)
 
-
         return currentView
     }
 
 
+    fun newInstance(): MoreFragment {
+        val fragment = MoreFragment()
+        return fragment
+    }
     //endregion
 
     //region Helper unctions

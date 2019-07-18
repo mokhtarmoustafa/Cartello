@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import com.bumptech.glide.Glide.init
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.*
@@ -25,12 +24,15 @@ import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AnimateScroll
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
+import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 class HomeFragment : BaseFragment() {
+
 
 
     //region Members
@@ -64,6 +66,18 @@ class HomeFragment : BaseFragment() {
 
         var view = inflater.inflate(R.layout.fragment_home, container, false)
         init(view)
+//prevent press button back
+//        view.isFocusableInTouchMode = true
+//        view.requestFocus()
+//        view.setOnKeyListener(View.OnKeyListener { v, keyCode, event ->
+//            if (event.action === KeyEvent.ACTION_DOWN) {
+//                if (keyCode == KeyEvent.KEYCODE_BACK) {
+//                    return@OnKeyListener true
+//                }
+//            }
+//            false
+//        })
+        // end
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
             prepareCategoriesData(1)
             getAdsData()
@@ -73,6 +87,11 @@ class HomeFragment : BaseFragment() {
         }
 
         return view
+    }
+
+    fun newInstance(): HomeFragment {
+        val fragment = HomeFragment()
+        return fragment
     }
 
 
@@ -98,7 +117,7 @@ class HomeFragment : BaseFragment() {
         }
 
 
-        val adapter = CategoryAdapter(fragmentManager, tabs.tabCount)
+        val adapter = CategoryAdapter(childFragmentManager, tabs.tabCount)
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 1
         viewPager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabs))
@@ -158,14 +177,14 @@ class HomeFragment : BaseFragment() {
 
         //get sub categories demo
         adapter = SubCategoryAdapter(AppController.getContext(), subCategoriesList)
-        recyclerSubCategory?.adapter = adapter
+        recyclerSubCategory.adapter = adapter
         recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     fun showSubCategoriesData(show: Boolean) {
         if (show) {
             recyclerSubCategory.visibility = View.VISIBLE
-            AnimateScroll.scrollToView(scrollViewHome,recyclerSubCategory)
+            AnimateScroll.scrollToView(scrollViewHome, recyclerSubCategory)
         } else {
             recyclerSubCategory.visibility = View.GONE
         }
@@ -173,7 +192,7 @@ class HomeFragment : BaseFragment() {
 
     private fun prepareAdsData(adsList: ArrayList<Ads>) {
 
-        pager?.adapter = AdsAdapter(AppController.getContext(), adsList)
+        pager.adapter = AdsAdapter(AppController.getContext(), adsList)
         indicator.setViewPager(pager)
 
         val density = resources.displayMetrics.density
@@ -189,7 +208,7 @@ class HomeFragment : BaseFragment() {
             if (currentPage === NUM_PAGES) {
                 currentPage = 0
             }
-            pager?.setCurrentItem(currentPage++, true)
+            pager.setCurrentItem(currentPage++, true)
         }
         val swipeTimer = Timer()
         swipeTimer.schedule(object : TimerTask() {
@@ -244,7 +263,7 @@ class HomeFragment : BaseFragment() {
             showAlertDialouge(getString(R.string.error_no_internet))
         }
 
-        return adsList;
+        return adsList
     }
 
     private fun getHomeProducts(): ArrayList<HomeProducts> {
@@ -263,8 +282,8 @@ class HomeFragment : BaseFragment() {
                     if (response.code == AppConstants.CODE_200) {
                         homeProductsList = response.data!!
 
-                        rlTopPromotions.visibility = View.VISIBLE
-                        rlMostSelling.visibility = View.VISIBLE
+                        rlTopPromotions?.visibility = View.VISIBLE
+                        rlMostSelling?.visibility = View.VISIBLE
 
                         prepareHomeProductsData(homeProductsList)
                     } else {

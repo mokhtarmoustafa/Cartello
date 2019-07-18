@@ -65,6 +65,8 @@ object AppConstants {
 
     //region  app variables
     const val IS_LOGIN = "login"
+    const val TEST_MODE= "testMode"
+
     const val ADDRESS = "address"
     const val HASADDRESS = "hasAddress"
     const val TRUE = "true"

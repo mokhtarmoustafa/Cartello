@@ -3,7 +3,7 @@
     <color name="colorPrimary">#38a0cd</color>
     <color name="colorPrimaryDark">#000</color>
     <color name="colorAccent">#143150</color>
-    <color name="background">#E1E1E1</color>
+        <color name="background">#E1E1E1</color>
     <color name="white">#FFF</color>
     <color name="black">#000</color>
     <color name="shadow">#0f000000</color>
@@ -24,6 +24,8 @@
     <color name="rate_color">#ff9600</color>
     <color name="title_color">#76000000</color>
     <color name="green">#00BE12</color>
+    <color name="delete_back">#19c34a4a</color>
+
 
 
 

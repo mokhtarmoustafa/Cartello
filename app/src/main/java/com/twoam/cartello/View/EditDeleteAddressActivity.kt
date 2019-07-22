@@ -1,28 +1,31 @@
 package com.twoam.cartello.View
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
+import bolts.Bolts
+import com.bumptech.glide.Glide.init
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Address
 import com.twoam.cartello.Model.Area
 import com.twoam.cartello.Model.City
+import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
+import com.twoam.cartello.R.string.name
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
-import com.twoam.cartello.Utilities.General.AppConstants
-import android.widget.Toast
-import android.widget.AdapterView
 import com.twoam.cartello.Utilities.Adapters.AreaAdapter
 import com.twoam.cartello.Utilities.Adapters.CityAdapter
-import android.content.Intent
-import com.twoam.cartello.Model.User
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.DB.PreferenceController
+import com.twoam.cartello.Utilities.General.AppConstants
+import com.twoam.cartello.Utilities.General.CloseBottomSheetDialog
+import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import kotlinx.android.synthetic.main.activity_edit_delete_address.*
 
-
-class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
+class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {
 
 
     //region Members
@@ -34,42 +37,37 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
     private lateinit var dummyAreas: ArrayList<Area>
     private lateinit var selectedCity: City
     private lateinit var selectedArea: Area
-    private lateinit var ivBack: ImageView
-    private lateinit var etName: EditText
     private lateinit var etCity: AutoCompleteTextView
     private lateinit var etArea: AutoCompleteTextView
-    private lateinit var etAddress: EditText
-    private lateinit var etApt: EditText
-    private lateinit var etFloor: EditText
-    private lateinit var etLandMark: EditText
-    private lateinit var btnAdd: Button
-
-    private lateinit var tvErrorName: TextView
-    private lateinit var tvErrorCity: TextView
-    private lateinit var tvErrorArea: TextView
-
-    private lateinit var tvErrorAddress: TextView
-    private lateinit var tvErrorApt: TextView
-    private lateinit var tvErrorFloor: TextView
     private var newAddress: Address = Address()
+    //    private var addressIdIndex: Int? = null
+    private var bottomSheet = CloseBottomSheetDialog()
 
     //endregion
 
     //region Events
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_create_address)
+        setContentView(R.layout.activity_edit_delete_address)
 
-        init()
         showDialogue()
+        init()
         prepareData()
+
 
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnAdd -> {
-                var name = etName.text.toString()
+            R.id.ivBackEditDeleteAddress -> {
+                finish()
+            }
+            R.id.tvDelete -> {
+                bottomSheet.Action = 1
+                bottomSheet.show(supportFragmentManager, "Custom Bottom Sheet")
+            }
+            R.id.btnUpdate -> {
+                var name = etFullName.text.toString()
                 var city = etCity.text.toString()
                 var area = etArea.text.toString()
                 var address = etAddress.text.toString()
@@ -84,7 +82,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
             }
             R.id.ivBack -> {
-              startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
+                startActivity(Intent(this@EditDeleteAddressActivity, ProfileActivity::class.java))
                 finish()
             }
 
@@ -92,9 +90,21 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         }
     }
 
+    override fun onBottomSheetClosed(isClosed: Boolean) {
+
+    }
+
+    override fun onBottomSheetSelectedItem(index: Int) {
+        if (index >= 0) {
+            var address = AppConstants.CurrentLoginUser.addresses?.get(index)
+            removeAddress(address?.id.toString())
+        }
+    }
+
+
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
+//        startActivity(Intent(this@EditDeleteAddressActivity, ProfileActivity::class.java))
         finish()
     }
 
@@ -118,7 +128,6 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                 override fun onSuccess(response: ApiResponse<ArrayList<City>>) {
                     if (response.code == AppConstants.CODE_200) {
                         cities = response.data!!
-                        PreferenceController.instance?.setCitiesPref(AppConstants.CITIES_DATA,cities)
                         prepareCities(cities)
                         hideDialogue()
 
@@ -139,17 +148,24 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
     private fun prepareCities(citiesData: ArrayList<City>) {
         cities = getCityData(citiesData)
         var arrayAdapter = CityAdapter(
-                this@CreateAddressActivity, android.R.layout.simple_list_item_1, cities)
+                this@EditDeleteAddressActivity, android.R.layout.simple_list_item_1, cities)
         etCity.setAdapter(arrayAdapter)
         etCity.isCursorVisible = false
+
+        loadSavedAddress()
 
         etCity.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             etCity.showDropDown()
             var city = parent.getItemAtPosition(position) as City
             //areas
+
+
             if (city.id > 0) {
                 selectedCity = city
                 prepareAreas(city)
+
+                selectedArea = Area(0, getString(R.string.selectArea))
+                etArea.setText(getString(R.string.selectArea))
             } else {
                 selectedCity = City(0, getString(R.string.selectCity))
                 selectedArea = Area(0, getString(R.string.selectArea))
@@ -164,13 +180,39 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         })
     }
 
+    private fun loadSavedAddress() {
+        if (intent.hasExtra("addressIdPosition")) {
+            val bundle: Bundle? = intent.extras
+            var addressIndex = bundle?.get("addressIdPosition") as Int
+            var address = AppConstants.CurrentLoginUser.addresses?.get(addressIndex)
+            var city = cities.find { it.id == address!!.city_id }
+
+            prepareAreas(city!!)
+
+            var area = areas.find { it.id == address!!.area_id }
+            selectedCity = city!!
+            selectedArea = area!!
+
+            etFullName.setText(address?.name)
+            etCity.setText(cities.find { it.id == address!!.city_id }?.name)
+            etArea.setText(areas.find { it.id == address!!.area_id }?.name)
+            etAddress.setText(address?.address)
+            etApt.setText(address?.apartment)
+            etFloor.setText(address?.floor)
+            etLandMark.setText(address?.landmark)
+
+        }
+    }
+
     private fun prepareAreas(city: City) {
         areas = getAreaData(city)
 
         var arrayAdapter = AreaAdapter(
-                this@CreateAddressActivity, android.R.layout.simple_list_item_1, areas)
+                this@EditDeleteAddressActivity, android.R.layout.simple_list_item_1, areas)
         etArea.setAdapter(arrayAdapter)
         etArea.isCursorVisible = false
+
+
 
         etArea.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
             etArea.showDropDown()
@@ -187,7 +229,6 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         })
     }
 
-
     private fun addAddress(name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): Address {
 
         if (NetworkManager().isNetworkAvailable(this)) {
@@ -196,18 +237,19 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
             var endPoint = request.addAddress(authorization, name, city, area, address, apt, floor, landMark)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
                 override fun onFailed(error: String) {
-                        hideDialogue()
-                        showAlertDialouge(error)
+                    hideDialogue()
+                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<Address>) {
                     if (response.code == AppConstants.CODE_200) {
                         newAddress = response.data!!
+                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
+                        PreferenceController.getInstance(this@EditDeleteAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
                         hideDialogue()
-                        PreferenceController.getInstance(this@CreateAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
-                        PreferenceController.getInstance(this@CreateAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-                        startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
                         finish()
+                        startActivity(Intent(this@EditDeleteAddressActivity, MainActivity::class.java))
+
                     } else {
                         hideDialogue()
                         showAlertDialouge(response.message)
@@ -221,35 +263,55 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         return newAddress!!
     }
 
+    private fun removeAddress(addressId: String): Boolean {
+        var done = false
+        if (NetworkManager().isNetworkAvailable(this)) {
+            var request = NetworkManager().create(ApiServices::class.java)
+            var authorization = AppConstants.BEARER + currentLoginUser.token
+            var endPoint = request.removeAddress(authorization)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Boolean>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<Boolean>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        done = response.data!!
+                        hideDialogue()
+
+                        //todo get the address list and remove the current deleted address from it and save it  and navigate toProfile activity
+                        //and refresh adapter with the new list
+                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
+//                        PreferenceController.getInstance(this@EditDeleteAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+                        startActivity(Intent(this@EditDeleteAddressActivity, ProfileActivity::class.java).putExtra("addressId", addressId))
+                        finish()
+                    } else {
+                        hideDialogue()
+                        showAlertDialouge(response.message)
+                    }
+                }
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+        return done!!
+    }
+
     private fun init() {
         cities = ArrayList()
         areas = ArrayList()
         selectedCity = City(0, getString(R.string.selectCity))
         selectedArea = Area(0, getString(R.string.selectArea))
 
-        ivBack = findViewById(R.id.ivBackEditDeleteAddress)
-        etName = findViewById(R.id.etFullName)
-
         etCity = findViewById(R.id.etCity)
         etArea = findViewById(R.id.etArea)
-        etAddress = findViewById(R.id.etAddress)
-        etApt = findViewById(R.id.etApt)
-        etFloor = findViewById(R.id.etFloor)
-        etLandMark = findViewById(R.id.etLandMArk)
-
-        tvErrorName = findViewById(R.id.tvFullNameError)
-        tvErrorCity = findViewById(R.id.tvCityError)
-        tvErrorArea = findViewById(R.id.tvAreaError)
-
-        tvErrorAddress = findViewById(R.id.tvAddressError)
-        tvErrorApt = findViewById(R.id.tvAptError)
-        tvErrorFloor = findViewById(R.id.tvFloorError)
-
-        btnAdd = findViewById(R.id.btnAdd)
-        btnAdd.setOnClickListener(this)
-        ivBack.setOnClickListener(this)
-
+        btnUpdate.setOnClickListener(this)
+        ivBackEditDeleteAddress.setOnClickListener(this)
+        tvDelete.setOnClickListener(this)
         currentLoginUser = PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
+
 
     }
 
@@ -257,66 +319,65 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         var valid = false
 
         if (fullName.isNullOrEmpty()) {
-            tvErrorName.visibility = View.VISIBLE
-            tvErrorCity.visibility = View.INVISIBLE
-            tvErrorArea.visibility = View.INVISIBLE
-            tvErrorAddress.visibility = View.INVISIBLE
-            tvErrorApt.visibility = View.INVISIBLE
-            tvErrorFloor.visibility = View.INVISIBLE
+            tvFullNameError.visibility = View.VISIBLE
+            tvCityError.visibility = View.INVISIBLE
+            tvAreaError.visibility = View.INVISIBLE
+            tvAddressError.visibility = View.INVISIBLE
+            tvAptError.visibility = View.INVISIBLE
+            tvFloorError.visibility = View.INVISIBLE
             valid = false
         } else if (selectedCity.id == 0) {
 
-            tvErrorName.visibility = View.INVISIBLE
-            tvErrorCity.visibility = View.VISIBLE
-            tvErrorArea.visibility = View.INVISIBLE
-            tvErrorAddress.visibility = View.INVISIBLE
-            tvErrorApt.visibility = View.INVISIBLE
-            tvErrorFloor.visibility = View.INVISIBLE
+            tvFullNameError.visibility = View.INVISIBLE
+            tvCityError.visibility = View.VISIBLE
+            tvAreaError.visibility = View.INVISIBLE
+            tvAddressError.visibility = View.INVISIBLE
+            tvAptError.visibility = View.INVISIBLE
+            tvFloorError.visibility = View.INVISIBLE
             valid = false
         } else if (selectedArea.id == 0) {
-            tvErrorName.visibility = View.INVISIBLE
-            tvErrorCity.visibility = View.INVISIBLE
-            tvErrorArea.visibility = View.VISIBLE
-            tvErrorAddress.visibility = View.INVISIBLE
-            tvErrorApt.visibility = View.INVISIBLE
-            tvErrorFloor.visibility = View.INVISIBLE
+            tvFullNameError.visibility = View.INVISIBLE
+            tvCityError.visibility = View.INVISIBLE
+            tvAreaError.visibility = View.VISIBLE
+            tvAddressError.visibility = View.INVISIBLE
+            tvAptError.visibility = View.INVISIBLE
+            tvFloorError.visibility = View.INVISIBLE
             valid = false
         } else if (address.isNullOrEmpty()) {
-            tvErrorName.visibility = View.INVISIBLE
-            tvErrorCity.visibility = View.INVISIBLE
-            tvErrorArea.visibility = View.INVISIBLE
-            tvErrorAddress.visibility = View.VISIBLE
-            tvErrorApt.visibility = View.INVISIBLE
-            tvErrorFloor.visibility = View.INVISIBLE
+            tvFullNameError.visibility = View.INVISIBLE
+            tvCityError.visibility = View.INVISIBLE
+            tvAreaError.visibility = View.INVISIBLE
+            tvAddressError.visibility = View.VISIBLE
+            tvAptError.visibility = View.INVISIBLE
+            tvFloorError.visibility = View.INVISIBLE
             valid = false
         } else if (apt.isNullOrEmpty()) {
-            tvErrorName.visibility = View.INVISIBLE
-            tvErrorCity.visibility = View.INVISIBLE
-            tvErrorArea.visibility = View.INVISIBLE
-            tvErrorAddress.visibility = View.INVISIBLE
-            tvErrorApt.visibility = View.VISIBLE
-            tvErrorFloor.visibility = View.INVISIBLE
+            tvFullNameError.visibility = View.INVISIBLE
+            tvCityError.visibility = View.INVISIBLE
+            tvAreaError.visibility = View.INVISIBLE
+            tvAddressError.visibility = View.INVISIBLE
+            tvAptError.visibility = View.VISIBLE
+            tvFloorError.visibility = View.INVISIBLE
             valid = false
         } else if (floor.isNullOrEmpty()) {
-            tvErrorName.visibility = View.INVISIBLE
-            tvErrorCity.visibility = View.INVISIBLE
-            tvErrorArea.visibility = View.INVISIBLE
-            tvErrorAddress.visibility = View.INVISIBLE
-            tvErrorApt.visibility = View.INVISIBLE
-            tvErrorFloor.visibility = View.VISIBLE
+            tvFullNameError.visibility = View.INVISIBLE
+            tvCityError.visibility = View.INVISIBLE
+            tvAreaError.visibility = View.INVISIBLE
+            tvAddressError.visibility = View.INVISIBLE
+            tvAptError.visibility = View.INVISIBLE
+            tvFloorError.visibility = View.VISIBLE
             valid = false
         } else {
-            tvErrorName.visibility = View.INVISIBLE
-            tvErrorCity.visibility = View.INVISIBLE
-            tvErrorArea.visibility = View.INVISIBLE
-            tvErrorAddress.visibility = View.INVISIBLE
-            tvErrorApt.visibility = View.INVISIBLE
-            tvErrorFloor.visibility = View.INVISIBLE
+            tvFullNameError.visibility = View.INVISIBLE
+            tvCityError.visibility = View.INVISIBLE
+            tvAreaError.visibility = View.INVISIBLE
+            tvAddressError.visibility = View.INVISIBLE
+            tvAptError.visibility = View.INVISIBLE
+            tvFloorError.visibility = View.INVISIBLE
             valid = true
         }
         return valid
     }
-
 
     private fun getCityData(cities: ArrayList<City>): ArrayList<City> {
         if (cities.size > 0) {
@@ -351,6 +412,4 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         return dummyAreas
     }
     //endregion
-
-
 }

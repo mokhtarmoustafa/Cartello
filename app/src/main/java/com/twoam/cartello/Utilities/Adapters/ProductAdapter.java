@@ -32,7 +32,7 @@ public class ProductAdapter
     private Context context;
 
 
-    public ProductAdapter(Context ctx, ArrayList<Product> imageModelArrayList) {
+    public  ProductAdapter(Context ctx, ArrayList<Product> imageModelArrayList) {
         context = ctx;
         inflater = LayoutInflater.from(ctx);
         this.imageModelArrayList = imageModelArrayList;

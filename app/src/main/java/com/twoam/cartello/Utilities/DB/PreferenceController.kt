@@ -6,8 +6,7 @@ import android.preference.PreferenceManager
 import android.text.TextUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.twoam.cartello.Model.Address
-import com.twoam.cartello.Model.User
+import com.twoam.cartello.Model.*
 
 
 class PreferenceController private constructor(context: Context, databaseName: String) {
@@ -35,7 +34,6 @@ class PreferenceController private constructor(context: Context, databaseName: S
     }
 
 
-
     // GET THE KEY
     operator fun get(key: String): String {
         return preferences.getString(key, "")
@@ -47,7 +45,6 @@ class PreferenceController private constructor(context: Context, databaseName: S
     }
 
     //endregion
-
 
 
     //region USERS
@@ -75,6 +72,28 @@ class PreferenceController private constructor(context: Context, databaseName: S
         return gson.fromJson(json, type)
     }
 
+    fun setCartPref(key: String, values: ArrayList<Product>?) {
+        val editor = preferences.edit()
+        val gson = Gson()
+        if (values == null) {
+            return
+        }
+        val json = gson.toJson(values)
+
+        editor.putString(key, json)
+        editor.commit()
+    }
+
+    // GET THE USR DATA
+    fun getCartPref(key: String): ArrayList<Product>? {
+        val gson = Gson()
+        val json = preferences.getString(key, null) ?: return null
+
+        val type = object : TypeToken<ArrayList<Product>>() {
+        }.type
+
+        return gson.fromJson(json, type)
+    }
 
 
     fun setAddressPref(key: String, values: Address?) {
@@ -95,6 +114,53 @@ class PreferenceController private constructor(context: Context, databaseName: S
         val json = preferences.getString(key, null) ?: return null
 
         val type = object : TypeToken<Address>() {
+        }.type
+
+        return gson.fromJson(json, type)
+    }
+
+
+    fun setCitiesPref(key: String, values: ArrayList<City>?) {
+        val editor = preferences.edit()
+        val gson = Gson()
+        if (values == null) {
+            return
+        }
+        val json = gson.toJson(values)
+
+        editor.putString(key, json)
+        editor.commit()
+    }
+
+    // GET THE Address Data
+    fun getCitiesPref(key: String): ArrayList<City>? {
+        val gson = Gson()
+        val json = preferences.getString(key, null) ?: return null
+
+        val type = object : TypeToken<ArrayList<City>>() {
+        }.type
+
+        return gson.fromJson(json, type)
+    }
+
+    fun setAreassPref(key: String, values: ArrayList<Area>?) {
+        val editor = preferences.edit()
+        val gson = Gson()
+        if (values == null) {
+            return
+        }
+        val json = gson.toJson(values)
+
+        editor.putString(key, json)
+        editor.commit()
+    }
+
+    // GET THE Address Data
+    fun getAreasPref(key: String): ArrayList<Area>? {
+        val gson = Gson()
+        val json = preferences.getString(key, null) ?: return null
+
+        val type = object : TypeToken<ArrayList<Area>>() {
         }.type
 
         return gson.fromJson(json, type)

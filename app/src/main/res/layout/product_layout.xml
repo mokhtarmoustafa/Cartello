@@ -39,6 +39,7 @@
             android:fontFamily="Poppins-Regular"
             android:ellipsize="end"
             android:maxLines="1"
+            android:gravity="left|start"
             android:text="this text is will do what ever"
             android:textColor="@color/colorWelcome"
             android:textSize="13sp" />

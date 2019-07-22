@@ -14,7 +14,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/fl"
-        android:background="@color/colorApp">
+        android:background="@color/colorApp"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -155,7 +158,7 @@
                     android:layout_marginLeft="14dp"
                     android:layout_marginTop="8dp"
                     android:layout_toRightOf="@+id/tvHintCity"
-                    android:background="@color/white"
+                    android:background="@color/transparent"
                     android:clickable="true"
                     android:cursorVisible="false"
                     android:drawableRight="@drawable/ic_down"

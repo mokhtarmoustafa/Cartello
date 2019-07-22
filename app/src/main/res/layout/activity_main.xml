@@ -24,32 +24,42 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/ivHome"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="11dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                app:srcCompat="@drawable/filled"
-                android:background="?android:attr/selectableItemBackground"/>
+          <RelativeLayout
+              android:id="@+id/rlHome"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:clickable="true"
+              android:background="?android:attr/selectableItemBackground"
+              >
+              <ImageView
+                  android:id="@+id/ivHome"
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:layout_alignParentStart="true"
+                  android:layout_centerVertical="true"
+                  android:layout_marginBottom="11dp"
+                  android:layout_marginLeft="16dp"
+                  android:layout_marginStart="16dp"
+                  android:layout_marginTop="16dp"
+                  app:srcCompat="@drawable/filled"
+                  android:scaleType="center"
+                 />
 
-            <TextView
-                android:id="@+id/tvMainHome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="14dp"
-                android:layout_toRightOf="@+id/ivHome"
-                android:text="@string/tab_home"
-                android:textColor="@color/colorWelcome"
-                android:textSize="12sp"
-                android:fontFamily="Poppins-Regular"
-                android:clickable="true"/>
+              <TextView
+                  android:id="@+id/tvMainHome"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="15dp"
+                  android:layout_marginLeft="4dp"
+                  android:layout_marginTop="14dp"
+                  android:layout_toRightOf="@+id/ivHome"
+                  android:text="@string/tab_home"
+                  android:textColor="@color/colorWelcome"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:fontFamily="Poppins-Regular"
+                  />
+          </RelativeLayout>
 
             <FrameLayout
                 style="?attr/actionButtonStyle"
@@ -61,13 +71,17 @@
                 android:layout_marginEnd="52dp"
                 android:layout_marginLeft="299dp"
                 android:clipToPadding="false"
-                android:focusable="true">
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground">
 
                 <ImageView
+                    android:id="@+id/ivCart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:src="@drawable/cart" />
+                    android:src="@drawable/cart"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackground"/>
 
                 <TextView
                     android:id="@+id/cart_badge"
@@ -82,7 +96,10 @@
                     android:padding="0dp"
                     android:text="0"
                     android:textColor="@android:color/white"
-                    android:textSize="9sp" />
+                    android:textSize="9sp"
+                    android:clickable="true"
+
+                    />
 
             </FrameLayout>
 
@@ -97,7 +114,8 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="11dp"
-                app:srcCompat="@drawable/search" />
+                app:srcCompat="@drawable/search"
+                android:background="?android:attr/selectableItemBackground"/>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

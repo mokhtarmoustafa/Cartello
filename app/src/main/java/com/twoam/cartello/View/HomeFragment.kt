@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -33,7 +34,6 @@ import kotlin.collections.ArrayList
 class HomeFragment : BaseFragment() {
 
 
-
     //region Members
 
     private var currentPage = 0
@@ -51,6 +51,7 @@ class HomeFragment : BaseFragment() {
     private lateinit var viewPager: ViewPager
     private lateinit var pager: ViewPager
     private lateinit var indicator: CirclePageIndicator
+    private lateinit var swipeRefresh: SwipeRefreshLayout
     var NAME_ARG = "name"
     var AGE_ARG = "age"
     private var name: String? = null
@@ -85,7 +86,6 @@ class HomeFragment : BaseFragment() {
     }
 
 
-
     //endregion
 
     //region Helper Functions
@@ -95,8 +95,22 @@ class HomeFragment : BaseFragment() {
         viewPager = view.findViewById(R.id.viewPager)
         pager = view.findViewById(R.id.pager)
         indicator = view.findViewById(R.id.indicator)
+        swipeRefresh = view.findViewById(R.id.swipeRefresh)
         recyclerTopPromotions = view.findViewById(R.id.recyclerTopPromotions)
         recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
+
+
+        swipeRefresh.setOnRefreshListener { refreshData() }
+    }
+
+    private fun refreshData() {
+        if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
+
+            getHomeProducts()
+        } else {
+            swipeRefresh.isRefreshing = false
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
     }
 
     private fun getCategories(categoriesList: ArrayList<Category>) {
@@ -277,6 +291,8 @@ class HomeFragment : BaseFragment() {
                         rlMostSelling?.visibility = View.VISIBLE
 
                         prepareHomeProductsData(homeProductsList)
+
+                        swipeRefresh.isRefreshing = false
                     } else {
                         Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
                     }
@@ -300,6 +316,7 @@ class HomeFragment : BaseFragment() {
         }
         var adapter = ProductAdapter(activity, topPromotionsList)
         recyclerTopPromotions.adapter = adapter
+        adapter.notifyDataSetChanged()
         recyclerTopPromotions.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
 
     }
@@ -313,6 +330,7 @@ class HomeFragment : BaseFragment() {
         }
         var adapter = ProductAdapter(activity, list)
         recyclerMostSelling.adapter = adapter
+        adapter.notifyDataSetChanged()
         recyclerMostSelling.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
 
     }

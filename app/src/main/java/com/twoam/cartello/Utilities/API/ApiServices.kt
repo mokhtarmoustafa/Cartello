@@ -67,6 +67,9 @@ interface ApiServices {
                    @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>
 
+    @POST(AppConstants.URL_REMOVE_ADDRESS)
+    fun removeAddress(@Header("Authorization") token: String): Call<ApiResponse<Boolean>>
+
     @GET(AppConstants.URL_GET_CATEGORIES)
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>
 
@@ -78,8 +81,8 @@ interface ApiServices {
 
     @GET(AppConstants.URL_EDIT_PROFILE)
     fun editProfile(@Header("Authorization") token: String,
-                    @Query("name") name: String,
                     @Query("phone") phone: String,
+                    @Query("name") name: String,
                     @Query("birthdate") birthdate: String
 
     ): Call<ApiResponse<User>>

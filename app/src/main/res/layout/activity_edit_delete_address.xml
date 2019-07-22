@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="@android:color/white"
+    android:focusableInTouchMode="true"
+    tools:context="com.twoam.cartello.View.EditDeleteAddressActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvParent"
+                android:layout_width="match_parent"
+                android:layout_height="75.5dp"
+                android:layout_margin="4dp"
+                android:clipChildren="false"
+                android:clipToPadding="false"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="0.0px"
+                app:cardElevation="7dp"
+                android:layout_gravity="center"
+                app:cardPreventCornerOverlap="false"
+                >
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="67.5dp">
+
+                    <ImageView
+                        android:id="@+id/ivBackEditDeleteAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="21dp"
+                        android:clickable="true"
+                        app:srcCompat="@drawable/back" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="95.5dp"
+                        android:layout_marginRight="128.5dp"
+                        android:layout_marginTop="21dp"
+                        android:text="@string/edit_address"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorLabel"
+                        android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tvDelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="17.5dp"
+                        android:layout_marginTop="21dp"
+                        android:clickable="true"
+                        android:fontFamily="ArialMT"
+                        android:gravity="center"
+                        android:text="@string/delete"
+                        android:textColor="@color/error"
+                        android:textSize="13sp" />
+                </RelativeLayout>
+            </android.support.v7.widget.CardView>
+
+            <ScrollView
+                android:id="@+id/scrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cvParent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/rlFullName"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="317dp"
+                        android:layout_height="58dp"
+
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="29dp"
+                        android:layout_marginTop="33dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/custom_edit_text">
+
+                        <EditText
+                            android:id="@+id/etFullName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@+id/tvHintFullName"
+                            android:background="@color/transparent"
+                            android:fontFamily="Poppins-Regular"
+                            android:hint="@string/nameNotation"
+                            android:imeOptions="actionNext"
+                            android:inputType="text|textNoSuggestions"
+                            android:lines="1"
+                            android:maxLines="1"
+                            android:nextFocusForward="@+id/etCity"
+                            android:textColor="@color/colorLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvHintFullName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+
+                            android:text="@string/name"
+                            android:textColor="@color/colorHintLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvFullNameError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/etFullName"
+                            android:layout_toEndOf="@+id/tvHintFullName"
+                            android:clickable="true"
+
+                            android:text="@string/error_name"
+                            android:textColor="@color/error"
+                            android:textSize="13sp"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlCity"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="317dp"
+                        android:layout_height="58dp"
+                        android:layout_below="@+id/rlFullName"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="29dp"
+                        android:layout_marginTop="14dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/custom_edit_text">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/etCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@+id/tvHintCity"
+                            android:background="@color/transparent"
+                            android:clickable="true"
+                            android:cursorVisible="false"
+                            android:drawableRight="@drawable/ic_down"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:fontFamily="Poppins-Regular"
+                            android:imeOptions="actionNext"
+                            android:inputType="none"
+                            android:maxLines="1"
+                            android:nextFocusForward="@+id/etArea"
+                            android:text="@string/selectCity"
+                            android:textColor="@color/colorLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvCityError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/etCity"
+                            android:layout_below="@+id/tvHintCity"
+
+                            android:clickable="true"
+                            android:text="*"
+                            android:textColor="@color/error"
+                            android:textSize="14sp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/tvHintCity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+
+
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:text="@string/hintCity"
+                            android:textColor="@color/colorHintLabel"
+                            android:textSize="15sp" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlArea"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="317dp"
+                        android:layout_height="58dp"
+                        android:layout_below="@+id/rlCity"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="29dp"
+                        android:layout_marginTop="14dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/custom_edit_text">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/etArea"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="14dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@+id/tvHintArea"
+                            android:background="@color/transparent"
+                            android:clickable="true"
+                            android:cursorVisible="false"
+                            android:drawableRight="@drawable/ic_down"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:fontFamily="Poppins-Regular"
+                            android:imeOptions="actionNext"
+                            android:inputType="none"
+                            android:maxLines="1"
+                            android:nextFocusForward="@+id/etAddress"
+                            android:text="@string/selectArea"
+                            android:textColor="@color/colorLabel"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvAreaError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignStart="@+id/etArea"
+                            android:layout_below="@+id/tvHintArea"
+
+                            android:clickable="true"
+                            android:text="*"
+                            android:textColor="@color/error"
+                            android:textSize="14sp"
+                            android:visibility="invisible" />
+
+                        <TextView
+                            android:id="@+id/tvHintArea"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+
+
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+
+                            android:text="@string/hintArea"
+                            android:textColor="@color/colorHintLabel"
+                            android:textSize="15sp" />
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlAddress"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="317dp"
+                        android:layout_height="58dp"
+                        android:layout_below="@+id/rlArea"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="29dp"
+                        android:layout_marginTop="14dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/custom_edit_text">
+
+                        <EditText
+                            android:id="@+id/etAddress"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@+id/tvHintAddress"
+                            android:background="@color/transparent"
+                            android:focusable="true"
+                            android:fontFamily="Poppins-Regular"
+                            android:imeOptions="actionNext"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:nextFocusForward="@id/etApt"
+                            android:textColor="@color/colorLabel"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvHintAddress"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+
+
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/hintAddress"
+                            android:textColor="@color/colorHintLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvAddressError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/etAddress"
+                            android:layout_toEndOf="@+id/tvHintAddress"
+                            android:clickable="true"
+                            android:text="@string/error_address"
+                            android:textColor="@color/error"
+                            android:textSize="14sp"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlApt"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="154.5dp"
+                        android:layout_height="58dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_below="@+id/rlAddress"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="8.5dp"
+                        android:layout_marginTop="14dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/custom_edit_text">
+
+                        <EditText
+                            android:id="@+id/etApt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@+id/tvHintApt"
+                            android:background="@color/transparent"
+                            android:digits="0123456789"
+                            android:fontFamily="Poppins-Regular"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLength="4"
+                            android:maxLines="1"
+                            android:nextFocusForward="@id/etFloor"
+                            android:textColor="@color/colorLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvHintApt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+
+
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/hintApt"
+                            android:textColor="@color/colorHintLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvAptError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/etApt"
+                            android:layout_toEndOf="@+id/tvHintApt"
+                            android:clickable="true"
+                            android:text="@string/missing"
+                            android:textColor="@color/error"
+                            android:textSize="13sp"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlFloor"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="154.5dp"
+                        android:layout_height="58dp"
+                        android:layout_alignBaseline="@+id/rlApt"
+                        android:layout_below="@+id/rlAddress"
+                        android:layout_marginRight="28.5dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_toRightOf="@+id/rlApt"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/custom_edit_text">
+
+                        <EditText
+                            android:id="@+id/etFloor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@+id/tvHintFloor"
+
+                            android:background="@color/transparent"
+                            android:digits="0123456789"
+                            android:fontFamily="Poppins-Regular"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:lines="1"
+                            android:maxLength="3"
+                            android:maxLines="1"
+                            android:nextFocusForward="@id/etLandMark"
+                            android:textColor="@color/colorLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvHintFloor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+
+
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/hintFloor"
+                            android:textColor="@color/colorHintLabel"
+                            android:textSize="13sp" />
+
+                        <TextView
+                            android:id="@+id/tvFloorError"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/etFloor"
+                            android:layout_toEndOf="@+id/tvHintFloor"
+                            android:clickable="true"
+                            android:text="@string/missing"
+                            android:textColor="@color/error"
+                            android:textSize="15sp"
+                            android:visibility="invisible" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlLandMArk"
+                        style="@style/Widget.AppCompat.EditText"
+                        android:layout_width="317dp"
+                        android:layout_height="58dp"
+                        android:layout_below="@+id/rlApt"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="29dp"
+                        android:layout_marginRight="29dp"
+                        android:layout_marginTop="14dp"
+                        android:addStatesFromChildren="true"
+                        android:background="@drawable/custom_edit_text">
+
+                        <EditText
+                            android:id="@+id/etLandMark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_toRightOf="@+id/tvHintLandMArk"
+                            android:background="@color/transparent"
+                            android:fontFamily="Poppins-Regular"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:nextFocusForward="@id/etApt"
+                            android:textColor="@color/colorLabel"
+                            android:textSize="15sp" />
+
+                        <TextView
+                            android:id="@+id/tvHintLandMArk"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+
+
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="14dp"
+                            android:layout_marginTop="8dp"
+                            android:clickable="true"
+                            android:focusable="true"
+                            android:text="@string/hintLandMark"
+                            android:textColor="@color/colorHintLabel"
+                            android:textSize="15sp" />
+
+
+                    </RelativeLayout>
+
+                    <!--<RelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_below="@+id/rlLandMArk"-->
+                        <!--android:layout_marginTop="20dp"-->
+                        <!--android:background="@color/white">-->
+
+                        <Button
+                            android:id="@+id/btnUpdate"
+                            android:layout_width="317dp"
+                            android:layout_height="58dp"
+                            android:layout_below="@+id/rlLandMArk"
+                            android:layout_marginTop="105dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginBottom="30dp"
+                            android:layout_marginLeft="25dp"
+                            android:layout_marginRight="25dp"
+                            android:background="@drawable/rounded_button"
+                            android:clickable="true"
+                            android:fontFamily="Poppins-Medium"
+                            android:text="@string/update"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                    <!--</RelativeLayout>-->
+
+
+                </RelativeLayout>
+            </ScrollView>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

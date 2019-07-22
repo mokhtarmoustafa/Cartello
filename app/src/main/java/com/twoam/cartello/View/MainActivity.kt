@@ -1,10 +1,10 @@
 package com.twoam.cartello.View
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.View
-import com.bumptech.glide.Glide.init
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.Base.BaseFragment
@@ -38,20 +38,29 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 //        supportFragmentManager.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
 
 
-
-        fm.beginTransaction().add(R.id.layout_container, homeFragment, "homeFragment").commit()
+        fm.beginTransaction().replace(R.id.layout_container, homeFragment, "homeFragment").commit()
         fm.beginTransaction().add(R.id.layout_container, medicalFragment, "medicalFragment").hide(medicalFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, orderFragment, "orderFragment").hide(orderFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, moreFragment, "moreFragment").hide(moreFragment).commit()
 
-        active=homeFragment
+        active = homeFragment
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.ivHome, R.id.tvMainHome -> {
+//            R.id.ivHome, R.id.tvMainHome ->
+            R.id.rlHome ->
+            {
                 homeBottom.show(fm, "Custom Bottom Sheet")
                 isOpened = true
+
+            }
+            R.id.ivCart, R.id.cart_badge -> {
+                var intent=Intent(this@MainActivity,CartActivity::class.java)
+                startActivity(intent)
+            }
+
+            R.id.ivSearch -> {
 
             }
         }
@@ -60,9 +69,9 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     override fun onBackPressed() {
         if (fm.backStackEntryCount > 0) {
             fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            active=homeFragment
+            active = homeFragment
             tvMainHome.text = getString(R.string.tab_home)
-            AppConstants.CURRENTSELECTEDINDEX=0
+            AppConstants.CURRENTSELECTEDINDEX = 0
         } else {
             super.onBackPressed()
         }
@@ -73,31 +82,31 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     }
 
-    override fun onBottomSheerSelectedItem(index: Int) {
+    override fun onBottomSheetSelectedItem(index: Int) {
         when (index) {
             0 -> {
-                if(active==homeFragment)
+                if (active == homeFragment)
                     return
                 fm.beginTransaction().hide(active).show(homeFragment).commit()
-                active=homeFragment
+                active = homeFragment
             }
             1 -> {
-                if(active==medicalFragment)
+                if (active == medicalFragment)
                     return
                 fm.beginTransaction().hide(active).show(medicalFragment).addToBackStack(null).commit()
-                active=medicalFragment
+                active = medicalFragment
             }
             2 -> {
-                if(active==orderFragment)
+                if (active == orderFragment)
                     return
                 fm.beginTransaction().hide(active).show(orderFragment).addToBackStack(null).commit()
-                active=orderFragment
+                active = orderFragment
             }
             3 -> {
-                if(active==moreFragment)
+                if (active == moreFragment)
                     return
                 fm.beginTransaction().hide(active).show(moreFragment).addToBackStack(null).commit()
-                active=moreFragment
+                active = moreFragment
             }
 
 
@@ -110,10 +119,12 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     //region Helper Functions
 
     private fun init() {
-        tvMainHome.setOnClickListener(this)
-        ivHome.setOnClickListener(this)
+//        tvMainHome.setOnClickListener(this)
+//        ivHome.setOnClickListener(this)
+        rlHome.setOnClickListener(this)
+        ivCart.setOnClickListener(this)
+        ivSearch.setOnClickListener(this)
     }
-
 
 
     //endregion

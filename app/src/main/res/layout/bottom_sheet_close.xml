@@ -45,5 +45,21 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="15sp" />
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="291dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="114dp"
+        android:layout_marginBottom="19dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@+id/ivClose"
+        android:background="@drawable/rounded_button_red"
+        android:clickable="true"
+        android:fontFamily="Poppins-Medium"
+        android:text="@string/delete_my_address"
+        android:textAllCaps="false"
+        android:textColor="@color/error"
+        android:textSize="15sp"
+        android:visibility="gone"/>
 </RelativeLayout>
 

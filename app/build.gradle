@@ -25,9 +25,12 @@ android {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
+
+
 }
 
 dependencies {
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibraryVersion"
     implementation "com.android.support:design:$rootProject.ext.supportLibraryVersion"
@@ -63,10 +66,9 @@ dependencies {
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
     //image slider
     compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
-//Glide
+    //Glide
     implementation("com.github.bumptech.glide:glide:4.8.0") {
         exclude group: "com.android.support"
     }
-
 
 }

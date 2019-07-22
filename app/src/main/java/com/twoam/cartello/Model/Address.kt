@@ -1,10 +1,11 @@
 package com.twoam.cartello.Model
 
+
 /**
  * Created by Mokhtar on 6/18/2019.
  */
 
-class Address {
+ class Address  {
 
      var id: Int = 0
      var name: String = ""
@@ -16,5 +17,5 @@ class Address {
      var floor: String = ""
      var landmark: String = ""
      var user_id: Int = 0
-     lateinit var addresses: ArrayList<Address>
+      var addresses= ArrayList<Address>()
 }

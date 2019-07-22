@@ -72,6 +72,8 @@ object AppConstants {
     const val TRUE = "true"
     const val FALSE = "false"
     const val USER_DATA = "userData"
+    const val CITIES_DATA="citiesData"
+    const val CART_ITEMS="CartItems"
     const val CHANGE_PASSWORD = "changePassword"
 
     const val FACEBOOK = 1

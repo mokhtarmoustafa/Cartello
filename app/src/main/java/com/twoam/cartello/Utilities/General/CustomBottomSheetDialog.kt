@@ -32,6 +32,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
     private lateinit var ivMoreBS: ImageView
     private lateinit var listener: IBottomSheetCallback
 
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         view = inflater.inflate(R.layout.bottom_sheet_layout, container, false) as ViewGroup
         layout = view!!.findViewById(R.id.rlOptions)
@@ -40,7 +41,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         return view
     }
 
-    override fun onBottomSheerSelectedItem(index: Int) {
+    override fun onBottomSheetSelectedItem(index: Int) {
 
     }
 
@@ -49,12 +50,12 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         if (context is IBottomSheetCallback) {
             listener = context
         } else {
-            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheerSelectedItem")
+            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
         }
     }
 
     fun navigate(index: Int) {
-        listener.onBottomSheerSelectedItem(index)
+        listener.onBottomSheetSelectedItem(index)
     }
 
     fun init() {
@@ -100,7 +101,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
             AppConstants.CURRENTSELECTEDINDEX=3
             changeControlsSettings(3)
             navigate(3)
-            
+
             this.dismiss()
         })
 

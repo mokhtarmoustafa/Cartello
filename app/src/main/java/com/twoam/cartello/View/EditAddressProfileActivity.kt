@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.View
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
+import com.twoam.cartello.Model.Address
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
+import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomEditTextDatePicker
 import kotlinx.android.synthetic.main.activity_edit_address_profile.*
@@ -47,7 +49,8 @@ class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
                 var isValid = validateUserData(userName, phoneNo, birthDate)
 
                 if (isValid) {
-                    editProfile(userName, phoneNo, birthDate)
+                    showDialogue()
+                    editProfile( phoneNo,userName, birthDate)
                 }
             }
 
@@ -77,7 +80,7 @@ class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
         etPhoneNumberEditProfile.setText(currentLoginUser.phone)
         etDateOfBirthEditProfile.setText(currentLoginUser.birthdate)
 
-
+        currentLoginUser=PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
     }
 
     private fun validateUserData(userName: String, phoneNo: String, birthDate: String): Boolean {
@@ -108,12 +111,12 @@ class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
         return valid
     }
 
-    private fun editProfile(userName: String, phoneNo: String, birthDate: String) {
+    private fun editProfile( phoneNo: String,userName: String, birthDate: String) {
 
         if (NetworkManager().isNetworkAvailable(this)) {
             var authorization = AppConstants.BEARER + currentLoginUser.token
             var request = NetworkManager().create(ApiServices::class.java)
-            var endPoint = request.editProfile(authorization, userName, phoneNo, birthDate)
+            var endPoint = request.editProfile(authorization, phoneNo, userName, birthDate)
 
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<User>> {
                 override fun onFailed(error: String) {
@@ -125,6 +128,7 @@ class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
                     if (response.code == AppConstants.CODE_200) {
                         currentLoginUser = response.data!!
                         saveUserData(currentLoginUser)
+                        hideDialogue()
                         startActivity(Intent(this@EditAddressProfileActivity, ProfileActivity::class.java))
                         finish()
                     } else {
@@ -138,6 +142,8 @@ class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
             showAlertDialouge(getString(R.string.error_no_internet))
         }
     }
+
+
     //endregion
 
 }

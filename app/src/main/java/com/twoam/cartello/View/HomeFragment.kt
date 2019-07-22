@@ -74,13 +74,7 @@ class HomeFragment : BaseFragment() {
 
         var view = inflater.inflate(R.layout.fragment_home, container, false)
         init(view)
-        if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
-            prepareCategoriesData(1)
-            getAdsData()
-            getHomeProducts()
-        } else {
-            showAlertDialouge(getString(R.string.error_no_internet))
-        }
+        refreshData()
 
         return view
     }
@@ -105,11 +99,13 @@ class HomeFragment : BaseFragment() {
 
     private fun refreshData() {
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
-
+            prepareCategoriesData(1)
+            getAdsData()
             getHomeProducts()
+            swipeRefresh.isRefreshing=false
         } else {
-            swipeRefresh.isRefreshing = false
             showAlertDialouge(getString(R.string.error_no_internet))
+            swipeRefresh.isRefreshing=false
         }
     }
 
@@ -121,6 +117,8 @@ class HomeFragment : BaseFragment() {
             tabs.addTab(tabs.newTab().setText("" + category.name))
         }
 
+        //hide sub Category
+        showSubCategoriesData(false)
 
         val adapter = CategoryAdapter(childFragmentManager, tabs.tabCount)
         viewPager.adapter = adapter
@@ -292,7 +290,6 @@ class HomeFragment : BaseFragment() {
 
                         prepareHomeProductsData(homeProductsList)
 
-                        swipeRefresh.isRefreshing = false
                     } else {
                         Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
                     }

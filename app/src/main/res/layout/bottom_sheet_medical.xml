@@ -21,7 +21,8 @@
             android:layout_marginBottom="15dp"
             android:layout_gravity="center"
             android:src="@drawable/camera"
-            android:duplicateParentState="true"/>
+            android:duplicateParentState="true"
+            />
 
         <TextView
             android:id="@+id/tvCapture"

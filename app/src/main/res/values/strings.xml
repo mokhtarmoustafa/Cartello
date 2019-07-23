@@ -41,6 +41,7 @@
     <string name="add_new">Add+</string>
 
     <string name="save">Save</string>
+<string name="send">Send</string>
 
     <string name="selectCity">Select City ...</string>
     <string name="selectArea">Select Area ...</string>
@@ -114,6 +115,7 @@
     <string name="product_type">Product Type</string>
     <string name="similar_products">Similar Products</string>
     <string name="notes">Notes</string>
+<string name="note">Note:</string>
 
     <string name="your_notes">Your notes ...</string>
     <string name="cart_is_empty">Cart is empty</string>
@@ -143,7 +145,6 @@
     <string name="ok">OK</string>
     <string name="sure_you_want_to_log_out">Sure you want to log out?</string>
     <string name="sure_you_want_to_proceed">Sure you want to proceed this action?</string>
-
 
 
 </resources>

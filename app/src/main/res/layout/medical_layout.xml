@@ -38,7 +38,7 @@
             android:lineSpacingExtra="9sp"
 
             android:text="Order ID:001"
-            android:textColor="@color/text_medical"
+            android:textColor="@color/black"
             android:textSize="18sp" />
 
         <TextView

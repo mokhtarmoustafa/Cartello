@@ -72,7 +72,8 @@
             android:windowSoftInputMode="stateHidden|adjustResize"
         </activity>
         <activity android:name=".View.SearchActivity" />
-        <activity android:name=".View.EditDeleteAddressActivity"></activity>
+        <activity android:name=".View.EditDeleteAddressActivity" />
+        <activity android:name=".View.ProductDetailActivity"></activity>
     </application>
 
 </manifest>

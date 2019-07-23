@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rlOptions"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/lLCapture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:background="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/ivCaptureBS"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center"
+            android:src="@drawable/camera"
+            android:duplicateParentState="true"/>
+
+        <TextView
+            android:id="@+id/tvCapture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="17dp"
+            android:layout_gravity="center"
+            android:fontFamily="Poppins-Regular"
+            android:text="@string/capture"
+            android:textColor="@color/colorWelcome"
+            android:textSize="13sp"
+            android:duplicateParentState="true"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lLGallery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lLCapture"
+        android:orientation="horizontal"
+        android:background="?android:attr/selectableItemBackground">
+
+        <ImageView
+            android:id="@+id/ivGallery"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center"
+            android:src="@drawable/upload"
+            android:duplicateParentState="true"/>
+
+        <TextView
+            android:id="@+id/tvGallery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="17dp"
+            android:layout_gravity="center"
+            android:fontFamily="Poppins-Regular"
+            android:text="@string/gallery"
+            android:textColor="@color/colorWelcome"
+            android:textSize="15sp"
+            android:duplicateParentState="true"/>
+    </LinearLayout>
+
+   
+
+
+</RelativeLayout>
+

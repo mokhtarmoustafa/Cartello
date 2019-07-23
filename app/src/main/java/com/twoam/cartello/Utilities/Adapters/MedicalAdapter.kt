@@ -22,7 +22,7 @@ import java.util.ArrayList
  * Created by Mokhtar on 6/30/2019.
  */
 
- class MedicalAdapter(private val context: Context, private val medicalList: ArrayList<Medical>) : RecyclerView.Adapter<MedicalAdapter.MyViewHolder>() {
+ class MedicalAdapter(private val context: Context, private val medicalList: ArrayList<MedicalPrescriptions>) : RecyclerView.Adapter<MedicalAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var medical: MedicalPrescriptions? = null
@@ -37,8 +37,8 @@ import java.util.ArrayList
 
     override fun onBindViewHolder(holder: MedicalAdapter.MyViewHolder, position: Int) {
         medical = medicalList[position]
-//        holder.tvMedical.text = medical!!.medical
-        holder.tvMedical.text = medical!!.name//+" , ${city.name} , ${area?.name}"
+//        holder.tvDate.text = medical!!.medical
+        holder.tvDate.text = medical!!.name//+" , ${city.name} , ${area?.name}"
     }
 
     override fun getItemCount(): Int {
@@ -52,17 +52,17 @@ import java.util.ArrayList
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvMedical: TextView
-        var tvMedicalName: TextView
-        var tvEdit: TextView
+        var tvDate: TextView
+        var tvTime: TextView
+        var tvOrderId: TextView
 
         init {
 
-            tvMedical = itemView.findViewById(R.id.tvMedical)
-            tvMedicalName = itemView.findViewById(R.id.tvMedicalType)
-            tvEdit = itemView.findViewById(R.id.tvEdit)
+            tvDate = itemView.findViewById(R.id.tvDate)
+            tvTime = itemView.findViewById(R.id.tvTime)
+            tvOrderId = itemView.findViewById(R.id.tvOrderId)
 
-            tvEdit.setOnClickListener { v ->
+            itemView.setOnClickListener { v ->
 
                 // get position
                 val pos = adapterPosition
@@ -70,12 +70,12 @@ import java.util.ArrayList
                 // check if item still exists
                 if (pos != RecyclerView.NO_POSITION) {
 
-                    medical = medicalList[pos]
-                    Toast.makeText(v.context, "You clicked " + medical!!.medical, Toast.LENGTH_SHORT).show()
-                    // open edit medical activity
-                    context.startActivity(Intent(context, EditDeleteMedicalActivity::class.java)
-                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra("medicalIdPosition", pos))
+//                    medical = medicalList[pos]
+                    Toast.makeText(v.context, "You clicked " + medical!!.id, Toast.LENGTH_SHORT).show()
+//                    // open edit medical activity
+//                    context.startActivity(Intent(context, EditDeleteMedicalActivity::class.java)
+//                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                            .putExtra("medicalIdPosition", pos))
                 }
             }
         }

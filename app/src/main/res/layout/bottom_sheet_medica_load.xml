@@ -23,6 +23,13 @@
         android:layout_marginBottom="20dp"
         android:text="Note:"
         android:textColor="@color/colorAccent"/>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"/>
 
 
    

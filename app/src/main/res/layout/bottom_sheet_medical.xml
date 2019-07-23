@@ -13,7 +13,7 @@
         android:background="?android:attr/selectableItemBackground">
 
         <ImageView
-            android:id="@+id/ivCaptureBS"
+            android:id="@+id/ivCapture"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginLeft="20dp"
@@ -71,6 +71,16 @@
             android:textSize="15sp"
             android:duplicateParentState="true"/>
     </LinearLayout>
+    <ImageView
+        android:id="@+id/ivCloseMedical"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_below="@+id/lLGallery"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginBottom="3dp"
+        android:src="@drawable/ic_close"
+        android:clickable="true"/>
 
    
 

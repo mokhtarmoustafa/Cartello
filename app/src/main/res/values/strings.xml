@@ -33,6 +33,10 @@
     <string name="add">Add</string>
     <string name="update">Update</string>
     <string name="delete">Delete</string>
+    <string name="new_medical">New Prescription</string>
+    <string name="capture">Capture</string>
+    <string name="gallery">Upload From Gallery</string>
+
 
     <string name="add_new">Add+</string>
 

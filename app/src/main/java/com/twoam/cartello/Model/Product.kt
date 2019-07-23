@@ -8,8 +8,8 @@ class Product {
     var id: String? = null
     var name: String? = null
     var image: String? = null
-    var price: String? = null
-    var discount_price: Int? = null
+    var price: Double? = null
+    var discount_price: Double? = null
     var quantity: Int = 0
     var itemImage: Int = 0
     var images: ArrayList<String>? = null
@@ -22,7 +22,7 @@ class Product {
 
     constructor()
 
-    constructor(id: String, name: String, image: String, price: String, discountPrice: Int) {
+    constructor(id: String, name: String, image: String, price: Double, discountPrice: Double) {
         this.id = id
         this.name = name
         this.image = image
@@ -31,10 +31,8 @@ class Product {
 
     }
 
-    //Product(id: product.id, amount: nil, name: "", image: "", price: 0,
-    // category: Category(id: 0, name: "", description: "", subCategories: nil, image: nil),
-    // details: nil, discountPrice: nil, active: true)
-    constructor(id: String, quantity: Int, name: String, image: String, price: String, category: Category, discountPrice: Int) {
+
+    constructor(id: String, quantity: Int, name: String, image: String, price: Double, category: Category, discountPrice: Double) {
         this.id = id
         this.quantity = quantity
         this.name = name

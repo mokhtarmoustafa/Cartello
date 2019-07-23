@@ -1,21 +1,90 @@
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.twoam.cartello.View.MedicalPrescriptionsFragment">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.CardView
+        android:id="@+id/cvParent"
+        android:layout_width="match_parent"
+        android:layout_height="77.5dp"
+        android:layout_margin="4dp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        app:cardElevation="7dp"
+        app:cardPreventCornerOverlap="false">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="77.5dp">
+
+            <ImageView
+                android:id="@+id/ivBackMedical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="31dp"
+                android:clickable="true"
+                app:srcCompat="@drawable/back" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="95.5dp"
+                android:layout_marginTop="31dp"
+                android:text="@string/medical_prescriptions"
+                android:textAllCaps="false"
+                android:textColor="@color/colorLabel"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tvTotalMedical"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="31dp"
+                android:layout_toRightOf="@+id/textView2"
+                android:background="@drawable/rounded_textview"
+                android:clickable="true"
+                android:fontFamily="Poppins-Medium"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="@color/colorApp"
+                android:textSize="11sp" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvMedical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Medical"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_below="@+id/cvParent">
+
+    </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/btnAddMedical"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/rounded_button"
+        android:clickable="true"
+        android:fontFamily="Poppins-Medium"
+        android:text="@string/new_medical"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+</RelativeLayout>
 

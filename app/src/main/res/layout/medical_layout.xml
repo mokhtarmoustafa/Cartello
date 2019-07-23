@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="69dp"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="13dp"
+            android:fontFamily="Poppins-Medium"
+            android:text="12/01/1990"
+            android:textColor="@color/colorLabel"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvOrderId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDate"
+            android:layout_marginBottom="14dp"
+            android:layout_marginLeft="36dp"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="2dp"
+            android:fontFamily="Poppins-Regular"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="9sp"
+
+            android:text="Order ID:001"
+            android:textColor="@color/text_medical"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvDate"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="26dp"
+            android:clickable="true"
+            android:fontFamily="Poppins-Medium"
+            android:gravity="center_horizontal"
+            android:text="12:00"
+            android:textColor="@color/colorWelcome"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

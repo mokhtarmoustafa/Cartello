@@ -67,8 +67,14 @@ interface ApiServices {
                    @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>
 
-    @POST(AppConstants.URL_REMOVE_ADDRESS)
-    fun removeAddress(@Header("Authorization") token: String): Call<ApiResponse<Boolean>>
+    @POST(AppConstants.URL_UPDATE_ADDRESS+"/{addressId}")
+    fun updateAddress(@Path("addressId") userId:Int,@Header("Authorization") token: String, @Query("name") name: String, @Query("city_id") city_id: String,
+                   @Query("area_id") area_id: String, @Query("address") address: String,
+                   @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
+    ): Call<ApiResponse<Address>>
+
+    @POST(AppConstants.URL_REMOVE_ADDRESS + "/{addressId}")
+    fun removeAddress(@Header("Authorization") token: String,@Path("addressId") userId:Int): Call<ApiResponse<Boolean>>
 
     @GET(AppConstants.URL_GET_CATEGORIES)
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>

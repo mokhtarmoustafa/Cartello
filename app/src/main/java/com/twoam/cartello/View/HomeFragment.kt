@@ -56,6 +56,7 @@ class HomeFragment : BaseFragment() {
     var AGE_ARG = "age"
     private var name: String? = null
     private var age: Int = 0
+    private var isRefreshed = false
     //endregion
 
     //region Constructor
@@ -94,7 +95,10 @@ class HomeFragment : BaseFragment() {
         recyclerMostSelling = view.findViewById(R.id.recyclerMostSelling)
 
 
-        swipeRefresh.setOnRefreshListener { refreshData() }
+        swipeRefresh.setOnRefreshListener {
+            isRefreshed = true
+            refreshData()
+        }
     }
 
     private fun refreshData() {
@@ -102,10 +106,10 @@ class HomeFragment : BaseFragment() {
             prepareCategoriesData(1)
             getAdsData()
             getHomeProducts()
-            swipeRefresh.isRefreshing=false
+            swipeRefresh.isRefreshing = false
         } else {
             showAlertDialouge(getString(R.string.error_no_internet))
-            swipeRefresh.isRefreshing=false
+            swipeRefresh.isRefreshing = false
         }
     }
 
@@ -205,9 +209,19 @@ class HomeFragment : BaseFragment() {
 
         NUM_PAGES = adsList.size
 
+        //for refresh to update
+//            currentPage=0
+//        pager.setCurrentItem(currentPage,true)
+
         // Auto start of viewpager
         val handler = Handler()
         val Update = Runnable {
+
+            if (isRefreshed) {
+                currentPage = 0
+                isRefreshed = false
+            }
+
             if (currentPage === NUM_PAGES) {
                 currentPage = 0
             }

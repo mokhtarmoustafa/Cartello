@@ -16,9 +16,14 @@ import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.AddressAdapter
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
+import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_profile.*
+import android.support.v4.view.ViewCompat.getMinimumHeight
+import android.graphics.drawable.Drawable
+import android.view.WindowManager
+
 
 class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {
 
@@ -67,15 +72,8 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
         if (index > 0)//delete address
         {
             removedAddressIndex = index
-//            removeAddress()
-            addressList.removeAt(removedAddressIndex) //remove address form list
-            AppConstants.CurrentLoginUser.addresses = addressList
+            removeAddress(removedAddressIndex)
 
-//            PreferenceController.getInstance(this@ProfileActivity).setAddressPref(AppConstants.ADDRESS,AppConstants.CurrentLoginUser.addresses)
-            //refresh adapter
-            var adapter = AddressAdapter(this@ProfileActivity, addressList)
-            rvAddress.adapter = adapter
-            rvAddress.layoutManager = LinearLayoutManager(this@ProfileActivity)
         }
 
     }
@@ -97,8 +95,13 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
     }
 
     private fun changeRateBarSettings() {
-        val stars = rbRate.progressDrawable as LayerDrawable
-        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP)
+    //        val stars = rbRate.progressDrawable as LayerDrawable
+    //        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP)
+        //val starDrawable = resources.getDrawable(R.drawable.YOUR_IMAGE)
+//        val height = 24
+//        val params = rbRate.getLayoutParams() as WindowManager.LayoutParams
+//        params.height = height
+//        rbRate.setLayoutParams(params)
     }
 
     private fun getUserProfileData() {
@@ -120,13 +123,13 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
 
     }
 
-    private fun removeAddress(): Boolean {
+    private fun removeAddress(removedAddressID: Int): Boolean {
         var done = false
 
         if (NetworkManager().isNetworkAvailable(this@ProfileActivity)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
-            var endpoint = request.removeAddress(token)
+            var endpoint = request.removeAddress(token, removedAddressID)
             NetworkManager().request(endpoint, object : INetworkCallBack<ApiResponse<Boolean>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
@@ -139,13 +142,14 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
                         hideDialogue()
                         addressList.removeAt(removedAddressIndex) //remove address form list
                         AppConstants.CurrentLoginUser.addresses = addressList
-
-//            PreferenceController.getInstance(this@ProfileActivity).setAddressPref(AppConstants.ADDRESS,AppConstants.CurrentLoginUser.addresses)
+                        //todo save address to the shared prefrences
+//                        PreferenceController.getInstance(this@ProfileActivity).setAddressPref(AppConstants.ADDRESS,AppConstants.CurrentLoginUser.addresses!!)
                         //refresh adapter
                         var adapter = AddressAdapter(this@ProfileActivity, addressList)
                         rvAddress.adapter = adapter
                         rvAddress.layoutManager = LinearLayoutManager(this@ProfileActivity)
-                        //todo
+
+
                     }
                 }
             })

@@ -227,7 +227,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         selectedCity = City(0, getString(R.string.selectCity))
         selectedArea = Area(0, getString(R.string.selectArea))
 
-        ivBack = findViewById(R.id.ivBackEditDeleteAddress)
+        ivBack = findViewById(R.id.ivBack)
         etName = findViewById(R.id.etFullName)
 
         etCity = findViewById(R.id.etCity)

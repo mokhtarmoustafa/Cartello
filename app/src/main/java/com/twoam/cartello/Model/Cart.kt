@@ -1,11 +1,9 @@
 package com.twoam.cartello.Model
 
-import com.twoam.cartello.R.string.category
-import com.twoam.cartello.R.string.name
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.NotificationCenter
+
 
 /**
  * Created by Mokhtar on 7/20/2019.
@@ -13,13 +11,6 @@ import com.twoam.cartello.Utilities.General.NotificationCenter
 class Cart {
     var shared = Cart()
 
-//    private var products: ArrayList<Product>
-//    {
-//        didSet
-//        {
-//            NotificationCenter.post(name: Notification. Name ("CartCount"), object: nil)
-//        }
-//    }
 
     private var products: ArrayList<Product>
         get() {
@@ -28,7 +19,6 @@ class Cart {
         set(productsList) {
             products = productsList
         }
-
 
     var notes: String? = null
 
@@ -49,6 +39,7 @@ class Cart {
         }
     }
 
+    //static
     fun saveToDisk() {
         PreferenceController.getInstance(AppController.getContext()).setCartPref(AppConstants.CART_ITEMS, products)
     }
@@ -58,27 +49,13 @@ class Cart {
             var index = products.indexOf(product)
             products.removeAt(index)
         }
-
     }
 
-//    func getQty<T: ProductProtocol>(for product: T) -> Int
-//    {
-//        if let index = products.index(of: Product(id: product.id, amount: nil, name: "", image: "", price: 0,
-// category: Category(id: 0, name: "", description: "", subCategories: nil, image: nil), details: nil, discountPrice: nil, active: true))
-//        {
-//            return products[index].amount ?? 0
-//        }
-//        return 0
-//    }
-
-    fun <T : ProductProtocol> getQty(product: T): Int {
-//        var index = products.indexOf(product)
-//        if (var index = products.indexOf( Product(0, null, "", "",  0,
-//        category, null,
-//      null, true))
-//        {
-//            return products[index].amount ?? 0
-//        }
+    fun getQty(product: Product): Int {
+        var index = products.indexOf(product)
+        if (index > 0) {
+            return products[index].quantity
+        }
         return 0
     }
 
@@ -99,17 +76,18 @@ class Cart {
     }
 
     fun getTotal(): Double {
-        var total = 0.0
-        for (product in products.indices) {
-            total = total.plus(products[product].price!!.toDouble())
-            //        return products.reduce(0, { $0 + (($1.discountPrice ?? $1.price) * Double($1.quantity ?? 0)) })
+
+        var value = 0.0
+        products.forEach { product: Product ->
+            value = product.discount_price ?: product.price ?: 0 * product.quantity as Double
         }
-        return total
+
+        return value
     }
+
 
     private fun updateProduct(product: Product) {
 // Product exists in cart
-
         if (products.contains(product)) {
             var index = products.indexOf(product)
             products[index].quantity = product.quantity
@@ -124,10 +102,10 @@ class Cart {
             var index = products.indexOf(product)
             products.removeAt(index)
         }
-
     }
-}
 
-class ProductProtocol {
 
 }
+
+
+

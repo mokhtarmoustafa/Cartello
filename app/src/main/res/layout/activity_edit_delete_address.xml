@@ -134,7 +134,7 @@
 
                             android:text="@string/name"
                             android:textColor="@color/colorHintLabel"
-                            android:textSize="15sp" />
+                                android:textSize="15sp" />
 
                         <TextView
                             android:id="@+id/tvFullNameError"
@@ -350,9 +350,8 @@
                         style="@style/Widget.AppCompat.EditText"
                         android:layout_width="154.5dp"
                         android:layout_height="58dp"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignStart="@+id/rlAddress"
                         android:layout_below="@+id/rlAddress"
-                        android:layout_marginLeft="29dp"
                         android:layout_marginRight="8.5dp"
                         android:layout_marginTop="14dp"
                         android:addStatesFromChildren="true"
@@ -382,8 +381,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-
-
                             android:layout_marginLeft="25dp"
                             android:layout_marginRight="14dp"
                             android:layout_marginTop="8dp"

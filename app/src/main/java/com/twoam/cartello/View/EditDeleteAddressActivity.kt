@@ -4,8 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.*
-import bolts.Bolts
-import com.bumptech.glide.Glide.init
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Address
@@ -13,7 +11,6 @@ import com.twoam.cartello.Model.Area
 import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
-import com.twoam.cartello.R.string.name
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.AreaAdapter
@@ -42,7 +39,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     private var newAddress: Address = Address()
     //    private var addressIdIndex: Int? = null
     private var bottomSheet = CloseBottomSheetDialog()
-
+    private  var addressToUpdate:Address= Address()
     //endregion
 
     //region Events
@@ -77,7 +74,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
                 var valid = validateUserData(name, city, area, address, apt, floor)
                 if (valid) {
                     showDialogue()
-                    addAddress(name, selectedCity.id.toString(), selectedArea.id.toString(), address, apt, floor, landMark)
+                    updateAddress(addressToUpdate.id, name, selectedCity.id.toString(), selectedArea.id.toString(), address, apt, floor, landMark)
                 }
 
             }
@@ -97,7 +94,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     override fun onBottomSheetSelectedItem(index: Int) {
         if (index >= 0) {
             var address = AppConstants.CurrentLoginUser.addresses?.get(index)
-            removeAddress(address?.id.toString())
+            removeAddress(address?.id!!)
         }
     }
 
@@ -184,22 +181,22 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         if (intent.hasExtra("addressIdPosition")) {
             val bundle: Bundle? = intent.extras
             var addressIndex = bundle?.get("addressIdPosition") as Int
-            var address = AppConstants.CurrentLoginUser.addresses?.get(addressIndex)
-            var city = cities.find { it.id == address!!.city_id }
+             addressToUpdate = AppConstants.CurrentLoginUser.addresses?.get(addressIndex)!!
+            var city = cities.find { it.id == addressToUpdate!!.city_id }
 
             prepareAreas(city!!)
 
-            var area = areas.find { it.id == address!!.area_id }
+            var area = areas.find { it.id == addressToUpdate!!.area_id }
             selectedCity = city!!
             selectedArea = area!!
 
-            etFullName.setText(address?.name)
-            etCity.setText(cities.find { it.id == address!!.city_id }?.name)
-            etArea.setText(areas.find { it.id == address!!.area_id }?.name)
-            etAddress.setText(address?.address)
-            etApt.setText(address?.apartment)
-            etFloor.setText(address?.floor)
-            etLandMark.setText(address?.landmark)
+            etFullName.setText(addressToUpdate?.name)
+            etCity.setText(cities.find { it.id == addressToUpdate!!.city_id }?.name)
+            etArea.setText(areas.find { it.id == addressToUpdate!!.area_id }?.name)
+            etAddress.setText(addressToUpdate?.address)
+            etApt.setText(addressToUpdate?.apartment)
+            etFloor.setText(addressToUpdate?.floor)
+            etLandMark.setText(addressToUpdate?.landmark)
 
         }
     }
@@ -229,12 +226,12 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         })
     }
 
-    private fun addAddress(name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): Address {
+    private fun updateAddress(addressId: Int, name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): Address {
 
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var authorization = AppConstants.BEARER + currentLoginUser.token
-            var endPoint = request.addAddress(authorization, name, city, area, address, apt, floor, landMark)
+            var endPoint = request.updateAddress(addressId, authorization, name, city, area, address, apt, floor, landMark)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
@@ -263,12 +260,12 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         return newAddress!!
     }
 
-    private fun removeAddress(addressId: String): Boolean {
+    private fun removeAddress(addressId: Int): Boolean {
         var done = false
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var authorization = AppConstants.BEARER + currentLoginUser.token
-            var endPoint = request.removeAddress(authorization)
+            var endPoint = request.removeAddress(authorization, addressId)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Boolean>> {
                 override fun onFailed(error: String) {
                     hideDialogue()

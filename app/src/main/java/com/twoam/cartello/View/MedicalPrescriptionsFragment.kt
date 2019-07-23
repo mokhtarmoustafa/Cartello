@@ -1,7 +1,6 @@
 package com.twoam.cartello.View
 
 
-import android.app.FragmentManager
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -23,6 +22,9 @@ import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_medical_prescriptions.*
+import android.graphics.Bitmap
+
+
 
 
 class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
@@ -30,7 +32,7 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
 
     //region MEMBERS
     private lateinit var currentView: View
-    private lateinit var medicalList: ArrayList<MedicalPrescriptions>
+    private  var medicalList= ArrayList<MedicalPrescriptions>()
     private var bottomSheet = MedicalBottomSheetDialog()
     private lateinit var btnAddMedical: Button
 
@@ -48,11 +50,11 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
     }
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
 
@@ -81,6 +83,7 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
                 override fun onSuccess(response: ApiResponse<ArrayList<MedicalPrescriptions>>) {
                     if (response.code == AppConstants.CODE_200) {
                         medicalList = response.data!!
+                        tvTotalMedical.text=medicalList.size.toString()
                         prepareMedicalData(medicalList)
                     } else {
                         Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
@@ -100,14 +103,12 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
         var adapter = MedicalAdapter(AppController.getContext(), medicalList)
         rvMedical.adapter = adapter
         rvMedical.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
+        
     }
 
-    fun addMedical(token: String, name: String, note: String, image: String) {
 
-    }
 
-    fun loadMedicalDetails()
-    {}
+
     //endregion
 
 

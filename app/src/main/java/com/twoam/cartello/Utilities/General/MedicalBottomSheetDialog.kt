@@ -11,6 +11,7 @@ import android.support.design.widget.BottomSheetDialogFragment
 import android.view.*
 import android.widget.*
 import com.twoam.cartello.R
+import com.twoam.cartello.R.id.*
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.View.*
 import kotlinx.android.synthetic.main.bottom_sheet_close.*
@@ -86,12 +87,13 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK &&
-                data!!.hasExtra("data")) {
-            val bitmap = data.extras.get("data") as Bitmap
-            Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            val bitmap = data!!.extras.get("data") as Bitmap
+
+
             if (bitmap != null) {
-//
+                Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(context, ProductDetailActivity::class.java).putExtra("image", bitmap))
             }
 
         }
@@ -109,15 +111,19 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
         val galleryIntent = Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
-        startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY)
+        activity!!.startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY)
     }
 
     private fun openCamera() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            takePictureIntent.resolveActivity(AppController.getContext().packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            }
-        }
+//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+//            takePictureIntent.resolveActivity(AppController.getContext().packageManager)?.also {
+//                activity!!.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+//            }
+//        }
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        this.startActivityForResult(intent,
+                REQUEST_IMAGE_CAPTURE)
     }
     //endregion
 
@@ -127,7 +133,7 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
         lLCapture = layout.findViewById(R.id.lLCapture)
         lLGallery = layout.findViewById(R.id.lLGallery)
 
-        ivClose = layout.findViewById(R.id.ivClose)
+        ivClose = layout.findViewById(R.id.ivCloseMedical)
 
         ivClose.setOnClickListener(this)
         lLCapture.setOnClickListener(this)

@@ -37,8 +37,11 @@ import java.util.ArrayList
 
     override fun onBindViewHolder(holder: MedicalAdapter.MyViewHolder, position: Int) {
         medical = medicalList[position]
-//        holder.tvDate.text = medical!!.medical
-        holder.tvDate.text = medical!!.name//+" , ${city.name} , ${area?.name}"
+        val dateTime = medical!!.created_at.split(" ")
+        holder.tvDate.text = dateTime[0]
+        holder.tvTime.text=dateTime[1]
+        holder.tvOrderId.text= """${context.getString(R.string.order_id)}${medical!!.id}"""
+
     }
 
     override fun getItemCount(): Int {

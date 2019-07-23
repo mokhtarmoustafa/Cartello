@@ -59,6 +59,11 @@ object AppConstants {
     const val URL_GET_ADS = "customer/ads"
     const val URL_GET_SUB_CATEGORIES = "customer/categories/attributes/153"
     const val URL_GET_HOME_PRODUCTS = "customer/products/home"
+    const val URL_GET_MEDICAL_PRESCRIPTIONS_GET_ALL = "customer/prescriptions"
+    const val URL_GET_MEDICAL_ADD = "customer/prescriptions"
+
+
+
 
 
     //endregion

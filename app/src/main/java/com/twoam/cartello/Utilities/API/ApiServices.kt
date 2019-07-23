@@ -47,7 +47,7 @@ interface ApiServices {
     fun resetPassword(@Query("email") email: String, @Query("code") code: String, @Query("password") password: String)
             : Call<ApiResponse<User>>
 
- @POST(AppConstants.URL_CHANGE_PASSWORD)
+    @POST(AppConstants.URL_CHANGE_PASSWORD)
     fun changePassword(@Header("Authorization") token: String, @Query("old_password") oldPassword: String, @Query("password") newPassword: String)
             : Call<ApiResponse<Boolean>>
 
@@ -67,14 +67,14 @@ interface ApiServices {
                    @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>
 
-    @POST(AppConstants.URL_UPDATE_ADDRESS+"/{addressId}")
-    fun updateAddress(@Path("addressId") userId:Int,@Header("Authorization") token: String, @Query("name") name: String, @Query("city_id") city_id: String,
-                   @Query("area_id") area_id: String, @Query("address") address: String,
-                   @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
+    @POST(AppConstants.URL_UPDATE_ADDRESS + "/{addressId}")
+    fun updateAddress(@Path("addressId") userId: Int, @Header("Authorization") token: String, @Query("name") name: String, @Query("city_id") city_id: String,
+                      @Query("area_id") area_id: String, @Query("address") address: String,
+                      @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>
 
     @POST(AppConstants.URL_REMOVE_ADDRESS + "/{addressId}")
-    fun removeAddress(@Header("Authorization") token: String,@Path("addressId") userId:Int): Call<ApiResponse<Boolean>>
+    fun removeAddress(@Header("Authorization") token: String, @Path("addressId") userId: Int): Call<ApiResponse<Boolean>>
 
     @GET(AppConstants.URL_GET_CATEGORIES)
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>
@@ -92,4 +92,13 @@ interface ApiServices {
                     @Query("birthdate") birthdate: String
 
     ): Call<ApiResponse<User>>
+
+    @GET(AppConstants.URL_GET_MEDICAL_PRESCRIPTIONS_GET_ALL)
+    fun getAllMedicalPrescriptions(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<MedicalPrescriptions>>>
+
+    @POST(AppConstants.URL_GET_MEDICAL_ADD)
+    fun addMedical(@Header("Authorization") token: String,
+                   @Query("name") name: String,
+                   @Query("note") note: String,
+                   @Query("image") image: String): Call<ApiResponse<MedicalPrescriptions>>
 }

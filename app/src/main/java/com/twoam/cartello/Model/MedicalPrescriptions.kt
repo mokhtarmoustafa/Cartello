@@ -12,4 +12,5 @@ class MedicalPrescriptions {
      var user_id: Int = 0
      var created_at: String = ""
 
+
 }

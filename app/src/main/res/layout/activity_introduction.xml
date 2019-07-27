@@ -1,23 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical">-->
 
-    <RelativeLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/ripple_effect"
-        android:clickable="true"
+    <!--<RelativeLayout-->
+        <!--android:id="@+id/linearLayout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@drawable/ripple_effect"-->
+        <!--android:clickable="true"-->
 
-        >
-
+        <!--&gt;-->
+        <com.skyfishjy.library.RippleBackground
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/content"
+            app:rb_color="#05000000"
+            app:rb_radius="82dp"
+            app:rb_rippleAmount="4"
+            app:rb_scale="6">
         <ImageView
             android:id="@+id/image"
             android:layout_width="141dp"
             android:layout_height="67dp"
             android:layout_centerInParent="true"
             android:background="@drawable/logo" />
-    </RelativeLayout>
-</RelativeLayout>
+        </com.skyfishjy.library.RippleBackground>
+    <!--</RelativeLayout>-->
+<!--</RelativeLayout>-->

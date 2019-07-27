@@ -71,5 +71,8 @@ dependencies {
         exclude group: "com.android.support"
     }
 
+    //ripple effect
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+
 
 }

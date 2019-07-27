@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.RelativeLayout
+import com.skyfishjy.library.RippleBackground
 import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
@@ -20,7 +21,8 @@ class IntroductionActivity : AppCompatActivity() {
 
     //region Class Members
     private lateinit var rippleLayout: RelativeLayout
-    private var startTime: Long = 2000
+    private var startTime: Long = 3000
+    private lateinit var  rippleBackground:RippleBackground
     //endregion
 
     //region Events
@@ -36,14 +38,16 @@ class IntroductionActivity : AppCompatActivity() {
 
     //region   Helper Functions
     private fun init() {
-        rippleLayout = findViewById(R.id.linearLayout)
+//        rippleLayout = findViewById(R.id.linearLayout)
+        rippleBackground=findViewById(R.id.content)
 
-        Handler().postDelayed({
-            runOnUiThread {
-                startAnimate(rippleLayout)
-            }
-
-        }, 500)
+//        Handler().postDelayed({
+//            runOnUiThread {
+//                startAnimate(rippleLayout)
+//            }
+//
+//        }, 500)
+        rippleBackground.startRippleAnimation()
 
         Handler().postDelayed({
 
@@ -84,9 +88,11 @@ class IntroductionActivity : AppCompatActivity() {
                 && PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] == AppConstants.TRUE) {
             getUserData(user)
             finish()
+            rippleBackground.stopRippleAnimation()
         } else {
             startActivity(Intent(applicationContext, LoginActivity::class.java))
             finish()
+            rippleBackground.stopRippleAnimation()
         }
     }
 

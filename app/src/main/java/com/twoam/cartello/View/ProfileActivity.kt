@@ -1,9 +1,6 @@
 package com.twoam.cartello.View
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.PorterDuff
-import android.graphics.drawable.LayerDrawable
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -20,9 +17,7 @@ import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_profile.*
-import android.support.v4.view.ViewCompat.getMinimumHeight
-import android.graphics.drawable.Drawable
-import android.view.WindowManager
+import com.twoam.cartello.Utilities.General.AnimateScroll
 
 
 class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {
@@ -78,6 +73,20 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
 
     }
 
+
+    override fun onResume() {
+        super.onResume()
+//        if (AppConstants.CurrentLoginUser.addresses != null &&
+//                AppConstants.CurrentLoginUser.addresses!!.size > 0) {
+//            addressList = AppConstants.CurrentLoginUser.addresses!!
+//
+//            var adapter = AddressAdapter(this@ProfileActivity, addressList)
+//            rvAddress.adapter = adapter
+//            rvAddress.layoutManager = LinearLayoutManager(this)
+//        }
+        AnimateScroll.scrollToView(scrollView,rlParent)
+    }
+
     //endregion
 
     //region Helper Functions
@@ -95,8 +104,8 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
     }
 
     private fun changeRateBarSettings() {
-    //        val stars = rbRate.progressDrawable as LayerDrawable
-    //        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP)
+        //        val stars = rbRate.progressDrawable as LayerDrawable
+        //        stars.getDrawable(2).setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP)
         //val starDrawable = resources.getDrawable(R.drawable.YOUR_IMAGE)
 //        val height = 24
 //        val params = rbRate.getLayoutParams() as WindowManager.LayoutParams
@@ -105,11 +114,11 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
     }
 
     private fun getUserProfileData() {
-        if (AppConstants.CurrentLoginUser.addresses != null &&
-                AppConstants.CurrentLoginUser.addresses!!.size > 0) {
+        if (AppConstants.CurrentLoginUser.address!!.addresses != null &&
+                AppConstants.CurrentLoginUser.address!!.addresses!!.size > 0) {
 
             var user = AppConstants.CurrentLoginUser
-            addressList = AppConstants.CurrentLoginUser.addresses!!
+            addressList = AppConstants.CurrentLoginUser.address!!.addresses!!
 
             tvProfileName.text = user.name
             tvTelNo.text = user.phone
@@ -129,26 +138,26 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
         if (NetworkManager().isNetworkAvailable(this@ProfileActivity)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
-            var endpoint = request.removeAddress(token, removedAddressID)
-            NetworkManager().request(endpoint, object : INetworkCallBack<ApiResponse<Boolean>> {
+            var endpoint = request.removeAddress(removedAddressID, token)
+            NetworkManager().request(endpoint, object : INetworkCallBack<ApiResponse<Address>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
                     showAlertDialouge(error)
                 }
 
-                override fun onSuccess(response: ApiResponse<Boolean>) {
+                override fun onSuccess(response: ApiResponse<Address>) {
                     if (response.code == AppConstants.CODE_200) {
+
+                        var newAddress = response.data!!
+                        AppConstants.CurrentLoginUser.address = newAddress
+                        AppConstants.CurrentLoginUser.hasAddress = AppConstants.CurrentLoginUser.addresses!!.count() > 0
+                        PreferenceController.getInstance(this@ProfileActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                         //saved the address in shared prefrences
                         hideDialogue()
-                        addressList.removeAt(removedAddressIndex) //remove address form list
-                        AppConstants.CurrentLoginUser.addresses = addressList
-                        //todo save address to the shared prefrences
-//                        PreferenceController.getInstance(this@ProfileActivity).setAddressPref(AppConstants.ADDRESS,AppConstants.CurrentLoginUser.addresses!!)
                         //refresh adapter
                         var adapter = AddressAdapter(this@ProfileActivity, addressList)
                         rvAddress.adapter = adapter
                         rvAddress.layoutManager = LinearLayoutManager(this@ProfileActivity)
-
 
                     }
                 }

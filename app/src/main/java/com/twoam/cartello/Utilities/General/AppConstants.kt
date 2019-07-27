@@ -85,6 +85,7 @@ object AppConstants {
     const val GOOGLE = 2
     const val CURRENTINDEXTAG="currentOption"
     var CURRENTSELECTEDINDEX = 0
+    var CurrentCameraGAlleryAction=0 //0 camera  1 gallery
 
     var CurrentLoginUser: User = User()
 

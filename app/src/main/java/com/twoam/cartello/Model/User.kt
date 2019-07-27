@@ -9,7 +9,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 class User {
 
     var id: String = ""
-    var hasdAddress: Boolean = false
+    var hasAddress: Boolean = false
     var name: String = ""
     var email: String = ""
     var phone: String = ""
@@ -19,14 +19,15 @@ class User {
     var created_at: String = ""
     var updated_at: String = ""
     var addresses: ArrayList<Address>? = null
+    var address: Address? = null
+
     var socialType: Int? = null
     var fullImagePath: String? = null
 
 
     constructor()
 
-    constructor(account: GoogleSignInAccount)
-    {
+    constructor(account: GoogleSignInAccount) {
         id = account.id!!
         name = account.displayName.toString()
         email = account.email.toString()

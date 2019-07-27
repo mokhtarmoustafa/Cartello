@@ -1,6 +1,7 @@
 package com.twoam.cartello.View
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -22,9 +23,8 @@ import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_medical_prescriptions.*
-import android.graphics.Bitmap
-
-
+import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.RecyclerView
 
 
 class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
@@ -35,6 +35,8 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
     private  var medicalList= ArrayList<MedicalPrescriptions>()
     private var bottomSheet = MedicalBottomSheetDialog()
     private lateinit var btnAddMedical: Button
+    private lateinit var swipeRefresh:SwipeRefreshLayout
+    private lateinit var rvMedical:RecyclerView
 
 
     //endregion
@@ -45,6 +47,7 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
         currentView = inflater.inflate(R.layout.fragment_medical_prescriptions, container, false)
 
         init()
+
         getAllMedical()
         return currentView
     }
@@ -57,19 +60,37 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+    }
 
     //endregion
     //region HELPER FUNCTIONS
     private fun init() {
         btnAddMedical = currentView.findViewById(R.id.btnAddMedical)
+        swipeRefresh=currentView.findViewById(R.id.swipeRefresh)
+        rvMedical=currentView.findViewById(R.id.rvMedical)
+
+        rvMedical.isNestedScrollingEnabled = false
 
         btnAddMedical.setOnClickListener(View.OnClickListener {
             bottomSheet.Action = 1
             bottomSheet.show(fragmentManager, "Custom Bottom Sheet")
         })
+
+
+        swipeRefresh.setOnRefreshListener {
+            refreshData()
+        }
+    }
+
+    private fun refreshData() {
+        getAllMedical()
+        swipeRefresh.isRefreshing = false
     }
 
     private fun getAllMedical(): ArrayList<MedicalPrescriptions> {
+        showDialogue()
         if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
             var request = NetworkManager().create(ApiServices::class.java)
@@ -85,7 +106,9 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
                         medicalList = response.data!!
                         tvTotalMedical.text=medicalList.size.toString()
                         prepareMedicalData(medicalList)
+                        hideDialogue()
                     } else {
+                        hideDialogue()
                         Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
                     }
 
@@ -100,7 +123,7 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
 
     private fun prepareMedicalData(medicalList: ArrayList<MedicalPrescriptions>) {
 
-        var adapter = MedicalAdapter(AppController.getContext(), medicalList)
+        var adapter = MedicalAdapter(fragmentManager, AppController.getContext(), medicalList)
         rvMedical.adapter = adapter
         rvMedical.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
         

@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.widget.RelativeLayout
+import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
@@ -28,12 +29,9 @@ class IntroductionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_introduction)
 
         init()
-//        logOUt()
     }
 
-    private fun logOUt() {
-        PreferenceController.getInstance(applicationContext).clear(AppConstants.IS_LOGIN)
-    }
+
     //endregion
 
     //region   Helper Functions
@@ -70,15 +68,16 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun checkedUserLogged() {
-        var test=PreferenceController.getInstance(applicationContext).get(AppConstants.TEST_MODE)
-        if(test.isNullOrEmpty())
-        {
+
+        var test = PreferenceController.getInstance(applicationContext)[AppConstants.TEST_MODE]
+
+        if (test.isNullOrEmpty()) {
             PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.IS_LOGIN)
             PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.USER_DATA)
-            PreferenceController.getInstance(AppController.getContext()).Set(AppConstants.TEST_MODE,AppConstants.TRUE)
+            PreferenceController.getInstance(AppController.getContext()).Set(AppConstants.TEST_MODE, AppConstants.TRUE)
         }
 
-        // Check if user is already logged in or
+        // Check if user is already logged in or not
         var user = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)
         if (user != null
                 && PreferenceController.getInstance(applicationContext)[AppConstants.IS_LOGIN] != null
@@ -92,8 +91,14 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun getUserData(currentUser: User) {
+        var cities = ArrayList<City>()
+        try {
+            cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
+        } catch (ex: Exception) {
+        }
 
-        if (currentUser != null && currentUser.addresses != null) {
+
+        if (currentUser?.address!!.addresses.count() > 0 && cities.count() > 0) {
             AppConstants.CurrentLoginUser = currentUser
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()

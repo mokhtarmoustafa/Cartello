@@ -68,13 +68,13 @@ interface ApiServices {
     ): Call<ApiResponse<Address>>
 
     @POST(AppConstants.URL_UPDATE_ADDRESS + "/{addressId}")
-    fun updateAddress(@Path("addressId") userId: Int, @Header("Authorization") token: String, @Query("name") name: String, @Query("city_id") city_id: String,
+    fun updateAddress(@Header("Authorization") token: String, @Path("addressId") userId: Int, @Query("name") name: String, @Query("city_id") city_id: String,
                       @Query("area_id") area_id: String, @Query("address") address: String,
                       @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>
 
     @POST(AppConstants.URL_REMOVE_ADDRESS + "/{addressId}")
-    fun removeAddress(@Header("Authorization") token: String, @Path("addressId") userId: Int): Call<ApiResponse<Boolean>>
+    fun removeAddress(@Path("addressId") userId: Int, @Header("Authorization") token: String): Call<ApiResponse<Address>>
 
     @GET(AppConstants.URL_GET_CATEGORIES)
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>

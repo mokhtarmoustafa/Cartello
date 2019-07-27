@@ -23,12 +23,14 @@ import java.util.ArrayList
  * Created by Mokhtar on 6/30/2019.
  */
 
- class AddressAdapter(private val context: Context, private val addressList: ArrayList<Address>) : RecyclerView.Adapter<AddressAdapter.MyViewHolder>() {
+class AddressAdapter(private val context: Context, private val addressList: ArrayList<Address>) : RecyclerView.Adapter<AddressAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var address: Address? = null
     private lateinit var cities: ArrayList<City>
     private lateinit var areas: ArrayList<Area>
+    var addressValue = ""
+    var addresssNameVAlue = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddressAdapter.MyViewHolder {
 
@@ -38,13 +40,44 @@ import java.util.ArrayList
     }
 
     override fun onBindViewHolder(holder: AddressAdapter.MyViewHolder, position: Int) {
-        address = addressList[position]
-//        cities=PreferenceController.getInstance(context).getCitiesPref(AppConstants.CITIES_DATA)!!
-//        var city = cities.find { it.id == address!!.city_id }
-//        areas=city?.areas!!
-//        var area=areas.find { it.id==address!!.area_id }
-        holder.tvAddress.text = address!!.address
-        holder.tvAddressName.text = address!!.name//+" , ${city.name} , ${area?.name}"
+//        address = addressList[position]
+        var currentAddress = addressList[position]
+        cities = PreferenceController.getInstance(context).getCitiesPref(AppConstants.CITIES_DATA)!!
+        var city = cities.find { it.id == currentAddress!!.city_id }
+        areas = city?.areas!!
+        var area = areas.find { it.id == currentAddress!!.area_id }
+
+
+        addressValue = if (currentAddress!!.apartment.isNullOrEmpty())
+            ""
+        else
+            currentAddress!!.apartment
+
+        addressValue+=if(currentAddress!!.address.isNullOrEmpty())
+            ""
+        else
+            " "+currentAddress!!.address
+
+
+        addresssNameVAlue = if (currentAddress!!.name.isNullOrEmpty())
+            ""
+        else
+            currentAddress!!.name
+
+        addresssNameVAlue+=if(city.name.isNullOrEmpty())
+            ""
+        else
+            " , "+city.name
+
+        addresssNameVAlue+=if(area?.name.isNullOrEmpty())
+            ""
+        else
+            " , "+area?.name
+
+
+
+        holder.tvAddress.text =addressValue  // currentAddress!!.apartment+" ${currentAddress!!.address}"
+        holder.tvAddressName.text = addresssNameVAlue //currentAddress!!.name + " , ${city.name} , ${area?.name}"
     }
 
     override fun getItemCount(): Int {

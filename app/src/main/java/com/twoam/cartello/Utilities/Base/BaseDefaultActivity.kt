@@ -13,10 +13,12 @@ import android.view.Menu
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
+import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
+import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.MyContextWrapper
 import com.twoam.cartello.View.MainActivity
 import com.twoam.cartello.View.CreateAddressActivity
@@ -45,9 +47,18 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
     }
 
     fun checkHasAddress(user: User) {
-        if (user.addresses != null && user.addresses!!.size > 0) {
+
+        var cities = ArrayList<City>()
+        try {
+            cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
+        } catch (ex: Exception) {
+        }
+
+        if (user.address != null && user.address!!.addresses.size > 0&& cities.count() > 0) {
+            user.hasAddress = true
+            PreferenceController.instance?.setUserPref(AppConstants.USER_DATA, user)
+//            PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
             startActivity(Intent(this, MainActivity::class.java))
-            PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
             finish()
         } else {
             startActivity(Intent(this, CreateAddressActivity::class.java))

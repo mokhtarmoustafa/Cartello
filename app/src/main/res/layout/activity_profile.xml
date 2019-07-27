@@ -7,6 +7,7 @@
     tools:context="com.twoam.cartello.View.ProfileActivity">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -14,73 +15,79 @@
         android:scrollbars="none">
 
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/ivParent"
+            <RelativeLayout
+                android:id="@+id/rlParent"
                 android:layout_width="match_parent"
-                android:layout_height="112dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg" />
+                android:layout_height="112dp">
+                <ImageView
+                    android:id="@+id/ivParent"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/bg" />
 
-            <ImageView
-                android:id="@+id/ivBackProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="17dp"
-                android:layout_marginTop="31dp"
-                android:clickable="true"
-                app:srcCompat="@drawable/left" />
+                <ImageView
+                    android:id="@+id/ivBackProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="17dp"
+                    android:layout_marginTop="31dp"
+                    android:clickable="true"
+                    app:srcCompat="@drawable/left" />
 
-            <TextView
-                android:id="@+id/tvProfileName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="70dp"
-                android:layout_marginTop="22dp"
-                android:layout_toRightOf="@+id/ivBackProfile"
-                android:fontFamily="Poppins-Regular"
-                android:gravity="center"
-                android:text="Mokhtar mostafa sayed"
-                android:textColor="@color/white"
-                android:textSize="17sp" />
+                <TextView
+                    android:id="@+id/tvProfileName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="Poppins-Regular"
+                    android:gravity="center_horizontal"
+                    android:text="Mokhtar mostafa sayed"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tvTelNo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_below="@+id/tvProfileName"
-                android:layout_marginStart="144dp"
-                android:layout_marginTop="46dp"
-                android:fontFamily="Helvetica"
-                android:gravity="center"
-                android:text="01066504965"
-                android:textColor="@color/white"
-                android:textSize="13sp" />
+                <TextView
+                    android:id="@+id/tvTelNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tvProfileName"
+                    android:layout_marginTop="49dp"
+                    android:fontFamily="Helvetica"
+                    android:gravity="center_horizontal"
+                    android:text="01066504965"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
 
-            <TextView
-                android:id="@+id/tvEditProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="20dp"
-                android:layout_marginTop="30dp"
-                android:clickable="true"
-                android:text="@string/edit"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tvEditProfile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="30dp"
+                    android:clickable="true"
+                    android:text="@string/edit"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rLContainer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/ivParent"
+                android:layout_below="@+id/rlParent"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="12dp">
@@ -184,7 +191,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvAddress"
-                    android:layout_marginTop="14dp">
+                    android:layout_marginTop="14dp"
+                    android:scrollbars="vertical">
 
                 </android.support.v7.widget.RecyclerView>
 

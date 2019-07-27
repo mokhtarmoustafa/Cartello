@@ -1,7 +1,7 @@
 package com.twoam.cartello.Utilities.Adapters
 
 import android.content.Context
-import android.content.Intent
+import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -9,24 +9,24 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 
-import com.twoam.cartello.Model.Area
-import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.MedicalPrescriptions
 import com.twoam.cartello.R
-
-
-
-import java.util.ArrayList
+import com.twoam.cartello.Utilities.General.LoadMedicalDataDialog
+import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by Mokhtar on 6/30/2019.
  */
 
- class MedicalAdapter(private val context: Context, private val medicalList: ArrayList<MedicalPrescriptions>) : RecyclerView.Adapter<MedicalAdapter.MyViewHolder>() {
+class MedicalAdapter(private val fragmentManager: FragmentManager?,
+                     private val context: Context, private val medicalList: ArrayList<MedicalPrescriptions>)
+    : RecyclerView.Adapter<MedicalAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var medical: MedicalPrescriptions? = null
-
+    private var bottomSheet = LoadMedicalDataDialog()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MedicalAdapter.MyViewHolder {
 
@@ -36,11 +36,19 @@ import java.util.ArrayList
     }
 
     override fun onBindViewHolder(holder: MedicalAdapter.MyViewHolder, position: Int) {
+
         medical = medicalList[position]
         val dateTime = medical!!.created_at.split(" ")
+
+        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val date = dateFormatter.parse(medical!!.created_at)
+        // Get time from date
+        val timeFormatter = SimpleDateFormat("h:mm a")
+        val time = timeFormatter.format(date)
+
         holder.tvDate.text = dateTime[0]
-        holder.tvTime.text=dateTime[1]
-        holder.tvOrderId.text= """${context.getString(R.string.order_id)}${medical!!.id}"""
+        holder.tvTime.text = time
+        holder.tvOrderId.text = """${context.getString(R.string.order_id)}${medical!!.id}"""
 
     }
 
@@ -73,12 +81,9 @@ import java.util.ArrayList
                 // check if item still exists
                 if (pos != RecyclerView.NO_POSITION) {
 
-//                    medical = medicalList[pos]
-                    Toast.makeText(v.context, "You clicked " + medical!!.id, Toast.LENGTH_SHORT).show()
-//                    // open edit medical activity
-//                    context.startActivity(Intent(context, EditDeleteMedicalActivity::class.java)
-//                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                            .putExtra("medicalIdPosition", pos))
+                    medical = medicalList[pos]
+                    bottomSheet.CurrentMedical = medical!!
+                    bottomSheet.show(fragmentManager, "Custom Bottom Sheet")
                 }
             }
         }

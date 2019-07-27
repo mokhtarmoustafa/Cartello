@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorApp"
-                android:orientation="vertical">
+                >
 
                 <RelativeLayout
                     android:id="@+id/cvParent"
@@ -491,7 +491,7 @@
                     >
 
                     <Button
-                        android:id="@+id/btnAdd"
+                        android:id="@+id/btnAddAddress"
                         android:layout_width="317dp"
                         android:layout_height="62dp"
                         android:layout_centerHorizontal="true"

@@ -28,18 +28,20 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     //region Members
 
     private var currentLoginUser: User = User()
-    private lateinit var cities: ArrayList<City>
-    private lateinit var dummyCities: ArrayList<City>
-    private lateinit var areas: ArrayList<Area>
-    private lateinit var dummyAreas: ArrayList<Area>
-    private lateinit var selectedCity: City
-    private lateinit var selectedArea: Area
+    private var currentAddress: Address = Address()
+    private var currentAddressIndex = 0
+    private var cities = ArrayList<City>()
+    private var dummyCities = ArrayList<City>()
+    private var areas = ArrayList<Area>()
+    private var dummyAreas = ArrayList<Area>()
+    private var selectedCity = City()
+    private var selectedArea = Area()
     private lateinit var etCity: AutoCompleteTextView
     private lateinit var etArea: AutoCompleteTextView
     private var newAddress: Address = Address()
     //    private var addressIdIndex: Int? = null
     private var bottomSheet = CloseBottomSheetDialog()
-    private  var addressToUpdate:Address= Address()
+    private var addressToUpdate: Address = Address()
     //endregion
 
     //region Events
@@ -74,7 +76,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
                 var valid = validateUserData(name, city, area, address, apt, floor)
                 if (valid) {
                     showDialogue()
-                    updateAddress(addressToUpdate.id, name, selectedCity.id.toString(), selectedArea.id.toString(), address, apt, floor, landMark)
+                    updateAddress(currentAddress.id, name, selectedCity.id.toString(), selectedArea.id.toString(), address, apt, floor, landMark)
                 }
 
             }
@@ -92,9 +94,15 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
-        if (index >= 0) {
-            var address = AppConstants.CurrentLoginUser.addresses?.get(index)
-            removeAddress(address?.id!!)
+        if (index == 1) {//delete
+
+
+            currentAddress = AppConstants.CurrentLoginUser.address!!.addresses!![currentAddressIndex]
+//            var address = currentAddress.addresses?.get(currentAddressIndex)!!
+
+//            var address = AppConstants.CurrentLoginUser.addresses?.get(index)
+            showDialogue()
+            removeAddress(currentAddress?.id!!)
         }
     }
 
@@ -125,6 +133,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
                 override fun onSuccess(response: ApiResponse<ArrayList<City>>) {
                     if (response.code == AppConstants.CODE_200) {
                         cities = response.data!!
+                        PreferenceController.instance?.setCitiesPref(AppConstants.CITIES_DATA, cities)
                         prepareCities(cities)
                         hideDialogue()
 
@@ -180,23 +189,26 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     private fun loadSavedAddress() {
         if (intent.hasExtra("addressIdPosition")) {
             val bundle: Bundle? = intent.extras
-            var addressIndex = bundle?.get("addressIdPosition") as Int
-             addressToUpdate = AppConstants.CurrentLoginUser.addresses?.get(addressIndex)!!
-            var city = cities.find { it.id == addressToUpdate!!.city_id }
+            currentAddressIndex = bundle?.get("addressIdPosition") as Int
+
+            currentAddress = AppConstants.CurrentLoginUser.address!!.addresses!![currentAddressIndex]
+//            addressToUpdate = currentAddress.addresses?.get(addressIndex)!!
+
+            var city = cities.find { it.id == currentAddress!!.city_id }
 
             prepareAreas(city!!)
 
-            var area = areas.find { it.id == addressToUpdate!!.area_id }
+            var area = areas.find { it.id == currentAddress!!.area_id }
             selectedCity = city!!
             selectedArea = area!!
 
-            etFullName.setText(addressToUpdate?.name)
-            etCity.setText(cities.find { it.id == addressToUpdate!!.city_id }?.name)
-            etArea.setText(areas.find { it.id == addressToUpdate!!.area_id }?.name)
-            etAddress.setText(addressToUpdate?.address)
-            etApt.setText(addressToUpdate?.apartment)
-            etFloor.setText(addressToUpdate?.floor)
-            etLandMark.setText(addressToUpdate?.landmark)
+            etFullName.setText(currentAddress?.name)
+            etCity.setText(cities.find { it.id == currentAddress!!.city_id }?.name)
+            etArea.setText(areas.find { it.id == currentAddress!!.area_id }?.name)
+            etAddress.setText(currentAddress?.address)
+            etApt.setText(currentAddress?.apartment)
+            etFloor.setText(currentAddress?.floor)
+            etLandMark.setText(currentAddress?.landmark)
 
         }
     }
@@ -231,7 +243,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var authorization = AppConstants.BEARER + currentLoginUser.token
-            var endPoint = request.updateAddress(addressId, authorization, name, city, area, address, apt, floor, landMark)
+            var endPoint = request.updateAddress(authorization, addressId, name, city, area, address, apt, floor, landMark)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
@@ -241,11 +253,12 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
                 override fun onSuccess(response: ApiResponse<Address>) {
                     if (response.code == AppConstants.CODE_200) {
                         newAddress = response.data!!
-                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
-                        PreferenceController.getInstance(this@EditDeleteAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+                        AppConstants.CurrentLoginUser.address = newAddress
+                        AppConstants.CurrentLoginUser.hasAddress = true
+                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                         hideDialogue()
                         finish()
-                        startActivity(Intent(this@EditDeleteAddressActivity, MainActivity::class.java))
+                        startActivity(Intent(this@EditDeleteAddressActivity, ProfileActivity::class.java))
 
                     } else {
                         hideDialogue()
@@ -265,22 +278,22 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var authorization = AppConstants.BEARER + currentLoginUser.token
-            var endPoint = request.removeAddress(authorization, addressId)
-            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Boolean>> {
+            var endPoint = request.removeAddress(addressId, authorization)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
                     showAlertDialouge(error)
                 }
 
-                override fun onSuccess(response: ApiResponse<Boolean>) {
+                override fun onSuccess(response: ApiResponse<Address>) {
                     if (response.code == AppConstants.CODE_200) {
-                        done = response.data!!
+                        newAddress = response.data!!
                         hideDialogue()
 
-                        //todo get the address list and remove the current deleted address from it and save it  and navigate toProfile activity
-                        //and refresh adapter with the new list
-                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
-//                        PreferenceController.getInstance(this@EditDeleteAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
+                        AppConstants.CurrentLoginUser.address = newAddress
+                        AppConstants.CurrentLoginUser.hasAddress = AppConstants.CurrentLoginUser.addresses!!.count() > 0
+
+                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                         startActivity(Intent(this@EditDeleteAddressActivity, ProfileActivity::class.java).putExtra("addressId", addressId))
                         finish()
                     } else {

@@ -28,12 +28,12 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
     //region Members
 
     private var currentLoginUser: User = User()
-    private lateinit var cities: ArrayList<City>
-    private lateinit var dummyCities: ArrayList<City>
-    private lateinit var areas: ArrayList<Area>
-    private lateinit var dummyAreas: ArrayList<Area>
-    private lateinit var selectedCity: City
-    private lateinit var selectedArea: Area
+    private var cities = ArrayList<City>()
+    private var dummyCities = ArrayList<City>()
+    private var areas = ArrayList<Area>()
+    private var dummyAreas = ArrayList<Area>()
+    private var selectedCity = City()
+    private var selectedArea = Area()
     private lateinit var ivBack: ImageView
     private lateinit var etName: EditText
     private lateinit var etCity: AutoCompleteTextView
@@ -68,7 +68,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnAdd -> {
+            R.id.btnAddAddress -> {
                 var name = etName.text.toString()
                 var city = etCity.text.toString()
                 var area = etArea.text.toString()
@@ -84,7 +84,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
             }
             R.id.ivBack -> {
-              startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
+                startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
                 finish()
             }
 
@@ -118,7 +118,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                 override fun onSuccess(response: ApiResponse<ArrayList<City>>) {
                     if (response.code == AppConstants.CODE_200) {
                         cities = response.data!!
-                        PreferenceController.instance?.setCitiesPref(AppConstants.CITIES_DATA,cities)
+                        PreferenceController.instance?.setCitiesPref(AppConstants.CITIES_DATA, cities)
                         prepareCities(cities)
                         hideDialogue()
 
@@ -170,6 +170,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         var arrayAdapter = AreaAdapter(
                 this@CreateAddressActivity, android.R.layout.simple_list_item_1, areas)
         etArea.setAdapter(arrayAdapter)
+        etArea.setText(getString(R.string.selectArea))
         etArea.isCursorVisible = false
 
         etArea.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -196,18 +197,29 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
             var endPoint = request.addAddress(authorization, name, city, area, address, apt, floor, landMark)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
                 override fun onFailed(error: String) {
-                        hideDialogue()
-                        showAlertDialouge(error)
+                    hideDialogue()
+                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<Address>) {
                     if (response.code == AppConstants.CODE_200) {
                         newAddress = response.data!!
-                        hideDialogue()
-                        PreferenceController.getInstance(this@CreateAddressActivity).setAddressPref(AppConstants.ADDRESS, newAddress)
-                        PreferenceController.getInstance(this@CreateAddressActivity).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-                        startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
-                        finish()
+//                        AppConstants.CurrentLoginUser.addresses?.add(newAddress)
+                        AppConstants.CurrentLoginUser.address=newAddress
+
+                        if (AppConstants.CurrentLoginUser.hasAddress) {
+
+                            PreferenceController.getInstance(this@CreateAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
+                            hideDialogue()
+                            startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
+                            finish()
+                        } else {
+                            AppConstants.CurrentLoginUser.hasAddress = true
+                            hideDialogue()
+                            startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
+                            finish()
+                        }
+
                     } else {
                         hideDialogue()
                         showAlertDialouge(response.message)
@@ -245,7 +257,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         tvErrorApt = findViewById(R.id.tvAptError)
         tvErrorFloor = findViewById(R.id.tvFloorError)
 
-        btnAdd = findViewById(R.id.btnAdd)
+        btnAdd = findViewById(R.id.btnAddAddress)
         btnAdd.setOnClickListener(this)
         ivBack.setOnClickListener(this)
 

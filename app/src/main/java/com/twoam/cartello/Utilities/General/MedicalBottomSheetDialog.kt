@@ -1,6 +1,7 @@
 package com.twoam.cartello.Utilities.General
 
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -11,10 +12,8 @@ import android.support.design.widget.BottomSheetDialogFragment
 import android.view.*
 import android.widget.*
 import com.twoam.cartello.R
-import com.twoam.cartello.R.id.*
-import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.View.*
-import kotlinx.android.synthetic.main.bottom_sheet_close.*
+import pub.devrel.easypermissions.EasyPermissions
 
 
 class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback, View.OnClickListener {
@@ -31,6 +30,11 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
     val REQUEST_IMAGE_CAPTURE = 1
     val REQUEST_IMAGE_GALLERY = 2
 
+
+    //endregion
+
+
+    //region Properties
     var Action: Int //0 Camera 1 Gallery
         get() {
             return action
@@ -60,7 +64,7 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
-
+        dialog.dismiss()
     }
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
@@ -76,11 +80,21 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
             R.id.lLCapture -> {
                 this.dismiss()
                 openCamera()
+
             }
             R.id.lLGallery -> {
                 this.dismiss()
 //                navigate(1)
-                openGallery()
+                val galleryPermissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
+                if (EasyPermissions.hasPermissions(context, galleryPermissions[0])) {
+                    openGallery()
+                } else {
+                    EasyPermissions.requestPermissions(this, "Access for storage",
+                            101, *galleryPermissions)
+                }
+
+
             }
         }
     }
@@ -99,32 +113,14 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
         }
         if (requestCode == REQUEST_IMAGE_GALLERY &&
                 resultCode == Activity.RESULT_OK) {
-            // mImageBitmap reduce image quality -50% and save it in directory
-            //mImageBitmap convert to thumbnail and write it to file and update grid
             val contentURI = data!!.data ?: return
-            Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
+            val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, contentURI)
+            startActivity(Intent(context, ProductDetailActivity::class.java).putExtra("image", bitmap))
 
         }
     }
 
-    private fun openGallery() {
-        val galleryIntent = Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
 
-        activity!!.startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY)
-    }
-
-    private fun openCamera() {
-//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-//            takePictureIntent.resolveActivity(AppController.getContext().packageManager)?.also {
-//                activity!!.startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-//            }
-//        }
-
-        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        this.startActivityForResult(intent,
-                REQUEST_IMAGE_CAPTURE)
-    }
     //endregion
 
     //region Helper Functions
@@ -142,16 +138,24 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
 
     }
 
-    fun navigate(index: Int) {
-        listener?.onBottomSheetSelectedItem(index)
+    private fun openCamera() {
+
+        val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        this.startActivityForResult(intent,
+                REQUEST_IMAGE_CAPTURE)
+
+        AppConstants.CurrentCameraGAlleryAction = 0
     }
 
-    private fun logOut() {
-        PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.IS_LOGIN)
-        PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.USER_DATA)
-        context?.startActivity(Intent(context, LoginActivity::class.java))
-        activity?.onBackPressed()
+
+    private fun openGallery() {
+        val galleryIntent = Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+
+        startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY)
+        AppConstants.CurrentCameraGAlleryAction = 1
     }
+
     //endregion
 
 }

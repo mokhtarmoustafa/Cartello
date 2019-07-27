@@ -1,7 +1,9 @@
 package com.twoam.cartello.View
 
 
+import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.View
@@ -12,7 +14,9 @@ import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomBottomSheetDialog
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_main.*
-
+import android.provider.MediaStore
+import android.graphics.BitmapFactory
+import com.twoam.cartello.R.id.*
 
 class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {
 
@@ -26,7 +30,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     val moreFragment = MoreFragment()
     val fm = supportFragmentManager
     var active = BaseFragment()
-
+    var bitmap: Bitmap? = null
     //endregion
 
     //region Events
@@ -35,8 +39,6 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
         setContentView(R.layout.activity_main)
 
         init()
-//        supportFragmentManager.beginTransaction().replace(R.id.layout_container, HomeFragment()).commit()
-
 
         fm.beginTransaction().replace(R.id.layout_container, homeFragment, "homeFragment").commit()
         fm.beginTransaction().add(R.id.layout_container, medicalFragment, "medicalFragment").hide(medicalFragment).commit()
@@ -48,15 +50,13 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     override fun onClick(v: View?) {
         when (v?.id) {
-//            R.id.ivHome, R.id.tvMainHome ->
-            R.id.rlHome ->
-            {
+            R.id.rlHome -> {
                 homeBottom.show(fm, "Custom Bottom Sheet")
                 isOpened = true
 
             }
             R.id.ivCart, R.id.cart_badge -> {
-                var intent=Intent(this@MainActivity,CartActivity::class.java)
+                var intent = Intent(this@MainActivity, CartActivity::class.java)
                 startActivity(intent)
             }
 
@@ -115,6 +115,26 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+
+            if (AppConstants.CurrentCameraGAlleryAction == 0) //camera
+            {
+                bitmap = data!!.extras.get("data") as Bitmap
+                var intent = Intent(this@MainActivity, ProductDetailActivity::class.java)
+                startActivity(intent.putExtra("image", bitmap))
+            } else if (AppConstants.CurrentCameraGAlleryAction == 1) //gallery
+            {
+
+                val selectedImage = data!!.data
+                if (selectedImage != null) {
+                    var intent = Intent(this@MainActivity, ProductDetailActivity::class.java)
+                    startActivity(intent.putExtra("image", selectedImage))
+                }
+            }
+
+
+        }
     }
 
     //endregion
@@ -123,8 +143,6 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     //region Helper Functions
 
     private fun init() {
-//        tvMainHome.setOnClickListener(this)
-//        ivHome.setOnClickListener(this)
         rlHome.setOnClickListener(this)
         ivCart.setOnClickListener(this)
         ivSearch.setOnClickListener(this)

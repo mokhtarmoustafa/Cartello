@@ -1,31 +1,46 @@
 package com.twoam.cartello.View
 
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.MedicalPrescriptions
 import com.twoam.cartello.R
+import com.twoam.cartello.R.id.etNote
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
+import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import java.io.ByteArrayOutputStream
 
-class ProductDetailActivity : BaseDefaultActivity(), View.OnClickListener {
+class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.OnClickListener {
 
 
     //region Members
     private lateinit var image: Bitmap
     private var bottom = MedicalBottomSheetDialog()
+    var listener: IBottomSheetCallback? = null
+    val REQUEST_IMAGE_CAPTURE = 1
+    val REQUEST_IMAGE_GALLERY = 2
+    val REQUEST_CLOSE_ACTIVITY = 3
     //endregion
 
     //region Events
@@ -34,9 +49,46 @@ class ProductDetailActivity : BaseDefaultActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
 
+        tvRetakeImage.setOnClickListener(this)
+        btnSend.setOnClickListener(this)
+
         if (intent.hasExtra("image")) {
-            image = intent.extras.get("image") as Bitmap
-            ivImage.setImageBitmap(image)
+            if (AppConstants.CurrentCameraGAlleryAction == 1) {
+                var data = intent.extras.get("image")
+                Glide.with(this)
+                        .load(data)
+                        .into(ivImage)
+                
+            } else {
+                image = intent.extras.get("image") as Bitmap
+                ivImage.setImageBitmap(image)
+            }
+
+
+        }
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            val bitmap = data!!.extras.get("data") as Bitmap
+
+            if (bitmap != null) {
+                Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@ProductDetailActivity, ProductDetailActivity::class.java).putExtra("image", bitmap))
+            }
+
+        }
+
+
+        if (requestCode == REQUEST_IMAGE_GALLERY &&
+                resultCode == Activity.RESULT_OK) {
+            // mImageBitmap reduce image quality -50% and save it in directory
+            //mImageBitmap convert to thumbnail and write it to file and update grid
+            val contentURI = data!!.data ?: return
+            Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
+
         }
     }
 
@@ -49,11 +101,26 @@ class ProductDetailActivity : BaseDefaultActivity(), View.OnClickListener {
                 var encodeImage = encodeTobase64(image)
                 var note = etNote.text.toString()
                 if (encodeImage.isNotEmpty())
-                    addMedical("my meds", note, encodeImage)
+                    showDialogue()
+                addMedical("my meds", note, encodeImage)
             }
         }
     }
 
+    override fun onBottomSheetClosed(isClosed: Boolean) {
+
+    }
+
+    override fun onBottomSheetSelectedItem(index: Int) {
+
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        listener?.onBottomSheetSelectedItem(REQUEST_CLOSE_ACTIVITY)
+        finish()
+
+    }
     //endregion
 
     //region Helper Functions
@@ -84,9 +151,11 @@ class ProductDetailActivity : BaseDefaultActivity(), View.OnClickListener {
 
                 override fun onSuccess(response: ApiResponse<MedicalPrescriptions>) {
                     if (response.code == AppConstants.CODE_200) {
+                        hideDialogue()
                         finish()
                         //navigate to medical fragment
                     } else {
+                        hideDialogue()
                         Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
                     }
 

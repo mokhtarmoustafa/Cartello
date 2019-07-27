@@ -133,7 +133,7 @@ class PreferenceController private constructor(context: Context, databaseName: S
     }
 
     // GET THE Address Data
-    fun getCitiesPref(key: String): ArrayList<City>? {
+    fun  getCitiesPref(key: String): ArrayList<City>? {
         val gson = Gson()
         val json = preferences.getString(key, null) ?: return null
 

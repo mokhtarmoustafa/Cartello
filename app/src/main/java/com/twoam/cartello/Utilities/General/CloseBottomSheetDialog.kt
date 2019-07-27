@@ -28,6 +28,7 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
     private lateinit var btnDelete: Button
     private lateinit var tvHome: TextView
     private lateinit var ivClose: ImageView
+    private var currentAddresID = 0
 
     var Action: Int //0 log out 1 delete
         get() {
@@ -37,6 +38,13 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
             this.action = action
         }
 
+    var CurrentAddressId: Int
+        get() {
+            return currentAddresID
+        }
+        set(index) {
+            this.currentAddresID = index
+        }
     //endregion
 
     //region Events
@@ -77,7 +85,7 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
             }
             R.id.btnDelete -> {
                 this.dismiss()
-                navigate(1)
+                navigate(action)
             }
         }
     }

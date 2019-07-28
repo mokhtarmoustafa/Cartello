@@ -35,7 +35,7 @@ public class OrderAdapter
     @Override
     public OrderAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = inflater.inflate(R.layout.order_layout, parent, false);
+        View view = inflater.inflate(R.layout.order_active_layout, parent, false);
 
         MyViewHolder holder = new MyViewHolder(view);
 

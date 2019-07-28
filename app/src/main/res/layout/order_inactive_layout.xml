@@ -1,0 +1,97 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/tvOrderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="36dp"
+            android:layout_marginTop="15dp"
+            android:fontFamily="Poppins-Regular"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="9sp"
+            android:text="Order ID:001"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/tvCanceled"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvOrderId"
+            android:layout_below="@+id/tvOrderId"
+            android:layout_marginTop="10dp"
+            android:fontFamily="Poppins-Medium"
+            android:text="@string/cancelled"
+            android:textColor="@color/error"
+            android:textSize="15sp" />
+        <TextView
+            android:id="@+id/tvTypeCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvOrderId"
+            android:layout_below="@+id/tvCanceled"
+            android:layout_marginTop="10dp"
+            android:fontFamily="Poppins-Medium"
+            android:text="@string/type_cod"
+            android:textColor="@color/colorLabel"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:layout_marginTop="13dp"
+            android:layout_toRightOf="@+id/tvOrderId"
+            android:fontFamily="Poppins-Medium"
+            android:text="12/01/1990"
+            android:textColor="@color/colorLabel"
+            android:textSize="15sp" />
+
+
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvDate"
+            android:layout_below="@+id/tvOrderId"
+            android:layout_marginTop="1dp"
+            android:fontFamily="Poppins-Medium"
+            android:gravity="center_horizontal"
+            android:text="12:00"
+            android:textColor="@color/colorWelcome"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvTypeCode"
+            android:layout_alignStart="@+id/tvTime"
+            android:fontFamily="Poppins-Medium"
+            android:gravity="center_horizontal"
+            android:text="@string/total"
+            android:textColor="@color/colorWelcome"
+            android:textSize="15sp" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tvTypeCode"
+            android:layout_marginTop="5dp"
+            android:background="@color/line"/>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

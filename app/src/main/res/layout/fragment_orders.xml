@@ -70,25 +70,36 @@
        android:layout_below="@+id/cvParent"
        android:layout_marginLeft="10dp">
        <android.support.v7.widget.RecyclerView
-           android:id="@+id/rvOrders"
+           android:id="@+id/rvActiveOrders"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_marginTop="18dp"
-           />
+           android:layout_marginTop="14dp"
+           android:scrollbars="horizontal"
 
+           />
        <TextView
            android:id="@+id/tvHistory"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_alignParentLeft="true"
-           android:layout_marginTop="20dp"
-           android:layout_below="@+id/rvOrders"
+           android:layout_marginTop="30dp"
+           android:layout_below="@+id/rvActiveOrders"
            android:text="@string/history"
            android:textColor="@color/colorLabel"
            android:textSize="18sp"
            android:textStyle="bold"
-           android:visibility="visible"
-           android:layout_centerInParent="true"/>
+           android:visibility="visible" />
+       <android.support.v7.widget.RecyclerView
+           android:id="@+id/rvInActiveOrders"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="18dp"
+           android:layout_marginBottom="50dp"
+           android:scrollbars="vertical"
+           android:layout_below="@+id/tvHistory"
+           />
+
+
        <TextView
            android:id="@+id/tvEmptyData"
            android:layout_width="match_parent"

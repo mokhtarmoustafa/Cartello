@@ -2,21 +2,15 @@ package com.twoam.cartello.Utilities.General
 
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
 import android.view.*
 import android.widget.*
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
-import com.twoam.cartello.Model.MedicalPrescriptions
+import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
 
 
-class LoadMedicalDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
+class LoadOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
 
 
     //region Members
@@ -27,15 +21,15 @@ class LoadMedicalDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback 
     private lateinit var ivImage: ImageView
     private lateinit var tvNote: TextView
     private lateinit var progress_bar: ProgressBar
-    private var currentMedical: MedicalPrescriptions? = null
+    private var currentOrder: Order? = null
 
 
-    var CurrentMedical: MedicalPrescriptions
+    var CurrentOrder: Order
         get() {
-            return currentMedical!!
+            return currentOrder!!
         }
         set(medical) {
-            currentMedical = medical
+            currentOrder = medical
         }
     //endregion
 
@@ -76,33 +70,39 @@ class LoadMedicalDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback 
         progress_bar = layout.findViewById(R.id.progress_bar)
 
 
-        if (CurrentMedical != null)
-            loadMedicalData(CurrentMedical)
+        if (CurrentOrder != null)
+            loadOrderData(CurrentOrder)
     }
 
 
-    private fun loadMedicalData(medical: MedicalPrescriptions) {
+    private fun loadOrderData(medical: Order) {
 
         progress_bar.visibility = View.VISIBLE
-        Glide.with(context!!)
-                .load(medical.image)
-                .listener(object : RequestListener<Drawable> {
-                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-                        progress_bar.visibility = View.GONE
-                        return false
-                    }
 
-                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-                        progress_bar.visibility = View.GONE
-                        return false
-                    }
-                })
-                .into(ivImage)
 
-        if (!medical.note.isNullOrEmpty())
-            tvNote.text = getString(R.string.note) + " "+medical.note
-        else
-            tvNote.text = getString(R.string.note)
+
+//        Glide.with(context!!)
+//                .load(medical.image)
+//                .listener(object : RequestListener<Drawable> {
+//                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+//                        progress_bar.visibility = View.GONE
+//                        return false
+//                    }
+//
+//                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+//                        progress_bar.visibility = View.GONE
+//                        return false
+//                    }
+//                })
+//                .into(ivImage)
+//
+//        if (!medical.note.isNullOrEmpty())
+//            tvNote.text = getString(R.string.note) + " "+medical.note
+//        else
+//            tvNote.text = getString(R.string.note)
+
+
+
 
 
     }

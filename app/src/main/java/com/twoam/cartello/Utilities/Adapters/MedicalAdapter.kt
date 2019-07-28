@@ -7,12 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 
 import com.twoam.cartello.Model.MedicalPrescriptions
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.LoadMedicalDataDialog
-import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -69,7 +67,7 @@ class MedicalAdapter(private val fragmentManager: FragmentManager?,
 
         init {
 
-            tvDate = itemView.findViewById(R.id.tvDate)
+            tvDate = itemView.findViewById(R.id.tvTypeCode)
             tvTime = itemView.findViewById(R.id.tvTime)
             tvOrderId = itemView.findViewById(R.id.tvOrderId)
 

@@ -41,7 +41,7 @@
     <string name="add_new">Add+</string>
 
     <string name="save">Save</string>
-<string name="send">Send</string>
+    <string name="send">Send</string>
 
     <string name="selectCity">Select City ...</string>
     <string name="selectArea">Select Area ...</string>
@@ -99,9 +99,19 @@
 
     <string name="order_id">Order ID:</string>
     <string name="order_total_amount">Total Amount</string>
+    <string name="total">Total</string>
+
     <string name="order_payment_type">Payment Type</string>
     <string name="history">History</string>
     <string name="no_orders">No Orders</string>
+    <string name="no_orders_active">No Active Order</string>
+    <string name="placed">Placed</string>
+
+    <string name="processing">Processing</string>
+
+    <string name="delivering">Delivering</string>
+
+ <string name="completed">Completed</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -115,7 +125,11 @@
     <string name="product_type">Product Type</string>
     <string name="similar_products">Similar Products</string>
     <string name="notes">Notes</string>
-<string name="note">Note:</string>
+    <string name="note">Note:</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="cancel_order">Cancel Order</string>
+
+    <string name="type_cod">Type COD</string>
 
     <string name="your_notes">Your notes ...</string>
     <string name="cart_is_empty">Cart is empty</string>

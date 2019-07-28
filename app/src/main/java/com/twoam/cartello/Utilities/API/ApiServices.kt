@@ -69,7 +69,7 @@ interface ApiServices {
                    @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>
 
-  
+
     @POST(AppConstants.URL_UPDATE_ADDRESS + "/{addressId}")
     fun updateAddress(@Header("Authorization") token: String, @Path("addressId") userId: Int, @Query("name") name: String, @Query("city_id") city_id: String,
                       @Query("area_id") area_id: String, @Query("address") address: String,

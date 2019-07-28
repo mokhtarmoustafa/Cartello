@@ -110,7 +110,6 @@ class AddressAdapter(private val context: Context, private val addressList: Arra
                 if (pos != RecyclerView.NO_POSITION) {
 
                     address = addressList[pos]
-                    Toast.makeText(v.context, "You clicked " + address!!.address, Toast.LENGTH_SHORT).show()
                     // open edit address activity
                     context.startActivity(Intent(context, EditDeleteAddressActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

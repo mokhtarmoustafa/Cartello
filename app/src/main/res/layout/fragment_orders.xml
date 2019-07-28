@@ -85,7 +85,7 @@
            android:layout_below="@+id/rvOrders"
            android:text="@string/history"
            android:textColor="@color/colorLabel"
-           android:textSize="25sp"
+           android:textSize="18sp"
            android:textStyle="bold"
            android:visibility="visible"
            android:layout_centerInParent="true"/>
@@ -94,7 +94,6 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_alignParentLeft="true"
-           android:layout_below="@+id/tvHistory"
            android:layout_marginTop="10dp"
            android:gravity="center"
            android:text="@string/no_orders"

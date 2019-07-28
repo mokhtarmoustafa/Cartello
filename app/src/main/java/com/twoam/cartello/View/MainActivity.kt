@@ -144,6 +144,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     private fun init() {
         rlHome.setOnClickListener(this)
+        cart_badge.setOnClickListener(this)
         ivCart.setOnClickListener(this)
         ivSearch.setOnClickListener(this)
     }

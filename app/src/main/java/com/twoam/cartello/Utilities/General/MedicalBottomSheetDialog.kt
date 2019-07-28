@@ -151,7 +151,10 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
-
+        galleryIntent.type = "image/*"
+        //We pass an extra array with the accepted mime types. This will ensure only components with these MIME types as targeted.
+        val mimeTypes = arrayOf("image/jpeg", "image/png")
+        galleryIntent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes)
         startActivityForResult(galleryIntent, REQUEST_IMAGE_GALLERY)
         AppConstants.CurrentCameraGAlleryAction = 1
     }

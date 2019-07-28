@@ -1,7 +1,6 @@
 package com.twoam.cartello.Utilities.Adapters;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,7 +57,7 @@ public class CartAdapter
         holder.productName.setText(productsList.get(position).getName());
 
         holder.tvPrice.setText(productsList.get(position).getPrice() + " " + AppController.getContext().getString(R.string.currency));
-        holder.tvValue.setText(productsList.get(position).getQuantity());
+        holder.tvValue.setText(productsList.get(position).getAmount());
 
     }
 
@@ -134,20 +133,20 @@ public class CartAdapter
                     productsList.remove(product);
                     break;
                 case R.id.subItem:
-                    if(product.getQuantity()==0)
+                    if(product.getAmount()==0)
                     {
                         productsList.remove(product);
                     }
-                    if (product.getQuantity() > 0) {
-                        Integer quantity=Integer.parseInt(String.valueOf(product.getQuantity()))-1;
-                        product.setQuantity(quantity);
+                    if (product.getAmount() > 0) {
+                        Integer quantity=Integer.parseInt(String.valueOf(product.getAmount()))-1;
+                        product.setAmount(quantity);
                         tvValue.setText( quantity);
                     }
 
                     break;
                 case R.id.addItem:
-                    Integer quantity=Integer.parseInt(String.valueOf(product.getQuantity()))+1;
-                    product.setQuantity(quantity);
+                    Integer quantity=Integer.parseInt(String.valueOf(product.getAmount()))+1;
+                    product.setAmount(quantity);
                     tvValue.setText( quantity);
                     break;
 

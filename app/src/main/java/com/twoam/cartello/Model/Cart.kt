@@ -32,7 +32,7 @@ class Cart {
     }
 
     fun addProduct(product: Product) {
-        if (product.quantity == 0) {
+        if (product.amount == 0) {
             deleteProduct(product)
         } else {
             updateProduct(product)
@@ -54,13 +54,13 @@ class Cart {
     fun getQty(product: Product): Int {
         var index = products.indexOf(product)
         if (index > 0) {
-            return products[index].quantity
+            return products[index].amount
         }
         return 0
     }
 
     fun getQuantity(product: Product): Int {
-        return product.quantity
+        return product.amount
     }
 
     fun getTotalItems(): Int {
@@ -79,7 +79,7 @@ class Cart {
 
         var value = 0.0
         products.forEach { product: Product ->
-            value = product.discount_price ?: product.price ?: 0 * product.quantity as Double
+            value = product.discount_price ?: product.price ?: 0 * product.amount as Double
         }
 
         return value
@@ -90,7 +90,7 @@ class Cart {
 // Product exists in cart
         if (products.contains(product)) {
             var index = products.indexOf(product)
-            products[index].quantity = product.quantity
+            products[index].amount = product.amount
         } else {
             // Adding product for the first time to the cart
             products.add(product)

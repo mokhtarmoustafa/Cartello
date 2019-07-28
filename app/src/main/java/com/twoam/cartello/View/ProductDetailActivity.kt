@@ -30,12 +30,14 @@ import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import java.io.ByteArrayOutputStream
+import android.graphics.drawable.BitmapDrawable
+
 
 class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.OnClickListener {
 
 
     //region Members
-    private lateinit var image: Bitmap
+    private var image: Bitmap? = null
     private var bottom = MedicalBottomSheetDialog()
     var listener: IBottomSheetCallback? = null
     val REQUEST_IMAGE_CAPTURE = 1
@@ -58,7 +60,7 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
                 Glide.with(this)
                         .load(data)
                         .into(ivImage)
-                
+
             } else {
                 image = intent.extras.get("image") as Bitmap
                 ivImage.setImageBitmap(image)
@@ -98,8 +100,14 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
                 bottom.show(supportFragmentManager, "Custom Bottom Sheet")
             }
             R.id.btnSend -> {
-                var encodeImage = encodeTobase64(image)
+
+                //get bitmap from image view
+                if (image == null)
+                    image = (ivImage.drawable as BitmapDrawable).bitmap
+
+                var encodeImage = encodeTobase64(image!!)
                 var note = etNote.text.toString()
+
                 if (encodeImage.isNotEmpty())
                     showDialogue()
                 addMedical("my meds", note, encodeImage)
@@ -152,6 +160,7 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
                 override fun onSuccess(response: ApiResponse<MedicalPrescriptions>) {
                     if (response.code == AppConstants.CODE_200) {
                         hideDialogue()
+                        listener?.onBottomSheetClosed(true)
                         finish()
                         //navigate to medical fragment
                     } else {

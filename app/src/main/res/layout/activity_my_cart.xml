@@ -74,44 +74,41 @@
         android:id="@+id/tvEmptyData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/rvCartProducts"
+        android:layout_centerInParent="true"
         android:gravity="center"
         android:text="Cart is empty"
         android:textColor="@color/colorLabel"
-        android:textSize="25sp"
+        android:textSize="17sp"
         android:textStyle="bold"
-        android:visibility="visible"
-        android:layout_centerInParent="true"/>
+        android:visibility="visible" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="89dp"
         android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        >
+        android:background="@color/white">
 
         <TextView
             android:id="@+id/tvTotalProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="21dp"
+            android:text="0 Products"
             android:textColor="@color/colorWelcome"
-            android:textSize="13sp"
-            tools:text="0 Products" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/tvTotalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvTotalProduct"
             android:layout_below="@+id/tvTotalProduct"
-            android:layout_marginBottom="21dp"
-            android:layout_marginLeft="20dp"
+            android:text="Total: 0LE"
             android:textColor="@color/colorLabel"
             android:textSize="17sp"
-            android:textStyle="bold"
-            tools:text="Total: 222LE" />
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/btnProceed"
@@ -119,16 +116,17 @@
             android:layout_height="37dp"
             android:layout_marginBottom="26dp"
             android:layout_marginLeft="85dp"
-            android:layout_marginRight="20dp"
             android:layout_marginTop="26dp"
             android:layout_toRightOf="@+id/tvTotalPrice"
             android:background="@drawable/rounded_button"
             android:clickable="true"
+            android:elevation="4dp"
             android:fontFamily="Poppins-Medium"
             android:text="@string/proceed"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15sp"
-            android:elevation="4dp"/>
+            android:textSize="15sp" />
+
+
     </RelativeLayout>
 </RelativeLayout>

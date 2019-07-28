@@ -27,16 +27,16 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 
 
-class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
+class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
 
 
     //region MEMBERS
     private lateinit var currentView: View
-    private  var medicalList= ArrayList<MedicalPrescriptions>()
+    private var medicalList = ArrayList<MedicalPrescriptions>()
     private var bottomSheet = MedicalBottomSheetDialog()
     private lateinit var btnAddMedical: Button
-    private lateinit var swipeRefresh:SwipeRefreshLayout
-    private lateinit var rvMedical:RecyclerView
+    private lateinit var swipeRefresh: SwipeRefreshLayout
+    private lateinit var rvMedical: RecyclerView
 
 
     //endregion
@@ -50,6 +50,13 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
 
         getAllMedical()
         return currentView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //this called once a new medical is added successfully on Product Details ACtivity
+        //so to update the view get all data
+        getAllMedical()
     }
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
@@ -68,8 +75,8 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
     //region HELPER FUNCTIONS
     private fun init() {
         btnAddMedical = currentView.findViewById(R.id.btnAddMedical)
-        swipeRefresh=currentView.findViewById(R.id.swipeRefresh)
-        rvMedical=currentView.findViewById(R.id.rvMedical)
+        swipeRefresh = currentView.findViewById(R.id.swipeRefresh)
+        rvMedical = currentView.findViewById(R.id.rvMedical)
 
         rvMedical.isNestedScrollingEnabled = false
 
@@ -104,7 +111,7 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
                 override fun onSuccess(response: ApiResponse<ArrayList<MedicalPrescriptions>>) {
                     if (response.code == AppConstants.CODE_200) {
                         medicalList = response.data!!
-                        tvTotalMedical.text=medicalList.size.toString()
+                        tvTotalMedical.text = medicalList.size.toString()
                         prepareMedicalData(medicalList)
                         hideDialogue()
                     } else {
@@ -126,10 +133,8 @@ class MedicalPrescriptionsFragment : BaseFragment(),IBottomSheetCallback {
         var adapter = MedicalAdapter(fragmentManager, AppController.getContext(), medicalList)
         rvMedical.adapter = adapter
         rvMedical.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
-        
+
     }
-
-
 
 
     //endregion

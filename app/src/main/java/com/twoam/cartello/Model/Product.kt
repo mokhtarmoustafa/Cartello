@@ -10,7 +10,7 @@ class Product {
     var image: String? = null
     var price: Double? = null
     var discount_price: Double? = null
-    var quantity: Int = 0
+    var amount: Int = 0 //quantity
     var itemImage: Int = 0
     var images: ArrayList<String>? = null
     var description: String? = null
@@ -34,7 +34,7 @@ class Product {
 
     constructor(id: String, quantity: Int, name: String, image: String, price: Double, category: Category, discountPrice: Double) {
         this.id = id
-        this.quantity = quantity
+        this.amount = quantity
         this.name = name
         this.image = image
         this.price = price

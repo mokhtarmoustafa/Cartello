@@ -75,25 +75,33 @@
                 android:id="@+id/rvMedical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-
+                android:scrollbars="vertical"
+                android:layout_marginBottom="100dp"
                 />
 
-            <Button
-                android:id="@+id/btnAddMedical"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_above="@id/rvMedical"
                 android:layout_alignParentBottom="true"
-                android:layout_marginBottom="47dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:background="@drawable/rounded_button"
-                android:clickable="true"
-                android:fontFamily="Poppins-Medium"
-                android:text="@string/new_medical"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:background="@color/white"
+                android:elevation="2dp">
+
+                <Button
+                    android:id="@+id/btnAddMedical"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginBottom="47dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@drawable/rounded_button"
+                    android:clickable="true"
+                    android:fontFamily="Poppins-Medium"
+                    android:text="@string/new_medical"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+            </RelativeLayout>
 
         </RelativeLayout>
 

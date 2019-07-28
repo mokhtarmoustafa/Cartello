@@ -2,6 +2,8 @@ package com.twoam.cartello.Utilities.API
 
 import com.twoam.cartello.Model.*
 import com.twoam.cartello.Utilities.General.AppConstants
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -67,6 +69,7 @@ interface ApiServices {
                    @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
     ): Call<ApiResponse<Address>>
 
+  
     @POST(AppConstants.URL_UPDATE_ADDRESS + "/{addressId}")
     fun updateAddress(@Header("Authorization") token: String, @Path("addressId") userId: Int, @Query("name") name: String, @Query("city_id") city_id: String,
                       @Query("area_id") area_id: String, @Query("address") address: String,
@@ -96,9 +99,21 @@ interface ApiServices {
     @GET(AppConstants.URL_GET_MEDICAL_PRESCRIPTIONS_GET_ALL)
     fun getAllMedicalPrescriptions(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<MedicalPrescriptions>>>
 
+    @Multipart
     @POST(AppConstants.URL_GET_MEDICAL_ADD)
     fun addMedical(@Header("Authorization") token: String,
-                   @Query("name") name: String,
-                   @Query("note") note: String,
-                   @Query("image") image: String): Call<ApiResponse<MedicalPrescriptions>>
+                   @Part("name") name: String,
+                   @Part("note") note: String,
+                   @Part("image") image: String): Call<ApiResponse<MedicalPrescriptions>>
+
+
+    @Multipart
+    @POST(AppConstants.URL_GET_MEDICAL_ADD)
+    fun addMedical(
+            @PartMap data: Map<String, RequestBody>,
+            @Part("image") image: MultipartBody.Part
+    ): Call<ApiResponse<MedicalPrescriptions>>
+
+
 }
+

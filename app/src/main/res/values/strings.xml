@@ -94,12 +94,15 @@
     <string name="most_selling">Most Selling</string>
     <string name="product_details">Product details</string>
     <string name="my_cart">My Cart</string>
+    <string name="cart_add">Add To Cart</string>
+
     <string name="active_orders">Active Orders</string>
     <string name="favourite">Favourites</string>
 
     <string name="order_id">Order ID:</string>
     <string name="order_total_amount">Total Amount</string>
     <string name="total">Total</string>
+    <string name="total_1">Total:</string>
 
     <string name="order_payment_type">Payment Type</string>
     <string name="history">History</string>
@@ -159,6 +162,7 @@
     <string name="ok">OK</string>
     <string name="sure_you_want_to_log_out">Sure you want to log out?</string>
     <string name="sure_you_want_to_proceed">Sure you want to proceed this action?</string>
+    <string name="product_name">Product Name</string>
 
 
 </resources>

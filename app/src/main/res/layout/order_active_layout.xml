@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="312dp"
     android:layout_height="129dp"
     android:layout_marginRight="19dp"
     app:cardBackgroundColor="@color/colorApp"
-    app:cardCornerRadiaus="6dp">
+    app:cardCornerRadius="6dp">
 
 
     <RelativeLayout

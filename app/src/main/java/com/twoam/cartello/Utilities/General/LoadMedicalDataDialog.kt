@@ -41,7 +41,7 @@ class LoadMedicalDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback 
 
     //region Events
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(R.layout.bottom_sheet_order, container, false) as ViewGroup
+        view = inflater.inflate(R.layout.bottom_sheet_medical_load, container, false) as ViewGroup
         layout = view!!.findViewById(R.id.rlOptions)
 
         init()

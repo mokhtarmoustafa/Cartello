@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
-import com.twoam.cartello.Utilities.General.LoadOrderDataDialog
+import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -23,7 +23,7 @@ class ActiveOrderAdapter(private val fragmentManager: FragmentManager?,
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var order: Order? = null
-    private var bottomSheet = LoadOrderDataDialog()
+    private var bottomSheet = LoadActiveOrderDataDialog()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveOrderAdapter.MyViewHolder {
 

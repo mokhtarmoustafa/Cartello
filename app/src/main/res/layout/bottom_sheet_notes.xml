@@ -29,7 +29,7 @@
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
         android:layout_margin="15dp"
-        android:src="@drawable/ic_close" />
+        android:src="@drawable/close_black" />
 
     <Button
         android:id="@+id/btnAdd"

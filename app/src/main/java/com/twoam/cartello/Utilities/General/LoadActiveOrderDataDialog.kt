@@ -10,7 +10,7 @@ import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
 
 
-class LoadOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
+class LoadActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
 
 
     //region Members
@@ -35,7 +35,7 @@ class LoadOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
 
     //region Events
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(R.layout.bottom_sheet_order, container, false) as ViewGroup
+        view = inflater.inflate(R.layout.bottom_sheet_active_order, container, false) as ViewGroup
         layout = view!!.findViewById(R.id.rlOptions)
 
         init()
@@ -66,7 +66,7 @@ class LoadOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
     fun init() {
 
         ivImage = layout.findViewById(R.id.ivImage)
-        tvNote = layout.findViewById(R.id.tvNote)
+//        tvNote = layout.findViewById(R.id.tvNote)
         progress_bar = layout.findViewById(R.id.progress_bar)
 
 

@@ -23,12 +23,11 @@
         android:id="@+id/ivClose"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="21dp"
-        android:layout_marginTop="129dp"
-        android:layout_marginBottom="31dp"
-        android:src="@drawable/close_black"
-        android:clickable="true"/>
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/btnDelete"
+        android:layout_marginEnd="11dp"
+        android:clickable="true"
+        android:src="@drawable/close_black" />
 
     <Button
         android:id="@+id/btnLogOut"
@@ -37,7 +36,7 @@
         android:layout_marginTop="114dp"
         android:layout_marginBottom="19dp"
         android:layout_marginLeft="16dp"
-        android:layout_toEndOf="@+id/ivClose"
+
         android:background="@drawable/rounded_button"
         android:clickable="true"
         android:fontFamily="Poppins-Medium"

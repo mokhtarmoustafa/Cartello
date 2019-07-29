@@ -12,7 +12,7 @@ abstract class CartHelper {
     //open cart with the saved list of products
     abstract fun open(productsList: ArrayList<Product>)
 
-    //close cart and save the list of products
+    //close_white cart and save the list of products
     abstract fun close(productsList: ArrayList<Product>)
 
     //add product to the list of product

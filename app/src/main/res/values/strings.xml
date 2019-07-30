@@ -163,6 +163,7 @@
     <string name="sure_you_want_to_log_out">Sure you want to log out?</string>
     <string name="sure_you_want_to_proceed">Sure you want to proceed this action?</string>
     <string name="check_out">Check out</string>
+    <string name="delivering_address">Delivering Address</string>
 
 
 </resources>

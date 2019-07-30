@@ -13,13 +13,13 @@ import com.twoam.cartello.R
 /**
  * A simple [Fragment] subclass.
  */
-class CheckoutParentFragment : Fragment() {
+class CheckoutFragment : Fragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checkout_parent, container, false)
+        return inflater.inflate(R.layout.fragment_checkout, container, false)
     }
 
 }// Required empty public constructor

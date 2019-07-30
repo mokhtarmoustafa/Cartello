@@ -114,6 +114,8 @@ interface ApiServices {
             @Part("image") image: MultipartBody.Part
     ): Call<ApiResponse<MedicalPrescriptions>>
 
+    @GET(AppConstants.URL_GET_ORDERS)
+    fun getOrders(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Order>>>
 
 }
 

@@ -31,6 +31,7 @@ import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import java.io.ByteArrayOutputStream
 import android.graphics.drawable.BitmapDrawable
+import com.twoam.cartello.Model.Product
 
 
 class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.OnClickListener {
@@ -68,6 +69,18 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
 
 
         }
+
+         if(intent.hasExtra("productIdPosition"))
+         {
+             loadProductData(AppConstants.CurrentSelectedProduct)
+         }
+    }
+
+    private fun loadProductData(product: Product) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+
+
     }
 
 

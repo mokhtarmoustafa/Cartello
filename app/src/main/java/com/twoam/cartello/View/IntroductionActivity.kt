@@ -97,11 +97,9 @@ class IntroductionActivity : AppCompatActivity() {
     }
 
     private fun getUserData(currentUser: User) {
-        var cities = ArrayList<City>()
-        try {
-            cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
-        } catch (ex: Exception) {
-        }
+
+
+       var cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
 
 
         if (currentUser?.address!!.addresses.count() > 0 && cities.count() > 0) {

@@ -18,7 +18,7 @@
         android:textSize="13sp" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvOrders"
+        android:id="@+id/rvActiveOrdersData"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvOrderID"
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvOrderID"
-        android:layout_below="@+id/rvOrders"
+        android:layout_below="@+id/rvActiveOrdersData"
         android:layout_marginTop="16dp"
         android:fontFamily="ArialMT"
         android:text="@string/order_total_amount"
@@ -97,7 +97,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/rvOrders"
+        android:layout_below="@+id/rvActiveOrdersData"
         android:layout_alignBaseline="@+id/tvTotalAmount"
         android:layout_marginRight="25dp"
         android:layout_marginTop="50dp"

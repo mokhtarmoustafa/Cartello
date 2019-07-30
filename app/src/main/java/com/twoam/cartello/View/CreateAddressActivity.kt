@@ -215,6 +215,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                             finish()
                         } else {
                             AppConstants.CurrentLoginUser.hasAddress = true
+                            PreferenceController.getInstance(this@CreateAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                             hideDialogue()
                             startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
                             finish()

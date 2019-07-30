@@ -1,5 +1,6 @@
 package com.twoam.cartello.Utilities.General
 
+import com.twoam.cartello.Model.Product
 import com.twoam.cartello.Model.User
 
 /**
@@ -61,7 +62,7 @@ object AppConstants {
     const val URL_GET_HOME_PRODUCTS = "customer/products/home"
     const val URL_GET_MEDICAL_PRESCRIPTIONS_GET_ALL = "customer/prescriptions"
     const val URL_GET_MEDICAL_ADD = "customer/prescriptions"
-
+    const val URL_GET_ORDERS = "customer/orders"
 
 
 
@@ -70,24 +71,25 @@ object AppConstants {
 
     //region  app variables
     const val IS_LOGIN = "login"
-    const val TEST_MODE= "testMode"
+    const val TEST_MODE = "testMode"
 
     const val ADDRESS = "address"
     const val HASADDRESS = "hasAddress"
     const val TRUE = "true"
     const val FALSE = "false"
     const val USER_DATA = "userData"
-    const val CITIES_DATA="citiesData"
-    const val CART_ITEMS="CartItems"
+    const val CITIES_DATA = "citiesData"
+    const val CART_ITEMS = "CartItems"
     const val CHANGE_PASSWORD = "changePassword"
 
     const val FACEBOOK = 1
     const val GOOGLE = 2
-    const val CURRENTINDEXTAG="currentOption"
+    const val CURRENTINDEXTAG = "currentOption"
     var CURRENTSELECTEDINDEX = 0
-    var CurrentCameraGAlleryAction=0 //0 camera  1 gallery
+    var CurrentCameraGAlleryAction = 0 //0 camera  1 gallery
 
     var CurrentLoginUser: User = User()
+    var CurrentSelectedProduct=Product()
 
     const val BEARER = "Bearer "
 
@@ -98,11 +100,11 @@ object AppConstants {
     //endregion
 
     //region bottom sheet
-     var isClosed = false
+    var isClosed = false
     //endregion
     //region others
-    const val TOP_PROMOTIONS="Top Pormotions"
-    const val MOST_SELLING="Most Selling"
+    const val TOP_PROMOTIONS = "Top Pormotions"
+    const val MOST_SELLING = "Most Selling"
 
     //endregion
 

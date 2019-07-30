@@ -4,10 +4,13 @@ package com.twoam.cartello.Utilities.General
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
+import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.*
 import com.twoam.cartello.Model.Order
+import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
+import com.twoam.cartello.Utilities.Adapters.LoadActiveOrderProductsAdapter
 
 
 class LoadActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
@@ -22,6 +25,8 @@ class LoadActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallb
     private lateinit var tvNote: TextView
     private lateinit var progress_bar: ProgressBar
     private var currentOrder: Order? = null
+    private var productsList = ArrayList<Product>()
+    private var rvActiveOrdersData:RecyclerView?=null
 
 
     var CurrentOrder: Order
@@ -68,6 +73,7 @@ class LoadActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallb
         ivImage = layout.findViewById(R.id.ivImage)
 //        tvNote = layout.findViewById(R.id.tvNote)
         progress_bar = layout.findViewById(R.id.progress_bar)
+        rvActiveOrdersData=layout.findViewById(R.id.rvActiveOrdersData)
 
 
         if (CurrentOrder != null)
@@ -75,36 +81,13 @@ class LoadActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallb
     }
 
 
-    private fun loadOrderData(medical: Order) {
+    private fun loadOrderData(order: Order) {
 
         progress_bar.visibility = View.VISIBLE
 
-
-
-//        Glide.with(context!!)
-//                .load(medical.image)
-//                .listener(object : RequestListener<Drawable> {
-//                    override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
-//                        progress_bar.visibility = View.GONE
-//                        return false
-//                    }
-//
-//                    override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
-//                        progress_bar.visibility = View.GONE
-//                        return false
-//                    }
-//                })
-//                .into(ivImage)
-//
-//        if (!medical.note.isNullOrEmpty())
-//            tvNote.text = getString(R.string.note) + " "+medical.note
-//        else
-//            tvNote.text = getString(R.string.note)
-
-
-
-
-
+        productsList=order.items
+        var adapter=LoadActiveOrderProductsAdapter(fragmentManager,context!!,productsList)
+        rvActiveOrdersData!!.adapter=adapter
     }
     //endregion
 

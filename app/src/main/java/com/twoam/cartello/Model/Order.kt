@@ -4,25 +4,37 @@ package com.twoam.cartello.Model
  * Created by Mokhtar on 6/18/2019.
  */
 class Order {
+
     var id: Int = 0
     var date: String = ""
     var payment_method: Int = 0
     var state_id: Int = 0
     var items = ArrayList<Product>()
     var states = ArrayList<States>()
-    var user_id: Int = 0
-    var deliverer_id: Int? = null
-    var paid_amount: Long = 0
-    var notes: String = ""
-    var rate: Int? = null
-    var total: Double = 0.0
+    var rate: String? = ""
+    var total: String = ""
     var active = false
-    var scheduled_at: String? = null
-    var schedule: String? = null
+    var scheduled_at: String=""
+    var schedule: String?=null
     var reorder_count = 0
     var created_at: String = ""
-    var updated_at: String = ""
-    var customer_rate: Int? = null
-    var address_id: Int = 0
-    var feedback: String = ""
+    var paid_amount: Long = 0
+    var notes: String = ""
+
+//    var user_id: Int = 0
+//    var deliverer_id: Int? = null
+
+//    var rate: Int? = null
+//    var total: Double = 0.0
+
+
+//    var schedule: String? = null
+
+
+//    var updated_at: String = ""
+//    var customer_rate: Int? = null
+//    var address_id: Int = 0
+//    var feedback: String = ""
+
+
 }

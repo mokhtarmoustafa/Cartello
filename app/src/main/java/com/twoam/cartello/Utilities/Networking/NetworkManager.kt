@@ -14,6 +14,10 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
+import java.util.concurrent.TimeUnit
+import javax.xml.datatype.DatatypeConstants.MINUTES
+
+
 
 
 class NetworkManager {
@@ -39,10 +43,21 @@ class NetworkManager {
 //        var retrofit = builder.build()
         //endregion
 
+        var  okHttpClient = OkHttpClient.Builder()
+                .connectTimeout(2, TimeUnit.MINUTES)
+                .readTimeout(2, TimeUnit.MINUTES)
+                .writeTimeout(2, TimeUnit.MINUTES)
+                //.sslSocketFactory(sslSocketFactory, trustManager)
+                .followRedirects(false)
+                .followSslRedirects(false)
+                .retryOnConnectionFailure(false)
+                .cache(null)//new Cache(sContext.getCacheDir(),10*1024*1024)
+                .build()
 
         var builder = Retrofit.Builder()
                 .baseUrl(AppConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+//                .client(okHttpClient)
         var retrofit = builder.build()
 
 
@@ -81,7 +96,7 @@ class NetworkManager {
                 callback.onFailed(context.getString(R.string.error_login_server_error))
 
             } else {
-                callback.onFailed(context.getString(R.string.error_login_server_error))
+                 callback.onFailed(context.getString(R.string.error_login_server_error))
             }
         })
 

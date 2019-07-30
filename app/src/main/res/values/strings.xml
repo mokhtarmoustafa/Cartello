@@ -114,7 +114,7 @@
 
     <string name="delivering">Delivering</string>
 
- <string name="completed">Completed</string>
+    <string name="completed">Completed</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -162,6 +162,7 @@
     <string name="ok">OK</string>
     <string name="sure_you_want_to_log_out">Sure you want to log out?</string>
     <string name="sure_you_want_to_proceed">Sure you want to proceed this action?</string>
+    <string name="check_out">Check out</string>
 
 
 </resources>

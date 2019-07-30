@@ -5,7 +5,9 @@
     android:id="@+id/rlParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.twoam.cartello.View.CheckoutActivity">
+    tools:context="com.twoam.cartello.View.CheckoutActivity"
+    android:background="@color/shadow"
+    >
 
     <android.support.v7.widget.CardView
         android:id="@+id/cvParent"
@@ -18,7 +20,8 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
         app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="false">
+        app:cardPreventCornerOverlap="false"
+        app:cardBackgroundColor="@color/shadow">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -116,7 +119,28 @@
     <FrameLayout
         android:id="@+id/layout_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/cvNavigator"
-        ></FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cvNavigator"></FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_alignParentBottom="true"
+        android:elevation="2dp">
+
+        <Button
+            android:id="@+id/btnAddAddress"
+            android:layout_width="317dp"
+            android:layout_height="51dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_button"
+            android:clickable="true"
+            android:fontFamily="Poppins-Medium"
+            android:text="@string/next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+    </RelativeLayout>
 </RelativeLayout>

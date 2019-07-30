@@ -18,6 +18,7 @@ import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.ActiveOrdersAdapter
+import com.twoam.cartello.Utilities.Adapters.InActiveOrdersAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
@@ -95,7 +96,9 @@ class OrdersFragment : BaseFragment() {
 
     private fun getInActiveOrders(inActiveOrdersList: ArrayList<Order>) {
         //adapt the data
-        
+        var adapter= InActiveOrdersAdapter(fragmentManager,AppController.getContext(),inActiveOrdersList)
+        rvInActiveOrders.adapter=adapter
+        rvInActiveOrders.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
     }
 
     private fun prepareOrderData(orderList: ArrayList<Order>) {

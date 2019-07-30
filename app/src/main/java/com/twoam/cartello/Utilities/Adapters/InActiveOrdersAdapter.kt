@@ -22,22 +22,22 @@ import java.util.*
  * Created by Mokhtar on 6/30/2019.
  */
 
-class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
-                          private val context: Context, private val orderList: ArrayList<Order>)
-    : RecyclerView.Adapter<ActiveOrdersAdapter.MyViewHolder>() {
+class InActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
+                            private val context: Context, private val orderList: ArrayList<Order>)
+    : RecyclerView.Adapter<InActiveOrdersAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var order: Order? = null
-    private var bottomSheet = LoadActiveOrderDataDialog()
+    private var bottomSheet = LoadInActiveOrderDataDialog()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveOrdersAdapter.MyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InActiveOrdersAdapter.MyViewHolder {
 
-        val view = inflater.inflate(R.layout.order_active_layout, parent, false)
+        val view = inflater.inflate(R.layout.order_inactive_layout, parent, false)
 
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ActiveOrdersAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: InActiveOrdersAdapter.MyViewHolder, position: Int) {
 
         order = orderList[position]
         val dateTime = order!!.created_at.split(" ")
@@ -49,7 +49,8 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
         val time = timeFormatter.format(date)
 
         holder.tvOrderId.text = order!!.id.toString()
-        holder.tvDate.text = dateTime[0] + " " + time
+        holder.tvDate.text = dateTime[0]
+        holder.tvTime.text=time
         holder.tvTotalAmountValue.text = "${order!!.total}${context.getString(R.string.currency)}"
 
     }
@@ -66,14 +67,18 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var tvOrderId: TextView
+        var tvCanceled:TextView
         var tvDate: TextView
+        var tvTime: TextView
         var tvTotalAmountValue: TextView
 
 
         init {
 
             tvOrderId = itemView.findViewById(R.id.tvOrderIDValue)
+            tvCanceled = itemView.findViewById(R.id.tvCanceled)
             tvDate = itemView.findViewById(R.id.tvOrderDate)
+            tvTime = itemView.findViewById(R.id.tvTime)
             tvTotalAmountValue = itemView.findViewById(R.id.tvTotalAmountValue)
 
 

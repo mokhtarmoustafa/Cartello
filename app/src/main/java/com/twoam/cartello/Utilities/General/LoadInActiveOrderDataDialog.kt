@@ -4,10 +4,14 @@ package com.twoam.cartello.Utilities.General
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialogFragment
+import android.support.v7.widget.RecyclerView
 import android.view.*
 import android.widget.*
 import com.twoam.cartello.Model.Order
+import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
+import com.twoam.cartello.Utilities.Adapters.LoadActiveOrderProductsAdapter
+import com.twoam.cartello.Utilities.Adapters.LoadInActiveOrderProductsAdapter
 
 
 class LoadInActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {
@@ -22,6 +26,8 @@ class LoadInActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCal
     private lateinit var tvNote: TextView
     private lateinit var progress_bar: ProgressBar
     private var currentOrder: Order? = null
+    private var productsList = ArrayList<Product>()
+    private var rvOrders: RecyclerView?=null
 
 
     var CurrentOrder: Order
@@ -35,7 +41,7 @@ class LoadInActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCal
 
     //region Events
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(R.layout.bottom_sheet_active_order, container, false) as ViewGroup
+        view = inflater.inflate(R.layout.bottom_sheet_inactive_order, container, false) as ViewGroup
         layout = view!!.findViewById(R.id.rlOptions)
 
         init()
@@ -68,17 +74,20 @@ class LoadInActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCal
         ivImage = layout.findViewById(R.id.ivImage)
 //        tvNote = layout.findViewById(R.id.tvNote)
         progress_bar = layout.findViewById(R.id.progress_bar)
-
+        rvOrders=layout.findViewById(R.id.rvOrders)
 
         if (CurrentOrder != null)
             loadOrderData(CurrentOrder)
     }
 
 
-    private fun loadOrderData(medical: Order) {
+    private fun loadOrderData(order: Order) {
 
         progress_bar.visibility = View.VISIBLE
 
+        productsList=order.items
+        var adapter= LoadInActiveOrderProductsAdapter(fragmentManager,context!!,productsList)
+        rvOrders!!.adapter=adapter
 
 
 //        Glide.with(context!!)

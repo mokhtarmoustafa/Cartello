@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
+import com.twoam.cartello.R.id.tvTotal
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
@@ -21,28 +22,29 @@ import java.util.*
  * Created by Mokhtar on 6/30/2019.
  */
 
-class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManager?,
-                                     private val context: Context, private val productList: ArrayList<Product>)
-    : RecyclerView.Adapter<LoadActiveOrderProductsAdapter.MyViewHolder>() {
+class LoadInActiveOrderProductsAdapter(private val fragmentManager: FragmentManager?,
+                                       private val context: Context, private val productList: ArrayList<Product>)
+    : RecyclerView.Adapter<LoadInActiveOrderProductsAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var product: Product? = null
+    private var bottomSheet = LoadActiveOrderDataDialog()
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadInActiveOrderProductsAdapter.MyViewHolder {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadActiveOrderProductsAdapter.MyViewHolder {
-
-        val view = inflater.inflate(R.layout.orders_active_data_layout, parent, false)
+        val view = inflater.inflate(R.layout.orders_inactive_data_layout, parent, false)
 
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: LoadActiveOrderProductsAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: LoadInActiveOrderProductsAdapter.MyViewHolder, position: Int) {
 
         product = productList[position]
-        
 
-        holder.tvProduct.text = product!!.name
-        holder.tvTotal.text = "${product!!.price}"
+
+        holder.tvProductName.text = product!!.name
+        holder.tvProductPrice.text=product!!.price.toString()
+        holder.tvQuantity.text = "${product!!.amount}"
 
     }
 
@@ -57,14 +59,16 @@ class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManage
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvProduct: TextView
-        var tvTotal: TextView
+        var tvProductName: TextView
+        var tvProductPrice: TextView
+        var tvQuantity: TextView
 
 
         init {
 
-            tvProduct = itemView.findViewById(R.id.tvProduct)
-            tvTotal = itemView.findViewById(R.id.tvTotal)
+            tvProductName = itemView.findViewById(R.id.tvProductName)
+            tvProductPrice = itemView.findViewById(R.id.tvProductPrice)
+            tvQuantity = itemView.findViewById(R.id.tvQuantity)
 
 
             itemView.setOnClickListener { v ->
@@ -76,7 +80,7 @@ class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManage
                 if (pos != RecyclerView.NO_POSITION) {
 
                     product = productList[pos]
-                    AppConstants.CurrentSelectedProduct=product!!
+                    AppConstants.CurrentSelectedProduct = product!!
                     //todo open product details fragment from here
 //                    context.startActivity(Intent(context, ProductDetailActivity::class.java)
 //                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

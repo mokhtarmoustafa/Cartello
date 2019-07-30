@@ -14,13 +14,13 @@ import com.twoam.cartello.Utilities.Base.BaseFragment
 /**
  * A simple [Fragment] subclass.
  */
-class CheckoutFragment : BaseFragment() {
+class PaymentFragment : BaseFragment() {
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checkout, container, false)
+        return inflater.inflate(R.layout.fragment_payment, container, false)
     }
 
 }// Required empty public constructor

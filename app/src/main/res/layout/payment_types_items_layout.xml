@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="69dp"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white"
+    app:cardCornerRadius="6dp"
+    app:cardElevation="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp">
+
+        <TextView
+            android:id="@+id/tvPaymentType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27.5dp"
+            android:layout_marginTop="26dp"
+            android:layout_toRightOf="@+id/ivActive"
+            android:fontFamily="Poppins-Medium"
+            android:text="Payment Type"
+            android:textColor="@color/colorLabel"
+            android:textSize="15sp" />
+
+
+
+        <ImageView
+            android:id="@+id/ivPaymentType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="26dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/money"
+            />
+
+        <ImageView
+            android:id="@+id/ivActive"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="14dp"
+            app:srcCompat="@drawable/active"
+            android:visibility="invisible"/>
+        <ImageView
+            android:id="@+id/ivInActive"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="16dp"
+            app:srcCompat="@drawable/none"
+            android:visibility="visible"/>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

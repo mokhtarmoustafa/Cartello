@@ -1,9 +1,266 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.twoam.cartello.View.SearchResultActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <!--<ImageView-->
+    <!--android:id="@+id/tvTotal"-->
+    <!--android:layout_width="24dp"-->
+    <!--android:layout_height="24dp"-->
+    <!--android:layout_marginLeft="18dp"-->
+    <!--android:layout_marginTop="14dp"-->
+    <!--android:src="@drawable/none" />-->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:fontFamily="Poppins-Medium"
+        android:gravity="center"
+        android:text="data"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/tvTitle"
+        android:background="@drawable/rounded_textview"
+        android:clickable="true"
+        android:fontFamily="Poppins-Medium"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/colorApp"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/tvSortBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvTotal"
+        android:layout_below="@+id/tvTotal"
+        android:layout_marginTop="20dp"
+        android:elevation="1dp"
+        android:text="@string/sort_by"
+        android:textColorHint="@color/line"
+        android:textSize="13sp" />
+
+    <ScrollView
+        android:id="@+id/svFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTotal"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="14dp"
+        android:layout_toEndOf="@+id/tvSortBy"
+        android:elevation="0dp"
+        android:scrollbars="horizontal">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_margin="5dp">
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvPrice"
+                android:layout_width="82dp"
+                android:layout_height="26dp"
+                app:cardBackgroundColor="@color/colorApp"
+                app:cardCornerRadius="25.5dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:duplicateParentState="true"
+                    android:gravity="center"
+                    android:text="@string/price" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvAsc"
+                android:layout_width="82dp"
+                android:layout_height="26dp"
+                android:layout_alignBaseline="@+id/cvPrice"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/cvPrice"
+                android:layout_toRightOf="@+id/cvPrice"
+                app:cardCornerRadius="25.5dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tvAsc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:duplicateParentState="true"
+                    android:gravity="center"
+                    android:letterSpacing="0"
+                    android:text="A > Z" />
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/cvDsc"
+                android:layout_width="82dp"
+                android:layout_height="26dp"
+                android:layout_alignBaseline="@+id/cvPrice"
+                android:layout_marginLeft="10dp"
+                android:layout_toEndOf="@+id/cvAsc"
+                android:layout_toRightOf="@+id/cvPrice"
+                app:cardCornerRadius="25.5dp"
+                app:cardElevation="0dp">
+
+                <TextView
+                    android:id="@+id/tvDsc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:duplicateParentState="true"
+                    android:gravity="center"
+                    android:letterSpacing="0"
+                    android:text="Z > A" />
+            </android.support.v7.widget.CardView>
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSearchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvRecent"
+        android:layout_below="@+id/svFilter"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:scrollbars="vertical"
+        app:spanCount="2"
+
+        />
+
+    <TextView
+        android:id="@+id/tvEmptyData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/no_products"
+        android:textSize="15sp"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/vcBottomSheet"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_alignParentBottom="true"
+        android:elevation="5dp"
+        app:cardBackgroundColor="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/rlBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/back" />
+
+                <TextView
+                    android:id="@+id/tvMainBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_toRightOf="@+id/ivBack"
+                    android:fontFamily="Poppins-Regular"
+                    android:text="@string/back"
+                    android:textColor="@color/colorWelcome"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <FrameLayout
+                style="?attr/actionButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="52dp"
+                android:layout_marginLeft="299dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clipToPadding="false"
+                android:focusable="true">
+
+                <ImageView
+                    android:id="@+id/ivCart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:src="@drawable/cart" />
+
+                <TextView
+                    android:id="@+id/cart_badge"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="right|end|top"
+                    android:layout_marginEnd="-5dp"
+                    android:layout_marginRight="-5dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/badge_background"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:padding="0dp"
+                    android:text="0"
+                    android:textColor="@android:color/white"
+                    android:textSize="9sp"
+
+                    />
+
+            </FrameLayout>
+
+
+            <ImageView
+                android:id="@+id/ivSearch"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="11dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="11dp"
+                android:background="?android:attr/selectableItemBackground"
+                app:srcCompat="@drawable/search" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

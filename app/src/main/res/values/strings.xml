@@ -107,6 +107,8 @@
     <string name="order_payment_type">Payment Type</string>
     <string name="history">History</string>
     <string name="no_orders">No Orders</string>
+    <string name="no_products">No Products available</string>
+
     <string name="no_orders_active">No Active Order</string>
     <string name="placed">Placed</string>
 
@@ -173,6 +175,10 @@
     <string name="search">Search...</string>
     <string name="recent_searches">RECENT SEARCHES</string>
     <string name="clear_history"><u>Clear History</u></string>
+    <string name="back">Back</string>
+    <string name="sort_by">Sort By</string>
+    <string name="price">Price</string>
+
 
 
 </resources>

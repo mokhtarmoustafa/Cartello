@@ -19,16 +19,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/promo_code" />
 
-        <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/cvPaymentType"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="69dp"-->
-            <!--android:layout_below="@+id/ivPromoCode"-->
-            <!--android:layout_marginTop="25dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--app:cardCornerRadius="6dp">-->
-        <!--</android.support.v7.widget.CardView>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvPaymentTypes"

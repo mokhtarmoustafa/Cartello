@@ -5,9 +5,8 @@
     android:id="@+id/rlParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.twoam.cartello.View.CheckoutActivity"
     android:background="@color/shadow"
-    >
+    tools:context="com.twoam.cartello.View.CheckoutActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cvParent"
@@ -19,9 +18,9 @@
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
+        app:cardBackgroundColor="@color/shadow"
         app:cardElevation="2dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardBackgroundColor="@color/shadow">
+        app:cardPreventCornerOverlap="false">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -95,7 +94,18 @@
                 android:src="@drawable/checkout_selected" />
 
             <ImageView
-                android:id="@+id/ivPayment"
+                android:id="@+id/ivCheckoutNon"
+                android:layout_width="12dp"
+                android:layout_height="15dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="36dp"
+                android:layout_marginTop="11dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/checkout_non_selected"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/ivPaymentNon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -105,14 +115,36 @@
                 android:src="@drawable/payment_non_selected" />
 
             <ImageView
+                android:id="@+id/ivPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="111dp"
+                android:layout_toRightOf="@+id/ivCheckout"
+                android:scaleType="centerCrop"
+                android:src="@drawable/payment_selected"
+                android:visibility="invisible" />
+
+            <ImageView
+                android:id="@+id/ivTrackNon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="111dp"
+                android:layout_toRightOf="@+id/ivPaymentNon"
+                android:scaleType="centerCrop"
+                android:src="@drawable/track_non_selected" />
+
+            <ImageView
                 android:id="@+id/ivTrack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="111dp"
-                android:layout_toRightOf="@+id/ivPayment"
+                android:layout_toRightOf="@+id/ivPaymentNon"
                 android:scaleType="centerCrop"
-                android:src="@drawable/track_non_selected" />
+                android:src="@drawable/track_selected"
+                android:visibility="invisible" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 

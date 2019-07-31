@@ -1,0 +1,50 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.twoam.cartello.View.TrackFragment">
+
+   <RelativeLayout
+       android:id="@+id/rlParent"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <TextView
+           android:id="@+id/tvDeliveryFess"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_alignParentTop="true"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="88dp"
+           android:text="@string/your_order_has_been_placed_successfully"
+           android:textColor="@color/colorAccent"
+           android:textSize="19sp"
+           android:gravity="center"/>
+       <ImageView
+           android:id="@+id/ivTrackNon"
+           android:layout_width="match_parent"
+           android:layout_height="208dp"
+           android:layout_marginTop="23dp"
+           android:src="@drawable/money"
+           android:layout_below="@+id/tvDeliveryFess"
+           android:scaleType="centerCrop"/>
+       <Button
+           android:id="@+id/btnAddAddress"
+           android:layout_width="317dp"
+           android:layout_height="51dp"
+
+           android:layout_centerHorizontal="true"
+           android:layout_alignParentBottom="true"
+           android:layout_marginLeft="20dp"
+           android:layout_marginRight="20dp"
+           android:layout_marginBottom="20dp"
+           android:background="@drawable/rounded_button"
+           android:clickable="true"
+           android:fontFamily="Poppins-Medium"
+           android:text="@string/place_order"
+           android:textAllCaps="false"
+           android:textColor="@color/white"
+           android:textSize="20sp" />
+   </RelativeLayout>
+
+</FrameLayout>

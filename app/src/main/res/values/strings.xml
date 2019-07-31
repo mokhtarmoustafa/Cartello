@@ -168,8 +168,8 @@
     <string name="delivery_fess">Delivery fess:</string>
     <string name="cash">Cash</string>
     <string name="credit_card">Credit Card</string>
- <string name="messa">Meza Card</string>
-
+    <string name="messa">Meza Card</string>
+    <string name="your_order_has_been_placed_successfully">Your Order has been placed successfully</string>
 
 
 </resources>

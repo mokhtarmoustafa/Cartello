@@ -5,10 +5,10 @@ import android.os.Bundle
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 
-class SearchActivity : BaseDefaultActivity() {
+class SearchResultActivity : BaseDefaultActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        setContentView(R.layout.activity_search_result)
     }
 }

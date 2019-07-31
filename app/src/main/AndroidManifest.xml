@@ -75,7 +75,8 @@
         <activity android:name=".View.SearchActivity" />
         <activity android:name=".View.EditDeleteAddressActivity" />
         <activity android:name=".View.ProductDetailActivity" />
-        <activity android:name=".View.CheckoutActivity"></activity>
+        <activity android:name=".View.CheckoutActivity" />
+        <activity android:name=".View.SearchResultActivity"></activity>
     </application>
 
 </manifest>

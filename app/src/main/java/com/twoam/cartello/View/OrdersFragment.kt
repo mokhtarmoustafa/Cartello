@@ -89,15 +89,15 @@ class OrdersFragment : BaseFragment() {
 
     private fun getActiveOrders(activeOrdersList: ArrayList<Order>) {
         //adapt the data
-        var adapter=ActiveOrdersAdapter(fragmentManager,AppController.getContext(),activeOrdersList)
-        rvActiveOrders.adapter=adapter
+        var adapter = ActiveOrdersAdapter(fragmentManager, AppController.getContext(), activeOrdersList)
+        rvActiveOrders.adapter = adapter
         rvActiveOrders.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun getInActiveOrders(inActiveOrdersList: ArrayList<Order>) {
         //adapt the data
-        var adapter= InActiveOrdersAdapter(fragmentManager,AppController.getContext(),inActiveOrdersList)
-        rvInActiveOrders.adapter=adapter
+        var adapter = InActiveOrdersAdapter(fragmentManager, AppController.getContext(), inActiveOrdersList)
+        rvInActiveOrders.adapter = adapter
         rvInActiveOrders.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
     }
 
@@ -110,7 +110,10 @@ class OrdersFragment : BaseFragment() {
             }
         }
 
-        tvTotalOrder.text = orderList.count().toString()
+        tvTotalOrder.text = activeOrderList.count().toString()
+
+        if (activeOrderList.count() == 0)
+            activeOrderList.add(Order())
 
         getActiveOrders(activeOrderList)
         getInActiveOrders(inActiveOrderList)

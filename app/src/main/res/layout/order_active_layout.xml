@@ -4,10 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="312dp"
-    android:layout_height="129dp"
-    android:layout_marginRight="19dp"
+    android:layout_height="149dp"
+    android:layout_marginLeft="20dp"
     app:cardBackgroundColor="@color/colorApp"
-    app:cardCornerRadius="6dp">
+    app:cardCornerRadius="10dp"
+    >
+
 
 
     <RelativeLayout
@@ -24,19 +26,9 @@
             android:fontFamily="ArialMT"
             android:text="@string/order_id"
             android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textSize="15sp" />
 
-        <TextView
-            android:id="@+id/tvOrderIDValue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="13dp"
-            android:layout_toRightOf="@+id/tvOrderID"
-            android:fontFamily="ArialMT"
-            android:text="449"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+
 
         <TextView
             android:id="@+id/tvOrderDate"
@@ -47,7 +39,7 @@
             android:layout_marginTop="16dp"
             android:text="13/11/2018 07:20 PM"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tvTotalAmount"
@@ -59,7 +51,7 @@
             android:fontFamily="ArialMT"
             android:text="@string/order_total_amount"
             android:textColor="@color/white"
-            android:textSize="11sp"
+            android:textSize="13sp"
 
             />
         <TextView
@@ -72,7 +64,7 @@
             android:fontFamily="ArialMT"
             android:text="200 LE"
             android:textColor="@color/white"
-            android:textSize="11sp"
+            android:textSize="13sp"
             />
         <TextView
             android:id="@+id/tvPaymentType"
@@ -84,7 +76,7 @@
             android:layout_marginTop="50dp"
             android:text="@string/order_payment_type"
             android:textColor="@color/white"
-            android:textSize="10sp" />
+            android:textSize="13sp" />
         <TextView
             android:id="@+id/tvPaymentTypeValue"
             android:layout_width="wrap_content"
@@ -95,7 +87,8 @@
             android:layout_marginTop="8dp"
             android:text="COD"
             android:textColor="@color/white"
-            android:textSize="11sp"
+            android:textSize="13sp"
+            android:textStyle="bold"
             android:fontFamily="ArialMT"/>
 
         <TextView
@@ -104,11 +97,12 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:textSize="17sp"
+            android:textSize="18sp"
             android:text="@string/no_orders_active"
             android:fontFamily="ArialMT"
             android:textColor="@color/white"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:textStyle="bold"/>
 
     </RelativeLayout>
 

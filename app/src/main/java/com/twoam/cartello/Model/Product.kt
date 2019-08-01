@@ -5,7 +5,7 @@ package com.twoam.cartello.Model
  */
 
 class Product {
-    var id: String? = null
+    var id: Int = 0
     var name: String? = null
     var image: String? = null
     var price: Double? = null
@@ -22,7 +22,7 @@ class Product {
 
     constructor()
 
-    constructor(id: String, name: String, image: String, price: Double, discountPrice: Double) {
+    constructor(id: Int, name: String, image: String, price: Double, discountPrice: Double) {
         this.id = id
         this.name = name
         this.image = image
@@ -32,7 +32,7 @@ class Product {
     }
 
 
-    constructor(id: String, quantity: Int, name: String, image: String, price: Double, category: Category, discountPrice: Double) {
+    constructor(id: Int, quantity: Int, name: String, image: String, price: Double, category: Category, discountPrice: Double) {
         this.id = id
         this.amount = quantity
         this.name = name

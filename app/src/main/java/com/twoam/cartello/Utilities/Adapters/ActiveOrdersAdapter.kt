@@ -40,18 +40,41 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
     override fun onBindViewHolder(holder: ActiveOrdersAdapter.MyViewHolder, position: Int) {
 
         order = orderList[position]
-        val dateTime = order!!.created_at.split(" ")
 
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = dateFormatter.parse(order!!.created_at)
-        // Get time from date
-        val timeFormatter = SimpleDateFormat("h:mm a")
-        val time = timeFormatter.format(date)
+        if (orderList.count() == 1 && order?.id == 0) {
+            holder.tvEmptyOrder.visibility = View.VISIBLE
+            holder.tvOrderId.visibility = View.GONE
+            holder.tvDate.visibility = View.GONE
+            holder.tvTotalAmount.visibility = View.GONE
+            holder.tvTotalAmountValue.visibility = View.GONE
+            holder.tvOrderId.visibility = View.GONE
+            holder.tvPaymentType.visibility = View.GONE
+            holder.tvPaymentTypeValue.visibility=View.GONE
 
-        holder.tvOrderId.text = order!!.id.toString()
-        holder.tvDate.text = dateTime[0] + " " + time
-        holder.tvTotalAmountValue.text = "${order!!.total}${context.getString(R.string.currency)}"
+        } else {
+            holder.tvEmptyOrder.visibility = View.GONE
+            holder.tvOrderId.visibility = View.VISIBLE
+            holder.tvDate.visibility = View.VISIBLE
+            holder.tvTotalAmount.visibility = View.VISIBLE
+            holder.tvTotalAmountValue.visibility = View.VISIBLE
+            holder.tvOrderId.visibility = View.VISIBLE
+            holder.tvPaymentType.visibility = View.VISIBLE
+            holder.tvPaymentTypeValue.visibility=View.VISIBLE
 
+
+            val dateTime = order!!.date.split(" ")
+
+            val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val date = dateFormatter.parse(order!!.date)
+            // Get time from date
+            val timeFormatter = SimpleDateFormat("h:mm a")
+            val time = timeFormatter.format(date)
+
+            holder.tvOrderId.text = context.getString(R.string.order_id) + "  " + order!!.id.toString()
+            holder.tvDate.text = dateTime[0] + " " + time
+            holder.tvTotalAmountValue.text = "${order!!.total}${context.getString(R.string.currency)}"
+
+        }
     }
 
     override fun getItemCount(): Int {
@@ -65,16 +88,15 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvOrderId: TextView
-        var tvDate: TextView
-        var tvTotalAmountValue: TextView
-
+        var tvOrderId: TextView = itemView.findViewById(R.id.tvOrderID)
+        var tvDate: TextView = itemView.findViewById(R.id.tvOrderDate)
+        var tvTotalAmountValue: TextView = itemView.findViewById(R.id.tvTotalAmountValue)
+        var tvTotalAmount: TextView = itemView.findViewById(R.id.tvTotalAmount)
+        var tvEmptyOrder: TextView = itemView.findViewById(R.id.tvEmptyOrder)
+        var tvPaymentType: TextView = itemView.findViewById(R.id.tvPaymentType)
+        var tvPaymentTypeValue: TextView = itemView.findViewById(R.id.tvPaymentTypeValue)
 
         init {
-
-            tvOrderId = itemView.findViewById(R.id.tvOrderIDValue)
-            tvDate = itemView.findViewById(R.id.tvOrderDate)
-            tvTotalAmountValue = itemView.findViewById(R.id.tvTotalAmountValue)
 
 
             itemView.setOnClickListener { v ->

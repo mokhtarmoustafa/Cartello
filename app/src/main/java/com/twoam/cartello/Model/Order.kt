@@ -11,15 +11,18 @@ class Order {
     var state_id: Int = 0
     var items = ArrayList<Product>()
     var states = ArrayList<States>()
+    var address=Address()
     var rate: String? = ""
-    var total: String = ""
+    var total: Double=0.0
+    var item_total:Double=0.0
+    var delivery_fees:Double=0.0
+    var discount:Double=0.0
     var active = false
-    var scheduled_at: String=""
-    var schedule: String?=null
+    var scheduled_at: String?=null
     var reorder_count = 0
     var created_at: String = ""
     var paid_amount: Long = 0
-    var notes: String = ""
+    var notes: String ?=null
 
 //    var user_id: Int = 0
 //    var deliverer_id: Int? = null

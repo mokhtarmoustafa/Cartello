@@ -8,8 +8,8 @@ class Area {
     var name: String = ""
     var city_id: Int = 0
     var active: Boolean = false
-    var deactivation_notes: String = ""
-    var delivery_fees: Long = 0L
+    var deactivation_notes: String ?=null
+    var delivery_fees: Double = 0.0
 
     constructor()
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.bumptech.glide.Glide.init
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
@@ -34,20 +35,23 @@ class ActiveOrderAdapter(private val fragmentManager: FragmentManager?,
 
     override fun onBindViewHolder(holder: ActiveOrderAdapter.MyViewHolder, position: Int) {
 
-        order = orderList[position]
-        val dateTime = order!!.created_at.split(" ")
 
-        val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = dateFormatter.parse(order!!.created_at)
-        // Get time from date
-        val timeFormatter = SimpleDateFormat("h:mm a")
-        val time = timeFormatter.format(date)
+            order = orderList[position]
+            val dateTime = order!!.created_at.split(" ")
 
-        holder.tvOrderId.text = """${context.getString(R.string.order_id)}${order!!.id}"""
+            val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+            val date = dateFormatter.parse(order!!.created_at)
+            // Get time from date
+            val timeFormatter = SimpleDateFormat("h:mm a")
+            val time = timeFormatter.format(date)
 
-        holder.tvDate.text = dateTime[0]+time
+//            holder.tvOrderId.text = context.getString(R.string.order_id) + " " + order!!.id
 
-        holder.tvTotalAmountValue.text = order!!.total.toString()+" "+context.getString(R.string.currency)
+            holder.tvDate.text = dateTime[0] + time
+
+            holder.tvTotalAmountValue.text = order!!.total.toString() + " " + context.getString(R.string.currency)
+
+
 
 
     }
@@ -63,7 +67,7 @@ class ActiveOrderAdapter(private val fragmentManager: FragmentManager?,
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvOrderId: TextView = itemView.findViewById(R.id.tvOrderIDValue)
+//        var tvOrderId: TextView = itemView.findViewById(R.id.tvOrderIDValue)
         var tvDate: TextView = itemView.findViewById(R.id.tvOrderDate)
         var tvTotalAmountValue: TextView = itemView.findViewById(R.id.tvTotalAmountValue)
 

@@ -16,5 +16,9 @@ package com.twoam.cartello.Model
      var floor: String = ""
      var landmark: String = ""
      var user_id: Int = 0
+    var deleted_at:String=""
+    var formatted_address:String=""
+    var area=Area()
+    var city=City()
       var addresses= ArrayList<Address>()
 }

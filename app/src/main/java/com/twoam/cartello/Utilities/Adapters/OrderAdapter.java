@@ -74,7 +74,7 @@ public class OrderAdapter
         public MyViewHolder(View itemView) {
             super(itemView);
 
-            orderID = itemView.findViewById(R.id.tvOrderIDValue);
+            orderID = itemView.findViewById(R.id.tvOrderID);
             orderDate = itemView.findViewById(R.id.tvPaymentTypeValue);
             totalAmount = itemView.findViewById(R.id.tvTotalAmountValue);
             paymentType = itemView.findViewById(R.id.tvPaymentTypeValue);

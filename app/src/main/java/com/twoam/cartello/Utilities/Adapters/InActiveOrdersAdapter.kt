@@ -40,15 +40,15 @@ class InActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
     override fun onBindViewHolder(holder: InActiveOrdersAdapter.MyViewHolder, position: Int) {
 
         order = orderList[position]
-        val dateTime = order!!.created_at.split(" ")
+        val dateTime = order!!.date.split(" ")
 
         val dateFormatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val date = dateFormatter.parse(order!!.created_at)
+        val date = dateFormatter.parse(order!!.date)
         // Get time from date
         val timeFormatter = SimpleDateFormat("h:mm a")
         val time = timeFormatter.format(date)
 
-        holder.tvOrderId.text = order!!.id.toString()
+        holder.tvOrderId.text = context.getString(R.string.order_id)+" "+ order!!.id.toString()
         holder.tvDate.text = dateTime[0]
         holder.tvTime.text=time
         holder.tvTotalAmountValue.text = "${order!!.total}${context.getString(R.string.currency)}"
@@ -75,11 +75,11 @@ class InActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
 
         init {
 
-            tvOrderId = itemView.findViewById(R.id.tvOrderIDValue)
+            tvOrderId = itemView.findViewById(R.id.tvOrderId)
             tvCanceled = itemView.findViewById(R.id.tvCanceled)
-            tvDate = itemView.findViewById(R.id.tvOrderDate)
+            tvDate = itemView.findViewById(R.id.tvDate)
             tvTime = itemView.findViewById(R.id.tvTime)
-            tvTotalAmountValue = itemView.findViewById(R.id.tvTotalAmountValue)
+            tvTotalAmountValue = itemView.findViewById(R.id.tvTotal)
 
 
             itemView.setOnClickListener { v ->

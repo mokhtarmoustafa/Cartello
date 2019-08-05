@@ -14,6 +14,7 @@ import com.twoam.cartello.R.id.tvTotal
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
+import com.twoam.cartello.Utilities.General.LoadInActiveOrderDataDialog
 import com.twoam.cartello.View.EditDeleteAddressActivity
 import com.twoam.cartello.View.ProductDetailActivity
 import java.util.*
@@ -28,7 +29,7 @@ class LoadInActiveOrderProductsAdapter(private val fragmentManager: FragmentMana
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var product: Product? = null
-    private var bottomSheet = LoadActiveOrderDataDialog()
+    private var bottomSheet = LoadInActiveOrderDataDialog()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadInActiveOrderProductsAdapter.MyViewHolder {
 

@@ -41,7 +41,6 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     private var newAddress: Address = Address()
     //    private var addressIdIndex: Int? = null
     private var bottomSheet = CloseBottomSheetDialog()
-    private var addressToUpdate: Address = Address()
     //endregion
 
     //region Events

@@ -12,9 +12,8 @@ import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
 import com.twoam.cartello.R.id.tvOrderId
 import com.twoam.cartello.R.id.tvTime
-import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
-import com.twoam.cartello.Utilities.General.LoadInActiveOrderDataDialog
-import com.twoam.cartello.Utilities.General.LoadMedicalDataDialog
+import com.twoam.cartello.Utilities.General.*
+import com.twoam.cartello.View.OrdersFragment
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -26,9 +25,12 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
                           private val context: Context, private val orderList: ArrayList<Order>)
     : RecyclerView.Adapter<ActiveOrdersAdapter.MyViewHolder>() {
 
+
+
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var order: Order? = null
     private var bottomSheet = LoadActiveOrderDataDialog()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActiveOrdersAdapter.MyViewHolder {
 
@@ -49,7 +51,7 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
             holder.tvTotalAmountValue.visibility = View.GONE
             holder.tvOrderId.visibility = View.GONE
             holder.tvPaymentType.visibility = View.GONE
-            holder.tvPaymentTypeValue.visibility=View.GONE
+            holder.tvPaymentTypeValue.visibility = View.GONE
 
         } else {
             holder.tvEmptyOrder.visibility = View.GONE
@@ -59,7 +61,7 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
             holder.tvTotalAmountValue.visibility = View.VISIBLE
             holder.tvOrderId.visibility = View.VISIBLE
             holder.tvPaymentType.visibility = View.VISIBLE
-            holder.tvPaymentTypeValue.visibility=View.VISIBLE
+            holder.tvPaymentTypeValue.visibility = View.VISIBLE
 
 
             val dateTime = order!!.date.split(" ")
@@ -86,6 +88,10 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
     }
 
 
+
+
+
+
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var tvOrderId: TextView = itemView.findViewById(R.id.tvOrderID)
@@ -96,8 +102,7 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
         var tvPaymentType: TextView = itemView.findViewById(R.id.tvPaymentType)
         var tvPaymentTypeValue: TextView = itemView.findViewById(R.id.tvPaymentTypeValue)
 
-        init {
-
+        init  {
 
             itemView.setOnClickListener { v ->
 
@@ -109,6 +114,8 @@ class ActiveOrdersAdapter(private val fragmentManager: FragmentManager?,
 
                     order = orderList[pos]
                     bottomSheet.CurrentOrder = order!!
+
+                    if(order!!.id>0)
                     bottomSheet.show(fragmentManager, "Custom Bottom Sheet")
                 }
             }

@@ -165,6 +165,28 @@ class PreferenceController private constructor(context: Context, databaseName: S
 
         return gson.fromJson(json, type)
     }
+  fun setFavouriteProductsPref(key: String, values: ArrayList<Product>?) {
+        val editor = preferences.edit()
+        val gson = Gson()
+        if (values == null) {
+            return
+        }
+        val json = gson.toJson(values)
+
+        editor.putString(key, json)
+        editor.commit()
+    }
+
+    // GET THE Address Data
+    fun getFavouriteProductsPref(key: String): ArrayList<Product>? {
+        val gson = Gson()
+        val json = preferences.getString(key, null) ?: return null
+
+        val type = object : TypeToken<ArrayList<Product>>() {
+        }.type
+
+        return gson.fromJson(json, type)
+    }
 
 
 }

@@ -31,6 +31,7 @@ import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import kotlinx.android.synthetic.main.activity_product_detail.*
 import java.io.ByteArrayOutputStream
 import android.graphics.drawable.BitmapDrawable
+import android.support.v4.content.ContextCompat.startActivity
 import com.twoam.cartello.Model.Product
 
 
@@ -66,21 +67,7 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
                 image = intent.extras.get("image") as Bitmap
                 ivImage.setImageBitmap(image)
             }
-
-
         }
-
-         if(intent.hasExtra("productIdPosition"))
-         {
-             loadProductData(AppConstants.CurrentSelectedProduct)
-         }
-    }
-
-    private fun loadProductData(product: Product) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-
-
-
     }
 
 
@@ -113,7 +100,6 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
                 bottom.show(supportFragmentManager, "Custom Bottom Sheet")
             }
             R.id.btnSend -> {
-
                 //get bitmap from image view
                 if (image == null)
                     image = (ivImage.drawable as BitmapDrawable).bitmap
@@ -123,6 +109,7 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
 
                 if (encodeImage.isNotEmpty())
                     showDialogue()
+
                 addMedical("my meds", note, encodeImage)
             }
         }
@@ -189,6 +176,5 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
         }
     }
 
-    fun loadMedicalDetails() {}
 
 }

@@ -37,12 +37,26 @@ class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManage
     }
 
     override fun onBindViewHolder(holder: LoadActiveOrderProductsAdapter.MyViewHolder, position: Int) {
+        var firstLine = ""
+        var secondLine = ""
+        var formattedProductName = ""
 
         product = productList[position]
-        
 
-        holder.tvProduct.text = product!!.name
-        holder.tvTotal.text = "${product!!.price}"
+        if (product!!.name!!.length > 29) {
+            firstLine = product!!.name!!.substring(0, 29)
+            secondLine = product!!.name!!.substring(29)
+            formattedProductName = firstLine + "\n" + secondLine
+            holder.tvProduct.text = formattedProductName
+        }
+
+        else
+            holder.tvProduct.text = product!!.name
+
+
+
+        holder.tvQuantity.text = "x" + product!!.amount.toString()
+        holder.tvTotal.text = product!!.price.toString() + " " + context.getString(R.string.currency)
 
     }
 
@@ -57,14 +71,12 @@ class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManage
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvProduct: TextView
-        var tvTotal: TextView
+        var tvProduct: TextView = itemView.findViewById(R.id.tvProduct)
+        var tvTotal: TextView = itemView.findViewById(R.id.tvTotal)
+        var tvQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
 
 
         init {
-
-            tvProduct = itemView.findViewById(R.id.tvProduct)
-            tvTotal = itemView.findViewById(R.id.tvTotal)
 
 
             itemView.setOnClickListener { v ->
@@ -76,11 +88,11 @@ class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManage
                 if (pos != RecyclerView.NO_POSITION) {
 
                     product = productList[pos]
-                    AppConstants.CurrentSelectedProduct=product!!
+                    AppConstants.CurrentSelectedProduct = product!!
                     //todo open product details fragment from here
-//                    context.startActivity(Intent(context, ProductDetailActivity::class.java)
-//                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                            .putExtra("productIdPosition", pos))
+                    context.startActivity(Intent(context, ProductDetailActivity::class.java)
+                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            .putExtra("productIdPosition", pos))
                 }
             }
         }

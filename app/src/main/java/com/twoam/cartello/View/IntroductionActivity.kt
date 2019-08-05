@@ -102,7 +102,7 @@ class IntroductionActivity : AppCompatActivity() {
        var cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
 
 
-        if (currentUser?.address!!.addresses.count() > 0 && cities.count() > 0) {
+        if (currentUser.address!!.addresses!!.count() > 0 && cities.count() > 0) {
             AppConstants.CurrentLoginUser = currentUser
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()

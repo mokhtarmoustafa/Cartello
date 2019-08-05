@@ -74,7 +74,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_marginTop="14dp"
-           android:scrollbars="horizontal"
+           android:scrollbars="none"
            />
        <TextView
            android:id="@+id/tvHistory"
@@ -94,7 +94,7 @@
            android:layout_height="wrap_content"
            android:layout_marginTop="10dp"
            android:layout_marginBottom="50dp"
-           android:scrollbars="vertical"
+           android:scrollbars="none"
            android:layout_below="@+id/tvHistory"
            />
 

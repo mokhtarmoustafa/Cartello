@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -20,32 +21,47 @@
             android:fontFamily="Poppins-Regular"
             android:text="Product Name"
             android:textColor="@color/white"
-            android:textSize="15sp" />
+            android:textSize="13sp"
+            android:gravity="left"
+             />
 
 
         <android.support.v7.widget.CardView
+            android:id="@+id/cvPrice"
             android:layout_width="63dp"
             android:layout_height="30.4dp"
             android:layout_alignBaseline="@+id/tvProductName"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="13dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="13dp"
             app:cardBackgroundColor="@color/color_cv"
-            app:cardCornerRadius="6dp">
+            app:cardCornerRadius="6dp"
+            app:cardElevation="0dp">
 
 
             <TextView
                 android:id="@+id/tvTotal"
-                android:layout_width="63dp"
-                android:layout_height="30.4dp"
-                android:layout_marginEnd="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
                 android:fontFamily="ArialMT"
                 android:gravity="center_horizontal|center_vertical"
                 android:text="20LE"
                 android:textColor="@color/white"
-                android:textSize="13sp"
-                android:layout_marginBottom="5dp"/>
+                android:textSize="13sp" />
         </android.support.v7.widget.CardView>
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tvProduct"
+            android:layout_marginRight="40dp"
+            android:layout_toLeftOf="@+id/cvPrice"
+
+            android:text=""
+            android:textColor="@color/white"
+            android:textSize="13sp" />
 
     </RelativeLayout>
 

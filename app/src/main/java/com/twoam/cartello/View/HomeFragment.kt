@@ -25,6 +25,7 @@ import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AnimateScroll
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
+import com.twoam.cartello.Utilities.General.IOrderCallback
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
@@ -32,6 +33,7 @@ import kotlin.collections.ArrayList
 
 
 class HomeFragment : BaseFragment() {
+
 
 
     //region Members

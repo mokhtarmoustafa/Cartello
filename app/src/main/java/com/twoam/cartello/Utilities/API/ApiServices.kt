@@ -117,5 +117,9 @@ interface ApiServices {
     @GET(AppConstants.URL_GET_ORDERS)
     fun getOrders(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Order>>>
 
+    @POST(AppConstants.URL_CANCEL_ORDERS + "/{orderID}")
+    fun cancelOrder(@Header("Authorization") token:String, @Path("orderID") orderId: Int): Call<ApiResponse<Order>>
+
+
 }
 

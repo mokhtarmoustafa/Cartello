@@ -7,18 +7,19 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.View
+import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomBottomSheetDialog
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.General.IOrderCallback
 import kotlinx.android.synthetic.main.activity_main.*
-import android.provider.MediaStore
-import android.graphics.BitmapFactory
-import com.twoam.cartello.R.id.*
 
-class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {
+
+class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback,IOrderCallback {
+
 
 
     //region Members
@@ -63,6 +64,13 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             R.id.ivSearch -> {
 
             }
+        }
+    }
+
+    override fun onOrderCancelled(isCanceled: Boolean, order: Order?) {
+        if (isCanceled)
+        {
+           this.orderFragment.cancelOrder(order!!)
         }
     }
 

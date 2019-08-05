@@ -10,27 +10,34 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import bolts.AppLinkNavigation.navigate
+import com.bumptech.glide.Glide.init
+import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.View.*
+import kotlinx.android.synthetic.main.bottom_sheet_active_order.*
 import kotlinx.android.synthetic.main.bottom_sheet_close.*
 
 
-class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback, View.OnClickListener {
+class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback, IOrderCallback, View.OnClickListener {
 
 
     //region Members
+
     internal var view: ViewGroup? = null
     lateinit var layout: RelativeLayout
-    private var listener: IBottomSheetCallback? = null
+    private var closeListener: IBottomSheetCallback? = null
+    private var cancelOrderListener: IOrderCallback? = null
+
     private var action: Int = 0
     private lateinit var btnLogOut: Button
     private lateinit var btnDelete: Button
     private lateinit var tvHome: TextView
     private lateinit var ivClose: ImageView
-    private var currentAddresID = 0
+    private var order = Order()
 
-    var Action: Int //0 log out 1 delete
+    var Action: Int //0 log out 1 delete 2 cancel order
         get() {
             return action
         }
@@ -38,13 +45,14 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
             this.action = action
         }
 
-    var CurrentAddressId: Int
+    var CurrentOrder: Order
         get() {
-            return currentAddresID
+            return order
         }
-        set(index) {
-            this.currentAddresID = index
+        set(currentOrder) {
+            this.order = currentOrder
         }
+
     //endregion
 
     //region Events
@@ -58,11 +66,24 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is IBottomSheetCallback) {
-            listener = context
-        } else {
-            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+        if (action == 1) {
+            if (context is IBottomSheetCallback) {
+                closeListener = context
+            } else {
+                throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+            }
+        } else if (action == 2) {
+            if (context is IOrderCallback) {
+                cancelOrderListener = context
+            } else {
+                throw ClassCastException(context.toString() + " must implement IOrderCallback.onCancelOrder")
+            }
         }
+
+    }
+
+    override fun onOrderCancelled(isCanceled: Boolean, order: Order?) {
+
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
@@ -81,7 +102,10 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
 
             R.id.btnLogOut -> {
                 this.dismiss()
-                logOut()
+                if (action == 1)
+                    logOut()
+                if (action == 2)
+                    cancelOrder(CurrentOrder)
             }
             R.id.btnDelete -> {
                 this.dismiss()
@@ -109,40 +133,24 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
             btnLogOut.visibility = View.GONE
             btnDelete.visibility = View.VISIBLE
             tvHome.text = getString(R.string.sure_you_want_to_proceed)
+        } else if (action == 2) //cancel order
+        {
+            btnLogOut.text = context!!.getString(R.string.cancel_order)
+            btnLogOut.visibility = View.VISIBLE
+            btnDelete.visibility = View.GONE
+            tvHome.text = getString(R.string.cancel_order_message)
         }
 
-
-//        var ivClose = layout.findViewById<ImageView>(R.id.ivClose)
-//        var btnLogOut = layout.findViewById<Button>(R.id.btnLogOut)
-//        var btnDelete=layout.findViewById<Button>(R.id.btnDelete)
 
         ivClose.setOnClickListener(this)
         btnLogOut.setOnClickListener(this)
         btnDelete.setOnClickListener(this)
-//
-//
 
-//        if (Action == 0) { //logout
-//            btnLogOut.setOnClickListener({
-//                this.dismiss()
-//                logOut()
-//            })
-//        } else if (Action == 1) { // delete
-//
-//            btnLogOut.text = getString(R.string.delete_my_address)
-//            btnLogOut.setBackgroundColor(Color.parseColor("#F9ECEC"))
-//            btnLogOut.setTextColor(Color.parseColor("#FF0202"))
-//            btnLogOut.setOnClickListener({
-//                this.dismiss()
-//                navigate(Action)
-//            })
-//
-//        }
 
     }
 
     fun navigate(index: Int) {
-        listener?.onBottomSheetSelectedItem(index)
+        closeListener?.onBottomSheetSelectedItem(index)
     }
 
     private fun logOut() {
@@ -150,7 +158,13 @@ class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback
         PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.USER_DATA)
         context?.startActivity(Intent(context, LoginActivity::class.java))
         activity?.onBackPressed()
-    }
-    //endregion
 
+    }
+
+    private fun cancelOrder(order: Order) {
+        cancelOrderListener?.onOrderCancelled(true, order)
+    }
+
+
+//endregion
 }

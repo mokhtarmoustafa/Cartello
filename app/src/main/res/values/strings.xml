@@ -137,7 +137,7 @@
    <string name="low_to_high">Low to High</string>
 
     <string name="cancel_order">Cancel Order</string>
-
+    <string name="cancel_order_message">Do you want to cancel this order?</string>
     <string name="type_cod">Type COD</string>
 
     <string name="your_notes">Your notes ...</string>
@@ -182,7 +182,7 @@
     <string name="back">Back</string>
     <string name="sort_by">Sort By</string>
     <string name="price">Price</string>
-
+    <string name="expected_arrival">Expected Arrival</string>
 
 
 </resources>

@@ -10,6 +10,8 @@ import android.widget.TextView
 import com.bumptech.glide.Glide.init
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
+import com.twoam.cartello.Utilities.General.AppConstants
+import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,6 +23,7 @@ import java.util.*
 class ActiveOrderAdapter(private val fragmentManager: FragmentManager?,
                          private val context: Context, private val orderList: ArrayList<Order>)
     : RecyclerView.Adapter<ActiveOrderAdapter.MyViewHolder>() {
+
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var order: Order? = null
@@ -63,6 +66,8 @@ class ActiveOrderAdapter(private val fragmentManager: FragmentManager?,
     override fun getItemId(position: Int): Long {
         return super.getItemId(position)
     }
+
+
 
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

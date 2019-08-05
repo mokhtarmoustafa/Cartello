@@ -10,9 +10,11 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide.init
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Order
+import com.twoam.cartello.Model.Product
 
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
@@ -22,7 +24,10 @@ import com.twoam.cartello.Utilities.Adapters.InActiveOrdersAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
+import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.General.IOrderCallback
 import kotlinx.android.synthetic.main.fragment_orders.*
+import java.util.function.Predicate
 
 
 class OrdersFragment : BaseFragment() {
@@ -33,6 +38,7 @@ class OrdersFragment : BaseFragment() {
     var ordersList = ArrayList<Order>()
     var activeOrderList = ArrayList<Order>()
     var inActiveOrderList = ArrayList<Order>()
+    var listener: IBottomSheetCallback? = null
 
 
     //endregion
@@ -43,20 +49,16 @@ class OrdersFragment : BaseFragment() {
         // Inflate the layout for this fragment
         currentView = inflater.inflate(R.layout.fragment_orders, container, false)
 
-        init()
-
         getOrders()
 
         return currentView
     }
+
+
     //endregion
 
     //region Helper Functions
 
-
-    private fun init() {
-
-    }
 
     private fun getOrders() {
 
@@ -89,7 +91,7 @@ class OrdersFragment : BaseFragment() {
 
     private fun getActiveOrders(activeOrdersList: ArrayList<Order>) {
         //adapt the data
-        var adapter = ActiveOrdersAdapter(fragmentManager, AppController.getContext(), activeOrdersList)
+        var adapter = ActiveOrdersAdapter(childFragmentManager, AppController.getContext(), activeOrdersList)
         rvActiveOrders.adapter = adapter
         rvActiveOrders.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
     }
@@ -119,6 +121,44 @@ class OrdersFragment : BaseFragment() {
         getInActiveOrders(inActiveOrderList)
     }
 
+    fun cancelOrder(order: Order) {
+        showDialogue()
+        if (NetworkManager().isNetworkAvailable(AppController.getContext())) {
+            var request = NetworkManager().create(ApiServices::class.java)
+            var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
+            var endPoint = request.cancelOrder(token, order.id)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Order>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<Order>) {
+                    if (response.code == AppConstants.CODE_200) {
+
+                        activeOrderList.remove(order)
+                        var count = activeOrderList.count()
+                        tvTotalOrder.text = count.toString()
+                        inActiveOrderList.add(order)
+
+                        if (activeOrderList.count() == 0)
+                            activeOrderList.add(Order())
+
+                        rvActiveOrders.adapter.notifyDataSetChanged()
+                        rvInActiveOrders.adapter.notifyDataSetChanged()
+                        hideDialogue()
+
+                    } else {
+                        hideDialogue()
+                        showAlertDialouge(getString(R.string.error_login_server_error))
+                    }
+                }
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+    }
     //endregion
 
 

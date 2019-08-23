@@ -189,7 +189,8 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:scaleType="center"
-                    app:srcCompat="@drawable/back" />
+                    app:srcCompat="@drawable/back"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
                 <TextView
                     android:id="@+id/tvMainBack"
@@ -224,9 +225,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:background="?android:attr/selectableItemBackground"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:src="@drawable/cart" />
+                    android:src="@drawable/cart"
+                    />
 
                 <TextView
                     android:id="@+id/cart_badge"
@@ -259,7 +261,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="11dp"
-                android:background="?android:attr/selectableItemBackground"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/search" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>

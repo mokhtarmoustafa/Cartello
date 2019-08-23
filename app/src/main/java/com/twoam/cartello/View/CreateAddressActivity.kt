@@ -68,7 +68,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnAddAddress -> {
+            R.id.btnPlaceOrder -> {
                 var name = etName.text.toString()
                 var city = etCity.text.toString()
                 var area = etArea.text.toString()
@@ -258,7 +258,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         tvErrorApt = findViewById(R.id.tvAptError)
         tvErrorFloor = findViewById(R.id.tvFloorError)
 
-        btnAdd = findViewById(R.id.btnAddAddress)
+        btnAdd = findViewById(R.id.btnPlaceOrder)
         btnAdd.setOnClickListener(this)
         ivBack.setOnClickListener(this)
 

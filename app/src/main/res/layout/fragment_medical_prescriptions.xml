@@ -29,7 +29,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="31dp"
                 android:clickable="true"
-                app:srcCompat="@drawable/back" />
+                app:srcCompat="@drawable/back"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <TextView
                 android:id="@+id/textView2"
@@ -91,7 +92,7 @@
                     android:id="@+id/btnAddMedical"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="47dp"
+                    android:layout_marginBottom="48dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/rounded_button"

@@ -1,22 +1,17 @@
 package com.twoam.cartello.Utilities.Adapters
 
 import android.content.Context
-import android.content.Intent
 import android.support.v4.app.FragmentManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
-import com.twoam.cartello.R.id.tvTotal
 import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
-import com.twoam.cartello.Utilities.General.LoadInActiveOrderDataDialog
-import com.twoam.cartello.View.EditDeleteAddressActivity
-import com.twoam.cartello.View.ProductDetailActivity
 import java.util.*
 
 /**
@@ -29,7 +24,6 @@ class LoadInActiveOrderProductsAdapter(private val fragmentManager: FragmentMana
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var product: Product? = null
-    private var bottomSheet = LoadInActiveOrderDataDialog()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadInActiveOrderProductsAdapter.MyViewHolder {
 
@@ -42,14 +36,31 @@ class LoadInActiveOrderProductsAdapter(private val fragmentManager: FragmentMana
 
         product = productList[position]
 
+        var firstLine = ""
+        var secondLine = ""
+        var formattedProductName = ""
 
-        holder.tvProductName.text = product!!.name
-        holder.tvProductPrice.text=product!!.price.toString()
-        holder.tvQuantity.text = "${product!!.amount}"
+        product = productList[position]
+
+
+        Glide.with(context).load(product!!.image).into(holder.ivProduct)
+
+        if (product!!.name!!.length > 17) {
+            firstLine = product!!.name!!.substring(0, 17)
+            secondLine = product!!.name!!.substring(17)
+            formattedProductName = firstLine + "\n" + secondLine
+            holder.tvProductName.text = formattedProductName
+        } else
+            holder.tvProductName.text = product!!.name
+
+        holder.tvProductPrice.text = product!!.price.toString() + " " + context.getString(R.string.currency)
+        holder.tvQuantity.text = product!!.amount.toString()
 
     }
 
-    override fun getItemCount(): Int {
+    override fun getItemCount(
+
+    ): Int {
         return productList.size
     }
 
@@ -60,16 +71,13 @@ class LoadInActiveOrderProductsAdapter(private val fragmentManager: FragmentMana
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var tvProductName: TextView
-        var tvProductPrice: TextView
-        var tvQuantity: TextView
+        var ivProduct: ImageView = itemView.findViewById(R.id.ivProduct)
+        var tvProductName: TextView = itemView.findViewById(R.id.tvProductName)
+        var tvProductPrice: TextView = itemView.findViewById(R.id.tvProductPrice)
+        var tvQuantity: TextView = itemView.findViewById(R.id.tvQuantity)
 
 
         init {
-
-            tvProductName = itemView.findViewById(R.id.tvProductName)
-            tvProductPrice = itemView.findViewById(R.id.tvProductPrice)
-            tvQuantity = itemView.findViewById(R.id.tvQuantity)
 
 
             itemView.setOnClickListener { v ->
@@ -82,10 +90,7 @@ class LoadInActiveOrderProductsAdapter(private val fragmentManager: FragmentMana
 
                     product = productList[pos]
                     AppConstants.CurrentSelectedProduct = product!!
-                    //todo open product details fragment from here
-//                    context.startActivity(Intent(context, ProductDetailActivity::class.java)
-//                            .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                            .putExtra("productIdPosition", pos))
+
                 }
             }
         }

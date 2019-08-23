@@ -103,6 +103,8 @@
     <string name="order_total_amount">Total Amount</string>
     <string name="total">Total</string>
     <string name="total_1">Total:</string>
+    <string name="products">Products</string>
+
 
     <string name="order_payment_type">Payment Type</string>
     <string name="history">History</string>
@@ -133,8 +135,8 @@
     <string name="note">Note:</string>
     <string name="cancelled">Cancelled</string>
     <string name="cancel">Cancel</string>
-   <string name="high_to_low">High to Low</string>
-   <string name="low_to_high">Low to High</string>
+    <string name="high_to_low">High to Low</string>
+    <string name="low_to_high">Low to High</string>
 
     <string name="cancel_order">Cancel Order</string>
     <string name="cancel_order_message">Do you want to cancel this order?</string>
@@ -171,6 +173,8 @@
     <string name="delivering_address">Delivering Address</string>
     <string name="next">Next</string>
     <string name="place_order">Place Order</string>
+    <string name="track_order">Track My Order</string>
+
     <string name="delivery_fess">Delivery fess:</string>
     <string name="cash">Cash</string>
     <string name="credit_card">Credit Card</string>
@@ -183,6 +187,7 @@
     <string name="sort_by">Sort By</string>
     <string name="price">Price</string>
     <string name="expected_arrival">Expected Arrival</string>
+    <string name="added_to_cart">Added to cart</string>
 
 
 </resources>

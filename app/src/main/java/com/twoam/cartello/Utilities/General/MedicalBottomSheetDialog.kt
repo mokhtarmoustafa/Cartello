@@ -14,6 +14,10 @@ import android.widget.*
 import com.twoam.cartello.R
 import com.twoam.cartello.View.*
 import pub.devrel.easypermissions.EasyPermissions
+import android.R.attr.data
+import android.support.v4.app.NotificationCompat.getExtras
+
+
 
 
 class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback, View.OnClickListener {
@@ -104,10 +108,11 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             val bitmap = data!!.extras.get("data") as Bitmap
 
-
+            val extras = data.extras
+            
             if (bitmap != null) {
                 Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(context, ProductDetailActivity::class.java).putExtra("image", bitmap))
+                startActivity(Intent(context, MedicalPrescriptionsDetailActivity::class.java).putExtra("image", bitmap))
             }
 
         }
@@ -115,7 +120,7 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
                 resultCode == Activity.RESULT_OK) {
             val contentURI = data!!.data ?: return
             val bitmap = MediaStore.Images.Media.getBitmap(activity!!.contentResolver, contentURI)
-            startActivity(Intent(context, ProductDetailActivity::class.java).putExtra("image", bitmap))
+            startActivity(Intent(context, MedicalPrescriptionsDetailActivity::class.java).putExtra("image", bitmap))
 
         }
     }

@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 
 import com.twoam.cartello.Model.Address
 import com.twoam.cartello.Model.Area
@@ -25,14 +24,17 @@ import java.util.ArrayList
  * Created by Mokhtar on 6/30/2019.
  */
 
-class CheckoutAddressAdapter(private val context: Context, private val addressList: ArrayList<Address>) : RecyclerView.Adapter<CheckoutAddressAdapter.MyViewHolder>() {
+class CheckoutAddressAdapter(private val context: Context, private val addressList: ArrayList<Address>)
+    : RecyclerView.Adapter<CheckoutAddressAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var address: Address? = null
+    private var address: Address? = Address()
     private lateinit var cities: ArrayList<City>
     private lateinit var areas: ArrayList<Area>
-    var addressValue = ""
-    var addresssNameVAlue = ""
+    private var addressValue = ""
+    private var addressNameValue = ""
+    private var row_index=0
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckoutAddressAdapter.MyViewHolder {
 
@@ -61,33 +63,61 @@ class CheckoutAddressAdapter(private val context: Context, private val addressLi
             " " + currentAddress!!.address
 
 
-        addresssNameVAlue = if (currentAddress!!.name.isNullOrEmpty())
+        addressNameValue = if (currentAddress!!.name.isNullOrEmpty())
             ""
         else
             currentAddress!!.name
 
-        addresssNameVAlue += if (city.name.isNullOrEmpty())
-            ""
-        else
-            " , " + city.name
-
-        addresssNameVAlue += if (area?.name.isNullOrEmpty())
+        addressNameValue += if (area?.name.isNullOrEmpty())
             ""
         else
             " , " + area?.name
 
+        addressNameValue += if (city.name.isNullOrEmpty())
+            ""
+        else
+            " , " + city.name
+
+
+
         if (position == 0) {
             holder.ivActive.visibility = View.VISIBLE
             holder.ivInActive.visibility = View.INVISIBLE
+            holder.tvEdit.isEnabled=true
         } else {
             holder.ivActive.visibility = View.INVISIBLE
             holder.ivInActive.visibility = View.VISIBLE
+            holder.tvEdit.isEnabled=false
         }
 
 
 
         holder.tvAddress.text = addressValue  // currentAddress!!.apartment+" ${currentAddress!!.address}"
-        holder.tvAddressName.text = addresssNameVAlue //currentAddress!!.name + " , ${city.name} , ${area?.name}"
+        holder.tvAddressName.text = addressNameValue //currentAddress!!.name + " , ${city.name} , ${area?.name}"
+
+        //update selected item icon on select
+        holder.itemView.setOnClickListener(View.OnClickListener {
+            row_index=position
+            notifyDataSetChanged()
+        })
+
+        if(row_index==position)
+        {
+            holder.ivActive.visibility = View.VISIBLE
+            holder.ivInActive.visibility = View.INVISIBLE
+            holder.tvEdit.isEnabled=true
+            address = addressList[position]
+            AppConstants.CurrentSelectedAddress=address!!
+        }
+        else
+        {
+            holder.ivActive.visibility = View.INVISIBLE
+            holder.ivInActive.visibility = View.VISIBLE
+            holder.tvEdit.isEnabled=false
+            address = addressList[position]
+            AppConstants.CurrentSelectedAddress=address!!
+        }
+
     }
 
     override fun getItemCount(): Int {

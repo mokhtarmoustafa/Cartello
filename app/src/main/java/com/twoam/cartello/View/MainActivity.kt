@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.View
+import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
@@ -18,8 +19,7 @@ import com.twoam.cartello.Utilities.General.IOrderCallback
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback,IOrderCallback {
-
+class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback, IOrderCallback {
 
 
     //region Members
@@ -41,6 +41,8 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
         init()
 
+        getCartData()
+
         fm.beginTransaction().replace(R.id.layout_container, homeFragment, "homeFragment").commit()
         fm.beginTransaction().add(R.id.layout_container, medicalFragment, "medicalFragment").hide(medicalFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, orderFragment, "orderFragment").hide(orderFragment).commit()
@@ -49,6 +51,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
         active = homeFragment
     }
 
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.rlHome -> {
@@ -56,9 +59,9 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
                 isOpened = true
 
             }
-            R.id.ivCart, R.id.cart_badge -> {
+            R.id.ivCart, R.id.tvCartCounter -> {
                 var intent = Intent(this@MainActivity, CartActivity::class.java)
-                startActivity(intent)
+                startActivityForResult(intent, 100)
             }
 
             R.id.ivSearch -> {
@@ -68,9 +71,8 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     }
 
     override fun onOrderCancelled(isCanceled: Boolean, order: Order?) {
-        if (isCanceled)
-        {
-           this.orderFragment.cancelOrder(order!!)
+        if (isCanceled) {
+            this.orderFragment.cancelOrder(order!!)
         }
     }
 
@@ -116,10 +118,12 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
                 fm.beginTransaction().hide(active).show(moreFragment).addToBackStack(null).commit()
                 active = moreFragment
             }
-
-
+            4 -> { //update cart counter
+                tvCartCounter.text = Cart.getAll().count().toString()
+            }
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -129,20 +133,30 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             if (AppConstants.CurrentCameraGAlleryAction == 0) //camera
             {
                 bitmap = data!!.extras.get("data") as Bitmap
-                var intent = Intent(this@MainActivity, ProductDetailActivity::class.java)
+                var intent = Intent(this@MainActivity, MedicalPrescriptionsDetailActivity::class.java)
                 startActivity(intent.putExtra("image", bitmap))
             } else if (AppConstants.CurrentCameraGAlleryAction == 1) //gallery
             {
 
                 val selectedImage = data!!.data
                 if (selectedImage != null) {
-                    var intent = Intent(this@MainActivity, ProductDetailActivity::class.java)
+                    var intent = Intent(this@MainActivity, MedicalPrescriptionsDetailActivity::class.java)
                     startActivity(intent.putExtra("image", selectedImage))
                 }
             }
 
+            if (resultCode == 100) {
+
+                tvCartCounter.text = Cart.getAll().count().toString()
+            }
+
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        tvCartCounter.text = Cart.getAll().count().toString()
     }
 
     //endregion
@@ -152,11 +166,17 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     private fun init() {
         rlHome.setOnClickListener(this)
-        cart_badge.setOnClickListener(this)
+        tvCartCounter.setOnClickListener(this)
         ivCart.setOnClickListener(this)
         ivSearch.setOnClickListener(this)
     }
 
+    private fun getCartData() {
+        //get cart data
+        Cart.init()
+        if (Cart.getAll().count() > 0)
+            tvCartCounter.text = Cart.getAll().count().toString()
+    }
 
     //endregion
 

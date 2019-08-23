@@ -4,31 +4,38 @@ import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 
-
 /**
- * Created by Mokhtar on 7/20/2019.
+ * Created by Mokhtar on 8/5/2019.
  */
-class Cart {
-    var shared = Cart()
+object Cart {
 
+    //    var shared = Cart()
+    var productsList = ArrayList<Product>()
 
     private var products: ArrayList<Product>
         get() {
-            return ArrayList()
+            return productsList
         }
-        set(productsList) {
-            products = productsList
+        set(products) {
+            productsList = products
         }
 
-    var notes: String? = null
 
-    private fun init() {
-        products = PreferenceController.getInstance(AppController.getContext()).getCartPref(AppConstants.CART_ITEMS)!!
+    fun init() {
+        try {
+            products = PreferenceController.getInstance(AppController.getContext()).getCartPref(AppConstants.CART_ITEMS)!!
+        } catch (ex: Exception) {
+            products = ArrayList()
+
+        }
+
+
     }
 
     fun emptyCart() {
         PreferenceController.getInstance(AppController.getContext()).clear(AppConstants.CART_ITEMS)
-        this.shared = Cart()
+//        this.shared = Cart()
+        products.clear()
     }
 
     fun addProduct(product: Product) {
@@ -59,7 +66,7 @@ class Cart {
         return 0
     }
 
-    fun getQuantity(product: Product): Int {
+    fun getProductQuantity(product: Product): Int {
         return product.amount
     }
 
@@ -76,15 +83,17 @@ class Cart {
     }
 
     fun getTotal(): Double {
-
         var value = 0.0
         products.forEach { product: Product ->
-            value = product.discount_price ?: product.price ?: 0 * product.amount as Double
-        }
+            value += if (product.discount_price == null) {
+                product.price!! * product.amount
+            } else {
+                product.discount_price!! * product.amount
+            }
 
+        }
         return value
     }
-
 
     private fun updateProduct(product: Product) {
 // Product exists in cart
@@ -106,6 +115,3 @@ class Cart {
 
 
 }
-
-
-

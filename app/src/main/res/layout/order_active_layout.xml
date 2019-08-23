@@ -8,6 +8,7 @@
     android:layout_marginLeft="20dp"
     app:cardBackgroundColor="@color/colorApp"
     app:cardCornerRadius="10dp"
+    android:background="?android:attr/selectableItemBackgroundBorderless"
     >
 
 

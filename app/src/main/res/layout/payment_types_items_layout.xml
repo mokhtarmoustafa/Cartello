@@ -10,6 +10,7 @@
     app:cardElevation="0dp">
 
     <RelativeLayout
+        android:id="@+id/rlParent"
         android:layout_width="match_parent"
         android:layout_height="69dp">
 
@@ -45,7 +46,8 @@
             android:layout_marginLeft="9dp"
             android:layout_marginTop="14dp"
             app:srcCompat="@drawable/active"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:background="?android:attr/selectableItemBackgroundBorderless"/>
         <ImageView
             android:id="@+id/ivInActive"
             android:layout_width="36dp"
@@ -54,7 +56,8 @@
             android:layout_marginLeft="9dp"
             android:layout_marginTop="16dp"
             app:srcCompat="@drawable/none"
-            android:visibility="visible"/>
+            android:visibility="visible"
+            android:background="?android:attr/selectableItemBackgroundBorderless"/>
     </RelativeLayout>
 
 

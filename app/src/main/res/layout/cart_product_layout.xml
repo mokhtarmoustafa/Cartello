@@ -4,126 +4,189 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="20dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="15dp"
     android:background="@color/white">
 
-   <RelativeLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-       <android.support.v7.widget.CardView
-           android:id="@+id/cvProductImage"
-           android:layout_width="50dp"
-           android:layout_height="52dp"
-           android:clickable="true"
-           app:cardCornerRadius="6dp"
-           android:layout_marginLeft="5dp"
-           android:layout_margin="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
 
-           <ImageView
-               android:id="@+id/ivProductImage"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:src="@drawable/ic_cart" />
-       </android.support.v7.widget.CardView>
 
-       <TextView
-           android:id="@+id/tvProductName"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/product_name"
-           android:layout_toRightOf="@+id/cvProductImage"
-           android:textColor="@color/colorLabel"
-           android:textSize="15sp"
-           android:layout_marginLeft="10dp"
-           android:layout_marginTop="5dp"
-           android:maxLines="1"
-           android:ellipsize="end"
-           android:maxLength="10"/>
-       <TextView
-           android:id="@+id/tvPrice"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_below="@+id/tvProductName"
-           android:layout_alignStart="@+id/tvProductName"
-           android:textSize="14sp"
-           android:textColor="@color/colorWelcome"
-           android:text="40LE"
-           android:layout_marginTop="2dp"
-           />
-       <ImageView
-           android:id="@+id/ivDelete"
-           android:layout_width="14dp"
-           android:layout_height="18dp"
-           android:src="@drawable/ic_delete"
-           android:clickable="true"
-           android:layout_toRightOf="@+id/tvProductName"
-           android:layout_marginTop="18dp"
-           android:layout_marginLeft="19dp"
-           />
-       <android.support.v7.widget.CardView
-           android:id="@+id/cvPrices"
-           android:layout_width="109dp"
-           android:layout_height="37dp"
-           app:cardCornerRadius="8dp"
-           android:layout_toRightOf="@+id/ivDelete"
-           android:layout_marginTop="8dp"
-           android:layout_marginLeft="29dp"
-           android:layout_marginRight="7dp"
-           app:cardBackgroundColor="@color/colorBack"
-           >
-           <LinearLayout
-               android:id="@+id/lLPrices"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:orientation="horizontal"
+        <ImageView
+            android:id="@+id/ivProductImage"
+            android:layout_width="82dp"
+            android:layout_height="82dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="2dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_cart" />
+        <!--</android.support.v7.widget.CardView>-->
 
-               >
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/ivProductImage"
+            android:ellipsize="end"
+            android:maxLength="14"
+            android:maxLines="1"
+            android:gravity="left|start"
+            android:text="@string/product_name"
+            android:textColor="@color/colorLabel"
+            android:textSize="13sp" />
 
-               <TextView
-                   android:id="@+id/subItem"
-                   android:layout_width="36.3dp"
-                   android:layout_height="20dp"
-                   android:layout_weight="1"
-                   android:gravity="center_horizontal"
-                   android:src="@mipmap/ic_launcher"
-                   android:text="-"
-                   android:textColor="@color/colorWelcome"
-                   android:textSize="17sp"
-                   android:layout_marginTop="8dp"
-                   android:layout_marginBottom="8dp"
-                   android:fontFamily="SFProText-Medium"
-                   android:clickable="true"
-                   />
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/tvProductName"
+            android:layout_below="@+id/tvProductName"
+            android:layout_marginTop="2dp"
+            android:text="40LE"
+            android:textColor="@color/colorWelcome"
+            android:textSize="13sp" />
 
-               <TextView
-                   android:id="@+id/tvValue"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_weight="1"
-                   android:gravity="center"
-                   android:text="100"
-                   android:fontFamily="Avenir-Medium"
-                   android:textColor="@color/colorAccent"
-                   android:textSize="15sp"
-                   android:textStyle="bold"
-                   android:layout_marginLeft="20.1dp"
-                   android:layout_marginTop="8dp"
-                   android:layout_marginBottom="8dp"
-                   />
+        <ImageView
+            android:id="@+id/ivDelete"
+            android:layout_width="14dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="29dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/tvProductName"
+            android:clickable="true"
+            android:src="@drawable/ic_delete"
+            android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
-               <ImageView
-                   android:id="@+id/addItem"
-                   android:layout_width="36.3dp"
-                   android:layout_height="20dp"
-                   android:layout_weight="1"
-                   android:src="@drawable/add_icon"
-                   android:layout_marginLeft="20.1dp"
-                   android:layout_marginTop="8dp"
-                   android:layout_marginBottom="9dp"
-                   android:clickable="true"/>
-           </LinearLayout>
-       </android.support.v7.widget.CardView>
-   </RelativeLayout>
+        <android.support.v7.widget.CardView
+            android:layout_width="109dp"
+            android:layout_height="37dp"
+            android:layout_alignParentRight="true"
+            android:layout_toEndOf="@+id/ivDelete"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="28dp"
+            app:cardCornerRadius="8dp"
+            app:cardBackgroundColor="@color/colorBack"
+            app:cardElevation="0dp"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+                <TextView
+                    android:id="@+id/subItem"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center|left"
+                    android:layout_alignParentStart="true"
+                    android:src="@mipmap/ic_launcher"
+                    android:text="-"
+                    android:textColor="@color/colorWelcome"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
+
+                <TextView
+                    android:id="@+id/tvValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:gravity="center_vertical"
+                    android:text="100"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/addItem"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignBottom="@+id/subItem"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center|right"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/add_icon"
+                    android:clickable="true"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/cvPrices"-->
+            <!--android:layout_width="124dp"-->
+            <!--android:layout_height="33dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_marginRight="10dp"-->
+            <!--android:layout_marginTop="30dp"-->
+            <!--app:cardBackgroundColor="@color/colorBack"-->
+            <!--app:cardCornerRadius="18.5dp"-->
+            <!--app:cardElevation="0dp"-->
+            <!--&gt;-->
+
+            <!--<LinearLayout-->
+                <!--android:id="@+id/lLPrices"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="horizontal"-->
+
+                <!--&gt;-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/subItem"-->
+                    <!--android:layout_width="36.3dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:layout_marginTop="7dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:clickable="true"-->
+                    <!--android:fontFamily="SFProText-Medium"-->
+                    <!--android:gravity="center"-->
+                    <!--android:src="@mipmap/ic_launcher"-->
+                    <!--android:text="-"-->
+                    <!--android:textColor="@color/colorWelcome"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:textStyle="bold"/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tvProductValue"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:fontFamily="Avenir-Medium"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="100"-->
+                    <!--android:textColor="@color/colorAccent"-->
+                    <!--android:textSize="15sp"-->
+                    <!--android:textStyle="bold" />-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/addItem"-->
+                    <!--android:layout_width="36.3dp"-->
+                    <!--android:layout_height="20dp"-->
+                    <!--android:layout_marginBottom="8dp"-->
+                    <!--android:layout_marginLeft="20.1dp"-->
+                    <!--android:layout_marginTop="8dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:clickable="true"-->
+                    <!--android:src="@drawable/add_icon" />-->
+            <!--</LinearLayout>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+
+    </RelativeLayout>
 
 
 </android.support.v7.widget.CardView>

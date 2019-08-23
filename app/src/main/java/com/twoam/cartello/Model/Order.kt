@@ -24,6 +24,7 @@ class Order {
     var paid_amount: Long = 0
     var notes: String ?=null
 
+    constructor()
 //    var user_id: Int = 0
 //    var deliverer_id: Int? = null
 

@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginLeft="21dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="10dp"
         android:isIndicator="true"
         android:numStars="5"
         android:rating="0"
@@ -28,9 +28,10 @@
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="11dp"
         android:layout_marginRight="33dp"
-        android:layout_marginTop="33dp"
+        android:layout_marginTop="10dp"
         android:clickable="true"
-        android:src="@drawable/close_black" />
+        android:src="@drawable/close_black"
+        android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rvOrders"
@@ -41,12 +42,7 @@
         android:orientation="vertical"
         android:scrollbars="vertical" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="68dp"
-        android:layout_alignParentBottom="true"
-        android:background="@color/white"
-        android:elevation="2dp">
+
 
         <TextView
             android:id="@+id/tvTotal"
@@ -54,7 +50,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="10dp"
+
+            android:layout_below="@+id/rvOrders"
             android:background="@color/transparent"
             android:fontFamily="Poppins-Medium"
             android:text="@string/total_1"
@@ -62,21 +60,21 @@
             android:textSize="17sp" />
 
         <Button
-            android:id="@+id/btnLogOut"
-            android:layout_width="146dp"
+            android:id="@+id/btnAddToCart"
+            android:layout_width="120dp"
             android:layout_height="40dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="15dp"
+            android:layout_below="@+id/rvOrders"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             android:background="@drawable/rounded_button"
             android:clickable="true"
             android:fontFamily="Poppins-Medium"
             android:text="@string/cart_add"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="15sp" />
-    </RelativeLayout>
-
+            android:textSize="16sp" />
 
 </RelativeLayout>
 

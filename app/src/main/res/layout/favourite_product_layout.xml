@@ -107,7 +107,8 @@
                     android:src="@mipmap/ic_launcher"
                     android:text="-"
                     android:textColor="@color/colorWelcome"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
                 <TextView
                     android:id="@+id/tvValue"
@@ -125,7 +126,8 @@
                     android:layout_width="42.5dp"
                     android:layout_height="28dp"
                     android:layout_weight="1"
-                    android:src="@drawable/add_icon" />
+                    android:src="@drawable/add_icon"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

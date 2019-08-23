@@ -24,6 +24,7 @@
             app:cardBackgroundColor="@color/back_color"
             app:cardCornerRadius="6dp"
             app:cardElevation="0dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
             >
 
 
@@ -63,7 +64,8 @@
             android:layout_toRightOf="@+id/cvFavourite"
             app:cardBackgroundColor="@color/back_color"
             app:cardCornerRadius="6dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless">
 
             <ImageView
                 android:id="@+id/ivProfile"
@@ -130,8 +132,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/tvNotification"
                     android:layout_alignParentRight="true"
-
-                    android:theme="@style/SCBSwitch" />
+                    android:theme="@style/SCBSwitch"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
             </RelativeLayout>
 
             <RelativeLayout
@@ -141,6 +143,7 @@
                 android:layout_below="@+id/rlNotification"
                 android:background="@drawable/one_side_border_layout"
                 android:labelFor="@+id/rlNotification"
+
                 >
 
                 <TextView

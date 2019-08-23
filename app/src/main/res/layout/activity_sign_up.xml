@@ -36,7 +36,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginBottom="2dp"
-
                     android:layout_weight="1"
                     android:clickable="true"
                     android:fontFamily="Poppins-Medium"
@@ -45,7 +44,7 @@
                     android:textAllCaps="false"
                     android:textColor="@color/whiteGray"
                     android:textSize="17sp"
-                    android:background="?attr/selectableItemBackground"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     />
 
                 <TextView

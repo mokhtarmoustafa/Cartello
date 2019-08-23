@@ -1,5 +1,6 @@
 package com.twoam.cartello.View
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.support.design.widget.TabLayout
@@ -22,18 +23,14 @@ import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
 import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
-import com.twoam.cartello.Utilities.General.AnimateScroll
-import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IOrderCallback
+import com.twoam.cartello.Utilities.General.*
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeFragment : BaseFragment() {
-
+class HomeFragment : BaseFragment(), IBottomSheetCallback {
 
 
     //region Members
@@ -54,23 +51,12 @@ class HomeFragment : BaseFragment() {
     private lateinit var pager: ViewPager
     private lateinit var indicator: CirclePageIndicator
     private lateinit var swipeRefresh: SwipeRefreshLayout
-    var NAME_ARG = "name"
-    var AGE_ARG = "age"
-    private var name: String? = null
-    private var age: Int = 0
     private var isRefreshed = false
+    private var listener: IBottomSheetCallback? = null
     //endregion
 
-    //region Constructor
-    fun newInstance(): HomeFragment {
-        val fragment = HomeFragment()
-        return fragment
-    }
-
-    //endregion
 
     //region Events
-
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -80,6 +66,63 @@ class HomeFragment : BaseFragment() {
         refreshData()
 
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+//        topPromotionsList.forEach { product: Product ->
+//
+//            if (Cart.getAll().contains(product)) {
+//                var cProduct = Cart.getAll().find { it.id == product.id }
+//
+//                product.amount = cProduct!!.amount
+//            }
+//        }
+
+//        if (Cart.getAll().count() > 0
+//                && recyclerTopPromotions.adapter != null
+//                && recyclerMostSelling.adapter != null) {
+//
+//            recyclerTopPromotions.adapter.notifyDataSetChanged()
+//            recyclerMostSelling.adapter.notifyDataSetChanged()
+//        }
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//            fragmentManager?.beginTransaction()?.detach(this)?.commitNow()
+//            fragmentManager?.beginTransaction()?.attach(this)?.commitNow()
+//        } else {
+//            fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
+//        }
+
+
+//        mostSellingList.forEach { product: Product ->
+//
+//            if (Cart.getAll().contains(product)) {
+//                var cProduct = Cart.getAll().find { it.id == product.id }
+//
+//                product.amount = cProduct!!.amount
+//            }
+//        }
+
+
+    }
+
+    override fun onBottomSheetClosed(isClosed: Boolean) {
+
+    }
+
+    override fun onBottomSheetSelectedItem(index: Int) {
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IBottomSheetCallback) {
+            listener = context
+        } else {
+            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+        }
     }
 
 
@@ -190,7 +233,7 @@ class HomeFragment : BaseFragment() {
         recyclerSubCategory.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
-    fun showSubCategoriesData(show: Boolean) {
+    private fun showSubCategoriesData(show: Boolean) {
         if (show) {
             recyclerSubCategory.visibility = View.VISIBLE
             AnimateScroll.scrollToView(scrollViewHome, recyclerSubCategory)
@@ -327,11 +370,10 @@ class HomeFragment : BaseFragment() {
         for (product in topPromotionsList.indices) {
             list.add(topPromotionsList[product])
         }
-        var adapter = ProductAdapter(activity, topPromotionsList)
+        var adapter = ProductAdapter(AppController.getContext(), topPromotionsList)
         recyclerTopPromotions.adapter = adapter
-        adapter.notifyDataSetChanged()
         recyclerTopPromotions.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
-
+        adapter.notifyDataSetChanged()
     }
 
     private fun getMostSellingProducts(mostSellingList: ArrayList<Product>) {
@@ -341,11 +383,10 @@ class HomeFragment : BaseFragment() {
         for (product in mostSellingList.indices) {
             list.add(mostSellingList[product])
         }
-        var adapter = ProductAdapter(activity, list)
+        var adapter = ProductAdapter(AppController.getContext(), list)
         recyclerMostSelling.adapter = adapter
-        adapter.notifyDataSetChanged()
         recyclerMostSelling.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
-
+        adapter.notifyDataSetChanged()
     }
 
     private fun prepareHomeProductsData(homeProductList: ArrayList<HomeProducts>) {

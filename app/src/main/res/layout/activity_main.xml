@@ -43,6 +43,7 @@
                   android:layout_marginTop="16dp"
                   app:srcCompat="@drawable/filled"
                   android:scaleType="center"
+
                  />
 
               <TextView
@@ -84,7 +85,7 @@
                     android:background="?android:attr/selectableItemBackground"/>
 
                 <TextView
-                    android:id="@+id/cart_badge"
+                    android:id="@+id/tvCartCounter"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="right|end|top"

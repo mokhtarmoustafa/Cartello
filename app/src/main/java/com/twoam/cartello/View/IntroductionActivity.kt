@@ -9,7 +9,6 @@ import android.os.Handler
 import android.view.View
 import android.widget.RelativeLayout
 import com.skyfishjy.library.RippleBackground
-import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
@@ -22,7 +21,7 @@ class IntroductionActivity : AppCompatActivity() {
     //region Class Members
     private lateinit var rippleLayout: RelativeLayout
     private var startTime: Long = 3000
-    private lateinit var  rippleBackground:RippleBackground
+    private lateinit var rippleBackground: RippleBackground
     //endregion
 
     //region Events
@@ -39,7 +38,7 @@ class IntroductionActivity : AppCompatActivity() {
     //region   Helper Functions
     private fun init() {
 //        rippleLayout = findViewById(R.id.linearLayout)
-        rippleBackground=findViewById(R.id.content)
+        rippleBackground = findViewById(R.id.content)
 
 //        Handler().postDelayed({
 //            runOnUiThread {
@@ -99,7 +98,7 @@ class IntroductionActivity : AppCompatActivity() {
     private fun getUserData(currentUser: User) {
 
 
-       var cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
+        var cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
 
 
         if (currentUser.address!!.addresses!!.count() > 0 && cities.count() > 0) {

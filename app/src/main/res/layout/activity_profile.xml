@@ -39,7 +39,8 @@
                     android:layout_marginStart="17dp"
                     android:layout_marginTop="31dp"
                     android:clickable="true"
-                    app:srcCompat="@drawable/left" />
+                    app:srcCompat="@drawable/left"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
                 <TextView
                     android:id="@+id/tvProfileName"
@@ -79,7 +80,8 @@
                     android:clickable="true"
                     android:text="@string/edit"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             </RelativeLayout>
 
@@ -184,7 +186,8 @@
                     android:clickable="true"
                     android:text="@string/add_new"
                     android:textColor="@color/colorApp"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rvAddress"

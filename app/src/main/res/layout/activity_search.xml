@@ -24,7 +24,8 @@
                 android:layout_marginLeft="32dp"
                 android:layout_marginTop="16dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/search" />
+                android:src="@drawable/search"
+                android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
             <EditText
                 android:id="@+id/etSearch"
@@ -82,7 +83,8 @@
             android:layout_height="19dp"
             android:layout_gravity="center"
             android:duplicateParentState="true"
-            android:src="@drawable/close_black" />
+            android:src="@drawable/close_black"
+            android:background="?android:attr/selectableItemBackgroundBorderless"/>
     </android.support.v7.widget.CardView>
 
 </RelativeLayout>

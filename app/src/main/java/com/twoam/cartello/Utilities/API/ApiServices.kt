@@ -5,6 +5,7 @@ import com.twoam.cartello.Utilities.General.AppConstants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.http.*
 
 
@@ -99,7 +100,10 @@ interface ApiServices {
     @GET(AppConstants.URL_GET_MEDICAL_PRESCRIPTIONS_GET_ALL)
     fun getAllMedicalPrescriptions(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<MedicalPrescriptions>>>
 
+
     @Multipart
+//    @Headers("Content-Type: multipart/form-data",
+//            "Accept: application/json","Accept-Encoding: gzip, deflate"  )
     @POST(AppConstants.URL_GET_MEDICAL_ADD)
     fun addMedical(@Header("Authorization") token: String,
                    @Part("name") name: String,
@@ -107,19 +111,33 @@ interface ApiServices {
                    @Part("image") image: String): Call<ApiResponse<MedicalPrescriptions>>
 
 
-    @Multipart
-    @POST(AppConstants.URL_GET_MEDICAL_ADD)
-    fun addMedical(
-            @PartMap data: Map<String, RequestBody>,
-            @Part("image") image: MultipartBody.Part
-    ): Call<ApiResponse<MedicalPrescriptions>>
 
     @GET(AppConstants.URL_GET_ORDERS)
     fun getOrders(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Order>>>
 
     @POST(AppConstants.URL_CANCEL_ORDERS + "/{orderID}")
-    fun cancelOrder(@Header("Authorization") token:String, @Path("orderID") orderId: Int): Call<ApiResponse<Order>>
+    fun cancelOrder(@Header("Authorization") token: String,
+                    @Path("orderID") orderId: Int): Call<ApiResponse<Order>>
+
+    @GET(AppConstants.URL_GET_PRODUCT_DETAILS + "/{productId}")
+    fun getProductDetails(@Header("Authorization") token: String,
+                          @Path("productId") productId: Int): Call<ApiResponse<Product>>
+
+    @POST(AppConstants.URL_CANCEL_ORDERS)
+    fun checkPromo(@Header("Authorization") token: String,
+                   @Query("promo") promo: String,
+                   @Query("amount") amount: Double)
+            : Call<ApiResponse<Boolean>>
+
+    @Multipart
+    @Headers("Content-Type: multipart/form-data",
+            "Accept: application/json")
+    @POST(AppConstants.URL_ORDERS_CREATE)
+    fun createOrder(@Header("Authorization") token: String,
+                    @Part("payment_method") payment_method: Int,
+                    @Part("items") items: ArrayList<Product>,
+                    @Part("address_id") address_id: Int
+    ): Call<ApiResponse<Order>>
 
 
 }
-

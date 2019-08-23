@@ -11,10 +11,8 @@ import android.widget.TextView
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
-import com.twoam.cartello.View.EditDeleteAddressActivity
-import com.twoam.cartello.View.ProductDetailActivity
+import com.twoam.cartello.View.MedicalPrescriptionsDetailActivity
+import com.twoam.cartello.View.ProductDetailsActivity
 import java.util.*
 
 /**
@@ -89,10 +87,9 @@ class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManage
 
                     product = productList[pos]
                     AppConstants.CurrentSelectedProduct = product!!
-                    //todo open product details fragment from here
-                    context.startActivity(Intent(context, ProductDetailActivity::class.java)
+                    context.startActivity(Intent(context, ProductDetailsActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                            .putExtra("productIdPosition", pos))
+                           )
                 }
             }
         }

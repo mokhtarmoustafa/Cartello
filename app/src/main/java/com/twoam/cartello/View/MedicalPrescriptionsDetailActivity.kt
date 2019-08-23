@@ -3,24 +3,16 @@ package com.twoam.cartello.View
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore
 import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.MedicalPrescriptions
 import com.twoam.cartello.R
-import com.twoam.cartello.R.id.etNote
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
@@ -28,14 +20,12 @@ import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
-import kotlinx.android.synthetic.main.activity_product_detail.*
+import kotlinx.android.synthetic.main.activity_medical_prescriptions_detail.*
 import java.io.ByteArrayOutputStream
 import android.graphics.drawable.BitmapDrawable
-import android.support.v4.content.ContextCompat.startActivity
-import com.twoam.cartello.Model.Product
 
 
-class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.OnClickListener {
+class MedicalPrescriptionsDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.OnClickListener {
 
 
     //region Members
@@ -51,7 +41,7 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_detail)
+        setContentView(R.layout.activity_medical_prescriptions_detail)
 
         tvRetakeImage.setOnClickListener(this)
         btnSend.setOnClickListener(this)
@@ -78,7 +68,7 @@ class ProductDetailActivity : BaseDefaultActivity(), IBottomSheetCallback, View.
 
             if (bitmap != null) {
                 Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@ProductDetailActivity, ProductDetailActivity::class.java).putExtra("image", bitmap))
+                startActivity(Intent(this@MedicalPrescriptionsDetailActivity, MedicalPrescriptionsDetailActivity::class.java).putExtra("image", bitmap))
             }
 
         }

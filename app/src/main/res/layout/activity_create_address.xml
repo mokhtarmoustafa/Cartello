@@ -43,7 +43,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="31dp"
                         android:clickable="true"
-                        app:srcCompat="@drawable/ic_back" />
+                        app:srcCompat="@drawable/ic_back"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
                     <TextView
                         android:id="@+id/textView2"
@@ -491,7 +492,7 @@
                     >
 
                         <Button
-                            android:id="@+id/btnAddAddress"
+                            android:id="@+id/btnPlaceOrder"
                             android:layout_width="317dp"
                             android:layout_height="62dp"
                             android:layout_centerHorizontal="true"

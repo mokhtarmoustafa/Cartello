@@ -5,7 +5,7 @@
     android:id="@+id/rlOptions"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context="com.twoam.cartello.View.ProductDetailActivity">
+    tools:context="com.twoam.cartello.View.MedicalPrescriptionsDetailActivity">
     >
 
     <ScrollView
@@ -41,7 +41,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_marginTop="31dp"
                         android:clickable="true"
-                        app:srcCompat="@drawable/back" />
+                        app:srcCompat="@drawable/back"
+                        android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
                     <TextView
                         android:id="@+id/textView2"
@@ -136,7 +137,8 @@
                     android:gravity="center"
                     android:text="Retake the image"
                     android:textColor="@color/white"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    />
             </RelativeLayout>
 
             <RelativeLayout

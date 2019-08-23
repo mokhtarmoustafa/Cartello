@@ -1,5 +1,6 @@
 package com.twoam.cartello.Utilities.General
 
+import com.twoam.cartello.Model.Address
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.Model.User
@@ -61,10 +62,14 @@ object AppConstants {
     const val URL_GET_ADS = "customer/ads"
     const val URL_GET_SUB_CATEGORIES = "customer/categories/attributes/153"
     const val URL_GET_HOME_PRODUCTS = "customer/products/home"
+    const val URL_GET_PRODUCT_DETAILS = "customer/products"
+
     const val URL_GET_MEDICAL_PRESCRIPTIONS_GET_ALL = "customer/prescriptions"
     const val URL_GET_MEDICAL_ADD = "customer/prescriptions"
     const val URL_GET_ORDERS = "customer/orders"
     const val URL_CANCEL_ORDERS = "customer/orders/cancel"
+    const val URL_ORDERS_CHECK_PROMO = "customer/orders/check_promo"
+    const val URL_ORDERS_CREATE = "customer/orders"
 
 
     //endregion
@@ -87,12 +92,15 @@ object AppConstants {
     const val CURRENTINDEXTAG = "currentOption"
     const val FAVOURITEPRODUCTS = "favouriteData"
     var CURRENTSELECTEDINDEX = 0
+    var CURRENTCHECKOUTSELECTEDINDEX = 0
+
     var CurrentCameraGAlleryAction = 0 //0 camera  1 gallery
 
     var CurrentLoginUser: User = User()
     var FavouriteProducts = ArrayList<Product>()
     var CurrentSelectedProduct = Product()
     var CurrentSelectedOrder = Order()
+    var CurrentSelectedAddress = Address()
 
 
     const val BEARER = "Bearer "

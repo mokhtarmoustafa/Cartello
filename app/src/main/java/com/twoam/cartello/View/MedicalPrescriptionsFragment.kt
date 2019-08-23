@@ -24,6 +24,8 @@ import kotlinx.android.synthetic.main.fragment_medical_prescriptions.*
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.RecyclerView
 
+import android.widget.ImageView
+
 
 class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
 
@@ -35,6 +37,7 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
     private lateinit var btnAddMedical: Button
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var rvMedical: RecyclerView
+    private var ivBackMedical: ImageView? = null
 
 
     //endregion
@@ -75,8 +78,11 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
         btnAddMedical = currentView.findViewById(R.id.btnAddMedical)
         swipeRefresh = currentView.findViewById(R.id.swipeRefresh)
         rvMedical = currentView.findViewById(R.id.rvMedical)
+        ivBackMedical=currentView?.findViewById(R.id.ivBackMedical)
 
         rvMedical.isNestedScrollingEnabled = false
+
+
 
         btnAddMedical.setOnClickListener(View.OnClickListener {
             bottomSheet.Action = 1

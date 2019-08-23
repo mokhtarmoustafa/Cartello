@@ -34,6 +34,18 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     //endregion
 
     //region Events
+
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        // Inflate the layout for this fragment
+        currentView = inflater.inflate(R.layout.fragment_more, container, false)
+
+        init(currentView!!)
+
+        return currentView
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
 
@@ -76,22 +88,6 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        currentView = inflater.inflate(R.layout.fragment_more, container, false)
-
-        init(currentView!!)
-
-        return currentView
-    }
-
-
-    fun newInstance(): MoreFragment {
-        val fragment = MoreFragment()
-        return fragment
-    }
     //endregion
 
     //region Helper unctions

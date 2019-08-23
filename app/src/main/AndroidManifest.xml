@@ -50,33 +50,70 @@
         <activity
             android:name=".View.LoginActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name=".View.CreateAddressActivity"
             android:label="@string/titleCreateAddress"
             android:parentActivityName=".View.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name=".View.SignUpActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name=".View.ForgetPasswordActivity"
             android:parentActivityName=".View.LoginActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
         <activity
             android:name=".View.CartActivity"
-            android:screenOrientation="portrait" />
-        <activity android:name=".View.ProfileActivity" />
-        <activity android:name=".View.EditAddressProfileActivity" />
-        <activity android:name=".View.ChangePasswordActivity">
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".View.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".View.EditAddressProfileActivity"
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".View.ChangePasswordActivity"
+            android:screenOrientation="portrait">
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
+            android:launchMode = "singleTop"
+
         </activity>
-        <activity android:name=".View.SearchActivity" />
-        <activity android:name=".View.EditDeleteAddressActivity" />
-        <activity android:name=".View.ProductDetailActivity" />
-        <activity android:name=".View.CheckoutActivity" />
-        <activity android:name=".View.SearchResultActivity"></activity>
+        <activity android:name=".View.SearchActivity"
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".View.EditDeleteAddressActivity"
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".View.MedicalPrescriptionsDetailActivity"
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".View.CheckoutActivity"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"/>
+        <activity android:name=".View.SearchResultActivity"
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            />
+        <activity android:name=".View.ProductDetailsActivity"
+            android:screenOrientation="portrait"
+            android:launchMode = "singleTop"
+            ></activity>
     </application>
 
 </manifest>

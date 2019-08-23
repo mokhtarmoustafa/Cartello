@@ -28,12 +28,13 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/tvAddress"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="12dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="20dp"
             android:clickable="true"
             android:text="@string/add_new"
             android:textColor="@color/colorApp"
-            android:textSize="12sp" />
+            android:textSize="15sp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvCheckout"
@@ -43,6 +44,45 @@
             android:layout_marginTop="16dp"
             android:orientation="vertical"
             android:scrollbars="vertical"
-            android:layout_alignStart="@+id/tvAddress"></android.support.v7.widget.RecyclerView>
+            android:layout_alignStart="@+id/tvAddress"/>
+        <TextView
+            android:id="@+id/tvEmptyData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/no_orders"
+            android:textColor="@color/colorLabel"
+            android:textSize="25sp"
+            android:visibility="invisible"
+            android:layout_centerInParent="true"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:elevation="2dp"
+            android:id="@+id/relativeLayout"
+            android:layout_marginTop="5dp">
+
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="317dp"
+                android:layout_height="51dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/tvDeliveryFess"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/rounded_button"
+                android:clickable="true"
+                android:fontFamily="Poppins-Medium"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
     </RelativeLayout>
 </FrameLayout>

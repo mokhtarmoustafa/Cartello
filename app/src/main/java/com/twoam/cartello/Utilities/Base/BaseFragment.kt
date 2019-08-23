@@ -64,4 +64,5 @@ open class BaseFragment : Fragment(), OnItemClick {
     }
 
 
+
 }

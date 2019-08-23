@@ -18,18 +18,18 @@
            android:layout_marginTop="88dp"
            android:text="@string/your_order_has_been_placed_successfully"
            android:textColor="@color/colorAccent"
-           android:textSize="19sp"
+           android:textSize="23sp"
            android:gravity="center"/>
        <ImageView
            android:id="@+id/ivTrackNon"
            android:layout_width="match_parent"
            android:layout_height="208dp"
            android:layout_marginTop="23dp"
-           android:src="@drawable/money"
+           android:src="@drawable/trucks"
            android:layout_below="@+id/tvDeliveryFess"
            android:scaleType="centerCrop"/>
        <Button
-           android:id="@+id/btnAddAddress"
+           android:id="@+id/btnTrackOrder"
            android:layout_width="317dp"
            android:layout_height="51dp"
 
@@ -41,7 +41,7 @@
            android:background="@drawable/rounded_button"
            android:clickable="true"
            android:fontFamily="Poppins-Medium"
-           android:text="@string/place_order"
+           android:text="@string/track_order"
            android:textAllCaps="false"
            android:textColor="@color/white"
            android:textSize="20sp" />

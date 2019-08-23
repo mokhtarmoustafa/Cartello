@@ -28,7 +28,8 @@
         android:layout_marginTop="129dp"
         android:layout_marginBottom="31dp"
         android:src="@drawable/close_black"
-        android:clickable="true"/>
+        android:clickable="true"
+        android:background="?android:attr/selectableItemBackgroundBorderless"/>
 
     <Button
         android:id="@+id/btnLogOut"

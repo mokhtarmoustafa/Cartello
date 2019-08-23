@@ -49,8 +49,9 @@
             android:gravity="center_horizontal"
             android:text="@string/edit_action"
             android:textColor="@color/colorWelcome"
-
-            android:textSize="13sp" />
+            android:textSize="13sp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            />
 
         <ImageView
             android:id="@+id/ivActive"
@@ -59,7 +60,8 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="9dp"
             android:layout_marginTop="14dp"
-            app:srcCompat="@drawable/active" />
+            app:srcCompat="@drawable/active"
+            android:elevation="2dp"/>
         <ImageView
             android:id="@+id/ivInActive"
             android:layout_width="36dp"
@@ -68,7 +70,8 @@
             android:layout_marginLeft="9dp"
             android:layout_marginTop="14dp"
             app:srcCompat="@drawable/none"
-            android:visibility="invisible"/>
+            android:visibility="invisible"
+            android:elevation="2dp"/>
     </RelativeLayout>
 
 

@@ -25,7 +25,6 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     //region Members
     private var homeBottom: CustomBottomSheetDialog = CustomBottomSheetDialog()
-    var isOpened = false
     val homeFragment = HomeFragment()
     val medicalFragment = MedicalPrescriptionsFragment()
     val orderFragment = OrdersFragment()
@@ -62,16 +61,10 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
                     homeBottom.dismiss()
                     homeBottom.show(fm, "Custom Bottom Sheet")
 
-
                 } else {
                     homeBottom.show(fm, "Custom Bottom Sheet")
-                    isOpened = true
                 }
-//                if (homeBottom.isAdded)
-//                    homeBottom.clearFindViewByIdCache()
-//
-//                homeBottom.show(fm, "Custom Bottom Sheet")
-//                isOpened = true
+
 
             }
             R.id.ivCart, R.id.tvCartCounter -> {
@@ -104,7 +97,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
-        isOpened = false
+
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {

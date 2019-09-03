@@ -87,6 +87,7 @@ class MedicalPrescriptionsDetailActivity : BaseDefaultActivity(), IBottomSheetCa
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.tvRetakeImage -> {
+
                 bottom.show(supportFragmentManager, "Custom Bottom Sheet")
             }
             R.id.btnSend -> {

@@ -101,14 +101,13 @@ interface ApiServices {
     fun getAllMedicalPrescriptions(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<MedicalPrescriptions>>>
 
 
-    @Multipart
-//    @Headers("Content-Type: multipart/form-data",
-//            "Accept: application/json","Accept-Encoding: gzip, deflate"  )
+
     @POST(AppConstants.URL_GET_MEDICAL_ADD)
+    @FormUrlEncoded //for upload image
     fun addMedical(@Header("Authorization") token: String,
-                   @Part("name") name: String,
-                   @Part("note") note: String,
-                   @Part("image") image: String): Call<ApiResponse<MedicalPrescriptions>>
+                   @Query("name") name: String,
+                   @Query("note") note: String,
+                   @Field("image") image: String): Call<ApiResponse<MedicalPrescriptions>>
 
 
 

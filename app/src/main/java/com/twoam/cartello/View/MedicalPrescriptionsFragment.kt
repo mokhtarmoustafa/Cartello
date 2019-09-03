@@ -95,6 +95,7 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
 
         btnAddMedical.setOnClickListener(View.OnClickListener {
             bottomSheet.Action = 1
+//            bottomSheet.activity=this.activity
             bottomSheet.show(fragmentManager, "Custom Bottom Sheet")
         })
 

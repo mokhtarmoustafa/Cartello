@@ -109,7 +109,7 @@ class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallba
             val bitmap = data!!.extras.get("data") as Bitmap
 
             val extras = data.extras
-            
+
             if (bitmap != null) {
                 Toast.makeText(AppController.getContext(), "Image Saved!", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(context, MedicalPrescriptionsDetailActivity::class.java).putExtra("image", bitmap))

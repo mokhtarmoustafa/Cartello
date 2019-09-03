@@ -1,5 +1,6 @@
 package com.twoam.cartello.View
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -37,7 +38,8 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
     private lateinit var btnAddMedical: Button
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var rvMedical: RecyclerView
-    private var ivBackMedical: ImageView? = null
+    private lateinit  var ivBackMedical: ImageView
+    private lateinit var listener: IBottomSheetCallback
 
 
     //endregion
@@ -48,7 +50,6 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
         currentView = inflater.inflate(R.layout.fragment_medical_prescriptions, container, false)
 
         init()
-
         getAllMedical()
         return currentView
     }
@@ -71,6 +72,14 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
     }
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IBottomSheetCallback) {
+            listener = context
+        } else {
+            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+        }
+    }
 
     //endregion
     //region HELPER FUNCTIONS
@@ -78,7 +87,7 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
         btnAddMedical = currentView.findViewById(R.id.btnAddMedical)
         swipeRefresh = currentView.findViewById(R.id.swipeRefresh)
         rvMedical = currentView.findViewById(R.id.rvMedical)
-        ivBackMedical=currentView?.findViewById(R.id.ivBackMedical)
+        ivBackMedical = currentView?.findViewById(R.id.ivBackMedical)
 
         rvMedical.isNestedScrollingEnabled = false
 
@@ -89,6 +98,11 @@ class MedicalPrescriptionsFragment : BaseFragment(), IBottomSheetCallback {
             bottomSheet.show(fragmentManager, "Custom Bottom Sheet")
         })
 
+        ivBackMedical.setOnClickListener({
+            listener.onBottomSheetSelectedItem(0)
+            AppConstants.CURRENTSELECTEDINDEX=0
+//            fragmentManager?.beginTransaction()?.replace(R.id.layout_container, HomeFragment(), "homeFragment")?.commit()
+        })
 
         swipeRefresh.setOnRefreshListener {
             refreshData()

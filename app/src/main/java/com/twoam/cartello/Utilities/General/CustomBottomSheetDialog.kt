@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.twoam.cartello.R
+import com.twoam.cartello.View.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -39,6 +40,11 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
         init()
         return view
+    }
+
+    override fun onOptionsMenuClosed(menu: Menu?) {
+        super.onOptionsMenuClosed(menu)
+
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
@@ -111,6 +117,7 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
     override fun onBottomSheetClosed(isClosed: Boolean) {
         // AppConstants.isClosed = isClosed;
         dialog.dismiss()
+
     }
 
     private fun changeControlsSettings(index: Int) {

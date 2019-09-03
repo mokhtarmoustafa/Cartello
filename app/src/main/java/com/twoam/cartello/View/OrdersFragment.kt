@@ -10,6 +10,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import com.bumptech.glide.Glide.init
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
@@ -39,6 +40,7 @@ class OrdersFragment : BaseFragment() {
     var activeOrderList = ArrayList<Order>()
     var inActiveOrderList = ArrayList<Order>()
     var listener: IBottomSheetCallback? = null
+    var ivBackForgetPassword: ImageView?=null
 
 
     //endregion
@@ -48,17 +50,34 @@ class OrdersFragment : BaseFragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         currentView = inflater.inflate(R.layout.fragment_orders, container, false)
-
+        init()
         getOrders()
 
         return currentView
     }
 
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IBottomSheetCallback) {
+            listener = context
+        } else {
+            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+        }
+    }
+
     //endregion
 
     //region Helper Functions
 
+    private fun init() {
+        ivBackForgetPassword = currentView?.findViewById(R.id.ivBackForgetPassword)
+        ivBackForgetPassword?.setOnClickListener({
+            listener?.onBottomSheetSelectedItem(0)
+            AppConstants.CURRENTSELECTEDINDEX=0
+        })
+    }
 
     private fun getOrders() {
 

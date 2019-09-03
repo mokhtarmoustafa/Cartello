@@ -16,6 +16,7 @@ import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomBottomSheetDialog
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.IOrderCallback
+import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -24,7 +25,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     //region Members
     private var homeBottom: CustomBottomSheetDialog = CustomBottomSheetDialog()
-    private var isOpened = false
+    var isOpened = false
     val homeFragment = HomeFragment()
     val medicalFragment = MedicalPrescriptionsFragment()
     val orderFragment = OrdersFragment()
@@ -55,20 +56,34 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.rlHome -> {
-                homeBottom.show(fm, "Custom Bottom Sheet")
-                isOpened = true
+
+                val f = supportFragmentManager.findFragmentByTag("Custom Bottom Sheet")
+                if (f != null && f is CustomBottomSheetDialog) {
+                    homeBottom.dismiss()
+                    homeBottom.show(fm, "Custom Bottom Sheet")
+
+
+                } else {
+                    homeBottom.show(fm, "Custom Bottom Sheet")
+                    isOpened = true
+                }
+//                if (homeBottom.isAdded)
+//                    homeBottom.clearFindViewByIdCache()
+//
+//                homeBottom.show(fm, "Custom Bottom Sheet")
+//                isOpened = true
 
             }
             R.id.ivCart, R.id.tvCartCounter -> {
                 var intent = Intent(this@MainActivity, CartActivity::class.java)
                 startActivityForResult(intent, 100)
             }
-
             R.id.ivSearch -> {
 
             }
         }
     }
+
 
     override fun onOrderCancelled(isCanceled: Boolean, order: Order?) {
         if (isCanceled) {
@@ -89,7 +104,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
-
+        isOpened = false
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
@@ -99,6 +114,8 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
                     return
                 fm.beginTransaction().hide(active).show(homeFragment).commit()
                 active = homeFragment
+                tvMainHome.text = getString(R.string.tab_home)
+
             }
             1 -> {
                 if (active == medicalFragment)
@@ -177,6 +194,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
         if (Cart.getAll().count() > 0)
             tvCartCounter.text = Cart.getAll().count().toString()
     }
+
 
     //endregion
 

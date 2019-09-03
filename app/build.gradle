@@ -57,6 +57,7 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:$life_versions"
     /* For Facebook Sign in */
     implementation 'com.facebook.android:facebook-android-sdk:[5,6)'
+    //  compile 'com.facebook.android:facebook-android-sdk:5.5.0'
     /* Google sign in */
     compile 'com.google.android.gms:play-services-auth:11.6.0'
     //font to all app

@@ -53,8 +53,8 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private var isRefreshed = false
     private var listener: IBottomSheetCallback? = null
-    //endregion
 
+    //endregion
 
     //region Events
 
@@ -70,42 +70,6 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
 
     override fun onResume() {
         super.onResume()
-
-//        topPromotionsList.forEach { product: Product ->
-//
-//            if (Cart.getAll().contains(product)) {
-//                var cProduct = Cart.getAll().find { it.id == product.id }
-//
-//                product.amount = cProduct!!.amount
-//            }
-//        }
-
-//        if (Cart.getAll().count() > 0
-//                && recyclerTopPromotions.adapter != null
-//                && recyclerMostSelling.adapter != null) {
-//
-//            recyclerTopPromotions.adapter.notifyDataSetChanged()
-//            recyclerMostSelling.adapter.notifyDataSetChanged()
-//        }
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            fragmentManager?.beginTransaction()?.detach(this)?.commitNow()
-//            fragmentManager?.beginTransaction()?.attach(this)?.commitNow()
-//        } else {
-//            fragmentManager?.beginTransaction()?.detach(this)?.attach(this)?.commit()
-//        }
-
-
-//        mostSellingList.forEach { product: Product ->
-//
-//            if (Cart.getAll().contains(product)) {
-//                var cProduct = Cart.getAll().find { it.id == product.id }
-//
-//                product.amount = cProduct!!.amount
-//            }
-//        }
-
-
     }
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
@@ -129,6 +93,7 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
     //endregion
 
     //region Helper Functions
+
     private fun init(view: View) {
         recyclerSubCategory = view.findViewById(R.id.recyclerSubCategory)
         tabs = view.findViewById(R.id.tabs)
@@ -206,7 +171,6 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<Category>>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
-//                    showAlertDialouge(error)
                 }
 
                 override fun onSuccess(response: ApiResponse<ArrayList<Category>>) {
@@ -400,5 +364,6 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
             getMostSellingProducts(mostSellingList)
         }
     }
+
     //endregion
 }

@@ -5,11 +5,13 @@ import com.bumptech.glide.Glide
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Cart
+import com.twoam.cartello.Model.Favourite
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
+import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import kotlinx.android.synthetic.main.activity_product_details.*
 
@@ -17,7 +19,9 @@ class ProductDetailsActivity : BaseDefaultActivity() {
 
 
     //region Members
-
+    var counter = 0
+    var favouriteList = ArrayList<Product>()
+    var productId = 0
     //endregion
 
     //region Events
@@ -35,7 +39,22 @@ class ProductDetailsActivity : BaseDefaultActivity() {
     private fun init() {
 
         showDialogue()
-        getProductData(AppConstants.CurrentSelectedProduct.id)
+        productId = AppConstants.CurrentSelectedProduct.id
+        favouriteList = PreferenceController.getInstance(this@ProductDetailsActivity).getFavouriteProductsPref(AppConstants.FAVOURITEPRODUCTS)!!
+        getProductData(productId)
+
+        ivFavourite.setOnClickListener({
+            if (counter % 2 == 0) //add to favourite
+            {
+                addToFavourite(productId)
+                counter += 1
+            } else //remove from favourite
+            {
+
+                removeFromFavourite(productId)
+                counter = 0
+            }
+        })
     }
 
     private fun getProductData(productId: Int) {
@@ -73,8 +92,71 @@ class ProductDetailsActivity : BaseDefaultActivity() {
             tvCategory.text = product.category?.name
             tvValue.text = Cart.getProductQuantity(product).toString()
         }
-        //endregion
-
-
     }
+
+    fun addToFavourite(productId: Int) {
+        if (NetworkManager().isNetworkAvailable(this)) {
+            var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
+            var request = NetworkManager().create(ApiServices::class.java)
+            var endPoint = request.addToFavourite(token, productId)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Boolean>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<Boolean>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        hideDialogue()
+                        favouriteList.add(AppConstants.CurrentSelectedProduct)
+                        PreferenceController.getInstance(this@ProductDetailsActivity).setFavouriteProductsPref(AppConstants.FAVOURITEPRODUCTS, favouriteList)
+                        ivFavourite.setImageResource(R.drawable.favourite_select)
+                        counter += 1
+                    } else {
+                        hideDialogue()
+                        showAlertDialouge(response.message)
+                    }
+                }
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+    }
+
+    fun removeFromFavourite(productId: Int) {
+        if (NetworkManager().isNetworkAvailable(this)) {
+            var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
+            var request = NetworkManager().create(ApiServices::class.java)
+            var endPoint = request.removeFromFavourite(token, productId)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Boolean>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<Boolean>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        ivFavourite.setImageResource(R.drawable.fav)
+                        favouriteList.remove(AppConstants.CurrentSelectedProduct)
+                        PreferenceController.getInstance(this@ProductDetailsActivity).setFavouriteProductsPref(AppConstants.FAVOURITEPRODUCTS, favouriteList)
+                        counter = 0
+                        hideDialogue()
+                    } else {
+                        hideDialogue()
+                        showAlertDialouge(response.message)
+                    }
+                }
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+    }
+
+
+    //endregion
+
+
 }
+

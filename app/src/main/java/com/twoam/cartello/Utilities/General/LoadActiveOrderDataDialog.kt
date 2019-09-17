@@ -104,6 +104,9 @@ class LoadActiveOrderDataDialog : BottomSheetDialogFragment() {
         if (CurrentOrder != null)
             loadOrderData(CurrentOrder)
 
+        ivClose?.setOnClickListener({
+            this.dismiss()
+        })
 
         btnCancelOrder.setOnClickListener({
             this.dismiss()

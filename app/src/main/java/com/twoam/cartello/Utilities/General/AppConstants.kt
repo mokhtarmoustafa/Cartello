@@ -19,10 +19,10 @@ object AppConstants {
     val DATA = "data"
     //endregion
     // region CODE RESPONSE
-    val CODE_204 = 204
-    val CODE_201 = 201
-    val CODE_200 = 200
-    val CODE_444 = 444
+        val CODE_204 = 204
+        val CODE_201 = 201
+        val CODE_200 = 200
+        val CODE_444 = 444
     //endregion
     //region languages
     val LANGUAGE = "lang"
@@ -63,6 +63,9 @@ object AppConstants {
     const val URL_GET_SUB_CATEGORIES = "customer/categories/attributes/153"
     const val URL_GET_HOME_PRODUCTS = "customer/products/home"
     const val URL_GET_PRODUCT_DETAILS = "customer/products"
+    const val URL_PRODUCT_FAVOURITES="customer/products/favourites"
+    const val URL_PRODUCT_ADD_TO_FAVOURITE="customer/products/favourite"
+   const val URL_PRODUCT_REMOVE_FROM_FAVOURITE="customer/products/unfavourite"
 
     const val URL_GET_MEDICAL_PRESCRIPTIONS_GET_ALL = "customer/prescriptions"
     const val URL_GET_MEDICAL_ADD = "customer/prescriptions"

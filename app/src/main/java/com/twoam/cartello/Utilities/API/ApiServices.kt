@@ -101,14 +101,12 @@ interface ApiServices {
     fun getAllMedicalPrescriptions(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<MedicalPrescriptions>>>
 
 
-
     @POST(AppConstants.URL_GET_MEDICAL_ADD)
     @FormUrlEncoded //for upload image
     fun addMedical(@Header("Authorization") token: String,
                    @Query("name") name: String,
                    @Query("note") note: String,
                    @Field("image") image: String): Call<ApiResponse<MedicalPrescriptions>>
-
 
 
     @GET(AppConstants.URL_GET_ORDERS)
@@ -137,6 +135,21 @@ interface ApiServices {
                     @Part("items") items: ArrayList<Product>,
                     @Part("address_id") address_id: Int
     ): Call<ApiResponse<Order>>
+
+    @GET(AppConstants.URL_PRODUCT_FAVOURITES)
+    fun getFavourites(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Product>>>
+
+    @POST(AppConstants.URL_PRODUCT_ADD_TO_FAVOURITE + "/{productId}")
+    fun addToFavourite(@Header("Authorization") token: String,
+                       @Path("productId") productId: Int
+    )
+            : Call<ApiResponse<Boolean>>
+
+    @POST(AppConstants.URL_PRODUCT_REMOVE_FROM_FAVOURITE + "/{productId}")
+    fun removeFromFavourite(@Header("Authorization") token: String,
+                            @Path("productId") productId: Int
+    )
+            : Call<ApiResponse<Boolean>>
 
 
 }

@@ -27,6 +27,7 @@ class LoadInActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCal
     private var productsList = ArrayList<Product>()
     private var rvOrders: RecyclerView? = null
     private var tvTotal: TextView? = null
+    private var ivClose:ImageView?=null
     private var btnAddToCart: Button? = null
 
 
@@ -72,10 +73,14 @@ class LoadInActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCal
     fun init() {
         rvOrders = layout.findViewById(R.id.rvOrders)
         tvTotal = layout.findViewById(R.id.tvTotal)
+        ivClose=layout.findViewById(R.id.ivClose)
         btnAddToCart = layout.findViewById(R.id.btnAddToCart)
 
         btnAddToCart!!.setOnClickListener({
             addProductsToCart(CurrentOrder.items)
+        })
+        ivClose?.setOnClickListener({
+            this.dismiss()
         })
 
 

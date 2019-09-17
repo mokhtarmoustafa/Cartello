@@ -63,7 +63,6 @@ class NetworkManager {
 
         return retrofit.create(service)
 
-        return retrofit.create(service)
     }
 
     // request functionality

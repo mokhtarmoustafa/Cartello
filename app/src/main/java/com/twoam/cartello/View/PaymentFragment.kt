@@ -13,10 +13,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
-import com.twoam.cartello.Model.Cart
-import com.twoam.cartello.Model.Order
-import com.twoam.cartello.Model.PaymentType
-import com.twoam.cartello.Model.Product
+import com.twoam.cartello.Model.*
 
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
@@ -26,6 +23,8 @@ import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import kotlinx.android.synthetic.main.activity_checkout.*
+
+import org.json.JSONObject
 
 
 /**
@@ -38,6 +37,7 @@ class PaymentFragment : BaseFragment() {
     var ivPromoCode: ImageView? = null
     var rvPaymentTypes: RecyclerView? = null
     var orderList = ArrayList<Order>()
+
     var paymnetTypesList = ArrayList<PaymentType>()
     private var btnPlaceOrder: Button? = null
     private var trackingFragment: TrackFragment = TrackFragment()
@@ -54,7 +54,6 @@ class PaymentFragment : BaseFragment() {
         getPaymentTypes()
         return currentView
     }
-
 
 
 // endregion
@@ -78,22 +77,36 @@ class PaymentFragment : BaseFragment() {
         btnPlaceOrder?.setOnClickListener({
             Toast.makeText(context, "ORDER :" + AppConstants.CurrentSelectedAddress.address.length, Toast.LENGTH_SHORT).show()
             var order = Order()
+            order.payment_method = 1
+
+            var itemsList = ArrayList<Items>()
             Cart.getAll().forEach { product ->
-                var newProduct = Product()
-                newProduct.id = product.id
-                newProduct.amount = product.amount
-                order.items.add(newProduct)
+                order.items.add(product)
+                var item = Items(product.id, product.amount)
+                itemsList.add(item)
             }
-            createOrder(order)
+            val array = arrayOfNulls<Items>(itemsList.size)
+            for (i in itemsList.indices) {
+                array[i] = itemsList[i]
+            }
+
+            createOrder(array)
         })
 
     }
 
-    private fun createOrder(order: Order) {
+    private fun createOrder(items: Array<Items?>) {
         if (NetworkManager().isNetworkAvailable(context!!)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
-            var endPoint = request.createOrder(token, 1, order.items!!, AppConstants.CurrentSelectedAddress.id)
+
+            val paramObject = JSONObject()
+            paramObject.put("payment_method", 1)
+            paramObject.put("items", items)
+            paramObject.put("address_id", AppConstants.CurrentSelectedAddress.id)
+
+//            var endPoint = request.createOrder(token, 1, items, AppConstants.CurrentSelectedAddress.id)
+            var endPoint = request.createOrder(token, 1, items, AppConstants.CurrentSelectedAddress.id)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Order>> {
                 override fun onFailed(error: String) {
                     showAlertDialouge(error)

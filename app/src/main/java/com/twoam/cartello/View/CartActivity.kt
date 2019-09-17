@@ -83,8 +83,10 @@ class CartActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             btnProceed.alpha= 1F
             btnProceed.isEnabled = true
             tvTotalProduct.text = Cart.getAll().count().toString() + " " + getString(R.string.products)
+            tvTotalPrice.text = getString(R.string.total_1) + " " + Cart.getTotalCost()
+
             var total = NumberFormat.getInstance().format(Cart.getTotal())
-            tvTotalPrice.text = getString(R.string.total_1) + " " + getString(R.string.place_order) + " " + total+ " " + getString(R.string.currency)
+            tvTotalPrice.text = getString(R.string.total_1) + " "  + total+ " " + getString(R.string.currency)
 
             var adapter = CartAdapter(this@CartActivity, products)
             rvCartProducts!!.adapter = adapter

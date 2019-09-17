@@ -2,11 +2,10 @@ package com.twoam.cartello.Utilities.API
 
 import com.twoam.cartello.Model.*
 import com.twoam.cartello.Utilities.General.AppConstants
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.http.*
+import com.twoam.cartello.Model.User
+import retrofit2.http.POST
 
 
 /**
@@ -126,16 +125,23 @@ interface ApiServices {
                    @Query("amount") amount: Double)
             : Call<ApiResponse<Boolean>>
 
-    @Multipart
-    @Headers("Content-Type: multipart/form-data",
-            "Accept: application/json")
-    @POST(AppConstants.URL_ORDERS_CREATE)
+    //    @FormUrlEncoded
+//    @POST(AppConstants.URL_ORDERS_CREATE)
+//    fun createOrder(@Header("Authorization") token: String,
+//                    @Field("payment_method") payment_method: Int,
+//                    @Field("items") items: Array<Items?>,
+//                    @Field("address_id") address_id: Int
+//    ): Call<ApiResponse<Order>>
+
     @FormUrlEncoded
+    @POST(AppConstants.URL_ORDERS_CREATE)
     fun createOrder(@Header("Authorization") token: String,
                     @Field("payment_method") payment_method: Int,
-                    @Field("items") items: ArrayList<Product>,
+                    @Field("items") items: Array<Items?>,
                     @Field("address_id") address_id: Int
+
     ): Call<ApiResponse<Order>>
+
 
     @GET(AppConstants.URL_PRODUCT_FAVOURITES)
     fun getFavourites(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Product>>>
@@ -154,3 +160,4 @@ interface ApiServices {
 
 
 }
+

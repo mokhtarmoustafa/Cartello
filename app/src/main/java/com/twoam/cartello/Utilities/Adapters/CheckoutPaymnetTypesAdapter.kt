@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.PaymentType
 import com.twoam.cartello.R
 import com.twoam.cartello.R.id.rlParent
@@ -16,6 +17,7 @@ import com.twoam.cartello.View.PaymentFragment
 import kotlinx.android.synthetic.main.bottom_sheet_active_order.*
 import kotlinx.android.synthetic.main.fragment_payment.*
 import kotlinx.android.synthetic.main.payment_types_items_layout.view.*
+import java.text.NumberFormat
 
 import java.util.ArrayList
 
@@ -30,6 +32,7 @@ class CheckoutPaymnetTypesAdapter(private val context: Context, private val paym
     private var paymentType: PaymentType? = PaymentType()
     private var row_index = 0
     private var paymentFragment: PaymentFragment = PaymentFragment()
+    private val deliveryFees="15 LE"
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CheckoutPaymnetTypesAdapter.MyViewHolder {
 
@@ -44,6 +47,10 @@ class CheckoutPaymnetTypesAdapter(private val context: Context, private val paym
 
 
         holder.tvPaymentType.text = currentPaymentType?.name  // currentPaymentType!!.apartment+" ${currentPaymentType!!.paymentType}"
+        paymentTypesFragment.tvDeliveryFess.text = context.getString(R.string.delivery_fess) + " " + deliveryFees
+        //remove the decimal fractions if it 0
+        var total = NumberFormat.getInstance().format(Cart.getTotal())
+        paymentTypesFragment.btnPlaceOrder.text = context.getString(R.string.place_order) + " " + total+ " " + context.getString(R.string.currency)
 
 
         //update selected item icon on select
@@ -69,7 +76,7 @@ class CheckoutPaymnetTypesAdapter(private val context: Context, private val paym
             holder.ivActive.visibility = View.VISIBLE
             holder.rlParent.setBackgroundColor(Color.parseColor("#FFFFFF"))
             holder.ivInActive.visibility = View.INVISIBLE
-            paymentTypesFragment.tvDeliveryFess.text = context.getString(R.string.delivery_fess) + " " + "15 LE"
+
             paymentTypesFragment.btnPlaceOrder.isEnabled = true
             paymentTypesFragment.btnPlaceOrder.alpha = 1F
 

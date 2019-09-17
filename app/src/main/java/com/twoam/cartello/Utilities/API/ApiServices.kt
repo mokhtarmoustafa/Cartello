@@ -130,10 +130,11 @@ interface ApiServices {
     @Headers("Content-Type: multipart/form-data",
             "Accept: application/json")
     @POST(AppConstants.URL_ORDERS_CREATE)
+    @FormUrlEncoded
     fun createOrder(@Header("Authorization") token: String,
-                    @Part("payment_method") payment_method: Int,
-                    @Part("items") items: ArrayList<Product>,
-                    @Part("address_id") address_id: Int
+                    @Field("payment_method") payment_method: Int,
+                    @Field("items") items: ArrayList<Product>,
+                    @Field("address_id") address_id: Int
     ): Call<ApiResponse<Order>>
 
     @GET(AppConstants.URL_PRODUCT_FAVOURITES)

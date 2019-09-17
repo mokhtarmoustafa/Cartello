@@ -11,6 +11,8 @@ import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_my_cart.*
+import kotlinx.android.synthetic.main.fragment_payment.*
+import java.text.NumberFormat
 
 class CartActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {
 
@@ -54,7 +56,8 @@ class CartActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     override fun onBottomSheetSelectedItem(index: Int) {
         if (index == 4) {
-            tvTotalPrice.text = getString(R.string.total_1) + " " + Cart.getTotalCost()
+            var total = NumberFormat.getInstance().format(Cart.getTotal())
+            tvTotalPrice.text = getString(R.string.total_1) + " " + getString(R.string.place_order) + " " + total+ " " + getString(R.string.currency)
         }
     }
 
@@ -80,7 +83,8 @@ class CartActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             btnProceed.alpha= 1F
             btnProceed.isEnabled = true
             tvTotalProduct.text = Cart.getAll().count().toString() + " " + getString(R.string.products)
-            tvTotalPrice.text = getString(R.string.total_1) + " " + Cart.getTotalCost()
+            var total = NumberFormat.getInstance().format(Cart.getTotal())
+            tvTotalPrice.text = getString(R.string.total_1) + " " + getString(R.string.place_order) + " " + total+ " " + getString(R.string.currency)
 
             var adapter = CartAdapter(this@CartActivity, products)
             rvCartProducts!!.adapter = adapter

@@ -158,6 +158,16 @@ interface ApiServices {
     )
             : Call<ApiResponse<Boolean>>
 
+    @GET(AppConstants.URL_PRODUCTS_SEARCH )
+    fun searchProducts(@Header("Authorization") token: String,
+                       @Query("q") searchValue: String)
+            : Call<ApiResponse<ArrayList<Product>>>
+
+    @POST(AppConstants.URL_PRODUCTS_FILTER + "/{filterValue}")
+    fun filterProducts(@Header("Authorization") token: String,
+                       @Path("filterValue") filterValue: String)
+            : Call<ApiResponse<ArrayList<Product>>>
+
 
 }
 

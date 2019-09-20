@@ -144,7 +144,8 @@ class PreferenceController private constructor(context: Context, databaseName: S
     }
 
 
-  fun setFavouriteProductsPref(key: String, values: ArrayList<Product>?) {
+
+    fun setSearchPref(key: String, values: ArrayList<Search>?) {
         val editor = preferences.edit()
         val gson = Gson()
         if (values == null) {
@@ -157,11 +158,11 @@ class PreferenceController private constructor(context: Context, databaseName: S
     }
 
     // GET THE Address Data
-    fun getFavouriteProductsPref(key: String): ArrayList<Product>? {
+    fun getSearchPref(key: String): ArrayList<Search>? {
         val gson = Gson()
         val json = preferences.getString(key, null) ?: return null
 
-        val type = object : TypeToken<ArrayList<Product>>() {
+        val type = object : TypeToken<ArrayList<Search>>() {
         }.type
 
         return gson.fromJson(json, type)

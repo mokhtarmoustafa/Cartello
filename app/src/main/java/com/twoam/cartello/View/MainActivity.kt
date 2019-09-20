@@ -72,7 +72,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
                 startActivityForResult(intent, 100)
             }
             R.id.ivSearch -> {
-
+                startActivity(Intent(this@MainActivity, SearchActivity::class.java))
             }
         }
     }

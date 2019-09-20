@@ -25,7 +25,8 @@
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
         app:cardElevation="7dp"
-        app:cardPreventCornerOverlap="false">
+        app:cardPreventCornerOverlap="false"
+        app:cardBackgroundColor="@color/background">
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -114,9 +114,11 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
     }
 
     private fun filterHighToLow() {
+        navigate(2)
     }
 
     private fun filterLowToHigh() {
+        navigate(1)
 
     }
     //endregion

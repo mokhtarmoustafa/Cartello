@@ -24,13 +24,13 @@
         android:gravity="center"
         android:text="data"
         android:textColor="@color/black"
-        android:textSize="15sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvTotal"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="16dp"
         android:layout_toEndOf="@+id/tvTitle"
@@ -66,72 +66,117 @@
         android:scrollbars="horizontal">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="center"
-            android:layout_margin="5dp">
+            android:layout_margin="0dp">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvPrice"
+            <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/cvPrice"-->
+            <!--android:layout_width="82dp"-->
+            <!--android:layout_height="26dp"-->
+            <!--app:cardCornerRadius="25.5dp"-->
+            <!--app:cardElevation="0dp">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tvPrice"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center_horizontal|center_vertical"-->
+            <!--android:duplicateParentState="true"-->
+            <!--android:gravity="center"-->
+            <!--android:text="@string/price"-->
+            <!--/>-->
+            <!--</android.support.v7.widget.CardView>-->
+            <Button
+                android:id="@+id/btnPrice"
                 android:layout_width="82dp"
                 android:layout_height="26dp"
-                app:cardCornerRadius="25.5dp"
-                app:cardElevation="0dp">
+                android:background="@drawable/rounded_button"
+                android:clickable="true"
+                android:fontFamily="Poppins-Medium"
+                android:letterSpacing="0"
+                android:text="@string/price"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginLeft="11dp"/>
 
-                <TextView
-                    android:id="@+id/tvPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:duplicateParentState="true"
-                    android:gravity="center"
-                    android:text="@string/price"
-                    />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvAsc"
+            <Button
+                android:id="@+id/btnAsc"
                 android:layout_width="82dp"
                 android:layout_height="26dp"
-                android:layout_alignBaseline="@+id/cvPrice"
                 android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/cvPrice"
-                android:layout_toRightOf="@+id/cvPrice"
-                app:cardCornerRadius="25.5dp"
-                app:cardElevation="0dp">
+                android:layout_toEndOf="@+id/btnPrice"
+                android:layout_toRightOf="@+id/btnPrice"
+                android:background="@drawable/rounded_button"
+                android:clickable="true"
+                android:fontFamily="Poppins-Medium"
+                android:letterSpacing="0"
+                android:text="A > Z"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tvAsc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:duplicateParentState="true"
-                    android:gravity="center"
-                    android:letterSpacing="0"
-                    android:text="A > Z" />
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/cvDsc"
+            <Button
+                android:id="@+id/btnDes"
                 android:layout_width="82dp"
                 android:layout_height="26dp"
-                android:layout_alignBaseline="@+id/cvPrice"
                 android:layout_marginLeft="10dp"
-                android:layout_toEndOf="@+id/cvAsc"
-                android:layout_toRightOf="@+id/cvPrice"
-                app:cardCornerRadius="25.5dp"
-                app:cardElevation="0dp">
+                android:layout_toEndOf="@+id/btnAsc"
+                android:layout_toRightOf="@+id/btnAsc"
+                android:background="@drawable/rounded_button"
+                android:clickable="true"
+                android:fontFamily="Poppins-Medium"
+                android:letterSpacing="0"
+                android:text="Z > A"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tvDsc"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal|center_vertical"
-                    android:duplicateParentState="true"
-                    android:gravity="center"
-                    android:letterSpacing="0"
-                    android:text="Z > A" />
-            </android.support.v7.widget.CardView>
+            <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/cvAsc"-->
+            <!--android:layout_width="82dp"-->
+            <!--android:layout_height="26dp"-->
+            <!--android:layout_alignBaseline="@+id/cvPrice"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_toEndOf="@+id/cvPrice"-->
+            <!--android:layout_toRightOf="@+id/cvPrice"-->
+            <!--app:cardCornerRadius="25.5dp"-->
+            <!--app:cardElevation="0dp">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tvAsc"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center_horizontal|center_vertical"-->
+            <!--android:duplicateParentState="true"-->
+            <!--android:gravity="center"-->
+            <!--android:letterSpacing="0"-->
+            <!--android:text="A > Z" />-->
+            <!--</android.support.v7.widget.CardView>-->
+
+            <!--<android.support.v7.widget.CardView-->
+            <!--android:id="@+id/cvDsc"-->
+            <!--android:layout_width="82dp"-->
+            <!--android:layout_height="26dp"-->
+            <!--android:layout_alignBaseline="@+id/cvPrice"-->
+            <!--android:layout_marginLeft="10dp"-->
+            <!--android:layout_toEndOf="@+id/cvAsc"-->
+            <!--android:layout_toRightOf="@+id/cvPrice"-->
+            <!--app:cardCornerRadius="25.5dp"-->
+            <!--app:cardElevation="0dp">-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/tvDsc"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center_horizontal|center_vertical"-->
+            <!--android:duplicateParentState="true"-->
+            <!--android:gravity="center"-->
+            <!--android:letterSpacing="0"-->
+            <!--android:text="Z > A" />-->
+            <!--</android.support.v7.widget.CardView>-->
         </RelativeLayout>
     </ScrollView>
 
@@ -141,11 +186,11 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/tvRecent"
         android:layout_below="@+id/svFilter"
-        android:layout_marginTop="24dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:scrollbars="vertical"
-        app:spanCount="2"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
 
         />
 
@@ -188,23 +233,25 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:scaleType="center"
                     app:srcCompat="@drawable/back"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
+                    android:duplicateParentState="true"/>
 
                 <TextView
                     android:id="@+id/tvMainBack"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="4dp"
+
                     android:layout_marginTop="14dp"
                     android:layout_toRightOf="@+id/ivBack"
                     android:fontFamily="Poppins-Regular"
                     android:text="@string/back"
                     android:textColor="@color/colorWelcome"
                     android:textSize="13sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:duplicateParentState="true"/>
             </RelativeLayout>
 
             <FrameLayout
@@ -227,11 +274,10 @@
                     android:layout_gravity="center"
                     android:background="?android:attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:src="@drawable/cart"
-                    />
+                    android:src="@drawable/cart" />
 
                 <TextView
-                    android:id="@+id/cart_badge"
+                    android:id="@+id/tvCartCounter"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="right|end|top"

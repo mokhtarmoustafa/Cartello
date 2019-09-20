@@ -188,6 +188,7 @@
     <string name="price">Price</string>
     <string name="expected_arrival">Expected Arrival</string>
     <string name="added_to_cart">Added to cart</string>
+    <string name="search_message">Please write a word for search.</string>
 
 
 </resources>

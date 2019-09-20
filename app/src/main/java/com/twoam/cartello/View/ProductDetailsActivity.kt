@@ -20,7 +20,6 @@ class ProductDetailsActivity : BaseDefaultActivity() {
 
     //region Members
     var counter = 0
-    var favouriteList = ArrayList<Product>()
     var productId = 0
     //endregion
 
@@ -31,6 +30,8 @@ class ProductDetailsActivity : BaseDefaultActivity() {
         setContentView(R.layout.activity_product_details)
 
         init()
+
+        getProductData(productId)
     }
     //endregion
 
@@ -40,9 +41,10 @@ class ProductDetailsActivity : BaseDefaultActivity() {
 
         showDialogue()
         productId = AppConstants.CurrentSelectedProduct.id
-        favouriteList = PreferenceController.getInstance(this@ProductDetailsActivity).getFavouriteProductsPref(AppConstants.FAVOURITEPRODUCTS)!!
-        getProductData(productId)
 
+
+
+        ivBackForgetPassword.setOnClickListener({ finish() })
         ivFavourite.setOnClickListener({
             if (counter % 2 == 0) //add to favourite
             {
@@ -108,8 +110,6 @@ class ProductDetailsActivity : BaseDefaultActivity() {
                 override fun onSuccess(response: ApiResponse<Boolean>) {
                     if (response.code == AppConstants.CODE_200) {
                         hideDialogue()
-                        favouriteList.add(AppConstants.CurrentSelectedProduct)
-                        PreferenceController.getInstance(this@ProductDetailsActivity).setFavouriteProductsPref(AppConstants.FAVOURITEPRODUCTS, favouriteList)
                         ivFavourite.setImageResource(R.drawable.favourite_select)
                         counter += 1
                     } else {
@@ -138,8 +138,6 @@ class ProductDetailsActivity : BaseDefaultActivity() {
                 override fun onSuccess(response: ApiResponse<Boolean>) {
                     if (response.code == AppConstants.CODE_200) {
                         ivFavourite.setImageResource(R.drawable.fav)
-                        favouriteList.remove(AppConstants.CurrentSelectedProduct)
-                        PreferenceController.getInstance(this@ProductDetailsActivity).setFavouriteProductsPref(AppConstants.FAVOURITEPRODUCTS, favouriteList)
                         counter = 0
                         hideDialogue()
                     } else {

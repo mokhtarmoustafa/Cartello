@@ -46,6 +46,8 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
 
     }
 
+
+
     fun checkHasAddress(user: User) {
 
         var cities = ArrayList<City>()

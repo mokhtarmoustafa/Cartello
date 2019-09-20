@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="2dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_cart" />
+            android:src="@drawable/cart" />
         <!--</android.support.v7.widget.CardView>-->
 
         <TextView

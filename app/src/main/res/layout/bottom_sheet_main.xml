@@ -67,7 +67,7 @@
             android:layout_gravity="center"
             android:fontFamily="Poppins-Regular"
             android:text="@string/medical_prescriptions"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/whiteGray"
             android:textSize="15sp"
             android:duplicateParentState="true"/>
     </LinearLayout>
@@ -101,7 +101,7 @@
             android:layout_gravity="center"
             android:fontFamily="Poppins-Regular"
             android:text="@string/orders"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/whiteGray"
             android:textSize="15sp"
             android:duplicateParentState="true"/>
     </LinearLayout>
@@ -135,7 +135,7 @@
             android:layout_gravity="center"
             android:fontFamily="Poppins-Regular"
             android:text="@string/more"
-            android:textColor="@color/darkGray"
+            android:textColor="@color/whiteGray"
             android:textSize="15sp"
             android:duplicateParentState="true"/>
     </LinearLayout>

@@ -2,6 +2,7 @@ package com.twoam.cartello.View
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
@@ -43,6 +44,14 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btnPrice -> {
+                btnPrice.setTextColor(Color.WHITE)
+                btnPrice.setBackgroundResource(R.drawable.rounded_button)
+
+                btnAsc.setTextColor(Color.parseColor("#425972"))
+                btnAsc.setBackgroundResource(R.drawable.rounded_non_select_button)
+
+                btnDes.setTextColor(Color.parseColor("#425972"))
+                btnDes.setBackgroundResource(R.drawable.rounded_non_select_button)
                 //show options
                 if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
                     bottomSheetPrice.show(supportFragmentManager, TAG)
@@ -51,6 +60,15 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
             }
 
             R.id.btnAsc -> {
+                btnAsc.setTextColor(Color.WHITE)
+                btnAsc.setBackgroundResource(R.drawable.rounded_button)
+
+                btnPrice.setTextColor(Color.parseColor("#425972"))
+                btnPrice.setBackgroundResource(R.drawable.rounded_non_select_button)
+
+                btnDes.setTextColor(Color.parseColor("#425972"))
+                btnDes.setBackgroundResource(R.drawable.rounded_non_select_button)
+
                 //arrange adapter data and notify change
                 if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
                     filterAsc()
@@ -59,6 +77,14 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
             }
 
             R.id.btnDes -> {
+                btnDes.setTextColor(Color.WHITE)
+                btnDes.setBackgroundResource(R.drawable.rounded_button)
+
+                btnPrice.setTextColor(Color.parseColor("#425972"))
+                btnPrice.setBackgroundResource(R.drawable.rounded_non_select_button)
+
+                btnAsc.setTextColor(Color.parseColor("#425972"))
+                btnAsc.setBackgroundResource(R.drawable.rounded_non_select_button)
                 //arrange adapter data and notify change
                 if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
                     filterDes()
@@ -72,7 +98,7 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
                 finish()
             }
 
-            R.id.ivSearch ,R.id.rlBack -> {
+            R.id.ivSearch, R.id.rlBack -> {
                 finish()
             }
 
@@ -136,10 +162,20 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
         if (intent.hasExtra(AppConstants.SEARCH_DATA)) {
             var searchValue = intent.getStringExtra(AppConstants.SEARCH_DATA)
             tvTitle.text = searchValue
-           tvCartCounter.text = Cart.getAll().count().toString()
+            tvCartCounter.text = Cart.getAll().count().toString()
             showDialogue()
             getSearchData(searchValue)
         }
+
+
+        btnPrice.setOnClickListener(this)
+        btnAsc.setOnClickListener(this)
+        btnDes.setOnClickListener(this)
+        ivCart.setOnClickListener(this)
+        tvCartCounter.setOnClickListener(this)
+        ivSearch.setOnClickListener(this)
+        rlBack.setOnClickListener(this)
+
 
     }
 

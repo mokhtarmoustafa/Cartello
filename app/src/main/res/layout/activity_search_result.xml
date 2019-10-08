@@ -13,125 +13,75 @@
     <!--android:layout_marginLeft="18dp"-->
     <!--android:layout_marginTop="14dp"-->
     <!--android:src="@drawable/none" />-->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="16dp"
-        android:clickable="true"
-        android:fontFamily="Poppins-Medium"
-        android:gravity="center"
-        android:text="data"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tvTotal"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginTop="16dp"
-        android:layout_toEndOf="@+id/tvTitle"
-        android:background="@drawable/rounded_textview"
-        android:clickable="true"
-        android:fontFamily="Poppins-Medium"
-        android:gravity="center"
-        android:text="0"
-        android:textColor="@color/colorApp"
-        android:textSize="11sp" />
-
-    <TextView
-        android:id="@+id/tvSortBy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvTotal"
-        android:layout_below="@+id/tvTotal"
-        android:layout_marginTop="20dp"
-        android:elevation="1dp"
-        android:text="@string/sort_by"
-        android:textColorHint="@color/line"
-        android:textSize="13sp" />
-
-    <ScrollView
+    <HorizontalScrollView
         android:id="@+id/svFilter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvTotal"
         android:layout_marginLeft="11dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="6dp"
         android:layout_toEndOf="@+id/tvSortBy"
         android:elevation="0dp"
-        android:scrollbars="horizontal">
+        android:scrollbars="none">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_margin="0dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
 
-            <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/cvPrice"-->
-            <!--android:layout_width="82dp"-->
-            <!--android:layout_height="26dp"-->
-            <!--app:cardCornerRadius="25.5dp"-->
-            <!--app:cardElevation="0dp">-->
+            >
 
-            <!--<TextView-->
-            <!--android:id="@+id/tvPrice"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:layout_gravity="center_horizontal|center_vertical"-->
-            <!--android:duplicateParentState="true"-->
-            <!--android:gravity="center"-->
-            <!--android:text="@string/price"-->
-            <!--/>-->
-            <!--</android.support.v7.widget.CardView>-->
+
             <Button
                 android:id="@+id/btnPrice"
-                android:layout_width="82dp"
-                android:layout_height="26dp"
-                android:background="@drawable/rounded_button"
+                android:layout_width="105dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/rounded_non_select_button"
                 android:clickable="true"
                 android:fontFamily="Poppins-Medium"
                 android:letterSpacing="0"
                 android:text="@string/price"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:layout_marginLeft="11dp"/>
+                android:textColor="@color/colorWelcome"
+                android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnAsc"
-                android:layout_width="82dp"
-                android:layout_height="26dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="105dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:layout_toEndOf="@+id/btnPrice"
                 android:layout_toRightOf="@+id/btnPrice"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/rounded_non_select_button"
                 android:clickable="true"
                 android:fontFamily="Poppins-Medium"
                 android:letterSpacing="0"
                 android:text="A > Z"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWelcome"
                 android:textSize="16sp" />
 
             <Button
                 android:id="@+id/btnDes"
-                android:layout_width="82dp"
-                android:layout_height="26dp"
-                android:layout_marginLeft="10dp"
+                android:layout_width="105dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 android:layout_toEndOf="@+id/btnAsc"
                 android:layout_toRightOf="@+id/btnAsc"
-                android:background="@drawable/rounded_button"
+                android:background="@drawable/rounded_non_select_button"
                 android:clickable="true"
                 android:fontFamily="Poppins-Medium"
                 android:letterSpacing="0"
                 android:text="Z > A"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="@color/colorWelcome"
                 android:textSize="16sp" />
 
             <!--<android.support.v7.widget.CardView-->
@@ -177,22 +127,49 @@
             <!--android:letterSpacing="0"-->
             <!--android:text="Z > A" />-->
             <!--</android.support.v7.widget.CardView>-->
-        </RelativeLayout>
-    </ScrollView>
+        </LinearLayout>
+    </HorizontalScrollView>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvSearchResult"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="16dp"
+        android:layout_toEndOf="@+id/tvTitle"
+        android:background="@drawable/rounded_textview"
+        android:clickable="true"
+        android:fontFamily="Poppins-Medium"
+        android:gravity="center"
+        android:text="0"
+        android:textColor="@color/colorApp"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/tvSortBy"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/tvRecent"
-        android:layout_below="@+id/svFilter"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="24dp"
-        android:orientation="vertical"
-        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        android:layout_alignStart="@+id/tvTitle"
+        android:layout_below="@+id/tvTotal"
+        android:layout_marginTop="20dp"
+        android:elevation="1dp"
+        android:text="@string/sort_by"
+        android:textColorHint="@color/line"
+        android:textSize="13sp" />
 
-        />
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:fontFamily="Poppins-Medium"
+        android:gravity="center"
+        android:text="data"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvEmptyData"
@@ -215,44 +192,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-            <RelativeLayout
-                android:id="@+id/rlBack"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="?android:attr/selectableItemBackground"
-                android:clickable="true">
-
-                <ImageView
-                    android:id="@+id/ivBack"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginBottom="11dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"
-                    android:scaleType="center"
-                    app:srcCompat="@drawable/back"
-                    android:duplicateParentState="true"/>
-
-                <TextView
-                    android:id="@+id/tvMainBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-
-                    android:layout_marginTop="14dp"
-                    android:layout_toRightOf="@+id/ivBack"
-                    android:fontFamily="Poppins-Regular"
-                    android:text="@string/back"
-                    android:textColor="@color/colorWelcome"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:duplicateParentState="true"/>
-            </RelativeLayout>
 
             <FrameLayout
                 style="?attr/actionButtonStyle"
@@ -296,7 +235,6 @@
 
             </FrameLayout>
 
-
             <ImageView
                 android:id="@+id/ivSearch"
                 android:layout_width="24dp"
@@ -309,6 +247,59 @@
                 android:layout_marginTop="11dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 app:srcCompat="@drawable/search" />
+
+
+            <RelativeLayout
+                android:id="@+id/rlBack"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="11dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:duplicateParentState="true"
+                    android:scaleType="center"
+                    app:srcCompat="@drawable/back" />
+
+                <TextView
+                    android:id="@+id/tvMainBack"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+
+                    android:layout_marginTop="14dp"
+                    android:layout_toRightOf="@+id/ivBack"
+                    android:duplicateParentState="true"
+                    android:fontFamily="Poppins-Regular"
+                    android:text="@string/back"
+                    android:textColor="@color/colorWelcome"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
         </RelativeLayout>
     </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvSearchResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/tvRecent"
+        android:layout_below="@+id/svFilter"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+
+        />
 </RelativeLayout>

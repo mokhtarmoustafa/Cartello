@@ -30,7 +30,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     val orderFragment = OrdersFragment()
     val moreFragment = MoreFragment()
     val fm = supportFragmentManager
-    var active = BaseFragment()
+        var active = BaseFragment()
     var bitmap: Bitmap? = null
     //endregion
 
@@ -48,7 +48,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
         fm.beginTransaction().add(R.id.layout_container, orderFragment, "orderFragment").hide(orderFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, moreFragment, "moreFragment").hide(moreFragment).commit()
 
-        active = homeFragment
+            active = homeFragment
     }
 
 

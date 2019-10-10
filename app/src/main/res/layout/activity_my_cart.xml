@@ -15,7 +15,6 @@
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
-
         app:cardElevation="7dp"
         app:cardPreventCornerOverlap="false">
 

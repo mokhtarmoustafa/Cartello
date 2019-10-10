@@ -9,14 +9,13 @@
     <android.support.v7.widget.CardView
         android:id="@+id/cvParent"
         android:layout_width="match_parent"
-        android:layout_height="77.5dp"
-        android:layout_margin="4dp"
+        android:layout_height="53.5dp"
+        android:layout_marginBottom="4dp"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
         android:dividerHeight="0.0px"
-        android:elevation="8dp"
-        app:cardElevation="7dp"
+        app:cardElevation="2dp"
         app:cardPreventCornerOverlap="false">
 
         <RelativeLayout
@@ -29,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="14dp"
                 android:clickable="true"
                 app:srcCompat="@drawable/back"
                 android:background="?android:attr/selectableItemBackgroundBorderless"/>
@@ -41,26 +40,28 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="95.5dp"
-                android:layout_marginTop="31dp"
+                android:layout_marginTop="12dp"
                 android:text="@string/favourite"
                 android:textAllCaps="false"
+                android:fontFamily="Poppins-Medium"
                 android:textColor="@color/colorLabel"
-                android:textSize="15sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvTotalFavourites"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_toRightOf="@+id/textView2"
-                android:layout_marginTop="31dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginLeft="11dp"
                 android:clickable="true"
                 android:fontFamily="Poppins-Medium"
+                android:letterSpacing="0"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/colorApp"
                 android:background="@drawable/rounded_textview"
-                android:textSize="11sp" />
+                android:textSize="12sp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
@@ -69,7 +70,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cvParent"
-        android:layout_margin="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
         />
 
     <TextView

@@ -1,68 +1,25 @@
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<android.support.v7.widget.CardView-->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_view"
-    android:layout_width="wrap_content"
+    android:layout_width="166dp"
     android:layout_height="wrap_content"
-    android:layout_marginRight="13dp"
-    app:cardCornerRadius="5dp">
+    android:layout_margin="5dp"
+    app:cardElevation="2dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp">
-
-        <android.support.v7.widget.CardView
-            android:layout_width="161dp"
-            android:layout_height="116dp"
-            app:cardCornerRadius="6dp">
-
-            <ImageView
-                android:id="@+id/ivItemImage"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher" />
-<android.support.v7.widget.CardView
-    android:id="@+id/cvFavourite"
-    android:layout_width="28dp"
-    android:layout_height="28dp"
-    app:cardBackgroundColor="@color/colorApp"
-    app:cardCornerRadius="6dp"
-    android:layout_marginLeft="128dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginRight="10dp"
-    android:clickable="true"
-    >
-    <ImageView
-        android:id="@+id/ivFavourite"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:srcCompat="@drawable/fav"
-        />
-</android.support.v7.widget.CardView>
-
-        </android.support.v7.widget.CardView>
-
-
-        <TextView
-            android:id="@+id/tvItemName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="Poppins-Regular"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="this text is will do what ever"
-            android:textColor="@color/colorWelcome"
-            android:textSize="13sp" />
+        android:padding="5dp">
 
         <LinearLayout
+            android:id="@+id/llPrices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemName">
 
             <TextView
                 android:id="@+id/tvOldPrice"
@@ -71,9 +28,8 @@
                 android:layout_weight="1"
                 android:fontFamily="Poppins-SemiBold"
                 android:text="160LE"
-                android:textSize="13sp"
                 android:textColor="@color/colorAccent"
-                />
+                android:textSize="13sp" />
 
             <TextView
                 android:id="@+id/tvNewPrice"
@@ -84,55 +40,127 @@
                 android:text="150LE"
                 android:textColor="@color/error"
                 android:textSize="13sp" />
+
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvItemName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:ellipsize="marquee"
+            android:fontFamily="Poppins-Regular"
+            android:letterSpacing="0"
+            android:maxLines="2"
+            android:text="this text is will do what ever"
+            android:textColor="@color/colorWelcome"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView2" />
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginTop="5dp"
-            app:cardCornerRadius="8dp">
+            android:layout_marginBottom="1dp"
+            android:layout_marginTop="8dp"
+            app:cardBackgroundColor="@color/whiteGray"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/llPrices">
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorBack"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/subItem"
-                    android:layout_width="42.5dp"
-                    android:layout_height="28dp"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:src="@mipmap/ic_launcher"
-                    android:text="-"
-                    android:textColor="@color/colorWelcome"
-                    android:textSize="17sp"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
+                <ImageView
+                    android:id="@+id/addItem"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="16dp"
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/add_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tvValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:text="0"
                     android:textColor="@color/colorAccent"
                     android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/addItem"
+                    app:layout_constraintStart_toEndOf="@+id/subItem"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/addItem"
-                    android:layout_width="42.5dp"
+                <TextView
+                    android:id="@+id/subItem"
+                    android:layout_width="55dp"
                     android:layout_height="28dp"
-                    android:layout_weight="1"
-                    android:src="@drawable/add_icon"
-                    android:background="?android:attr/selectableItemBackgroundBorderless"/>
-            </LinearLayout>
+                    android:background="?android:attr/selectableItemBackgroundBorderless"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_launcher"
+                    android:text="-"
+                    android:textColor="@color/colorWelcome"
+                    android:textSize="17sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:clickable="true"
+            app:cardBackgroundColor="@color/colorApp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivFavourite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:duplicateParentState="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/fav"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivItemImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_launcher" />
         </android.support.v7.widget.CardView>
 
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.v7.widget.CardView>
-
-

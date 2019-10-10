@@ -69,8 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cvParent"
-        android:layout_marginTop="18dp"
-        app:spanCount="2"
+        android:layout_margin="20dp"
         />
 
     <TextView

@@ -3,6 +3,7 @@ package com.twoam.cartello.View
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -140,7 +141,7 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback {
 
          adapter = FavouriteAdapter(context!!, products)
         rvFavourites?.adapter = adapter
-        rvFavourites?.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
+        rvFavourites?.layoutManager = GridLayoutManager(AppController.getContext(),2, GridLayoutManager.VERTICAL, false)
 
 
     }

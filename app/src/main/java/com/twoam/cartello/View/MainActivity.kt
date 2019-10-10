@@ -29,6 +29,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     val medicalFragment = MedicalPrescriptionsFragment()
     val orderFragment = OrdersFragment()
     val moreFragment = MoreFragment()
+    val favouriteFragment=FavouriteFragment()
     val fm = supportFragmentManager
         var active = BaseFragment()
     var bitmap: Bitmap? = null
@@ -47,6 +48,8 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
         fm.beginTransaction().add(R.id.layout_container, medicalFragment, "medicalFragment").hide(medicalFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, orderFragment, "orderFragment").hide(orderFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, moreFragment, "moreFragment").hide(moreFragment).commit()
+        fm.beginTransaction().add(R.id.layout_container, favouriteFragment, "favouriteFragment").hide(favouriteFragment).commit()
+
 
             active = homeFragment
     }
@@ -131,8 +134,18 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             4 -> { //update cart counter
                 tvCartCounter.text = Cart.getAll().count().toString()
             }
-        }
-    }
+            5 ->
+            {
+                active=favouriteFragment
+
+                if (active == moreFragment)
+                    return
+
+                fm.beginTransaction().hide(active).show(moreFragment).addToBackStack(null).commit()
+                active = moreFragment
+
+
+    }}}
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

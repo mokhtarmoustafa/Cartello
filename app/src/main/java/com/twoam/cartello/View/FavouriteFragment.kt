@@ -1,32 +1,32 @@
 package com.twoam.cartello.View
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Product
-
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.FavouriteAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.*
-import kotlinx.android.synthetic.main.fragment_orders.*
+
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class FavouriteFragment : BaseFragment(), IProductFavouritesCallback {
+class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomSheetCallback {
 
     //region Members
     private lateinit var currentView: View
@@ -34,8 +34,9 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback {
     private var tvEmptyDataFavouriteFavourite: TextView? = null
     private var tvTotalFavourites: TextView? = null
     private var adapter: FavouriteAdapter? = null
+    private lateinit var listener: IBottomSheetCallback
+    private lateinit var ivBackFavourite:ImageView
     //endregion
-
 
     //region Events
 
@@ -57,6 +58,24 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback {
     override fun onRemoveFromFavourite(product: Product?) {
         removeFromFavourites(product!!)
     }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is IBottomSheetCallback) {
+            listener = context
+        } else {
+            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+        }
+    }
+
+    override fun onBottomSheetClosed(isClosed: Boolean) {
+
+    }
+
+    override fun onBottomSheetSelectedItem(index: Int) {
+
+    }
+
 
     //endregion
 
@@ -139,9 +158,9 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback {
         } else
             tvEmptyDataFavouriteFavourite?.visibility = View.VISIBLE
 
-         adapter = FavouriteAdapter(context!!, products)
+        adapter = FavouriteAdapter(context!!, products)
         rvFavourites?.adapter = adapter
-        rvFavourites?.layoutManager = GridLayoutManager(AppController.getContext(),2, GridLayoutManager.VERTICAL, false)
+        rvFavourites?.layoutManager = GridLayoutManager(AppController.getContext(), 2, GridLayoutManager.VERTICAL, false)
 
 
     }
@@ -150,6 +169,10 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback {
         rvFavourites = currentView.findViewById(R.id.rvFavourites)
         tvEmptyDataFavouriteFavourite = currentView.findViewById(R.id.tvEmptyDataFavouriteFavourite)
         tvTotalFavourites = currentView.findViewById(R.id.tvTotalFavourites)
+        ivBackFavourite=currentView.findViewById(R.id.ivBackFavourite)
+        ivBackFavourite.setOnClickListener{
+            listener.onBottomSheetSelectedItem(5)
+        }
     }
     //endregion
 

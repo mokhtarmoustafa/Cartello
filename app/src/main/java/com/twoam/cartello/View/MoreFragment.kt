@@ -53,7 +53,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(context, ProfileActivity::class.java))
             }
             R.id.cvFavourite -> {
-                fragmentManager!!.beginTransaction().replace(R.id.layout_container, FavouriteFragment()).commit()
+                    fragmentManager!!.beginTransaction().replace(R.id.layout_container, FavouriteFragment()).commit()
             }
             R.id.rlTermsOfUse -> {
                 openUrl("http://www.trolley-app.com/terms-conditions/")

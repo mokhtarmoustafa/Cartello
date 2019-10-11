@@ -19,6 +19,7 @@ class Product {
     var category: Category? = null
     var details: String? = null
     var active = false
+    var isaddedToFavorite=false
 
     constructor()
 

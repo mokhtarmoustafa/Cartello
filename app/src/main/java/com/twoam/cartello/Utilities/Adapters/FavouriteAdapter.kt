@@ -3,6 +3,7 @@ package com.twoam.cartello.Utilities.Adapters
 import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
+import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -20,31 +21,38 @@ import com.twoam.cartello.View.ProductDetailsActivity
 
 import java.util.ArrayList
 import com.bumptech.glide.request.RequestOptions
+import com.twoam.Networking.INetworkCallBack
+import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Cart.addProduct
+import com.twoam.cartello.Utilities.API.ApiResponse
+import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
+import com.twoam.cartello.View.FavouriteFragment
 
 
 /**
  * Created by Mokhtar on 6/30/2019.
  */
 
-class FavouriteAdapter(private val context: Context, private val productsList: ArrayList<Product>)
+class FavouriteAdapter(private val context: Context, private val productsList: ArrayList<Product>,
+                       private val _favouriteListener: IProductFavouritesCallback)
     : RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var product = Product()
     private var listener: IBottomSheetCallback? = null
-    private var isAdded = false
     private var favouriteListener: IProductFavouritesCallback? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteAdapter.MyViewHolder {
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        favouriteListener=_favouriteListener
 
         val view = inflater.inflate(R.layout.favourite_product_layout, parent, false)
-
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: FavouriteAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         product = productsList[position]
         val requestOptions = RequestOptions()
@@ -81,7 +89,7 @@ class FavouriteAdapter(private val context: Context, private val productsList: A
 
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var ivFavourite: ImageView = itemView.findViewById(R.id.ivFavourite)
+        var cvFavorite: CardView = itemView.findViewById(R.id.cvFavorite)
         var productImage: ImageView = itemView.findViewById(R.id.ivItemImage)
         var productName: TextView = itemView.findViewById(R.id.tvItemName)
         var tvPrice: TextView = itemView.findViewById(R.id.tvOldPrice)
@@ -108,37 +116,34 @@ class FavouriteAdapter(private val context: Context, private val productsList: A
                 }
             }
 
-            ivFavourite.setOnClickListener({
+            cvFavorite.setOnClickListener {
 
                 val pos = adapterPosition
                 product = productsList[pos]
-
-                if (!isAdded)
-                {
-                    addToFavourite(product)
-
-                }
-                else
+//
+//                if (product.isaddedToFavorite) {
+//                    addToFavourite(product)
+//
+//                } else
                     removeFromFavourite(product)
 
+            }
 
-            })
-
-            addItem.setOnClickListener({
+            addItem.setOnClickListener {
                 val pos = adapterPosition
                 product = productsList[pos]
 
                 addProduct(product)
 
-            })
+            }
 
 
-            subItem.setOnClickListener({
+            subItem.setOnClickListener {
                 val pos = adapterPosition
                 product = productsList[pos]
 
                 removeProduct(product)
-            })
+            }
 
 
         }
@@ -146,12 +151,11 @@ class FavouriteAdapter(private val context: Context, private val productsList: A
         private fun addToFavourite(product: Product) {
 
             favouriteListener?.onAddToFavourite(product)
-            isAdded = true
+
         }
 
         private fun removeFromFavourite(product: Product) {
             favouriteListener?.onRemoveFromFavourite(product)
-            isAdded = false
         }
 
         private fun addProduct(product: Product) {
@@ -199,7 +203,10 @@ class FavouriteAdapter(private val context: Context, private val productsList: A
                     listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
                 }
             }
+
         }
+
+
     }
 
 }

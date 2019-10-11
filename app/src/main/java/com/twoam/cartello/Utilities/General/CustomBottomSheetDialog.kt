@@ -82,34 +82,34 @@ class CustomBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
         changeControlsSettings(AppConstants.CURRENTSELECTEDINDEX)
 
-        home.setOnClickListener({
+        home.setOnClickListener {
             AppConstants.CURRENTSELECTEDINDEX=0
             changeControlsSettings(0)
             navigate(0)
 
             this.dismiss()
-        })
-        medical.setOnClickListener({
+        }
+        medical.setOnClickListener {
             AppConstants.CURRENTSELECTEDINDEX=1
             changeControlsSettings(1)
             navigate(1)
 
             this.dismiss()
-        })
-        order.setOnClickListener({
+        }
+        order.setOnClickListener {
             AppConstants.CURRENTSELECTEDINDEX=2
             changeControlsSettings(2)
             navigate(2)
 
             this.dismiss()
-        })
-        more.setOnClickListener({
+        }
+        more.setOnClickListener {
             AppConstants.CURRENTSELECTEDINDEX=3
             changeControlsSettings(3)
             navigate(3)
 
             this.dismiss()
-        })
+        }
 
     }
 

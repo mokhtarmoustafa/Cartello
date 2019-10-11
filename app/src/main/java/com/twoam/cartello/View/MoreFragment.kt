@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.twoam.cartello.R
 import kotlinx.android.synthetic.main.fragment_more.view.*
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.view.KeyEvent
 import android.widget.Toast
 import com.bumptech.glide.Glide.init
@@ -20,6 +21,7 @@ import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.CloseBottomSheetDialog
+import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 
 
 class MoreFragment : BaseFragment(), View.OnClickListener {
@@ -29,6 +31,7 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     private var cvFavourite: CardView? = null
     private var cvProfile: CardView? = null
     private var bottomSheet = CloseBottomSheetDialog()
+    private lateinit var listener:IBottomSheetCallback
 
 
     //endregion
@@ -46,6 +49,14 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         return currentView
     }
 
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is IBottomSheetCallback) {
+            listener = context
+        } else {
+            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+        }
+    }
     override fun onClick(v: View?) {
         when (v?.id) {
 
@@ -53,7 +64,8 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
                 startActivity(Intent(context, ProfileActivity::class.java))
             }
             R.id.cvFavourite -> {
-                    fragmentManager!!.beginTransaction().replace(R.id.layout_container, FavouriteFragment()).commit()
+
+                listener.onBottomSheetSelectedItem(5)
             }
             R.id.rlTermsOfUse -> {
                 openUrl("http://www.trolley-app.com/terms-conditions/")

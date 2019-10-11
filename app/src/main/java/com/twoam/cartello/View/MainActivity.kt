@@ -88,7 +88,12 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     }
 
     override fun onBackPressed() {
-        if (fm.backStackEntryCount > 0) {
+        if(active==favouriteFragment)
+        {
+            fm.beginTransaction().hide(favouriteFragment).show(moreFragment).addToBackStack(null).commit()
+            active = moreFragment
+        }
+       else  if (fm.backStackEntryCount > 0) {
             fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             active = homeFragment
             tvMainHome.text = getString(R.string.tab_home)
@@ -134,18 +139,20 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             4 -> { //update cart counter
                 tvCartCounter.text = Cart.getAll().count().toString()
             }
-            5 ->
+            5 -> //navigate to favorite  view
             {
+
+                fm.beginTransaction().hide(active).show(favouriteFragment).addToBackStack(null).commit()
                 active=favouriteFragment
 
-                if (active == moreFragment)
-                    return
+    }
 
-                fm.beginTransaction().hide(active).show(moreFragment).addToBackStack(null).commit()
-                active = moreFragment
-
-
-    }}}
+        6 -> //back to more view
+        {
+            fm.beginTransaction().hide(favouriteFragment).show(moreFragment).addToBackStack(null).commit()
+            active = moreFragment
+        }
+        }}
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -5,6 +5,7 @@
     android:id="@+id/card_view"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
     android:layout_marginRight="13dp"
     app:cardCornerRadius="5dp"
     android:layout_marginBottom="10dp"
@@ -20,7 +21,9 @@
             android:layout_width="125dp"
             android:layout_height="112dp"
             app:cardCornerRadius="6dp"
-            app:cardElevation="0dp">
+            app:cardElevation="0dp"
+            app:cardUseCompatPadding="true"
+            >
 
             <ImageView
                 android:id="@+id/ivItemImage"
@@ -33,13 +36,13 @@
 
         <TextView
             android:id="@+id/tvItemName"
+            android:gravity="left"
+            android:layout_height="fill_parent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:fontFamily="Poppins-Regular"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:gravity="left|start"
+            android:maxLines="5"
+            android:singleLine="false"
+            android:lines="2"
             android:text="this text is will do what ever"
             android:textColor="@color/colorWelcome"
             android:textSize="13sp" />
@@ -47,7 +50,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:id="@+id/tvOldPrice"
@@ -57,6 +61,7 @@
                 android:fontFamily="Poppins-SemiBold"
                 android:text="160LE"
                 android:textSize="13sp"
+                android:textStyle="bold"
                 android:textColor="@color/colorAccent"
                 />
 
@@ -68,6 +73,7 @@
                 android:fontFamily="Poppins-SemiBold"
                 android:text="150LE"
                 android:textColor="@color/error"
+                android:textStyle="bold"
                 android:textSize="13sp" />
         </LinearLayout>
 

@@ -133,7 +133,7 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomShe
                 override fun onSuccess(response: ApiResponse<Boolean>) {
                     if (response.code == AppConstants.CODE_200) {
                         //refresh data
-                        product.isaddedToFavorite = true
+                        product.is_favourite = true
                         favoritesList.add(product)
                         prepareFavouritesData(favoritesList)
                         hideDialogue()

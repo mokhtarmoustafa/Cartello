@@ -13,7 +13,7 @@ class Product {
     var amount: Int = 0 //quantity
     var category: Category? = null
     var active = false
-    var isaddedToFavorite=false
+    var is_favourite=false
     var description=""
 
 

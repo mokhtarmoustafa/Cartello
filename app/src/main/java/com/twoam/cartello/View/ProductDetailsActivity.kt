@@ -100,6 +100,9 @@ class ProductDetailsActivity : BaseDefaultActivity() {
             tvProductName.text = product.name
             tvCategory.text = product.category?.name
 
+            if(product.is_favourite)
+                ivFavourite.setImageResource(R.drawable.favourite_select)
+
             if (product.discount_price == null) {
                 tvDiscountPrice.visibility = View.INVISIBLE
             }

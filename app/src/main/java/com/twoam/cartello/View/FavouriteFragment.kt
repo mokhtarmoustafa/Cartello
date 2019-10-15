@@ -51,7 +51,7 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomShe
         return currentView
     }
 
-   
+
 
     //called when the view hidden state changed
     override fun onHiddenChanged(hidden: Boolean) {

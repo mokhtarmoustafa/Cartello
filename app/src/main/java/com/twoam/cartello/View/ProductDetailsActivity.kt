@@ -1,18 +1,22 @@
 package com.twoam.cartello.View
 
+import android.graphics.Paint
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.bumptech.glide.Glide
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Cart
-import com.twoam.cartello.Model.Favourite
 import com.twoam.cartello.Model.Product
+import com.twoam.cartello.Model.ProductDetails
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
+import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
-import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
+import com.twoam.cartello.Utilities.General.AppController
 import kotlinx.android.synthetic.main.activity_product_details.*
 
 class ProductDetailsActivity : BaseDefaultActivity() {
@@ -44,8 +48,8 @@ class ProductDetailsActivity : BaseDefaultActivity() {
 
 
 
-        ivBackForgetPassword.setOnClickListener({ finish() })
-        ivFavourite.setOnClickListener({
+        ivBackForgetPassword.setOnClickListener { finish() }
+        ivFavourite.setOnClickListener {
             if (counter % 2 == 0) //add to favourite
             {
                 addToFavourite(productId)
@@ -56,7 +60,7 @@ class ProductDetailsActivity : BaseDefaultActivity() {
                 removeFromFavourite(productId)
                 counter = 0
             }
-        })
+        }
     }
 
     private fun getProductData(productId: Int) {
@@ -64,15 +68,18 @@ class ProductDetailsActivity : BaseDefaultActivity() {
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
             var request = NetworkManager().create(ApiServices::class.java)
             var endPoint = request.getProductDetails(token, productId)
-            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Product>> {
+
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ProductDetails>> {
+
                 override fun onFailed(error: String) {
                     hideDialogue()
                     showAlertDialouge(error)
                 }
 
-                override fun onSuccess(response: ApiResponse<Product>) {
+                override fun onSuccess(response: ApiResponse<ProductDetails>) {
                     if (response.code == AppConstants.CODE_200) {
-                        displayProductData(response.data!!)
+                        displayProductData(response.data?.product!!)
+                        getSimilarProducts(response.data?.similar_products!!)
                         hideDialogue()
                     } else {
                         hideDialogue()
@@ -92,10 +99,28 @@ class ProductDetailsActivity : BaseDefaultActivity() {
             Glide.with(this).load(product.image).into(ivProductImage)
             tvProductName.text = product.name
             tvCategory.text = product.category?.name
+
+            if (product.discount_price == null) {
+                tvDiscountPrice.visibility = View.INVISIBLE
+            }
+
+            if (product.discount_price != null) {
+                tvPrice.paintFlags = tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                tvDiscountPrice.text = product.discount_price.toString() + " " + AppController.getContext().getString(R.string.currency)
+            }
+            tvPrice.text=product.price.toString()+ " "+getString(R.string.currency)
+            tvProductType.text=product.description
             tvValue.text = Cart.getProductQuantity(product).toString()
         }
     }
 
+   private fun  getSimilarProducts(similarProductList:ArrayList<Product>)
+    {
+        var adapter=ProductAdapter(this,similarProductList)
+        rvSimilarProducts.adapter=adapter
+        rvSimilarProducts.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
+        adapter.notifyDataSetChanged()
+    }
     fun addToFavourite(productId: Int) {
         if (NetworkManager().isNetworkAvailable(this)) {
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token

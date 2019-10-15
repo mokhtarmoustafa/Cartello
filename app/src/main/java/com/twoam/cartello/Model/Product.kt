@@ -11,15 +11,11 @@ class Product {
     var price: Double? = null
     var discount_price: Double? = null
     var amount: Int = 0 //quantity
-    var itemImage: Int = 0
-    var images: ArrayList<String> = ArrayList()
-    var description: String? = null
-    var is_favourite: Boolean = false
-    var similar_products: ArrayList<Product> = ArrayList()
     var category: Category? = null
-    var details: String? = null
     var active = false
     var isaddedToFavorite=false
+    var description=""
+
 
     constructor()
 

@@ -117,7 +117,7 @@ interface ApiServices {
 
     @GET(AppConstants.URL_GET_PRODUCT_DETAILS + "/{productId}")
     fun getProductDetails(@Header("Authorization") token: String,
-                          @Path("productId") productId: Int): Call<ApiResponse<Product>>
+                          @Path("productId") productId: Int): Call<ApiResponse<ProductDetails>>
 
     @POST(AppConstants.URL_CANCEL_ORDERS)
     fun checkPromo(@Header("Authorization") token: String,

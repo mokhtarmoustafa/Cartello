@@ -87,6 +87,7 @@ class LoadActiveOrderProductsAdapter(private val fragmentManager: FragmentManage
 
                     product = productList[pos]
                     AppConstants.CurrentSelectedProduct = product!!
+
                     context.startActivity(Intent(context, ProductDetailsActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                            )

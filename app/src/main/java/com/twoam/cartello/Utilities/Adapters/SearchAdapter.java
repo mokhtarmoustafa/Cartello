@@ -54,7 +54,7 @@ public class SearchAdapter
             @Override
             public void onClick(View v) {
 // open search result activity
-                Intent intent = new Intent(context, SearchResultActivity.class).putExtra(AppConstants.SEARCH_DATA,searchList.get(position).getName());
+                Intent intent = new Intent(context, SearchResultActivity.class).putExtra(AppConstants.SEARCH_DATA, searchList.get(position).getName());
                 context.startActivity(intent);
             }
         });

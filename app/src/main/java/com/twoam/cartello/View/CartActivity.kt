@@ -19,6 +19,7 @@ class CartActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
     //region Members
     private var listener: IBottomSheetCallback? = null
+
     //end region
 
     //region Events

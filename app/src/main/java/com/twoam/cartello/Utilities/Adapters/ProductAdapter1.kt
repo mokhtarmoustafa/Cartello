@@ -30,9 +30,9 @@ import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
  * Created by Mokhtar on 6/30/2019.
  */
 
-class ProductAdapter(private val context: Context, private val imageModelArrayList: ArrayList<Product>,
-                     private val _favouriteListener: IProductFavouritesCallback)
-    : RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
+class ProductAdapter1(private val context: Context, private val imageModelArrayList: ArrayList<Product>,
+                      private val _favouriteListener: IProductFavouritesCallback, private val _productListener: IBottomSheetCallback)
+    : RecyclerView.Adapter<ProductAdapter1.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var product = Product()
@@ -40,14 +40,15 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
     private var favouriteListener: IProductFavouritesCallback? = null
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter.MyViewHolder {
-        favouriteListener=_favouriteListener
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter1.MyViewHolder {
+        favouriteListener = _favouriteListener
+        listener = _productListener
         val view = inflater.inflate(R.layout.product_layout, parent, false)
 
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ProductAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductAdapter1.MyViewHolder, position: Int) {
 
         product = imageModelArrayList[position]
         val requestOptions = RequestOptions()
@@ -70,7 +71,6 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
 
         //check if product exist in cart to update its value
         var storedProduct = Cart.getAll().find { it.id == product.id }
-
         if (storedProduct != null && storedProduct!!.id > 0)
             holder.tvValue.text = storedProduct.amount.toString()
     }
@@ -139,20 +139,26 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
             if (storedProduct != null && storedProduct!!.id > 0) {
                 var amount = Cart.getAll().find { it.id == product.id }?.amount
                 Cart.getAll().find { it.id == product.id }?.amount = amount!! + 1
-                Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                Cart.addProduct(product)
+//                tvValue.text = Cart.getProductQuantity(product).toString()
+//                Cart.saveToDisk()
+//                notifyDataSetChanged()
+//                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
             } else {
                 product.amount = 1
-                Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                Cart.addProduct(product)
+//                tvValue.text = Cart.getProductQuantity(product).toString()
+//                Cart.saveToDisk()
+//                notifyDataSetChanged()
+//                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
 
             }
+
+            Cart.addProduct(product)
+            tvValue.text = Cart.getProductQuantity(product).toString()
+            Cart.saveToDisk()
+            notifyDataSetChanged()
+            listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
 
         }
 
@@ -168,17 +174,20 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
                     oldProduct = Cart.getAll().find { it.id == product.id }
                     oldProduct?.amount = oldQuantity
                     Cart.getAll().find { it.id == product.id }?.amount = oldQuantity
-                    Cart.saveToDisk()
-                    notifyDataSetChanged()
-                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                    Cart.saveToDisk()
+//                    notifyDataSetChanged()
+//                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
                 }
-                if (oldQuantity == 0) {
+                else if (oldQuantity == 0) {
                     Cart.addProduct(oldProduct!!)
-                    Cart.saveToDisk()
-                    notifyDataSetChanged()
-                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                    Cart.saveToDisk()
+//                    notifyDataSetChanged()
+//                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
                 }
             }
+            Cart.saveToDisk()
+            notifyDataSetChanged()
+            listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
         }
     }
 

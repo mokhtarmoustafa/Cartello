@@ -17,9 +17,10 @@ import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
+import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
 import kotlinx.android.synthetic.main.activity_product_details.*
 
-class ProductDetailsActivity : BaseDefaultActivity() {
+class ProductDetailsActivity : BaseDefaultActivity(), IProductFavouritesCallback {
 
 
     //region Members
@@ -37,6 +38,19 @@ class ProductDetailsActivity : BaseDefaultActivity() {
 
         getProductData(productId)
     }
+
+    override fun onAddToFavourite(product: Product) {
+
+    }
+
+    override fun onRemoveFromFavourite(product: Product) {
+
+    }
+
+    override fun getSimilarProducts(productId: Int) {
+
+    }
+
     //endregion
 
     //region Helper Functions
@@ -45,9 +59,6 @@ class ProductDetailsActivity : BaseDefaultActivity() {
 
         showDialogue()
         productId = AppConstants.CurrentSelectedProduct.id
-
-
-
         ivBackForgetPassword.setOnClickListener { finish() }
         ivFavourite.setOnClickListener {
             if (counter % 2 == 0) //add to favourite
@@ -119,7 +130,7 @@ class ProductDetailsActivity : BaseDefaultActivity() {
 
    private fun  getSimilarProducts(similarProductList:ArrayList<Product>)
     {
-        var adapter=ProductAdapter(this,similarProductList)
+        var adapter=ProductAdapter(this,similarProductList,this)
         rvSimilarProducts.adapter=adapter
         rvSimilarProducts.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter.notifyDataSetChanged()

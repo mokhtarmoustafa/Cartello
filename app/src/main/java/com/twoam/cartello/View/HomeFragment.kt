@@ -18,10 +18,7 @@ import com.twoam.cartello.Model.*
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
-import com.twoam.cartello.Utilities.Adapters.AdsAdapter
-import com.twoam.cartello.Utilities.Adapters.CategoryAdapter
-import com.twoam.cartello.Utilities.Adapters.ProductAdapter
-import com.twoam.cartello.Utilities.Adapters.SubCategoryAdapter
+import com.twoam.cartello.Utilities.Adapters.*
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.*
 import com.viewpagerindicator.CirclePageIndicator
@@ -30,7 +27,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class HomeFragment : BaseFragment(), IBottomSheetCallback {
+class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCallback {
 
 
     //region Members
@@ -53,6 +50,7 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private var isRefreshed = false
     private var listener: IBottomSheetCallback? = null
+    private var favouriteListener: IProductFavouritesCallback? = null
 
     //endregion
 
@@ -77,6 +75,20 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
+        if (index == 8) {
+           listener?.onBottomSheetSelectedItem(8)
+        }
+    }
+
+    override fun onAddToFavourite(product: Product) {
+
+    }
+
+    override fun onRemoveFromFavourite(product: Product) {
+
+    }
+
+    override fun getSimilarProducts(productId: Int) {
 
     }
 
@@ -334,7 +346,7 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
         for (product in topPromotionsList.indices) {
             list.add(topPromotionsList[product])
         }
-        var adapter = ProductAdapter(AppController.getContext(), topPromotionsList)
+        var adapter = ProductAdapter1(AppController.getContext(), topPromotionsList, this, this)
         recyclerTopPromotions.adapter = adapter
         recyclerTopPromotions.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter.notifyDataSetChanged()
@@ -347,7 +359,7 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback {
         for (product in mostSellingList.indices) {
             list.add(mostSellingList[product])
         }
-        var adapter = ProductAdapter(AppController.getContext(), list)
+        var adapter = ProductAdapter(AppController.getContext(), list, this)
         recyclerMostSelling.adapter = adapter
         recyclerMostSelling.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter.notifyDataSetChanged()

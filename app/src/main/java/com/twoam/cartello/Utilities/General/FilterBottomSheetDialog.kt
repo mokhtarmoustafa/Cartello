@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v7.widget.CardView
 import android.view.*
@@ -25,7 +26,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
     //region Members
     internal var view: ViewGroup? = null
-    lateinit var layout: RelativeLayout
+    lateinit var layout: ConstraintLayout
     private var listener: IBottomSheetCallback? = null
     private var action: Int = 0
     private lateinit var cvHigh: CardView
@@ -52,7 +53,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
 
     //region Events
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        view = inflater.inflate(R.layout.bottom_sheet_filter, container, false) as ViewGroup
+        view = inflater.inflate(R.layout.bottom_sheet_filter1, container, false) as ViewGroup
         layout = view!!.findViewById(R.id.rlOptions)
 
         init()
@@ -105,6 +106,7 @@ class FilterBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallbac
         cvCancel.setOnClickListener(this)
         cvHigh.setOnClickListener(this)
         cvLow.setOnClickListener(this)
+
 
 
     }

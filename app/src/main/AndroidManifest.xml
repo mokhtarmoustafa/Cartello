@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.twoam.cartello">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".Utilities.General.AppController"
         android:allowBackup="true"
@@ -14,14 +10,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
+        <activity android:name=".View.CrashActivity"></activity>
 
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
+
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -49,72 +44,75 @@
         </activity>
         <activity
             android:name=".View.LoginActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:launchMode = "singleTop"
-            />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".View.CreateAddressActivity"
             android:label="@string/titleCreateAddress"
+            android:launchMode="singleTop"
             android:parentActivityName=".View.MainActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".View.SignUpActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".View.ForgetPasswordActivity"
+            android:launchMode="singleTop"
             android:parentActivityName=".View.LoginActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".View.CartActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
-        <activity android:name=".View.ProfileActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
-        <activity android:name=".View.EditAddressProfileActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
-        <activity android:name=".View.ChangePasswordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.ProfileActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.EditAddressProfileActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.ChangePasswordActivity"
             android:screenOrientation="portrait">
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:launchMode = "singleTop"
-
         </activity>
-        <activity android:name=".View.SearchActivity"
+        <activity
+            android:name=".View.SearchActivity"
+            android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            />
-        <activity android:name=".View.EditDeleteAddressActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
-        <activity android:name=".View.MedicalPrescriptionsDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
-        <activity android:name=".View.CheckoutActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTop"/>
-        <activity android:name=".View.SearchResultActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            />
-        <activity android:name=".View.ProductDetailsActivity"
-            android:screenOrientation="portrait"
-            android:launchMode = "singleTop"
-            ></activity>
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".View.EditDeleteAddressActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.MedicalPrescriptionsDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.CheckoutActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.SearchResultActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".View.ProductDetailsActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
     </application>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

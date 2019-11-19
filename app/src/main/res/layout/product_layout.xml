@@ -85,6 +85,7 @@
             app:cardCornerRadius="8dp"
             app:cardBackgroundColor="@color/whiteGray"
             app:cardElevation="0dp"
+
             >
 
             <LinearLayout

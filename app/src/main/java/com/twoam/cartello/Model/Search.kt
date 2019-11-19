@@ -6,4 +6,10 @@ package com.twoam.cartello.Model
 class Search {
     var id = 0
     var name = ""
+
+    constructor(id:Int,name:String)
+    {
+        this.id=id
+        this.name=name
+    }
 }

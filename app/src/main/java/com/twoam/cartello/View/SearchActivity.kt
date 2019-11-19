@@ -20,6 +20,7 @@ class SearchActivity : BaseDefaultActivity(), View.OnClickListener {
 
     //region Members
     var searchList = ArrayList<Search>()
+    var searchHistoryData:ArrayList<String>?=null
     //endregion
 
     //region Events
@@ -58,6 +59,7 @@ class SearchActivity : BaseDefaultActivity(), View.OnClickListener {
 
         }
     }
+
 
     private fun clearHistory() {
         rvSearchResult.adapter = null

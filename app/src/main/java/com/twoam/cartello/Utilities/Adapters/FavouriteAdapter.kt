@@ -35,18 +35,20 @@ import com.twoam.cartello.View.FavouriteFragment
  */
 
 class FavouriteAdapter(private val context: Context, private val productsList: ArrayList<Product>,
-                       private val _favouriteListener: IProductFavouritesCallback)
+                       private val _favouriteListener: IProductFavouritesCallback,private val _productListener:IBottomSheetCallback)
     : RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var product = Product()
     private var listener: IBottomSheetCallback? = null
     private var favouriteListener: IProductFavouritesCallback? = null
+    private var productListener: IBottomSheetCallback? = null
 
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         favouriteListener=_favouriteListener
+        productListener=_productListener
 
         val view = inflater.inflate(R.layout.favourite_product_layout, parent, false)
         return MyViewHolder(view)
@@ -111,7 +113,8 @@ class FavouriteAdapter(private val context: Context, private val productsList: A
                 if (pos != RecyclerView.NO_POSITION) {
                     product = productsList[pos]
                     AppConstants.CurrentSelectedProduct = product!!
-                    context.startActivity(Intent(context, ProductDetailsActivity::class.java))
+                    productListener?.onBottomSheetSelectedItem(9)
+//                    context.startActivity(Intent(context, ProductDetailsActivity::class.java))
 
                 }
             }
@@ -164,19 +167,23 @@ class FavouriteAdapter(private val context: Context, private val productsList: A
                 var amount = Cart.getAll().find { it.id == product.id }?.amount
                 Cart.getAll().find { it.id == product.id }?.amount = amount!! + 1
                 Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                tvValue.text = Cart.getProductQuantity(product).toString()
+//                Cart.saveToDisk()
+//                notifyDataSetChanged()
+//                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
             } else {
                 product.amount = 1
                 Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                tvValue.text = Cart.getProductQuantity(product).toString()
+//                Cart.saveToDisk()
+//                notifyDataSetChanged()
+//                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
 
             }
+            tvValue.text = Cart.getProductQuantity(product).toString()
+            Cart.saveToDisk()
+            notifyDataSetChanged()
+            listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
 
         }
 

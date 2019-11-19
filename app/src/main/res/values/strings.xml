@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Cartello</string>
     <string name="no_results">No Data Available.</string>
-    <string name="error_login_server_error">Server is broken.please try again.</string>
+    <string name="error_login_server_error">Error Occurred.</string>
     <string name="error_login_server_unknown_error">Unknown Error.</string>
     <string name="forgetPassword">
         <u>Forget Password?</u>
@@ -189,7 +189,9 @@
     <string name="expected_arrival">Expected Arrival</string>
     <string name="added_to_cart">Added to cart</string>
     <string name="search_message">Please write a word for search.</string>
-
+    <string name="crash_error">Sorry!, Something went wrong, we will fixing it soon.</string>
+    <string name="restart">Restart</string>
+    <string name="loading">Loading...</string>
 
 
 </resources>

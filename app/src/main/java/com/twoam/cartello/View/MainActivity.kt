@@ -29,9 +29,10 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     val medicalFragment = MedicalPrescriptionsFragment()
     val orderFragment = OrdersFragment()
     val moreFragment = MoreFragment()
-    val favouriteFragment=FavouriteFragment()
+    val favouriteFragment = FavouriteFragment()
+    val productDetailsFragment = ProductDetailsFragment()
     val fm = supportFragmentManager
-        var active = BaseFragment()
+    var active = BaseFragment()
     var bitmap: Bitmap? = null
     //endregion
 
@@ -49,9 +50,9 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
         fm.beginTransaction().add(R.id.layout_container, orderFragment, "orderFragment").hide(orderFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, moreFragment, "moreFragment").hide(moreFragment).commit()
         fm.beginTransaction().add(R.id.layout_container, favouriteFragment, "favouriteFragment").hide(favouriteFragment).commit()
+        fm.beginTransaction().add(R.id.layout_container, productDetailsFragment, "productDetailsFragment").hide(productDetailsFragment).commit()
 
-
-            active = homeFragment
+        active = homeFragment
     }
 
 
@@ -88,12 +89,17 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
     }
 
     override fun onBackPressed() {
-        if(active==favouriteFragment)
-        {
+        if (active == favouriteFragment) {
             fm.beginTransaction().hide(favouriteFragment).show(moreFragment).addToBackStack(null).commit()
             active = moreFragment
         }
-       else  if (fm.backStackEntryCount > 0) {
+        else if(active==productDetailsFragment&&productDetailsFragment.isOpendFromFavoriteView)
+        {
+            productDetailsFragment.isOpendFromFavoriteView = false
+            fm.beginTransaction().hide(active).show(moreFragment).addToBackStack(null).commit()
+            active = moreFragment
+        }
+        else if (fm.backStackEntryCount > 0) {
             fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             active = homeFragment
             tvMainHome.text = getString(R.string.tab_home)
@@ -141,18 +147,44 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             }
             5 -> //navigate to favorite  view
             {
-
                 fm.beginTransaction().hide(active).show(favouriteFragment).addToBackStack(null).commit()
-                active=favouriteFragment
+                active = favouriteFragment
 
-    }
+            }
 
-        6 -> //back to more view
-        {
-            fm.beginTransaction().hide(favouriteFragment).show(moreFragment).addToBackStack(null).commit()
-            active = moreFragment
+            6 -> //back to more view
+            {
+                fm.beginTransaction().hide(favouriteFragment).show(moreFragment).addToBackStack(null).commit()
+                active = moreFragment
+            }
+
+            7 ->//close product details view
+            {
+                fm.beginTransaction().hide(productDetailsFragment).show(homeFragment).addToBackStack(null).commit()
+                active = homeFragment
+            }
+
+            8 ->//navigate to product details view
+            {
+                fm.beginTransaction().hide(active).show(productDetailsFragment).addToBackStack(null).commit()
+                active = productDetailsFragment
+            }
+            9 ->//navigate to product details view from Favorite View
+            {
+                fm.beginTransaction().hide(active).show(productDetailsFragment).addToBackStack(null).commit()
+                productDetailsFragment.isOpendFromFavoriteView=true
+                active = productDetailsFragment
+            }
+
+            10 ->//close product details view opened from favorite view
+            {
+                fm.beginTransaction().hide(active).show(moreFragment).addToBackStack(null).commit()
+                active = moreFragment
+            }
+
+
         }
-        }}
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

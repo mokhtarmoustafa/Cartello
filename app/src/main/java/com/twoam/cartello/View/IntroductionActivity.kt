@@ -12,6 +12,7 @@ import com.skyfishjy.library.RippleBackground
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
+import com.twoam.cartello.Utilities.Exception.CrashHandeller
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 
@@ -28,7 +29,7 @@ class IntroductionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_introduction)
-
+        CrashHandeller.deploy(this, CrashActivity::class.java)
         init()
     }
 

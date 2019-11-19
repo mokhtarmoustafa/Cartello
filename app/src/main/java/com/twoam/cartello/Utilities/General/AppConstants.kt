@@ -10,6 +10,7 @@ import com.twoam.cartello.Model.User
  */
 object AppConstants {
 
+
     const val SERVER_IP = "165.227.135.161"
     const val BASE_URL = "http://$SERVER_IP/trolley/public/api/"
 

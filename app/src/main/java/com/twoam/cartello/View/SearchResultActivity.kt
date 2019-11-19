@@ -11,12 +11,14 @@ import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.Product
+import com.twoam.cartello.Model.Search
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SearchResultAdapter
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
+import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.FilterBottomSheetDialog
@@ -146,6 +148,11 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
                         tvTotal.text = searchList.size.toString()
                         prepareProductsResultData(searchList!!)
                         hideDialogue()
+                        var searchData = PreferenceController.instance?.getSearchPref(AppConstants.SEARCH_DATA)
+//Complete search data
+                        var newsearch = Search(1, searchValue)
+                        searchData?.add(newsearch)
+                        PreferenceController.instance?.setSearchPref(AppConstants.SEARCH_DATA, searchData)
                     } else {
                         hideDialogue()
                         showAlertDialouge(getString(R.string.error_network))

@@ -79,36 +79,36 @@ class CartAdapter(private val context: Context, private val productsList: ArrayL
         init {
 
 
-            productImage.setOnClickListener({
+            productImage.setOnClickListener {
                 val pos = adapterPosition
                 product = productsList[pos]
                 AppConstants.CurrentSelectedProduct = product
                 context.startActivity(Intent(context, ProductDetailsActivity::class.java))
 
-            })
+            }
 
 
-            ivDelete.setOnClickListener({
+            ivDelete.setOnClickListener {
                 val pos = adapterPosition
                 product = productsList[pos]
                 Cart.delete(product)
                 Cart.saveToDisk()
                 notifyDataSetChanged()
-            })
+            }
 
 
-            addItem.setOnClickListener({
+            addItem.setOnClickListener {
                 val pos = adapterPosition
                 product = productsList[pos]
                 addProduct(product)
-            })
+            }
 
 
-            subItem.setOnClickListener({
+            subItem.setOnClickListener {
                 val pos = adapterPosition
                 product = productsList[pos]
                 removeProduct(product)
-            })
+            }
 
         }
 

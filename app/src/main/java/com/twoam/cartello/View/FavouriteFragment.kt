@@ -25,7 +25,7 @@ import com.twoam.cartello.Utilities.General.*
 /**
  * A simple [Fragment] subclass.
  */
-class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomSheetCallback {
+class FavouriteFragment : BaseFragment(), IProductFavouritesCallback,IBottomSheetCallback {
 
     //region Members
     private lateinit var currentView: View
@@ -68,6 +68,19 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomShe
         removeFromFavourites(product)
     }
 
+    override fun getSimilarProducts(productId: Int) {
+
+    }
+
+    override fun onBottomSheetClosed(isClosed: Boolean) {
+
+    }
+
+    override fun onBottomSheetSelectedItem(index: Int) {
+        if(index==9)//p[en product details view
+            listener.onBottomSheetSelectedItem(9)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is IBottomSheetCallback) {
@@ -77,13 +90,7 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomShe
         }
     }
 
-    override fun onBottomSheetClosed(isClosed: Boolean) {
 
-    }
-
-    override fun onBottomSheetSelectedItem(index: Int) {
-
-    }
 
 
     //endregion
@@ -186,7 +193,7 @@ class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomShe
             tvEmptyDataFavouriteFavourite?.visibility = View.INVISIBLE
             tvTotalFavourites?.text = products.size.toString()
 
-            adapter = FavouriteAdapter(context!!, products, this)
+            adapter = FavouriteAdapter(context!!, products, this,this)
             rvFavourites?.adapter = adapter
             rvFavourites?.layoutManager = GridLayoutManager(AppController.getContext(), 2, GridLayoutManager.VERTICAL, false)
         } else {

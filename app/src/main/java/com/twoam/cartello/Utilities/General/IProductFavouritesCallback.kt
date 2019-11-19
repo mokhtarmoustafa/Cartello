@@ -9,5 +9,7 @@ interface IProductFavouritesCallback {
 
     fun onRemoveFromFavourite(product: Product)
 
+    fun getSimilarProducts(productId:Int)
+
 
 }

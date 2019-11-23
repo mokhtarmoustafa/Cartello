@@ -289,17 +289,11 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
 
                 override fun onSuccess(response: ApiResponse<Addresses>) {
                     if (response.code == AppConstants.CODE_200) {
-//                        currentAddress = response.data!!
-                        hideDialogue()
-
                         var oldAddress = AppConstants.CurrentLoginUser.addresses!!.find { it.id == addressId }
                         AppConstants.CurrentLoginUser.addresses!!.remove(oldAddress)
-
                         AppConstants.CurrentLoginUser.hasAddress = AppConstants.CurrentLoginUser.addresses.size != 0
-
-
                         PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
-                        startActivity(Intent(applicationContext, ProfileActivity::class.java).putExtra("addressId", addressId))
+                        hideDialogue()
                         finish()
                     } else {
                         hideDialogue()

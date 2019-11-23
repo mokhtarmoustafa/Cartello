@@ -25,6 +25,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
     //region Members
 
     private var currentLoginUser: User = User()
+    private var fromProfile = false
     private var cities = ArrayList<City>()
     private var dummyCities = ArrayList<City>()
     private var areas = ArrayList<Area>()
@@ -209,9 +210,9 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                     if (response.code == AppConstants.CODE_200) {
                         AppConstants.CurrentLoginUser = response.data!!
 
+                        AppConstants.CurrentLoginUser.hasAddress = true
                         PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
-
-                        if (AppConstants.CurrentLoginUser.hasAddress) {
+                        if (fromProfile) {
                             PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                             hideDialogue()
                             startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
@@ -223,6 +224,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                             startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
                             finish()
                         }
+
 
                     } else {
                         hideDialogue()
@@ -266,6 +268,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         ivBack.setOnClickListener(this)
 
         currentLoginUser = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)!!
+        fromProfile = intent.getBooleanExtra("fromProfile", false)
 
     }
 

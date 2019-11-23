@@ -53,7 +53,7 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
                 finish()
             }
             R.id.tvAddAddress -> {
-                startActivity(Intent(this, CreateAddressActivity::class.java))
+                startActivity(Intent(this, CreateAddressActivity::class.java).putExtra("fromProfile",true))
                 finish()
             }
             R.id.tvEditProfile -> {
@@ -81,6 +81,10 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
     override fun onResume() {
         super.onResume()
         AnimateScroll.scrollToView(scrollView, rlParent)
+        profileAddressList = AppConstants.CurrentLoginUser.addresses
+        var adapter = AddressAdapter(this@ProfileActivity, profileAddressList)
+        rvAddress.adapter = adapter
+
     }
 
     //endregion

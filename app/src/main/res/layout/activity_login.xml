@@ -134,7 +134,7 @@
                     android:inputType="text|textNoSuggestions|textEmailAddress"
                     android:textColor="@color/colorLabel"
                     android:textSize="13sp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:imeOptions="actionNext"
                     android:nextFocusForward="@+id/etPassword"
                     android:selectAllOnFocus="true"/>
@@ -192,7 +192,7 @@
                     android:inputType="textPassword|textNoSuggestions"
                     android:textColor="@color/colorLabel"
                     android:textSize="12sp"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="8dp"
                     android:imeOptions="actionDone"/>
 
                 <TextView

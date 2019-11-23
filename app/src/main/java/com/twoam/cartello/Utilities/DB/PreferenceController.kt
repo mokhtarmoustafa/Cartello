@@ -97,28 +97,7 @@ class PreferenceController private constructor(context: Context, databaseName: S
 
 
 
-    fun setAddressPref(key: String, values: Address?) {
-        val editor = preferences.edit()
-        val gson = Gson()
-        if (values == null) {
-            return
-        }
-        val json = gson.toJson(values)
 
-        editor.putString(key, json)
-        editor.commit()
-    }
-
-    // GET THE Address Data
-    fun getAddressPref(key: String): Address? {
-        val gson = Gson()
-        val json = preferences.getString(key, null) ?: return null
-
-        val type = object : TypeToken<Address>() {
-        }.type
-
-        return gson.fromJson(json, type)
-    }
 
 
     fun setCitiesPref(key: String, values: ArrayList<City>?) {

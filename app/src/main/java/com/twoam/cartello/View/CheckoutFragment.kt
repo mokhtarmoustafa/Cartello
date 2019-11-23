@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-import com.twoam.cartello.Model.Address
+import com.twoam.cartello.Model.Addresses
 
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Adapters.CheckoutAddressAdapter
@@ -33,7 +33,7 @@ class CheckoutFragment : BaseFragment() {
     private var btnNext: Button? = null
     private var rvCheckout: RecyclerView? = null
     var currentView: View? = null
-    var addressList = ArrayList<Address>()
+    var addressList = ArrayList<Addresses>()
 //    var paymentFragment: PaymentFragment = PaymentFragment()
     //endregion
 
@@ -84,10 +84,10 @@ class CheckoutFragment : BaseFragment() {
 
 
     private fun getUserProfileData() {
-        if (AppConstants.CurrentLoginUser.address!!.addresses != null &&
-                AppConstants.CurrentLoginUser.address!!.addresses!!.size > 0) {
+        if (AppConstants.CurrentLoginUser.addresses != null &&
+                AppConstants.CurrentLoginUser.addresses!!.size > 0) {
 
-            addressList = AppConstants.CurrentLoginUser.address!!.addresses!!
+            addressList = AppConstants.CurrentLoginUser.addresses!!
 
             if (addressList.size > 0) {
                 tvEmptyData?.visibility = View.INVISIBLE

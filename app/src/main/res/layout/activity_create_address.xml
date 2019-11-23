@@ -492,7 +492,7 @@
                     >
 
                         <Button
-                            android:id="@+id/btnPlaceOrder"
+                            android:id="@+id/btnAddAddress"
                             android:layout_width="317dp"
                             android:layout_height="62dp"
                             android:layout_centerHorizontal="true"

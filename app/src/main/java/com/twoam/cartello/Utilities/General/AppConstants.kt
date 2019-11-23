@@ -1,9 +1,6 @@
 package com.twoam.cartello.Utilities.General
 
-import com.twoam.cartello.Model.Address
-import com.twoam.cartello.Model.Order
-import com.twoam.cartello.Model.Product
-import com.twoam.cartello.Model.User
+import com.twoam.cartello.Model.*
 
 /**
  * Created by Mokhtar on 6/18/2019.
@@ -107,7 +104,9 @@ object AppConstants {
     var FavouriteProducts = ArrayList<Product>()
     var CurrentSelectedProduct = Product()
     var CurrentSelectedOrder = Order()
-    var CurrentSelectedAddress = Address()
+//    var CurrentSelectedAddress = Address()
+    var CurrentSelectedAddresses = Addresses()
+
 
 
     const val BEARER = "Bearer "

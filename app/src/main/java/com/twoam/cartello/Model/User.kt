@@ -12,15 +12,15 @@ class User {
     var hasAddress: Boolean = false
     var name: String = ""
     var email: String = ""
+    var password: String = ""
     var phone: String = ""
     var birthdate: String = ""
     var token: String = ""
     var rating: String = ""
     var created_at: String = ""
     var updated_at: String = ""
-    var addresses: ArrayList<Address>? = null
-    var address: Address? = null
-
+    var addresses= ArrayList<Addresses>()
+    //    var address: Address? = null
     var socialType: Int? = null
     var fullImagePath: String? = null
 

@@ -67,17 +67,17 @@ interface ApiServices {
     fun addAddress(@Header("Authorization") token: String, @Query("name") name: String, @Query("city_id") city_id: String,
                    @Query("area_id") area_id: String, @Query("address") address: String,
                    @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
-    ): Call<ApiResponse<Address>>
+    ): Call<ApiResponse<User>>
 
 
     @POST(AppConstants.URL_UPDATE_ADDRESS + "/{addressId}")
     fun updateAddress(@Header("Authorization") token: String, @Path("addressId") userId: Int, @Query("name") name: String, @Query("city_id") city_id: String,
                       @Query("area_id") area_id: String, @Query("address") address: String,
                       @Query("apartment") apartment: String, @Query("floor") floor: String, @Query("landmark") landmark: String
-    ): Call<ApiResponse<Address>>
+    ): Call<ApiResponse<Addresses>>
 
     @POST(AppConstants.URL_REMOVE_ADDRESS + "/{addressId}")
-    fun removeAddress(@Path("addressId") userId: Int, @Header("Authorization") token: String): Call<ApiResponse<Address>>
+    fun removeAddress(@Path("addressId") userId: Int, @Header("Authorization") token: String): Call<ApiResponse<Addresses>>
 
     @GET(AppConstants.URL_GET_CATEGORIES)
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>
@@ -88,7 +88,7 @@ interface ApiServices {
     @GET(AppConstants.URL_GET_HOME_PRODUCTS)
     fun getHomeProducts(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<HomeProducts>>>
 
-    @GET(AppConstants.URL_EDIT_PROFILE)
+    @POST(AppConstants.URL_EDIT_PROFILE)
     fun editProfile(@Header("Authorization") token: String,
                     @Query("phone") phone: String,
                     @Query("name") name: String,

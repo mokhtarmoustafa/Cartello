@@ -5,9 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
-import com.twoam.cartello.Model.Address
+import com.twoam.cartello.Model.Addresses
+import com.twoam.cartello.Model.City
+import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
@@ -24,9 +27,10 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
 
 
     //region Members
-    var addressList = ArrayList<Address>()
+    var profileAddressList = ArrayList<Addresses>()
     var addressId: String? = null
     var removedAddressIndex = 0
+    var cities = ArrayList<City>()
     //endregion
 
     //region Events
@@ -76,15 +80,7 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
 
     override fun onResume() {
         super.onResume()
-//        if (AppConstants.CurrentLoginUser.addresses != null &&
-//                AppConstants.CurrentLoginUser.addresses!!.size > 0) {
-//            addressList = AppConstants.CurrentLoginUser.addresses!!
-//
-//            var adapter = AddressAdapter(this@ProfileActivity, addressList)
-//            rvAddress.adapter = adapter
-//            rvAddress.layoutManager = LinearLayoutManager(this)
-//        }
-        AnimateScroll.scrollToView(scrollView,rlParent)
+        AnimateScroll.scrollToView(scrollView, rlParent)
     }
 
     //endregion
@@ -114,23 +110,65 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
     }
 
     private fun getUserProfileData() {
-        if (AppConstants.CurrentLoginUser.address!!.addresses != null &&
-                AppConstants.CurrentLoginUser.address!!.addresses!!.size > 0) {
+
+        if (AppConstants.CurrentLoginUser.addresses!!.count() > 0) {
 
             var user = AppConstants.CurrentLoginUser
-            addressList = AppConstants.CurrentLoginUser.address!!.addresses!!
+            profileAddressList = AppConstants.CurrentLoginUser.addresses!!
 
             tvProfileName.text = user.name
             tvTelNo.text = user.phone
             tvEmailValue.text = user.email
             tvBirthDateValue.text = user.birthdate
 
-            var adapter = AddressAdapter(this@ProfileActivity, addressList)
-            rvAddress.adapter = adapter
-            rvAddress.layoutManager = LinearLayoutManager(this)
+            var citiesData =PreferenceController.instance!!.getCitiesPref(AppConstants.CITIES_DATA)
+            if(citiesData==null)
+                prepareData()
+          else
+            {
+                var adapter = AddressAdapter(this@ProfileActivity, profileAddressList)
+                rvAddress.adapter = adapter
+                rvAddress.layoutManager = LinearLayoutManager(this)
+            }
+
+        }
+    }
+
+    private fun prepareData(): ArrayList<City> {
+        showDialogue()
+        if (NetworkManager().isNetworkAvailable(this)) {
+
+            var request = NetworkManager().create(ApiServices::class.java)
+            var endPoint = request.getCities()
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<City>>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<ArrayList<City>>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        cities = response.data!!
+                        PreferenceController.instance?.setCitiesPref(AppConstants.CITIES_DATA, cities)
+                        var adapter = AddressAdapter(this@ProfileActivity, profileAddressList)
+                        rvAddress.adapter = adapter
+                        rvAddress.layoutManager = LinearLayoutManager(this@ProfileActivity)
+                        hideDialogue()
+
+                    } else {
+                        hideDialogue()
+                        Toast.makeText(applicationContext, response.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
         }
 
+        return cities
     }
+
 
     private fun removeAddress(removedAddressID: Int): Boolean {
         var done = false
@@ -139,23 +177,25 @@ class ProfileActivity : BaseDefaultActivity(), View.OnClickListener, IBottomShee
             var request = NetworkManager().create(ApiServices::class.java)
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
             var endpoint = request.removeAddress(removedAddressID, token)
-            NetworkManager().request(endpoint, object : INetworkCallBack<ApiResponse<Address>> {
+            NetworkManager().request(endpoint, object : INetworkCallBack<ApiResponse<Addresses>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
                     showAlertDialouge(error)
                 }
 
-                override fun onSuccess(response: ApiResponse<Address>) {
+                override fun onSuccess(response: ApiResponse<Addresses>) {
                     if (response.code == AppConstants.CODE_200) {
 
-                        var newAddress = response.data!!
-                        AppConstants.CurrentLoginUser.address = newAddress
+                        var oldAddress = AppConstants.CurrentLoginUser.addresses!!.find { it.id == removedAddressID }
+                        AppConstants.CurrentLoginUser.addresses!!.remove(oldAddress)
                         AppConstants.CurrentLoginUser.hasAddress = AppConstants.CurrentLoginUser.addresses!!.count() > 0
-                        PreferenceController.getInstance(this@ProfileActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
+
+                        profileAddressList = AppConstants.CurrentLoginUser.addresses!!
+                        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                         //saved the address in shared prefrences
                         hideDialogue()
                         //refresh adapter
-                        var adapter = AddressAdapter(this@ProfileActivity, addressList)
+                        var adapter = AddressAdapter(this@ProfileActivity, profileAddressList)
                         rvAddress.adapter = adapter
                         rvAddress.layoutManager = LinearLayoutManager(this@ProfileActivity)
 

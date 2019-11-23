@@ -26,11 +26,13 @@ import org.json.JSONException
 import com.facebook.login.LoginResult
 import com.facebook.login.LoginManager
 import com.google.android.gms.auth.api.Auth
+import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.auth.api.signin.GoogleSignInResult
 import com.google.android.gms.common.GooglePlayServicesUtil
 import com.google.android.gms.common.api.GoogleApiClient
+import com.google.android.gms.tasks.Task
 import com.twoam.cartello.R.string.email
 import com.twoam.cartello.R.string.password
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
@@ -98,7 +100,7 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
                 var password = etPassword.text.toString()
                 var valid = validateUserData(email, password)
                 if (valid) {
-                    showDialogue()
+
                     logIn(email, password)
 
                 }
@@ -207,6 +209,7 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
     }
 
     private fun logIn(email: String, password: String): User {
+        showDialogue()
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var endPoint = request.logIn(email, password)
@@ -223,7 +226,7 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
 
                     } else {
                         hideDialogue()
-                        Toast.makeText(applicationContext, getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, getString(R.string.error_email_password_incorrect), Toast.LENGTH_SHORT).show()
                     }
 
                 }
@@ -414,7 +417,7 @@ class LoginActivity : BaseDefaultActivity(), View.OnClickListener {
             val user = User()
             user.socialType = User.Companion.socialType_Google
             user.email = acct.email!!
-            user.token = acct.idToken!!
+            user.token = acct.idToken.toString()!!
             user.name = personName!!
             if (acct.photoUrl != null)
                 user.fullImagePath = acct.photoUrl!!.toString()

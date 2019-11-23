@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.Window
 import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
+import com.twoam.cartello.Model.Addresses
 import com.twoam.cartello.Model.City
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
@@ -24,6 +25,7 @@ import com.twoam.cartello.View.MainActivity
 import com.twoam.cartello.View.CreateAddressActivity
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by Mokhtar on 6/28/2019.
@@ -47,23 +49,12 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
     }
 
 
-
     fun checkHasAddress(user: User) {
-
-        var cities = ArrayList<City>()
-        try {
-            cities = PreferenceController.getInstance(AppController.getContext()).getCitiesPref(AppConstants.CITIES_DATA)!!
-        } catch (ex: Exception) {
-        }
-
-        if (user.address != null && user.address!!.addresses.size > 0&& cities.count() > 0) {
-            user.hasAddress = true
-            PreferenceController.instance?.setUserPref(AppConstants.USER_DATA, user)
-//            PreferenceController.getInstance(applicationContext).Set(AppConstants.HASADDRESS, AppConstants.TRUE)
-            startActivity(Intent(this, MainActivity::class.java))
+        if (user.addresses!!.count() <= 0) {
+            startActivity(Intent(this, CreateAddressActivity::class.java))
             finish()
         } else {
-            startActivity(Intent(this, CreateAddressActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
         }
 
@@ -72,10 +63,29 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
     fun saveUserData(user: User) {
 
         PreferenceController.getInstance(applicationContext).Set(AppConstants.IS_LOGIN, AppConstants.TRUE)
-        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
         AppConstants.CurrentLoginUser = user
-        checkHasAddress(user!!)
+        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
+
+        if (user.addresses!!.count() <= 0) {
+            startActivity(Intent(this, CreateAddressActivity::class.java))
+            finish()
+        } else {
+            user.hasAddress = true
+            PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, user)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }
+
     }
+
+    fun clearUserData() {
+
+        PreferenceController.getInstance(applicationContext).Set(AppConstants.IS_LOGIN, AppConstants.FALSE)
+        PreferenceController.getInstance(applicationContext).clear(AppConstants.USER_DATA)
+        PreferenceController.getInstance(applicationContext).clear(AppConstants.CITIES_DATA)!!
+
+    }
+
 
     fun showAlertDialouge(message: String) {
         var alertDialouge = AlertDialog.Builder(this)
@@ -123,21 +133,6 @@ open class BaseDefaultActivity : AppCompatActivity(), OnItemClick {
 
         val langContext = MyContextWrapper.wrap(newBase, Locale(lang))
         super.attachBaseContext(CalligraphyContextWrapper.wrap(langContext))
-    }
-
-
-    protected fun hideKeyboard() {
-
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-
-        val view = this.currentFocus
-
-        if (view != null) {
-
-            imm.hideSoftInputFromWindow(view.windowToken, 0)
-
-        }
-
     }
 
 

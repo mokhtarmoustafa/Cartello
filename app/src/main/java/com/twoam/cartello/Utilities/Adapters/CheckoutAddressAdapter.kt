@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 
-import com.twoam.cartello.Model.Address
+import com.twoam.cartello.Model.Addresses
 import com.twoam.cartello.Model.Area
 import com.twoam.cartello.Model.City
 import com.twoam.cartello.R
@@ -24,11 +24,12 @@ import java.util.ArrayList
  * Created by Mokhtar on 6/30/2019.
  */
 
-class CheckoutAddressAdapter(private val context: Context, private val addressList: ArrayList<Address>)
+class CheckoutAddressAdapter(private val context: Context, private val addressList: ArrayList<Addresses>)
     : RecyclerView.Adapter<CheckoutAddressAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var address: Address? = Address()
+    private var addresses: Addresses? = Addresses()
+
     private lateinit var cities: ArrayList<City>
     private lateinit var areas: ArrayList<Area>
     private var addressValue = ""
@@ -106,16 +107,16 @@ class CheckoutAddressAdapter(private val context: Context, private val addressLi
             holder.ivActive.visibility = View.VISIBLE
             holder.ivInActive.visibility = View.INVISIBLE
             holder.tvEdit.isEnabled=true
-            address = addressList[position]
-            AppConstants.CurrentSelectedAddress=address!!
+            addresses = addressList[position]
+            AppConstants.CurrentSelectedAddresses=addresses!!
         }
         else
         {
             holder.ivActive.visibility = View.INVISIBLE
             holder.ivInActive.visibility = View.VISIBLE
             holder.tvEdit.isEnabled=false
-            address = addressList[position]
-            AppConstants.CurrentSelectedAddress=address!!
+            addresses = addressList[position]
+            AppConstants.CurrentSelectedAddresses=addresses!!
         }
 
     }
@@ -146,16 +147,16 @@ class CheckoutAddressAdapter(private val context: Context, private val addressLi
             ivActive = itemView.findViewById(R.id.ivActive)
             ivInActive = itemView.findViewById(R.id.ivInActive)
 
-            itemView.setOnClickListener({
+            itemView.setOnClickListener {
                 // get position
                 val pos = adapterPosition
 
                 // check if item still exists
                 if (pos != RecyclerView.NO_POSITION) {
-                    address = addressList[pos]
+                    addresses = addressList[pos]
                     itemView.ivActive.visibility = View.VISIBLE
                 }
-            })
+            }
             tvEdit.setOnClickListener { v ->
 
                 // get position
@@ -164,7 +165,7 @@ class CheckoutAddressAdapter(private val context: Context, private val addressLi
                 // check if item still exists
                 if (pos != RecyclerView.NO_POSITION) {
 
-                    address = addressList[pos]
+                    addresses = addressList[pos]
                     // open edit address activity
                     context.startActivity(Intent(context, EditDeleteAddressActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -5,9 +5,6 @@ import android.view.View
 import android.widget.*
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
-import com.twoam.cartello.Model.Address
-import com.twoam.cartello.Model.Area
-import com.twoam.cartello.Model.City
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
@@ -17,7 +14,7 @@ import android.widget.AdapterView
 import com.twoam.cartello.Utilities.Adapters.AreaAdapter
 import com.twoam.cartello.Utilities.Adapters.CityAdapter
 import android.content.Intent
-import com.twoam.cartello.Model.User
+import com.twoam.cartello.Model.*
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.DB.PreferenceController
 
@@ -43,15 +40,13 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
     private lateinit var etFloor: EditText
     private lateinit var etLandMark: EditText
     private lateinit var btnAdd: Button
-
     private lateinit var tvErrorName: TextView
     private lateinit var tvErrorCity: TextView
     private lateinit var tvErrorArea: TextView
-
     private lateinit var tvErrorAddress: TextView
     private lateinit var tvErrorApt: TextView
     private lateinit var tvErrorFloor: TextView
-    private var newAddress: Address = Address()
+
 
     //endregion
 
@@ -68,7 +63,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.btnPlaceOrder -> {
+            R.id.btnAddAddress -> {
                 var name = etName.text.toString()
                 var city = etCity.text.toString()
                 var area = etArea.text.toString()
@@ -78,7 +73,16 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                 var landMark = etLandMark.text.toString()
                 var valid = validateUserData(name, city, area, address, apt, floor)
                 if (valid) {
-                    showDialogue()
+
+                    AppConstants.CurrentSelectedAddresses.name = name
+                    AppConstants.CurrentSelectedAddresses.city_id = selectedCity.id
+                    AppConstants.CurrentSelectedAddresses.city.name = city
+                    AppConstants.CurrentSelectedAddresses.area_id = selectedArea.id
+                    AppConstants.CurrentSelectedAddresses.area.name = area
+                    AppConstants.CurrentSelectedAddresses.address = address
+                    AppConstants.CurrentSelectedAddresses.apartment = apt
+                    AppConstants.CurrentSelectedAddresses.floor = floor
+                    AppConstants.CurrentSelectedAddresses.landmark = landMark
                     addAddress(name, selectedCity.id.toString(), selectedArea.id.toString(), address, apt, floor, landMark)
                 }
 
@@ -182,40 +186,39 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
                 selectedArea = Area(0, getString(R.string.selectArea))
         }
 
-        etArea.setOnClickListener({
+        etArea.setOnClickListener {
             etArea.showDropDown()
 
-        })
+        }
     }
 
 
-    private fun addAddress(name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): Address {
-
+    private fun addAddress(name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): User {
+        showDialogue()
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var authorization = AppConstants.BEARER + currentLoginUser.token
             var endPoint = request.addAddress(authorization, name, city, area, address, apt, floor, landMark)
-            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<User>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
                     showAlertDialouge(error)
                 }
 
-                override fun onSuccess(response: ApiResponse<Address>) {
+                override fun onSuccess(response: ApiResponse<User>) {
                     if (response.code == AppConstants.CODE_200) {
-                        newAddress = response.data!!
-//                        AppConstants.CurrentLoginUser.addresses?.add(newAddress)
-                        AppConstants.CurrentLoginUser.address=newAddress
+                        AppConstants.CurrentLoginUser = response.data!!
+
+                        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
 
                         if (AppConstants.CurrentLoginUser.hasAddress) {
-
-                            PreferenceController.getInstance(this@CreateAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
+                            PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                             hideDialogue()
                             startActivity(Intent(this@CreateAddressActivity, ProfileActivity::class.java))
                             finish()
                         } else {
                             AppConstants.CurrentLoginUser.hasAddress = true
-                            PreferenceController.getInstance(this@CreateAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
+                            PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                             hideDialogue()
                             startActivity(Intent(this@CreateAddressActivity, MainActivity::class.java))
                             finish()
@@ -231,7 +234,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
             hideDialogue()
             showAlertDialouge(getString(R.string.error_no_internet))
         }
-        return newAddress!!
+        return AppConstants.CurrentLoginUser
     }
 
     private fun init() {
@@ -258,18 +261,18 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
         tvErrorApt = findViewById(R.id.tvAptError)
         tvErrorFloor = findViewById(R.id.tvFloorError)
 
-        btnAdd = findViewById(R.id.btnPlaceOrder)
+        btnAdd = findViewById(R.id.btnAddAddress)
         btnAdd.setOnClickListener(this)
         ivBack.setOnClickListener(this)
 
-        currentLoginUser = PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
+        currentLoginUser = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)!!
 
     }
 
     private fun validateUserData(fullName: String, city: String, area: String, address: String, apt: String, floor: String): Boolean {
         var valid = false
 
-        if (fullName.isNullOrEmpty()) {
+        if (fullName.isNullOrEmpty() || fullName.length < 4) {
             tvErrorName.visibility = View.VISIBLE
             tvErrorCity.visibility = View.INVISIBLE
             tvErrorArea.visibility = View.INVISIBLE
@@ -294,7 +297,7 @@ class CreateAddressActivity : BaseDefaultActivity(), View.OnClickListener {
             tvErrorApt.visibility = View.INVISIBLE
             tvErrorFloor.visibility = View.INVISIBLE
             valid = false
-        } else if (address.isNullOrEmpty()) {
+        } else if (address.isNullOrEmpty() || address.length < 4) {
             tvErrorName.visibility = View.INVISIBLE
             tvErrorCity.visibility = View.INVISIBLE
             tvErrorArea.visibility = View.INVISIBLE

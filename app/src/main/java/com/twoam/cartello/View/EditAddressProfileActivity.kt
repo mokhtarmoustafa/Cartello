@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.View
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
-import com.twoam.cartello.Model.Address
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
@@ -80,7 +79,7 @@ class EditAddressProfileActivity : BaseDefaultActivity(), View.OnClickListener {
         etPhoneNumberEditProfile.setText(currentLoginUser.phone)
         etDateOfBirthEditProfile.setText(currentLoginUser.birthdate)
 
-        currentLoginUser=PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
+        currentLoginUser=PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)!!
     }
 
     private fun validateUserData(userName: String, phoneNo: String, birthDate: String): Boolean {

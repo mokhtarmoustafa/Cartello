@@ -74,8 +74,8 @@ class PaymentFragment : BaseFragment() {
         })
 
 
-        btnPlaceOrder?.setOnClickListener({
-            Toast.makeText(context, "ORDER :" + AppConstants.CurrentSelectedAddress.address.length, Toast.LENGTH_SHORT).show()
+        btnPlaceOrder?.setOnClickListener {
+
             var order = Order()
             order.payment_method = 1
 
@@ -91,7 +91,7 @@ class PaymentFragment : BaseFragment() {
             }
 
             createOrder(array)
-        })
+        }
 
     }
 
@@ -103,10 +103,10 @@ class PaymentFragment : BaseFragment() {
             val paramObject = JSONObject()
             paramObject.put("payment_method", 1)
             paramObject.put("items", items)
-            paramObject.put("address_id", AppConstants.CurrentSelectedAddress.id)
+            paramObject.put("address_id", AppConstants.CurrentSelectedAddresses.id)
 
 //            var endPoint = request.createOrder(token, 1, items, AppConstants.CurrentSelectedAddress.id)
-            var endPoint = request.createOrder(token, 1, items, AppConstants.CurrentSelectedAddress.id)
+            var endPoint = request.createOrder(token, 1, items, AppConstants.CurrentSelectedAddresses.id)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Order>> {
                 override fun onFailed(error: String) {
                     showAlertDialouge(error)

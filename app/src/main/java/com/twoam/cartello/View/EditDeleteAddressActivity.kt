@@ -6,10 +6,7 @@ import android.view.View
 import android.widget.*
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
-import com.twoam.cartello.Model.Address
-import com.twoam.cartello.Model.Area
-import com.twoam.cartello.Model.City
-import com.twoam.cartello.Model.User
+import com.twoam.cartello.Model.*
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
@@ -28,8 +25,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     //region Members
 
     private var currentLoginUser: User = User()
-    private var currentAddress: Address = Address()
-    private var currentAddressIndex = 0
+    private var currentAddress: Addresses = Addresses()
     private var cities = ArrayList<City>()
     private var dummyCities = ArrayList<City>()
     private var areas = ArrayList<Area>()
@@ -38,8 +34,6 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     private var selectedArea = Area()
     private lateinit var etCity: AutoCompleteTextView
     private lateinit var etArea: AutoCompleteTextView
-    private var newAddress: Address = Address()
-    //    private var addressIdIndex: Int? = null
     private var bottomSheet = CloseBottomSheetDialog()
     //endregion
 
@@ -75,6 +69,16 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
                 var valid = validateUserData(name, city, area, address, apt, floor)
                 if (valid) {
                     showDialogue()
+                    AppConstants.CurrentSelectedAddresses.name = name
+                    AppConstants.CurrentSelectedAddresses.city_id = selectedCity.id
+                    AppConstants.CurrentSelectedAddresses.city.name = city
+                    AppConstants.CurrentSelectedAddresses.area_id = selectedArea.id
+                    AppConstants.CurrentSelectedAddresses.area.name = area
+                    AppConstants.CurrentSelectedAddresses.address = address
+                    AppConstants.CurrentSelectedAddresses.apartment = apt
+                    AppConstants.CurrentSelectedAddresses.floor = floor
+                    AppConstants.CurrentSelectedAddresses.landmark = landMark
+
                     updateAddress(currentAddress.id, name, selectedCity.id.toString(), selectedArea.id.toString(), address, apt, floor, landMark)
                 }
 
@@ -96,12 +100,9 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         if (index == 1) {//delete
 
 
-            currentAddress = AppConstants.CurrentLoginUser.address!!.addresses!![currentAddressIndex]
-//            var address = currentAddress.addresses?.get(currentAddressIndex)!!
-
-//            var address = AppConstants.CurrentLoginUser.addresses?.get(index)
+            currentAddress = AppConstants.CurrentSelectedAddresses!!
             showDialogue()
-            removeAddress(currentAddress?.id!!)
+            removeAddress(currentAddress.id!!)
         }
     }
 
@@ -186,13 +187,9 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
     }
 
     private fun loadSavedAddress() {
-        if (intent.hasExtra("addressIdPosition")) {
-            val bundle: Bundle? = intent.extras
-            currentAddressIndex = bundle?.get("addressIdPosition") as Int
+        if (AppConstants.CurrentSelectedAddresses != null) {
 
-            currentAddress = AppConstants.CurrentLoginUser.address!!.addresses!![currentAddressIndex]
-//            addressToUpdate = currentAddress.addresses?.get(addressIndex)!!
-
+            currentAddress = AppConstants.CurrentSelectedAddresses
             var city = cities.find { it.id == currentAddress!!.city_id }
 
             prepareAreas(city!!)
@@ -210,6 +207,8 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
             etLandMark.setText(currentAddress?.landmark)
 
         }
+
+
     }
 
     private fun prepareAreas(city: City) {
@@ -218,6 +217,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         var arrayAdapter = AreaAdapter(
                 this@EditDeleteAddressActivity, android.R.layout.simple_list_item_1, areas)
         etArea.setAdapter(arrayAdapter)
+        etArea.isCursorVisible = false
         etArea.isCursorVisible = false
 
 
@@ -231,30 +231,33 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
                 selectedArea = Area(0, getString(R.string.selectArea))
         }
 
-        etArea.setOnClickListener({
+        etArea.setOnClickListener {
             etArea.showDropDown()
 
-        })
+        }
     }
 
-    private fun updateAddress(addressId: Int, name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): Address {
+    private fun updateAddress(addressId: Int, name: String, city: String, area: String, address: String, apt: String, floor: String, landMark: String): Addresses {
 
         if (NetworkManager().isNetworkAvailable(this)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var authorization = AppConstants.BEARER + currentLoginUser.token
             var endPoint = request.updateAddress(authorization, addressId, name, city, area, address, apt, floor, landMark)
-            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Addresses>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
                     showAlertDialouge(error)
                 }
 
-                override fun onSuccess(response: ApiResponse<Address>) {
+                override fun onSuccess(response: ApiResponse<Addresses>) {
                     if (response.code == AppConstants.CODE_200) {
-                        newAddress = response.data!!
-                        AppConstants.CurrentLoginUser.address = newAddress
-                        AppConstants.CurrentLoginUser.hasAddress = true
-                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
+//                        currentAddress = response.data!!
+
+                        var oldAddressIndex = AppConstants.CurrentLoginUser.addresses?.indexOf(AppConstants.CurrentLoginUser.addresses?.find { it.id == addressId }!!)
+
+                        AppConstants.CurrentLoginUser.addresses?.set(oldAddressIndex!!, AppConstants.CurrentSelectedAddresses)
+
+                        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
                         hideDialogue()
                         finish()
                         startActivity(Intent(this@EditDeleteAddressActivity, ProfileActivity::class.java))
@@ -269,7 +272,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
             hideDialogue()
             showAlertDialouge(getString(R.string.error_no_internet))
         }
-        return newAddress!!
+        return currentAddress
     }
 
     private fun removeAddress(addressId: Int): Boolean {
@@ -278,22 +281,25 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
             var request = NetworkManager().create(ApiServices::class.java)
             var authorization = AppConstants.BEARER + currentLoginUser.token
             var endPoint = request.removeAddress(addressId, authorization)
-            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Address>> {
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Addresses>> {
                 override fun onFailed(error: String) {
                     hideDialogue()
                     showAlertDialouge(error)
                 }
 
-                override fun onSuccess(response: ApiResponse<Address>) {
+                override fun onSuccess(response: ApiResponse<Addresses>) {
                     if (response.code == AppConstants.CODE_200) {
-                        newAddress = response.data!!
+//                        currentAddress = response.data!!
                         hideDialogue()
 
-                        AppConstants.CurrentLoginUser.address = newAddress
-                        AppConstants.CurrentLoginUser.hasAddress = AppConstants.CurrentLoginUser.addresses!!.count() > 0
+                        var oldAddress = AppConstants.CurrentLoginUser.addresses!!.find { it.id == addressId }
+                        AppConstants.CurrentLoginUser.addresses!!.remove(oldAddress)
 
-                        PreferenceController.getInstance(this@EditDeleteAddressActivity).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
-                        startActivity(Intent(this@EditDeleteAddressActivity, ProfileActivity::class.java).putExtra("addressId", addressId))
+                        AppConstants.CurrentLoginUser.hasAddress = AppConstants.CurrentLoginUser.addresses.size != 0
+
+
+                        PreferenceController.getInstance(applicationContext).setUserPref(AppConstants.USER_DATA, AppConstants.CurrentLoginUser)
+                        startActivity(Intent(applicationContext, ProfileActivity::class.java).putExtra("addressId", addressId))
                         finish()
                     } else {
                         hideDialogue()
@@ -319,7 +325,7 @@ class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, I
         btnUpdate.setOnClickListener(this)
         ivBackEditDeleteAddress.setOnClickListener(this)
         tvDelete.setOnClickListener(this)
-        currentLoginUser = PreferenceController.getInstance(this).getUserPref(AppConstants.USER_DATA)!!
+        currentLoginUser = PreferenceController.getInstance(applicationContext).getUserPref(AppConstants.USER_DATA)!!
 
 
     }

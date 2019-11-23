@@ -11,7 +11,6 @@ class Order {
     var state_id: Int = 0
     var items = ArrayList<Product>()
     var states = ArrayList<States>()
-    var address=Address()
     var rate: String? = ""
     var total: Double=0.0
     var item_total:Double=0.0

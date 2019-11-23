@@ -7,9 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 
-import com.twoam.cartello.Model.Address
+import com.twoam.cartello.Model.Addresses
 import com.twoam.cartello.Model.Area
 import com.twoam.cartello.Model.City
 import com.twoam.cartello.R
@@ -23,10 +22,10 @@ import java.util.ArrayList
  * Created by Mokhtar on 6/30/2019.
  */
 
-class AddressAdapter(private val context: Context, private val addressList: ArrayList<Address>) : RecyclerView.Adapter<AddressAdapter.MyViewHolder>() {
+class AddressAdapter(private val context: Context, private val addressList: ArrayList<Addresses>) : RecyclerView.Adapter<AddressAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var address: Address? = null
+    private var address: Addresses? = null
     private lateinit var cities: ArrayList<City>
     private lateinit var areas: ArrayList<Area>
     var addressValue = ""
@@ -42,10 +41,10 @@ class AddressAdapter(private val context: Context, private val addressList: Arra
     override fun onBindViewHolder(holder: AddressAdapter.MyViewHolder, position: Int) {
 //        address = addressList[position]
         var currentAddress = addressList[position]
-        cities = PreferenceController.getInstance(context).getCitiesPref(AppConstants.CITIES_DATA)!!
-        var city = cities.find { it.id == currentAddress!!.city_id }
+        cities = PreferenceController.instance?.getCitiesPref(AppConstants.CITIES_DATA)!!
+        var city = cities.find { it.id == currentAddress.city_id }
         areas = city?.areas!!
-        var area = areas.find { it.id == currentAddress!!.area_id }
+        var area = areas.find { it.id == currentAddress.area_id }
 
 
         addressValue = if (currentAddress!!.apartment.isNullOrEmpty())
@@ -111,6 +110,7 @@ class AddressAdapter(private val context: Context, private val addressList: Arra
 
                     address = addressList[pos]
                     // open edit address activity
+                    AppConstants.CurrentSelectedAddresses=address!!
                     context.startActivity(Intent(context, EditDeleteAddressActivity::class.java)
                             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                             .putExtra("addressIdPosition", pos))

@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.FragmentManager
 import android.view.View
+import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
@@ -43,16 +44,21 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
 
         init()
 
-        getCartData()
+       if(NetworkManager().isNetworkAvailable(this))
+       {
+           getCartData()
 
-        fm.beginTransaction().replace(R.id.layout_container, homeFragment, "homeFragment").commit()
-        fm.beginTransaction().add(R.id.layout_container, medicalFragment, "medicalFragment").hide(medicalFragment).commit()
-        fm.beginTransaction().add(R.id.layout_container, orderFragment, "orderFragment").hide(orderFragment).commit()
-        fm.beginTransaction().add(R.id.layout_container, moreFragment, "moreFragment").hide(moreFragment).commit()
-        fm.beginTransaction().add(R.id.layout_container, favouriteFragment, "favouriteFragment").hide(favouriteFragment).commit()
-        fm.beginTransaction().add(R.id.layout_container, productDetailsFragment, "productDetailsFragment").hide(productDetailsFragment).commit()
+           fm.beginTransaction().replace(R.id.layout_container, homeFragment, "homeFragment").commit()
+           fm.beginTransaction().add(R.id.layout_container, medicalFragment, "medicalFragment").hide(medicalFragment).commit()
+           fm.beginTransaction().add(R.id.layout_container, orderFragment, "orderFragment").hide(orderFragment).commit()
+           fm.beginTransaction().add(R.id.layout_container, moreFragment, "moreFragment").hide(moreFragment).commit()
+           fm.beginTransaction().add(R.id.layout_container, favouriteFragment, "favouriteFragment").hide(favouriteFragment).commit()
+           fm.beginTransaction().add(R.id.layout_container, productDetailsFragment, "productDetailsFragment").hide(productDetailsFragment).commit()
+           active = homeFragment
+       }
+        else
+           showAlertDialouge(getString(R.string.error_no_internet))
 
-        active = homeFragment
     }
 
 

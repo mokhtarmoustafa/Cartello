@@ -82,6 +82,9 @@ interface ApiServices {
     @GET(AppConstants.URL_GET_CATEGORIES)
     fun getCategories(@Header("lang") lang: Int): Call<ApiResponse<ArrayList<Category>>>
 
+    @GET(AppConstants.URL_GET_SUB_CATEGORIES + "/{productId}")
+    fun getSubCategories(@Header("Authorization") token: String,
+                          @Path("productId") productId: Int): Call<ApiResponse<ArrayList<Product>>>
     @GET(AppConstants.URL_GET_ADS)
     fun getAds(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Ads>>>
 

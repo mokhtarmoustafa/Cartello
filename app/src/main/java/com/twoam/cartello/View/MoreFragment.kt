@@ -14,6 +14,7 @@ import kotlinx.android.synthetic.main.fragment_more.view.*
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.view.KeyEvent
+import android.widget.Switch
 import android.widget.Toast
 import com.bumptech.glide.Glide.init
 import com.twoam.cartello.Utilities.Base.BaseFragment
@@ -31,7 +32,8 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     private var cvFavourite: CardView? = null
     private var cvProfile: CardView? = null
     private var bottomSheet = CloseBottomSheetDialog()
-    private lateinit var listener:IBottomSheetCallback
+    private lateinit var listener: IBottomSheetCallback
+    private var switchNotification: Switch? = null
 
 
     //endregion
@@ -57,9 +59,18 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
             throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
         }
     }
+
     override fun onClick(v: View?) {
         when (v?.id) {
 
+            R.id.switchNotification -> {
+
+                if (switchNotification!!.isChecked) {
+                    PreferenceController.getInstance(context!!).Set(AppConstants.NOTIFICATION, AppConstants.TRUE)
+                } else {
+                    PreferenceController.getInstance(context!!).clear(AppConstants.NOTIFICATION)
+                }
+            }
             R.id.cvProfile -> {
                 startActivity(Intent(context, ProfileActivity::class.java))
             }
@@ -105,6 +116,9 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
     //region Helper unctions
 
     private fun init(view: View) {
+
+        switchNotification=view.findViewById(R.id.switchNotification)
+        view.switchNotification.setOnClickListener(this)
         view.cvFavourite?.setOnClickListener(this)
         view.cvProfile?.setOnClickListener(this)
         view.rlTermsOfUse.setOnClickListener(this)
@@ -115,6 +129,9 @@ class MoreFragment : BaseFragment(), View.OnClickListener {
         view.rlChangePassword.setOnClickListener(this)
         view.rlLogOut.setOnClickListener(this)
 
+        var isChecked= PreferenceController.getInstance(context!!)[AppConstants.NOTIFICATION]
+
+        switchNotification?.isChecked = isChecked==AppConstants.TRUE
 
     }
 

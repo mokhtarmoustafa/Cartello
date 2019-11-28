@@ -24,6 +24,7 @@ import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.FilterBottomSheetDialog
 import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_search_result.*
+import java.lang.Exception
 import java.util.*
 
 class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {
@@ -32,6 +33,7 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
     var searchList = ArrayList<Product>()
     val TAG = SearchResultActivity::class.java!!.simpleName
     var bottomSheetPrice = FilterBottomSheetDialog()
+    var searchDataList = ArrayList<Search>()
     //endregion
 
     //region Events
@@ -132,6 +134,7 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
     //region Helper Functions
 
     fun getSearchData(searchValue: String) {
+        showDialogue()
         if (NetworkManager().isNetworkAvailable(this@SearchResultActivity)) {
             var request = NetworkManager().create(ApiServices::class.java)
             var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
@@ -147,12 +150,29 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
                         searchList = response.data!!
                         tvTotal.text = searchList.size.toString()
                         prepareProductsResultData(searchList!!)
+
+                        try {
+                            searchDataList = PreferenceController.instance?.getSearchPref(AppConstants.SEARCH_DATA)!!
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
+
+                        if (searchDataList.size > 0) {
+                            searchDataList.forEach {
+                                if (!it.name.contains(searchValue)) {
+                                    var newsearch = Search(1, searchValue)
+                                    searchDataList?.add(newsearch)
+                                    PreferenceController.instance?.setSearchPref(AppConstants.SEARCH_DATA, searchDataList)
+                                }
+                            }
+                        } else {
+                            var newsearch = Search(1, searchValue)
+                            searchDataList?.add(newsearch)
+                            PreferenceController.instance?.setSearchPref(AppConstants.SEARCH_DATA, searchDataList)
+                        }
+
+
                         hideDialogue()
-                        var searchData = PreferenceController.instance?.getSearchPref(AppConstants.SEARCH_DATA)
-//Complete search data
-                        var newsearch = Search(1, searchValue)
-                        searchData?.add(newsearch)
-                        PreferenceController.instance?.setSearchPref(AppConstants.SEARCH_DATA, searchData)
                     } else {
                         hideDialogue()
                         showAlertDialouge(getString(R.string.error_network))
@@ -166,14 +186,18 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
     }
 
     private fun init() {
+
+
         if (intent.hasExtra(AppConstants.SEARCH_DATA)) {
             var searchValue = intent.getStringExtra(AppConstants.SEARCH_DATA)
             tvTitle.text = searchValue
             tvCartCounter.text = Cart.getAll().count().toString()
-            showDialogue()
             getSearchData(searchValue)
+        } else if (intent.hasExtra((AppConstants.SEARCH_SUB_CATEGORY))) {
+            tvTitle.text = AppConstants.CurrentSelectedSubCategory.name
+            tvCartCounter.text = Cart.getAll().count().toString()
+            getSearchData(AppConstants.CurrentSelectedSubCategory.id.toString())
         }
-
 
         btnPrice.setOnClickListener(this)
         btnAsc.setOnClickListener(this)
@@ -182,7 +206,6 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
         tvCartCounter.setOnClickListener(this)
         ivSearch.setOnClickListener(this)
         rlBack.setOnClickListener(this)
-
 
     }
 

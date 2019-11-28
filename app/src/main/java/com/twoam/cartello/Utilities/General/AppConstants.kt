@@ -58,7 +58,7 @@ object AppConstants {
     const val URL_GET_DEPARTMENT = "customer/departments"
     const val URL_GET_DEPARTMENT_CATEGORIES = "customer/departments/categories"
     const val URL_GET_ADS = "customer/ads"
-    const val URL_GET_SUB_CATEGORIES = "customer/categories/attributes/153"
+    const val URL_GET_SUB_CATEGORIES = "customer/categories/products"
     const val URL_GET_HOME_PRODUCTS = "customer/products/home"
     const val URL_GET_PRODUCT_DETAILS = "customer/products"
     const val URL_PRODUCT_FAVOURITES = "customer/products/favourites"
@@ -95,17 +95,17 @@ object AppConstants {
     const val CURRENTINDEXTAG = "currentOption"
     const val FAVOURITEPRODUCTS = "favouriteData"
     const val SEARCH_DATA = "searchData"
+    const val SEARCH_SUB_CATEGORY="searchSubCategoryData"
     var CURRENTSELECTEDINDEX = 0
-    var CURRENTCHECKOUTSELECTEDINDEX = 0
+    var NOTIFICATION = "notification"
 
     var CurrentCameraGAlleryAction = 0 //0 camera  1 gallery
 
     var CurrentLoginUser: User = User()
-    var FavouriteProducts = ArrayList<Product>()
     var CurrentSelectedProduct = Product()
     var CurrentSelectedOrder = Order()
-//    var CurrentSelectedAddress = Address()
     var CurrentSelectedAddresses = Addresses()
+    var CurrentSelectedSubCategory=SubCategory()
 
 
 

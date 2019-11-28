@@ -15,12 +15,12 @@ import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import kotlinx.android.synthetic.main.activity_search.*
+import java.lang.Exception
 
 class SearchActivity : BaseDefaultActivity(), View.OnClickListener {
 
     //region Members
     var searchList = ArrayList<Search>()
-    var searchHistoryData:ArrayList<String>?=null
     //endregion
 
     //region Events
@@ -41,10 +41,26 @@ class SearchActivity : BaseDefaultActivity(), View.OnClickListener {
             }
         }
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+
+        finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getSearchData()
+    }
     //endregion
 
     //region Helper Functions
     fun init() {
+
+        tvClearHistory.setOnClickListener(this)
+        ivClose.setOnClickListener(this)
+        cvClose.setOnClickListener(this)
+
         etSearch.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 var searchValue = etSearch.text.toString()
@@ -63,18 +79,24 @@ class SearchActivity : BaseDefaultActivity(), View.OnClickListener {
 
     private fun clearHistory() {
         rvSearchResult.adapter = null
-        rvSearchResult.adapter.notifyDataSetChanged()
+//        rvSearchResult.adapter.notifyDataSetChanged()
+        searchList.clear()
         PreferenceController.getInstance(this@SearchActivity).setSearchPref(AppConstants.SEARCH_DATA, searchList)
+
     }
 
     private fun getSearchData() {
         try {
             searchList = PreferenceController.getInstance(this@SearchActivity).getSearchPref(AppConstants.SEARCH_DATA)!!
         } catch (ex: Exception) {
+            ex.printStackTrace()
         }
 
-        rvSearchResult.adapter = SearchAdapter(this@SearchActivity, searchList)
-        rvSearchResult.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
+
+        if (searchList != null) {
+            rvSearchResult.adapter = SearchAdapter(this@SearchActivity, searchList)
+            rvSearchResult.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.VERTICAL, false)
+        }
     }
 
     private fun search(searchValue: String) {

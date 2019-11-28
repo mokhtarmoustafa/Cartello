@@ -114,20 +114,20 @@ class SearchResultAdapter(private val context: Context, private val imageModelAr
 
 
 
-            addItem.setOnClickListener({
+            addItem.setOnClickListener {
                 val pos = adapterPosition
                 product = imageModelArrayList[pos]
 
                 addProduct(product)
-            })
+            }
 
 
-            subItem.setOnClickListener({
+            subItem.setOnClickListener {
                 val pos = adapterPosition
                 product = imageModelArrayList[pos]
 
                 removeProduct(product)
-            })
+            }
 
 
         }

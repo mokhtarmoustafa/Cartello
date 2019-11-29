@@ -57,10 +57,10 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
                 btnDes.setTextColor(Color.parseColor("#425972"))
                 btnDes.setBackgroundResource(R.drawable.rounded_non_select_button)
                 //show options
-                if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
+//                if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
                     bottomSheetPrice.show(supportFragmentManager, TAG)
-                else
-                    showAlertDialouge(getString(R.string.error_no_internet))
+//                else
+//                    showAlertDialouge(getString(R.string.error_no_internet))
             }
 
             R.id.btnAsc -> {
@@ -74,10 +74,14 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
                 btnDes.setBackgroundResource(R.drawable.rounded_non_select_button)
 
                 //arrange adapter data and notify change
-                if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
-                    filterAsc()
-                else
-                    showAlertDialouge(getString(R.string.error_no_internet))
+//                if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
+//                {
+                   // filterAsc()
+                    searchList.sortBy { it.name }
+                    prepareProductsResultData(searchList!!)
+//                }
+//                else
+//                    showAlertDialouge(getString(R.string.error_no_internet))
             }
 
             R.id.btnDes -> {
@@ -90,10 +94,14 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
                 btnAsc.setTextColor(Color.parseColor("#425972"))
                 btnAsc.setBackgroundResource(R.drawable.rounded_non_select_button)
                 //arrange adapter data and notify change
-                if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
-                    filterDes()
-                else
-                    showAlertDialouge(getString(R.string.error_no_internet))
+//                if (NetworkManager().isNetworkAvailable(this@SearchResultActivity))
+//                {
+//                    filterDes()
+                    searchList.reverse()
+                    prepareProductsResultData(searchList!!)
+//                }
+//                else
+//                    showAlertDialouge(getString(R.string.error_no_internet))
             }
 
             R.id.ivCart, R.id.tvCartCounter -> {
@@ -121,10 +129,16 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
     override fun onBottomSheetSelectedItem(index: Int) {
         when (index) {
             1 -> { //Price filterHighToLow
-                filterByPriceLowToHigh()
+//                filterByPriceLowToHigh()
+                searchList.sortByDescending { it.price }
+                searchList.reverse()
+                prepareProductsResultData(searchList)
+
             }
             2 -> { // Price filterLowToHigh
-                filterByPriceLowToHigh()
+//                filterByPriceLowToHigh()
+                searchList.sortByDescending { it.price }
+                prepareProductsResultData(searchList)
             }
         }
     }

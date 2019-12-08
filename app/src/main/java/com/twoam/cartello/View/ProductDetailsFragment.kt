@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
@@ -20,23 +19,20 @@ import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.Model.ProductDetails
-
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.ProductAdapter
-import com.twoam.cartello.Utilities.Adapters.ProductAdapter1
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
-import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
-import kotlinx.android.synthetic.main.activity_product_details.*
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IProductFavouritesCallback
 
 /**
  * A simple [Fragment] subclass.
  */
-class ProductDetailsFragment : BaseFragment(), IProductFavouritesCallback, IBottomSheetCallback {
+class ProductDetailsFragment : BaseFragment(), IProductFavouritesCallback, IBottomSheetCallback, View.OnClickListener {
 
     //region Members
     var counter = 0
@@ -59,6 +55,7 @@ class ProductDetailsFragment : BaseFragment(), IProductFavouritesCallback, IBott
     lateinit var rvSimilarProducts: RecyclerView
     private lateinit var listener: IBottomSheetCallback
     var isOpendFromFavoriteView = false
+    private lateinit var adapterSimilarPoduct: ProductAdapter
 
 
     //endregion
@@ -101,6 +98,43 @@ class ProductDetailsFragment : BaseFragment(), IProductFavouritesCallback, IBott
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        product = AppConstants.CurrentSelectedProduct
+
+        if (product.id > 0)
+            getProductData(product.id)
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.ivBackForgetPassword -> {
+                if (isOpendFromFavoriteView) {
+                    listener.onBottomSheetSelectedItem(10)
+                } else
+                    finish()
+            }
+            R.id.ivFavourite -> {
+                if (product.is_favourite) {
+                    removeFromFavourite(product.id)
+                    product.is_favourite = false
+                } else {
+                    addToFavourite(product.id)
+                    product.is_favourite = true
+                }
+            }
+
+            R.id.subItem -> {
+                removeProduct(product)
+            }
+            R.id.addItem -> {
+
+                addProduct(product)
+            }
+
+        }
+    }
+
     override fun onAddToFavourite(product: Product) {
         addToFavourites(product)
     }
@@ -118,8 +152,12 @@ class ProductDetailsFragment : BaseFragment(), IProductFavouritesCallback, IBott
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
-        if (index == 8)
+        if(index==4)
+            listener.onBottomSheetSelectedItem(4)
+        else if (index == 8)
             getProductData(AppConstants.CurrentSelectedProduct.id)
+
+
     }
 
     //endregion
@@ -142,39 +180,75 @@ class ProductDetailsFragment : BaseFragment(), IProductFavouritesCallback, IBott
         rvSimilarProducts = currentView.findViewById(R.id.rvSimilarProducts)
 
 
+        ivBackForgetPassword.setOnClickListener(this)
+        ivFavourite.setOnClickListener(this)
+        subItem.setOnClickListener(this)
+        addItem.setOnClickListener(this)
 
-        ivBackForgetPassword.setOnClickListener {
-
-            if (isOpendFromFavoriteView) {
-                listener.onBottomSheetSelectedItem(10)
-            } else
-                finish()
-        }
-        ivFavourite.setOnClickListener {
-
-            if (product.is_favourite)
-            {
-                removeFromFavourite(product.id)
-                product.is_favourite=false
-            }
-            else
-            {
-                addToFavourite(product.id)
-                product.is_favourite=true
-            }
-
-//            if (counter % 2 == 0) //add to favourite
-//            {
-//                addToFavourite(productId)
-//                counter += 1
-//            } else //remove from favourite
-//            {
+//        ivBackForgetPassword.setOnClickListener {
 //
-//                removeFromFavourite(productId)
-//                counter = 0
+//            if (isOpendFromFavoriteView) {
+//                listener.onBottomSheetSelectedItem(10)
+//            } else
+//                finish()
+//        }
+//        ivFavourite.setOnClickListener {
+//
+//            if (product.is_favourite) {
+//                removeFromFavourite(product.id)
+//                product.is_favourite = false
+//            } else {
+//                addToFavourite(product.id)
+//                product.is_favourite = true
 //            }
+//
+//        }
+
+    }
+
+    private fun addProduct(product: Product) {
+        var amount=0
+        var storedProduct = Cart.getAll().find { it.id == product.id }
+        if (storedProduct != null && storedProduct!!.id > 0) {
+             amount = storedProduct.amount
+            Cart.getAll().find { it.id == product.id }?.amount = amount!! + 1
+            product.amount=amount+1
+        } else {
+            product.amount = 1
         }
 
+
+        Cart.addProduct(product)
+        tvValue.text = Cart.getProductQuantity(product).toString()
+        Cart.saveToDisk()
+        listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+
+    }
+
+    private fun removeProduct(product: Product) {
+        var storedProduct = Cart.getAll().find { it.id == product.id }
+        var amount = storedProduct?.amount
+        if (storedProduct != null && storedProduct!!.id > 0) {
+
+            if (amount!! > 0) {
+                amount -= 1
+
+                if (amount == 0)
+                    Cart.removeProduct(storedProduct!!)
+                else
+                    Cart.getAll().find { it.id == product.id }?.amount = amount.toInt()
+
+            } else if (amount == 0) {
+                Cart.removeProduct(storedProduct!!)
+                Cart.getAll().find { it.id == product.id }?.amount = amount.toInt()
+            }
+        } else {
+            amount = 0
+        }
+
+        tvValue.text = amount?.toInt().toString()
+        Cart.saveToDisk()
+        listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
     }
 
     private fun getProductData(productId: Int) {
@@ -241,10 +315,10 @@ class ProductDetailsFragment : BaseFragment(), IProductFavouritesCallback, IBott
     }
 
     private fun getSimilarProducts(similarProductList: ArrayList<Product>) {
-        var adapter = ProductAdapter1(context!!, similarProductList, this, this)
-        rvSimilarProducts.adapter = adapter
+        adapterSimilarPoduct = ProductAdapter(context!!, similarProductList, this, this)
+        rvSimilarProducts.adapter = adapterSimilarPoduct
         rvSimilarProducts.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter.notifyDataSetChanged()
+        adapterSimilarPoduct.notifyDataSetChanged()
     }
 
     fun addToFavourite(productId: Int) {

@@ -145,7 +145,8 @@
                         android:layout_marginTop="20dp"
                         android:text="@string/most_selling"
                         android:textColor="@color/colorAccent"
-                        android:textSize="15sp" />
+                        android:textSize="15sp"
+                        android:visibility="invisible"/>
 
 
                     <android.support.v7.widget.RecyclerView

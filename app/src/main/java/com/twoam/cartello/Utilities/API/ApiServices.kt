@@ -1,11 +1,15 @@
 package com.twoam.cartello.Utilities.API
 
+import com.google.gson.JsonObject
 import com.twoam.cartello.Model.*
 import com.twoam.cartello.Utilities.General.AppConstants
 import retrofit2.Call
 import retrofit2.http.*
 import com.twoam.cartello.Model.User
+import org.json.JSONObject
 import retrofit2.http.POST
+import retrofit2.http.FieldMap
+import retrofit2.http.FormUrlEncoded
 
 
 /**
@@ -84,7 +88,8 @@ interface ApiServices {
 
     @GET(AppConstants.URL_GET_SUB_CATEGORIES + "/{productId}")
     fun getSubCategories(@Header("Authorization") token: String,
-                          @Path("productId") productId: Int): Call<ApiResponse<ArrayList<Product>>>
+                         @Path("productId") productId: Int): Call<ApiResponse<ArrayList<Product>>>
+
     @GET(AppConstants.URL_GET_ADS)
     fun getAds(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Ads>>>
 
@@ -137,14 +142,20 @@ interface ApiServices {
 //    ): Call<ApiResponse<Order>>
 
     @FormUrlEncoded
-    @POST(AppConstants.URL_ORDERS_CREATE)
+    @PATCH(AppConstants.URL_ORDERS_CREATE)
     fun createOrder(@Header("Authorization") token: String,
                     @Field("payment_method") payment_method: Int,
                     @Field("items") items: Array<Items?>,
+//                    @FieldMap items: Map<String, Array<Items?>>,
                     @Field("address_id") address_id: Int
+
 
     ): Call<ApiResponse<Order>>
 
+    @Headers("Content-Type: application/json")
+    @POST(AppConstants.URL_ORDERS_CREATE)
+    fun createOrder1(@Header("Authorization") token: String,@Body jsonObject: JSONObject
+    ): Call<ApiResponse<Order>>
 
     @GET(AppConstants.URL_PRODUCT_FAVOURITES)
     fun getFavourites(@Header("Authorization") token: String): Call<ApiResponse<ArrayList<Product>>>
@@ -161,7 +172,7 @@ interface ApiServices {
     )
             : Call<ApiResponse<Boolean>>
 
-    @GET(AppConstants.URL_PRODUCTS_SEARCH )
+    @GET(AppConstants.URL_PRODUCTS_SEARCH)
     fun searchProducts(@Header("Authorization") token: String,
                        @Query("q") searchValue: String)
             : Call<ApiResponse<ArrayList<Product>>>

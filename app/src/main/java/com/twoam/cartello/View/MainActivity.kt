@@ -15,9 +15,8 @@ import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CustomBottomSheetDialog
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
-import com.twoam.cartello.Utilities.General.IOrderCallback
-import kotlinx.android.synthetic.*
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IOrderCallback
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -150,6 +149,7 @@ class MainActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCa
             }
             4 -> { //update cart counter
                 tvCartCounter.text = Cart.getAll().count().toString()
+
             }
             5 -> //navigate to favorite  view
             {

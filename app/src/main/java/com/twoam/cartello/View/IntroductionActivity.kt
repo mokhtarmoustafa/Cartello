@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.widget.RelativeLayout
 import com.skyfishjy.library.RippleBackground
+import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.DB.PreferenceController
@@ -34,6 +35,7 @@ class IntroductionActivity : AppCompatActivity() {
 
     //region   Helper Functions
     private fun init() {
+        Cart.emptyCart()
         rippleBackground = findViewById(R.id.content)
 
         rippleBackground.startRippleAnimation()

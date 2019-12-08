@@ -7,11 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.bumptech.glide.Glide.init
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
-import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.LoadActiveOrderDataDialog
 import java.text.SimpleDateFormat
 import java.util.*

@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
@@ -20,9 +21,12 @@ import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.*
 import com.twoam.cartello.Utilities.Base.BaseFragment
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IProductFavouritesCallback
 import com.twoam.cartello.Utilities.General.*
 import com.viewpagerindicator.CirclePageIndicator
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.lang.Exception
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -35,9 +39,13 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCal
     private var currentPage = 0
     private var NUM_PAGES = 0
     private var adapter: SubCategoryAdapter? = null
+    private lateinit var tvMostSelling: TextView
     private lateinit var recyclerSubCategory: RecyclerView
     private lateinit var recyclerTopPromotions: RecyclerView
     private lateinit var recyclerMostSelling: RecyclerView
+    private lateinit var adapterTopPromotions: ProductAdapter
+    private lateinit var adapterMostSelling: ProductAdapter
+
     private var categoriesList = ArrayList<Category>()
     private var adsList = ArrayList<Ads>()
     private var homeProductsList = ArrayList<HomeProducts>()
@@ -50,7 +58,6 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCal
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private var isRefreshed = false
     private var listener: IBottomSheetCallback? = null
-    private var favouriteListener: IProductFavouritesCallback? = null
 
     //endregion
 
@@ -68,6 +75,27 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCal
 
     override fun onResume() {
         super.onResume()
+
+        try {
+            if (adapterTopPromotions != null)
+            {
+//                adapterTopPromotions.notifyDataSetChanged()
+                recyclerTopPromotions.adapter = adapterTopPromotions
+                adapterTopPromotions.notifyDataSetChanged()
+            }
+
+
+            if (adapterMostSelling != null)
+            {
+                recyclerMostSelling.adapter = adapterMostSelling
+                adapterMostSelling.notifyDataSetChanged()
+            }
+        } catch (ex:Exception) {
+            ex.printStackTrace()
+        }
+
+
+//        listener?.onBottomSheetSelectedItem(4)
     }
 
     override fun onBottomSheetClosed(isClosed: Boolean) {
@@ -75,8 +103,11 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCal
     }
 
     override fun onBottomSheetSelectedItem(index: Int) {
-        if (index == 8) {
-           listener?.onBottomSheetSelectedItem(8)
+        if (index == 4)//update counter from adapter in home fragment to main activity
+        {
+            listener?.onBottomSheetSelectedItem(4)
+        } else if (index == 8) {
+            listener?.onBottomSheetSelectedItem(8)
         }
     }
 
@@ -97,7 +128,7 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCal
         if (context is IBottomSheetCallback) {
             listener = context
         } else {
-            throw ClassCastException(context.toString() + " must implement IBottomSheetCallback.onBottomSheetSelectedItem")
+            throw ClassCastException("$context must implement IBottomSheetCallback.onBottomSheetSelectedItem")
         }
     }
 
@@ -107,6 +138,7 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCal
     //region Helper Functions
 
     private fun init(view: View) {
+        tvMostSelling = view.findViewById(R.id.tvMostSelling)
         recyclerSubCategory = view.findViewById(R.id.recyclerSubCategory)
         tabs = view.findViewById(R.id.tabs)
         viewPager = view.findViewById(R.id.viewPager)
@@ -346,23 +378,26 @@ class HomeFragment : BaseFragment(), IBottomSheetCallback, IProductFavouritesCal
         for (product in topPromotionsList.indices) {
             list.add(topPromotionsList[product])
         }
-        var adapter = ProductAdapter1(AppController.getContext(), topPromotionsList, this, this)
-        recyclerTopPromotions.adapter = adapter
+        adapterTopPromotions = ProductAdapter(AppController.getContext(), topPromotionsList, this, this)
+        recyclerTopPromotions.adapter = adapterTopPromotions
         recyclerTopPromotions.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter.notifyDataSetChanged()
+        adapterTopPromotions.notifyDataSetChanged()
     }
 
     private fun getMostSellingProducts(mostSellingList: ArrayList<Product>) {
 
 
+        if (mostSellingList.size > 0)
+            tvMostSelling.visibility = View.VISIBLE
+
         var list = ArrayList<Product>()
         for (product in mostSellingList.indices) {
             list.add(mostSellingList[product])
         }
-        var adapter = ProductAdapter(AppController.getContext(), list, this)
-        recyclerMostSelling.adapter = adapter
+        adapterMostSelling = ProductAdapter(AppController.getContext(), list, this, this)
+        recyclerMostSelling.adapter = adapterMostSelling
         recyclerMostSelling.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
-        adapter.notifyDataSetChanged()
+        adapterMostSelling.notifyDataSetChanged()
     }
 
     private fun prepareHomeProductsData(homeProductList: ArrayList<HomeProducts>) {

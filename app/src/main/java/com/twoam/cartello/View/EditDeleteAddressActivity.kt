@@ -16,7 +16,7 @@ import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.CloseBottomSheetDialog
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_edit_delete_address.*
 
 class EditDeleteAddressActivity : BaseDefaultActivity(), View.OnClickListener, IBottomSheetCallback {

@@ -3,21 +3,19 @@ package com.twoam.Networking
 import android.content.Context
 import android.net.ConnectivityManager
 
-import com.twoam.cartello.R
+
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
-import javax.xml.datatype.DatatypeConstants.MINUTES
-
-
+import okhttp3.logging.HttpLoggingInterceptor
+import android.R
+import android.util.Log
 
 
 class NetworkManager {
@@ -54,10 +52,16 @@ class NetworkManager {
                 .cache(null)//new Cache(sContext.getCacheDir(),10*1024*1024)
                 .build()
 
+//this lines is to print the response and request in the console
+        val interceptor = HttpLoggingInterceptor()
+        interceptor.level = HttpLoggingInterceptor.Level.BODY
+        val client = OkHttpClient.Builder()
+                .addInterceptor(interceptor).build()
+/////
         var builder = Retrofit.Builder()
                 .baseUrl(AppConstants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-//                .client(okHttpClient)
+                .client(client)
         var retrofit = builder.build()
 
 
@@ -71,21 +75,22 @@ class NetworkManager {
         endPoint.enqueue(object : Callback<U> {
             override fun onResponse(call: Call<U>?, response: retrofit2.Response<U>?) {
                 print(response?.body().toString())
+                Log.d("Mokhtar", response?.body().toString())
                 if (response!!.isSuccessful) {
                     callback.onSuccess(response.body()!!)
                 } else {
                     when (response.code()) {
                         404 -> {
                             // invalid DATA
-                            callback.onFailed(context.getString(R.string.no_results))
+                            callback.onFailed(context.getString(com.twoam.cartello.R.string.no_results))
                         }
                         500 -> {
                             // SERVER IS BROKEN
-                            callback.onFailed(context.getString(R.string.error_login_server_error))
+                            callback.onFailed(context.getString(com.twoam.cartello.R.string.error_login_server_error))
                         }
                         else -> {
                             // UNKNOWN ERROR
-                            callback.onFailed(context.getString(R.string.error_login_server_unknown_error))
+                            callback.onFailed(context.getString(com.twoam.cartello.R.string.error_login_server_unknown_error))
                         }
                     }
                 }
@@ -93,10 +98,10 @@ class NetworkManager {
 
             override fun onFailure(call: Call<U>?, t: Throwable?) = if (t is IOException) {
 
-                callback.onFailed(context.getString(R.string.error_login_server_error))
+                callback.onFailed(context.getString(com.twoam.cartello.R.string.error_login_server_error))
 
             } else {
-                 callback.onFailed(context.getString(R.string.error_login_server_error))
+                 callback.onFailed(context.getString(com.twoam.cartello.R.string.error_login_server_error))
             }
         })
 

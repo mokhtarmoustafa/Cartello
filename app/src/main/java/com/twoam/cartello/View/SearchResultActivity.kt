@@ -5,7 +5,6 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
@@ -15,14 +14,12 @@ import com.twoam.cartello.Model.Search
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
-import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Adapters.SearchResultAdapter
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.FilterBottomSheetDialog
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_search_result.*
 import java.lang.Exception
 import java.util.*
@@ -199,6 +196,43 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
         }
     }
 
+    fun getSubCategoryData(subCategoryId: Int) {
+        showDialogue()
+        if (NetworkManager().isNetworkAvailable(this@SearchResultActivity)) {
+            var request = NetworkManager().create(ApiServices::class.java)
+            var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
+            var endPoint = request.getSubCategories(token, subCategoryId)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<ArrayList<Product>>> {
+                override fun onFailed(error: String) {
+                    hideDialogue()
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<ArrayList<Product>>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        searchList = response.data!!
+                        tvTotal.text = searchList.size.toString()
+                        prepareProductsResultData(searchList!!)
+
+                        try {
+                            searchDataList = PreferenceController.instance?.getSearchPref(AppConstants.SEARCH_DATA)!!
+                        } catch (ex: Exception) {
+                            ex.printStackTrace()
+                        }
+
+                        hideDialogue()
+                    } else {
+                        hideDialogue()
+                        showAlertDialouge(getString(R.string.error_network))
+                    }
+                }
+            })
+        } else {
+            hideDialogue()
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+    }
+
     private fun init() {
 
 
@@ -207,10 +241,10 @@ class SearchResultActivity : BaseDefaultActivity(), View.OnClickListener, IBotto
             tvTitle.text = searchValue
             tvCartCounter.text = Cart.getAll().count().toString()
             getSearchData(searchValue)
-        } else if (intent.hasExtra((AppConstants.SEARCH_SUB_CATEGORY))) {
+        } else if (intent.hasExtra(AppConstants.SEARCH_SUB_CATEGORY)) {
             tvTitle.text = AppConstants.CurrentSelectedSubCategory.name
             tvCartCounter.text = Cart.getAll().count().toString()
-            getSearchData(AppConstants.CurrentSelectedSubCategory.id.toString())
+            getSubCategoryData(AppConstants.CurrentSelectedSubCategory.id)
         }
 
         btnPrice.setOnClickListener(this)

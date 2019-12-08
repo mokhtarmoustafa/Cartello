@@ -15,7 +15,7 @@ import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import com.twoam.cartello.View.ProductDetailsActivity
 
 import java.util.ArrayList
@@ -25,7 +25,7 @@ import java.util.ArrayList
  * Created by Mokhtar on 6/30/2019.
  */
 
-class CartAdapter(private val context: Context, private val productsList: ArrayList<Product>)
+class CartAdapter(private val context: Context, private val productsList: ArrayList<Product>, private val _productListener: IBottomSheetCallback)
     : RecyclerView.Adapter<CartAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -35,6 +35,7 @@ class CartAdapter(private val context: Context, private val productsList: ArrayL
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartAdapter.MyViewHolder {
 
         val view = inflater.inflate(R.layout.cart_product_layout, parent, false)
+        listener = _productListener
         return MyViewHolder(view)
 
     }
@@ -94,6 +95,7 @@ class CartAdapter(private val context: Context, private val productsList: ArrayL
                 Cart.delete(product)
                 Cart.saveToDisk()
                 notifyDataSetChanged()
+                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
             }
 
 
@@ -113,51 +115,93 @@ class CartAdapter(private val context: Context, private val productsList: ArrayL
         }
 
 
-        private fun addProduct(product: Product) {
-            if (Cart.getAll().contains(product)) {
-                var amount=Cart.getAll().find { it.id==product.id }?.amount
-                Cart.getAll().find { it.id==product.id }?.amount= amount!! +1
-                Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//        private fun addProduct(product: Product) {
+//            if (Cart.getAll().contains(product)) {
+//                var amount=Cart.getAll().find { it.id==product.id }?.amount
+//                Cart.getAll().find { it.id==product.id }?.amount= amount!! +1
+//                Cart.addProduct(product)
+//                tvValue.text = Cart.getProductQuantity(product).toString()
+//                Cart.saveToDisk()
+//                notifyDataSetChanged()
+//                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//
+//            } else {
+//                product.amount = 1
+//                Cart.addProduct(product)
+//                tvValue.text = Cart.getProductQuantity(product).toString()
+//                Cart.saveToDisk()
+//                notifyDataSetChanged()
+//                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//
+//            }
+//
+//        }
+//
+//        private fun removeProduct(product: Product) {
+//            if (Cart.getAll().contains(product)) {
+//                var oldProduct = Cart.getAll().find { it.id == product.id }
+//                var oldQuantity = oldProduct?.amount
+//
+//                if (oldQuantity!! > 0) {
+//                    oldQuantity -= 1
+//                    tvValue.text = oldQuantity.toString()
+//                    oldProduct = Cart.getAll().find { it.id == product.id }
+//                    oldProduct?.amount = oldQuantity
+//                    Cart.getAll().find { it.id == product.id }?.amount = oldQuantity
+//                    Cart.saveToDisk()
+//                    notifyDataSetChanged()
+//                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                }
+//                if (oldQuantity == 0) {
+//                    Cart.addProduct(oldProduct!!)
+//                    Cart.saveToDisk()
+//                    notifyDataSetChanged()
+//                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+//                }
+//            }
+//        }
 
+        private fun addProduct(product: Product) {
+            var storedProduct = Cart.getAll().find { it.id == product.id }
+            if (storedProduct != null && storedProduct!!.id > 0) {
+                var amount = Cart.getAll().find { it.id == product.id }?.amount
+                Cart.getAll().find { it.id == product.id }?.amount = amount!! + 1
             } else {
                 product.amount = 1
-                Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
-
             }
-
+            Cart.addProduct(product)
+            tvValue.text = Cart.getProductQuantity(product).toString()
+            Cart.saveToDisk()
+            notifyDataSetChanged()
+            listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
         }
 
         private fun removeProduct(product: Product) {
-            if (Cart.getAll().contains(product)) {
-                var oldProduct = Cart.getAll().find { it.id == product.id }
-                var oldQuantity = oldProduct?.amount
+            var storedProduct = Cart.getAll().find { it.id == product.id }
+            var amount = storedProduct?.amount
+            if (storedProduct != null && storedProduct!!.id > 0) {
 
-                if (oldQuantity!! > 0) {
-                    oldQuantity -= 1
-                    tvValue.text = oldQuantity.toString()
-                    oldProduct = Cart.getAll().find { it.id == product.id }
-                    oldProduct?.amount = oldQuantity
-                    Cart.getAll().find { it.id == product.id }?.amount = oldQuantity
-                    Cart.saveToDisk()
-                    notifyDataSetChanged()
-                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
-                }
-                if (oldQuantity == 0) {
-                    Cart.addProduct(oldProduct!!)
-                    Cart.saveToDisk()
-                    notifyDataSetChanged()
-                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+                if (amount!! > 0) {
+                    amount -= 1
+//                    storedProduct?.amount = amount
+
+                    if (amount == 0)
+                        Cart.removeProduct(storedProduct!!)
+                    else
+                        Cart.getAll().find { it.id == product.id }?.amount = amount.toInt()
+
+                } else if (amount == 0) {
+                    Cart.removeProduct(storedProduct!!)
+                    Cart.getAll().find { it.id == product.id }?.amount = amount.toInt()
                 }
             }
-        }
+            else
+            { amount = 0}
 
+            tvValue.text = amount?.toInt().toString()
+            Cart.saveToDisk()
+            notifyDataSetChanged()
+            listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+        }
     }
 }

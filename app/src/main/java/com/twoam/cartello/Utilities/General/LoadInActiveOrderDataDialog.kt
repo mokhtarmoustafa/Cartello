@@ -13,6 +13,7 @@ import com.twoam.cartello.Model.Order
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.Adapters.LoadInActiveOrderProductsAdapter
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 
 class LoadInActiveOrderDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {

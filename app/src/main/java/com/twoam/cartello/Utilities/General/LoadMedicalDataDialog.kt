@@ -14,6 +14,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.twoam.cartello.Model.MedicalPrescriptions
 import com.twoam.cartello.R
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 
 class LoadMedicalDataDialog : BottomSheetDialogFragment(), IBottomSheetCallback {

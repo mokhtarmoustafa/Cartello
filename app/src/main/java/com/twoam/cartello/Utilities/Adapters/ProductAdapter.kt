@@ -1,7 +1,6 @@
 package com.twoam.cartello.Utilities.Adapters
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,19 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
-import com.bumptech.glide.TransitionOptions
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
-import com.twoam.cartello.View.ProductDetailsActivity
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 import java.util.ArrayList
 import com.bumptech.glide.request.RequestOptions
-import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
+import com.twoam.cartello.Utilities.Interfaces.IProductFavouritesCallback
 
 
 /**
@@ -31,7 +27,7 @@ import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
  */
 
 class ProductAdapter(private val context: Context, private val imageModelArrayList: ArrayList<Product>,
-                     private val _favouriteListener: IProductFavouritesCallback)
+                     private val _favouriteListener: IProductFavouritesCallback, private val _productListener: IBottomSheetCallback)
     : RecyclerView.Adapter<ProductAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -40,14 +36,15 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
     private var favouriteListener: IProductFavouritesCallback? = null
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter.MyViewHolder {
-        favouriteListener=_favouriteListener
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+        favouriteListener = _favouriteListener
+        listener = _productListener
         val view = inflater.inflate(R.layout.product_layout, parent, false)
 
         return MyViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ProductAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         product = imageModelArrayList[position]
         val requestOptions = RequestOptions()
@@ -70,7 +67,6 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
 
         //check if product exist in cart to update its value
         var storedProduct = Cart.getAll().find { it.id == product.id }
-
         if (storedProduct != null && storedProduct!!.id > 0)
             holder.tvValue.text = storedProduct.amount.toString()
     }
@@ -82,6 +78,8 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
     override fun getItemId(position: Int): Long {
         return super.getItemId(position)
     }
+
+
 
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -139,46 +137,42 @@ class ProductAdapter(private val context: Context, private val imageModelArrayLi
             if (storedProduct != null && storedProduct!!.id > 0) {
                 var amount = Cart.getAll().find { it.id == product.id }?.amount
                 Cart.getAll().find { it.id == product.id }?.amount = amount!! + 1
-                Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
             } else {
                 product.amount = 1
-                Cart.addProduct(product)
-                tvValue.text = Cart.getProductQuantity(product).toString()
-                Cart.saveToDisk()
-                notifyDataSetChanged()
-                listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
-
             }
-
+            Cart.addProduct(product)
+            tvValue.text = Cart.getProductQuantity(product).toString()
+            Cart.saveToDisk()
+            notifyDataSetChanged()
+            listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
         }
 
-
         private fun removeProduct(product: Product) {
-            var oldProduct = Cart.getAll().find { it.id == product.id }
-            if (oldProduct != null && oldProduct!!.id > 0) {
-                var oldQuantity = oldProduct?.amount
+            var storedProduct = Cart.getAll().find { it.id == product.id }
+            var amount = storedProduct?.amount
+            if (storedProduct != null && storedProduct!!.id > 0) {
 
-                if (oldQuantity!! > 0) {
-                    oldQuantity -= 1
-                    tvValue.text = oldQuantity.toString()
-                    oldProduct = Cart.getAll().find { it.id == product.id }
-                    oldProduct?.amount = oldQuantity
-                    Cart.getAll().find { it.id == product.id }?.amount = oldQuantity
-                    Cart.saveToDisk()
-                    notifyDataSetChanged()
-                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
-                }
-                if (oldQuantity == 0) {
-                    Cart.addProduct(oldProduct!!)
-                    Cart.saveToDisk()
-                    notifyDataSetChanged()
-                    listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
+                if (amount!! > 0) {
+                    amount -= 1
+
+                    if (amount == 0)
+                        Cart.removeProduct(storedProduct!!)
+                    else
+                        Cart.getAll().find { it.id == product.id }?.amount = amount.toInt()
+
+                } else if (amount == 0) {
+                    Cart.removeProduct(storedProduct!!)
+                    Cart.getAll().find { it.id == product.id }?.amount = amount.toInt()
                 }
             }
+            else {
+                amount = 0
+            }
+
+            tvValue.text = amount?.toInt().toString()
+            Cart.saveToDisk()
+            notifyDataSetChanged()
+            listener?.onBottomSheetSelectedItem(4) //update counter value on main activity
         }
     }
 

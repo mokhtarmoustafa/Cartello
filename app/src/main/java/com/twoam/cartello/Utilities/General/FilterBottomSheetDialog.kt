@@ -2,23 +2,13 @@ package com.twoam.cartello.Utilities.General
 
 
 import android.content.Context
-import android.content.Intent
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.design.widget.BottomSheetDialogFragment
 import android.support.v7.widget.CardView
 import android.view.*
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.TextView
 import com.twoam.cartello.R
-import com.twoam.cartello.Utilities.DB.PreferenceController
-import com.twoam.cartello.View.*
-import kotlinx.android.synthetic.main.bottom_sheet_close.*
-import kotlinx.android.synthetic.main.bottom_sheet_filter.*
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 
 class FilterBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback, View.OnClickListener {

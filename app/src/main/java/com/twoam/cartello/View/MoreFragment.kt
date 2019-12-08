@@ -4,7 +4,6 @@ package com.twoam.cartello.View
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.CardView
 import android.view.LayoutInflater
 import android.view.View
@@ -13,16 +12,13 @@ import com.twoam.cartello.R
 import kotlinx.android.synthetic.main.fragment_more.view.*
 import android.content.ActivityNotFoundException
 import android.content.Context
-import android.view.KeyEvent
 import android.widget.Switch
 import android.widget.Toast
-import com.bumptech.glide.Glide.init
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.AppController
 import com.twoam.cartello.Utilities.General.CloseBottomSheetDialog
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 
 class MoreFragment : BaseFragment(), View.OnClickListener {

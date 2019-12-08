@@ -7,20 +7,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Filter
-import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
-import com.bumptech.glide.TransitionOptions
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import com.twoam.cartello.View.ProductDetailsActivity
 
 import java.util.ArrayList
@@ -101,15 +97,15 @@ class SearchResultAdapter(private val context: Context, private val imageModelAr
 
             itemView.setOnClickListener { v ->
                 // get position
-                val pos = adapterPosition
-
-                // check if item still exists
-                if (pos != RecyclerView.NO_POSITION) {
-                    product = imageModelArrayList[pos]
-                    AppConstants.CurrentSelectedProduct = product!!
-                    context.startActivity(Intent(context, ProductDetailsActivity::class.java))
-
-                }
+//                val pos = adapterPosition
+//
+//                // check if item still exists
+//                if (pos != RecyclerView.NO_POSITION) {
+//                    product = imageModelArrayList[pos]
+//                    AppConstants.CurrentSelectedProduct = product!!
+//                    context.startActivity(Intent(context, ProductDetailsActivity::class.java))
+//
+//                }
             }
 
 

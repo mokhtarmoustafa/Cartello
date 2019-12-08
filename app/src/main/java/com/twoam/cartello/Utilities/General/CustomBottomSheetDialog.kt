@@ -12,7 +12,7 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.twoam.cartello.R
-import com.twoam.cartello.View.MainActivity
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_main.*
 
 

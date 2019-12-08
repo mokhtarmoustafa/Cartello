@@ -14,7 +14,6 @@ import android.widget.Toast
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.*
-
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
@@ -23,8 +22,14 @@ import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
 import kotlinx.android.synthetic.main.activity_checkout.*
-
 import org.json.JSONObject
+import org.json.JSONArray
+
+
+
+
+
+
 
 
 /**
@@ -90,7 +95,9 @@ class PaymentFragment : BaseFragment() {
                 array[i] = itemsList[i]
             }
 
-            createOrder(array)
+           var data= convertProductListToJson(array)
+            createOrder(data)
+//            createOrder(array)
         }
 
     }
@@ -105,7 +112,6 @@ class PaymentFragment : BaseFragment() {
             paramObject.put("items", items)
             paramObject.put("address_id", AppConstants.CurrentSelectedAddresses.id)
 
-//            var endPoint = request.createOrder(token, 1, items, AppConstants.CurrentSelectedAddress.id)
             var endPoint = request.createOrder(token, 1, items, AppConstants.CurrentSelectedAddresses.id)
             NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Order>> {
                 override fun onFailed(error: String) {
@@ -125,6 +131,54 @@ class PaymentFragment : BaseFragment() {
         } else {
             showAlertDialouge(getString(R.string.error_no_internet))
         }
+    }
+
+    private fun createOrder(items: JSONObject) {
+        if (NetworkManager().isNetworkAvailable(context!!)) {
+            var request = NetworkManager().create(ApiServices::class.java)
+            var token = AppConstants.BEARER + AppConstants.CurrentLoginUser.token
+
+
+            var endPoint = request.createOrder1(token, items)
+            NetworkManager().request(endPoint, object : INetworkCallBack<ApiResponse<Order>> {
+                override fun onFailed(error: String) {
+                    showAlertDialouge(error)
+                }
+
+                override fun onSuccess(response: ApiResponse<Order>) {
+                    if (response.code == AppConstants.CODE_200) {
+                        Cart.emptyCart()
+                        fragmentManager?.beginTransaction()?.replace(R.id.layout_container, trackingFragment, "trackingFragment")?.commit()
+
+                    } else {
+                        Toast.makeText(AppController.getContext(), response.message, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        } else {
+            showAlertDialouge(getString(R.string.error_no_internet))
+        }
+    }
+
+
+    fun convertProductListToJson(groups: Array<Items?>): JSONObject {
+
+        val jResult = JSONObject()
+        val jArray = JSONArray()
+
+        jResult.putOpt("payment_method", 1)
+
+        for (i in 0 until groups.count()) {
+            val jGroup = JSONObject()
+            jGroup.put("product_id", groups[i]?.id)
+            jGroup.put("amount", groups[i]?.amount)
+            jArray.put(jGroup)
+        }
+
+        jResult.put("items", jArray)
+
+        jResult.putOpt("address_id", AppConstants.CurrentSelectedAddresses.id)
+        return jResult
     }
 
     private fun getPaymentTypes() {

@@ -1,7 +1,6 @@
 package com.twoam.cartello.Utilities.Adapters
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -11,19 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 
 import com.bumptech.glide.Glide
-import com.bumptech.glide.TransitionOptions
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.withCrossFade
 import com.twoam.cartello.Model.Cart
 import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
-import com.twoam.cartello.View.ProductDetailsActivity
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 import java.util.ArrayList
 import com.bumptech.glide.request.RequestOptions
-import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
+import com.twoam.cartello.Utilities.Interfaces.IProductFavouritesCallback
 
 
 /**
@@ -41,8 +37,8 @@ class ProductAdapter1(private val context: Context, private val imageModelArrayL
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductAdapter1.MyViewHolder {
-        favouriteListener = _favouriteListener
-        listener = _productListener
+            favouriteListener = _favouriteListener
+            listener = _productListener
         val view = inflater.inflate(R.layout.product_layout, parent, false)
 
         return MyViewHolder(view)

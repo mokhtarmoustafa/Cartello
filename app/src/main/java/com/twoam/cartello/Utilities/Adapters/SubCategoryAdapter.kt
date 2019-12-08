@@ -57,7 +57,6 @@ class SubCategoryAdapter(private val context: Context, private val imageModelArr
         var itemImage: ImageView
 
         init {
-
             itemName = itemView.findViewById(R.id.tvItemName)
             itemImage = itemView.findViewById(R.id.ivItemImage)
 

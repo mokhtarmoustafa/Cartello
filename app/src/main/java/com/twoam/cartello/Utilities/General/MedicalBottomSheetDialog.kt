@@ -14,10 +14,7 @@ import android.widget.*
 import com.twoam.cartello.R
 import com.twoam.cartello.View.*
 import pub.devrel.easypermissions.EasyPermissions
-import android.R.attr.data
-import android.support.v4.app.NotificationCompat.getExtras
-
-
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 
 class MedicalBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback, View.OnClickListener {

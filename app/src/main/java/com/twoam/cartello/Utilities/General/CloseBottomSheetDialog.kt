@@ -10,14 +10,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
-import bolts.AppLinkNavigation.navigate
-import com.bumptech.glide.Glide.init
 import com.twoam.cartello.Model.Order
 import com.twoam.cartello.R
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IOrderCallback
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.View.*
-import kotlinx.android.synthetic.main.bottom_sheet_active_order.*
-import kotlinx.android.synthetic.main.bottom_sheet_close.*
 
 
 class CloseBottomSheetDialog : BottomSheetDialogFragment(), IBottomSheetCallback, IOrderCallback, View.OnClickListener {

@@ -1,7 +1,6 @@
 package com.twoam.cartello.Utilities.Adapters
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Paint
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
@@ -16,18 +15,11 @@ import com.twoam.cartello.Model.Product
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
-import com.twoam.cartello.View.ProductDetailsActivity
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 
 import java.util.ArrayList
 import com.bumptech.glide.request.RequestOptions
-import com.twoam.Networking.INetworkCallBack
-import com.twoam.Networking.NetworkManager
-import com.twoam.cartello.Model.Cart.addProduct
-import com.twoam.cartello.Utilities.API.ApiResponse
-import com.twoam.cartello.Utilities.API.ApiServices
-import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
-import com.twoam.cartello.View.FavouriteFragment
+import com.twoam.cartello.Utilities.Interfaces.IProductFavouritesCallback
 
 
 /**
@@ -35,7 +27,7 @@ import com.twoam.cartello.View.FavouriteFragment
  */
 
 class FavouriteAdapter(private val context: Context, private val productsList: ArrayList<Product>,
-                       private val _favouriteListener: IProductFavouritesCallback,private val _productListener:IBottomSheetCallback)
+                       private val _favouriteListener: IProductFavouritesCallback, private val _productListener: IBottomSheetCallback)
     : RecyclerView.Adapter<FavouriteAdapter.MyViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)

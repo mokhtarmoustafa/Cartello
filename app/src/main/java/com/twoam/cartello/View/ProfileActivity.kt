@@ -10,7 +10,6 @@ import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Addresses
 import com.twoam.cartello.Model.City
-import com.twoam.cartello.Model.User
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
@@ -18,7 +17,7 @@ import com.twoam.cartello.Utilities.Adapters.AddressAdapter
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import kotlinx.android.synthetic.main.activity_profile.*
 import com.twoam.cartello.Utilities.General.AnimateScroll
 

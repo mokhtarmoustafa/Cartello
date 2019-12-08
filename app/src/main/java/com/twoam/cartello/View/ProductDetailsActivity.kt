@@ -17,10 +17,11 @@ import com.twoam.cartello.Utilities.Adapters.ProductAdapter
 import com.twoam.cartello.Utilities.Base.BaseDefaultActivity
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IProductFavouritesCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IProductFavouritesCallback
 import kotlinx.android.synthetic.main.activity_product_details.*
 
-class ProductDetailsActivity : BaseDefaultActivity(), IProductFavouritesCallback {
+class ProductDetailsActivity : BaseDefaultActivity(), IProductFavouritesCallback, IBottomSheetCallback {
 
 
     //region Members
@@ -48,6 +49,14 @@ class ProductDetailsActivity : BaseDefaultActivity(), IProductFavouritesCallback
     }
 
     override fun getSimilarProducts(productId: Int) {
+
+    }
+
+    override fun onBottomSheetClosed(isClosed: Boolean) {
+
+    }
+
+    override fun onBottomSheetSelectedItem(index: Int) {
 
     }
 
@@ -130,7 +139,7 @@ class ProductDetailsActivity : BaseDefaultActivity(), IProductFavouritesCallback
 
    private fun  getSimilarProducts(similarProductList:ArrayList<Product>)
     {
-        var adapter=ProductAdapter(this,similarProductList,this)
+        var adapter=ProductAdapter(this,similarProductList,this,this)
         rvSimilarProducts.adapter=adapter
         rvSimilarProducts.layoutManager = LinearLayoutManager(AppController.getContext(), LinearLayoutManager.HORIZONTAL, false)
         adapter.notifyDataSetChanged()

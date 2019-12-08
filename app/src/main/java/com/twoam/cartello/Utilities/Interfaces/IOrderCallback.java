@@ -1,4 +1,4 @@
-package com.twoam.cartello.Utilities.General;
+package com.twoam.cartello.Utilities.Interfaces;
 
 
 import com.twoam.cartello.Model.Order;

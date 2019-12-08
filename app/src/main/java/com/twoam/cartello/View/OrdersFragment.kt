@@ -1,21 +1,15 @@
 package com.twoam.cartello.View
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import com.bumptech.glide.Glide.init
 import com.twoam.Networking.INetworkCallBack
 import com.twoam.Networking.NetworkManager
 import com.twoam.cartello.Model.Order
-import com.twoam.cartello.Model.Product
 
 import com.twoam.cartello.R
 import com.twoam.cartello.Utilities.API.ApiResponse
@@ -25,10 +19,8 @@ import com.twoam.cartello.Utilities.Adapters.InActiveOrdersAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
-import com.twoam.cartello.Utilities.General.IOrderCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import kotlinx.android.synthetic.main.fragment_orders.*
-import java.util.function.Predicate
 
 
 class OrdersFragment : BaseFragment() {

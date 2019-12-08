@@ -1,5 +1,6 @@
 package com.twoam.cartello.Model
 
+import android.os.Build
 import com.twoam.cartello.Utilities.DB.PreferenceController
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
@@ -46,15 +47,38 @@ object Cart {
         }
     }
 
+    fun removeProduct(product: Product) {
+        with(products.iterator()) {
+            forEach {
+                if (it.id == product.id) {
+                    // do some stuff with it
+                    remove()
+                }
+            }
+        }
+
+//        products.forEach {
+//            if(it.id==product.id)
+//            {
+//                products.remove(product)
+//            }
+//        }
+    }
+
     //static
     fun saveToDisk() {
         PreferenceController.getInstance(AppController.getContext()).setCartPref(AppConstants.CART_ITEMS, products)
     }
 
     fun delete(product: Product) {
-        if (products.contains(product)) {
-            var index = products.indexOf(product)
-            products.removeAt(index)
+
+        with(products.iterator()) {
+            forEach {
+                if (it.id == product.id) {
+                    // do some stuff with it
+                    remove()
+                }
+            }
         }
     }
 

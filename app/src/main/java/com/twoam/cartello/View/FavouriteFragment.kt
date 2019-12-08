@@ -19,13 +19,15 @@ import com.twoam.cartello.Utilities.API.ApiResponse
 import com.twoam.cartello.Utilities.API.ApiServices
 import com.twoam.cartello.Utilities.Adapters.FavouriteAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IProductFavouritesCallback
 import com.twoam.cartello.Utilities.General.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class FavouriteFragment : BaseFragment(), IProductFavouritesCallback,IBottomSheetCallback {
+class FavouriteFragment : BaseFragment(), IProductFavouritesCallback, IBottomSheetCallback {
 
     //region Members
     private lateinit var currentView: View

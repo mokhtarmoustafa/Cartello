@@ -19,7 +19,7 @@ import com.twoam.cartello.Utilities.Adapters.MedicalAdapter
 import com.twoam.cartello.Utilities.Base.BaseFragment
 import com.twoam.cartello.Utilities.General.AppConstants
 import com.twoam.cartello.Utilities.General.AppController
-import com.twoam.cartello.Utilities.General.IBottomSheetCallback
+import com.twoam.cartello.Utilities.Interfaces.IBottomSheetCallback
 import com.twoam.cartello.Utilities.General.MedicalBottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_medical_prescriptions.*
 import android.support.v4.widget.SwipeRefreshLayout
